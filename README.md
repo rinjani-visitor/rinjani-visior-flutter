@@ -1,6 +1,9 @@
-# rinjani_visitor
+![](_assets/cover.png)
+# Rinjani Visitor🚞
 
-Aplikasi pembelian paket wisata.
+Aplikasi pembelian paket wisata di pulau lombok.
+
+[ < Link Figma > ](https://www.figma.com/file/zsxBMODaHeBTryvAeV3lHO/rinjaniVisitor?type=design&node-id=1%3A3&mode=design&t=tvNXCJ8M6fpKfFeA-1)
 
 ## Getting Started
 
