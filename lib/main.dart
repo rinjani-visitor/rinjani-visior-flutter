@@ -1,9 +1,11 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:rinjani_visitor/page/home_page.dart';
 import 'package:rinjani_visitor/page/login_page.dart';
 import 'package:rinjani_visitor/page/main_page.dart';
 import 'package:rinjani_visitor/page/register_page.dart';
@@ -27,13 +29,13 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Rinjani Visitor',
-      debugShowCheckedModeBanner: false,
+    return CupertinoApp(
+      theme: CupertinoThemeData(brightness: Brightness.light),
       routes: {
         '/': (context) => const SplashScreen(),
         '/login-page': (context) => const LoginPage(),
-        '/sign-up':(context) => const RegisterPage()
+        '/sign-up': (context) => const RegisterPage(),
+        '/home-page': (context) => const HomePage()
       },
     );
   }

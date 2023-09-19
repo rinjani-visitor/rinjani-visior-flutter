@@ -7,7 +7,6 @@ class LoginGoogle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        margin: EdgeInsets.only(top: 48),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(smallRadius),
             color: mediumGray,

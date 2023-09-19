@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rinjani_visitor/theme/theme.dart';
 import 'package:rinjani_visitor/widget/input_field.dart';
@@ -8,81 +9,109 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: whiteColor,
-      body: SafeArea(
+    Widget header() {
+      return Container(
+        margin: EdgeInsets.only(top: 24, bottom: 32),
+        child: Text(
+          "Let's start your\njourney with us",
+          style: blackTextStyle.copyWith(fontSize: 32, fontWeight: bold),
+        ),
+      );
+    }
+
+    Widget inputSection() {
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          InputField(label: 'Email', secureText: false),
+          const SizedBox(
+            height: 12,
+          ),
+          InputField(label: 'Password', secureText: true),
+          const SizedBox(
+            height: 12,
+          ),
+          TextButton(
+              onPressed: () {
+                Navigator.pushNamed(context, '/home-page');
+              },
+              child: Text(
+                "Forgot your password?",
+                style:
+                    blackTextStyle.copyWith(fontSize: 12, fontWeight: semibold),
+              ))
+        ],
+      );
+    }
+
+    Widget actionButton() {
+      return TextButton(
+          onPressed: () {
+            Navigator.pushNamed(context, '/home-page');
+          },
           child: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
+            width: 357,
+            height: 43,
+            decoration: BoxDecoration(
+                color: primaryColor,
+                borderRadius: BorderRadius.circular(smallRadius)),
+            child: Center(
+                child: Text(
+              'Log In',
+              style:
+                  whiteTextStyle.copyWith(fontSize: 18, fontWeight: semibold),
+            )),
+          ));
+    }
+
+    Widget signUpButton() {
+      return Row(
+        children: [
+          Text(
+            "Doesn't have an account?",
+            style: blackTextStyle.copyWith(fontSize: 12, fontWeight: medium),
+          ),
+          TextButton(
+              onPressed: () {
+                Navigator.pushNamed(context, '/sign-up');
+              },
+              child: Text(
+                "Sign Up",
+                style: blackTextStyle.copyWith(
+                    fontSize: 12,
+                    fontWeight: semibold,
+                    decoration: TextDecoration.underline),
+              )),
+        ],
+      );
+    }
+
+    return CupertinoPageScaffold(
+      resizeToAvoidBottomInset: false,
+      child: SafeArea(
+          child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              'Lets start your\njourney with us',
-              style: blackTextStyle.copyWith(fontSize: 32, fontWeight: bold),
-            ),
-            const SizedBox(
-              height: 32,
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                const InputField(label: "Email", secureText: false),
-                const SizedBox(
-                  height: 12,
-                ),
-                const InputField(label: "Password", secureText: true),
-                const SizedBox(
-                  height: 12,
-                ),
-                Text(
-                  'Forgot Password?',
-                  style: blackTextStyle.copyWith(
-                      fontSize: 12, fontWeight: semibold),
-                )
-              ],
-            ),
+            header(),
+            inputSection(),
             const SizedBox(
               height: 48,
             ),
             Divider(
               color: blackColor,
             ),
-            LoginGoogle(),
             const SizedBox(
-              height: 8,
+              height: 48,
             ),
-            Row(
-              children: [
-                const Text('Dont have account? '),
-                TextButton(
-                    onPressed: () {
-                      Navigator.pushNamed(context, '/sign-up');
-                    },
-                    child: Text(
-                      'Sign Up',
-                      style: blackTextStyle.copyWith(
-                          decoration: TextDecoration.underline,
-                          fontSize: 12,
-                          fontWeight: bold),
-                    ))
-              ],
+            LoginGoogle(),
+            SizedBox(
+              height: 24,
             ),
+            signUpButton(),
             const Spacer(),
-            TextButton(
-                onPressed: () {},
-                child: Container(
-                  width: 357,
-                  height: 43,
-                  decoration: BoxDecoration(
-                      color: primaryColor,
-                      borderRadius: BorderRadius.circular(smallRadius)),
-                  child: Center(
-                      child: Text(
-                    'Log In',
-                    style: whiteTextStyle.copyWith(
-                        fontSize: 18, fontWeight: semibold),
-                  )),
-                ))
+            actionButton(),
           ],
         ),
       )),
