@@ -1,5 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rinjani_visitor/theme/theme.dart';
+import 'package:rinjani_visitor/widget/category_item.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -50,6 +52,40 @@ class HomePage extends StatelessWidget {
                   style: whiteTextStyle.copyWith(
                       fontSize: 20, fontWeight: semibold),
                 ),
+                SizedBox(
+                  height: 16,
+                ),
+                CupertinoSearchTextField(
+                  backgroundColor: whiteColor,
+                )
+              ],
+            )
+          ],
+        ),
+      );
+    }
+
+    Widget categories() {
+      return Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Categories',
+              style:
+                  blackTextStyle.copyWith(fontSize: 24, fontWeight: semibold),
+            ),
+            SizedBox(
+              height: 16,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                CategoryItem(),
+                CategoryItem(),
+                CategoryItem(),
+                CategoryItem(),
               ],
             )
           ],
@@ -60,7 +96,14 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       backgroundColor: backgroundColor,
       body: Column(
-        children: [header()],
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          header(),
+          SizedBox(
+            height: 24,
+          ),
+          categories()
+        ],
       ),
     );
   }
