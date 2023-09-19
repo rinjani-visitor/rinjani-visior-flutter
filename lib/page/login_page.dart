@@ -41,21 +41,23 @@ class LoginPage extends StatelessWidget {
                 )
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 48,
             ),
             Divider(
               color: blackColor,
             ),
             LoginGoogle(),
-            SizedBox(
+            const SizedBox(
               height: 8,
             ),
             Row(
               children: [
-                Text('Dont have account? '),
+                const Text('Dont have account? '),
                 TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/sign-up');
+                    },
                     child: Text(
                       'Sign Up',
                       style: blackTextStyle.copyWith(
@@ -65,7 +67,7 @@ class LoginPage extends StatelessWidget {
                     ))
               ],
             ),
-            Spacer(),
+            const Spacer(),
             TextButton(
                 onPressed: () {},
                 child: Container(
