@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rinjani_visitor/theme/theme.dart';
 import 'package:rinjani_visitor/widget/input_field.dart';
@@ -39,7 +40,9 @@ class RegisterPage extends StatelessWidget {
 
     Widget signUpButton() {
       return TextButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.pushNamed(context, '/login-page');
+          },
           child: Container(
             width: 357,
             height: 43,
@@ -55,9 +58,10 @@ class RegisterPage extends StatelessWidget {
           ));
     }
 
-    return Scaffold(
+    return CupertinoPageScaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: whiteColor,
-      body: SafeArea(
+      child: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Column(

@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rinjani_visitor/theme/theme.dart';
 import 'package:rinjani_visitor/widget/input_field.dart';
-import 'package:rinjani_visitor/widget/login_google.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -86,6 +85,37 @@ class LoginPage extends StatelessWidget {
       );
     }
 
+    Widget googleLogin() {
+      return Container(
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(smallRadius),
+              color: mediumGray,
+              border: Border.all(color: lightGray, width: 1)),
+          child: TextButton(
+            onPressed: () {},
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  width: 36,
+                  height: 36,
+                  decoration: const BoxDecoration(
+                      image: DecorationImage(
+                          image: AssetImage('assets/Google.png'))),
+                ),
+                const SizedBox(
+                  width: 16,
+                ),
+                Text(
+                  'Login with Google',
+                  style: blackTextStyle.copyWith(
+                      fontSize: 14, fontWeight: semibold),
+                )
+              ],
+            ),
+          ));
+    }
+
     return CupertinoPageScaffold(
       resizeToAvoidBottomInset: false,
       child: SafeArea(
@@ -105,7 +135,8 @@ class LoginPage extends StatelessWidget {
             const SizedBox(
               height: 48,
             ),
-            LoginGoogle(),
+            googleLogin(),
+            // const LoginGoogle(),
             SizedBox(
               height: 24,
             ),
