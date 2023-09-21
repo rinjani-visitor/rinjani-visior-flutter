@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:rinjani_visitor/theme/theme.dart';
 
 class CategoryItem extends StatelessWidget {
-  const CategoryItem({Key? key}) : super(key: key);
+  final String label;
+  const CategoryItem({Key? key, required this.label}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +24,7 @@ class CategoryItem extends StatelessWidget {
               color: primaryColor,
             )),
         Text(
-          'Rinjani',
+          '$label',
           style: blackTextStyle.copyWith(fontSize: 16, fontWeight: semibold),
         )
       ],
