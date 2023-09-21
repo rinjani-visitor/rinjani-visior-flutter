@@ -20,14 +20,15 @@ class InputField extends StatelessWidget {
         const SizedBox(
           height: 4,
         ),
-        CupertinoTextField(
-          padding: EdgeInsets.symmetric(vertical: 14, horizontal: 16),
+        Container(
           decoration: BoxDecoration(
               color: mediumGray,
               borderRadius: BorderRadius.circular(smallRadius),
               border: Border.all(color: lightGray)),
-          placeholder: 'your@email.com',
-          obscureText: secureText,
+          child: CupertinoTextFormFieldRow(
+            placeholder: 'your@email.com',
+            obscureText: secureText,
+          ),
         )
       ],
     );
