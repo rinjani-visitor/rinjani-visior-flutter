@@ -110,7 +110,7 @@ class __$$_SettingModelCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_SettingModel with DiagnosticableTreeMixin implements _SettingModel {
-  const _$_SettingModel({required this.languageCode, required this.currency});
+  _$_SettingModel({required this.languageCode, required this.currency});
 
   factory _$_SettingModel.fromJson(Map<String, dynamic> json) =>
       _$$_SettingModelFromJson(json);
@@ -149,7 +149,7 @@ class _$_SettingModel with DiagnosticableTreeMixin implements _SettingModel {
 }
 
 abstract class _SettingModel implements SettingModel {
-  const factory _SettingModel(
+  factory _SettingModel(
       {required LangCode languageCode,
       required Currency currency}) = _$_SettingModel;
 

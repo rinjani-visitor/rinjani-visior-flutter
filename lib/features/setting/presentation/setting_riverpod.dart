@@ -20,8 +20,8 @@ class SettingRiverpod extends ChangeNotifier {
     if (data is LocalResult) {
       setting = data.data;
     } else {
-      setting = const SettingModel(
-          languageCode: LangCode.enUS, currency: Currency.usd);
+      setting =
+          SettingModel(languageCode: LangCode.enUS, currency: Currency.usd);
     }
     return setting!;
   }

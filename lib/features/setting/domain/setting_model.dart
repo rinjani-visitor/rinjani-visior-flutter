@@ -8,7 +8,7 @@ part 'setting_model.g.dart';
 
 @unfreezed
 class SettingModel with _$SettingModel {
-  const factory SettingModel(
+  factory SettingModel(
       {required LangCode languageCode,
       required Currency currency}) = _SettingModel;
   factory SettingModel.fromJson(Map<String, Object?> json) =>
