@@ -6,10 +6,6 @@ import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rinjani_visitor/core/go_router_builder.dart';
-import 'package:rinjani_visitor/page/login_page.dart';
-import 'package:rinjani_visitor/page/main_page.dart';
-import 'package:rinjani_visitor/page/register_page.dart';
-import 'package:rinjani_visitor/page/splash_screen.dart';
 
 void main() {
   // Force google font to use offline fonts instead of re-downloading again

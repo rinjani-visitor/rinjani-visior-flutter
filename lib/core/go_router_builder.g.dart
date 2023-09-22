@@ -35,6 +35,12 @@ RouteBase get $splashScreenRoute => GoRouteData.$route(
         GoRouteData.$route(
           path: 'event',
           factory: $EventRouteExtension._fromState,
+          routes: [
+            GoRouteData.$route(
+              path: ':id',
+              factory: $EventDetailRouteExtension._fromState,
+            ),
+          ],
         ),
         GoRouteData.$route(
           path: 'wishlist',
@@ -138,6 +144,25 @@ extension $EventRouteExtension on EventRoute {
 
   String get location => GoRouteData.$location(
         '/event',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+extension $EventDetailRouteExtension on EventDetailRoute {
+  static EventDetailRoute _fromState(GoRouterState state) => EventDetailRoute(
+        id: state.pathParameters['id']!,
+      );
+
+  String get location => GoRouteData.$location(
+        '/event/${Uri.encodeComponent(id)}',
       );
 
   void go(BuildContext context) => context.go(location);
