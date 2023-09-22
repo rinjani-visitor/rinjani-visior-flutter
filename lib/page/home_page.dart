@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rinjani_visitor/theme/theme.dart';
+import 'package:rinjani_visitor/widget/big_card.dart';
 import 'package:rinjani_visitor/widget/category_item.dart';
+import 'package:rinjani_visitor/widget/search_delegate.dart';
 import 'package:rinjani_visitor/widget/small_card.dart';
 
 class HomePage extends StatelessWidget {
@@ -72,6 +74,26 @@ class HomePage extends StatelessWidget {
       );
     }
 
+    Widget rinjaniTrip() {
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            margin: EdgeInsets.symmetric(horizontal: 16),
+            child: Text(
+              'Rinjani Trip',
+              style:
+                  blackTextStyle.copyWith(fontSize: 24, fontWeight: semibold),
+            ),
+          ),
+          BigCard(),
+          BigCard(),
+          BigCard(),
+          BigCard(),
+        ],
+      );
+    }
+
     return Scaffold(
       appBar: PreferredSize(
           preferredSize: const Size(390, 124),
@@ -106,8 +128,11 @@ class HomePage extends StatelessWidget {
                   height: 16,
                 ),
                 CupertinoSearchTextField(
+                  onTap: () {
+                    Navigator.pushNamed(context, '/search-page');
+                  },
                   backgroundColor: whiteColor,
-                )
+                ),
               ],
             ),
           )),
@@ -123,6 +148,10 @@ class HomePage extends StatelessWidget {
             height: 24,
           ),
           recommended(),
+          SizedBox(
+            height: 24,
+          ),
+          rinjaniTrip()
         ],
       ),
     );

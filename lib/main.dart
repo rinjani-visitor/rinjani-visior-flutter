@@ -7,6 +7,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rinjani_visitor/page/login_page.dart';
 import 'package:rinjani_visitor/page/main_page.dart';
 import 'package:rinjani_visitor/page/register_page.dart';
+import 'package:rinjani_visitor/page/search_page.dart';
 import 'package:rinjani_visitor/page/splash_screen.dart';
 
 void main() {
@@ -33,7 +34,8 @@ class MyApp extends StatelessWidget {
         '/': (context) => const SplashScreen(),
         '/login-page': (context) => const LoginPage(),
         '/sign-up': (context) => const RegisterPage(),
-        '/home-page': (context) => const MainPage()
+        '/home-page': (context) => const MainPage(),
+        '/search-page': (context) => const SearchPage(),
       },
     );
   }
