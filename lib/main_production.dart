@@ -1,9 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
+import 'package:go_router/go_router.dart';
 
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:rinjani_visitor/core/go_router_builder.dart';
 import 'package:rinjani_visitor/page/login_page.dart';
 import 'package:rinjani_visitor/page/main_page.dart';
 import 'package:rinjani_visitor/page/register_page.dart';
@@ -27,14 +29,9 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return CupertinoApp(
+    return CupertinoApp.router(
       theme: const CupertinoThemeData(brightness: Brightness.light),
-      routes: {
-        '/': (context) => const SplashScreen(),
-        '/login-page': (context) => const LoginPage(),
-        '/sign-up': (context) => const RegisterPage(),
-        '/home-page': (context) => const MainPage()
-      },
+      routerConfig: GoRouter(routes: $appRoutes),
     );
   }
 }
