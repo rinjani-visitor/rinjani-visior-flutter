@@ -1,18 +1,18 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'settings_model.dart';
+part of 'setting_model.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_SettingsModel _$$_SettingsModelFromJson(Map<String, dynamic> json) =>
-    _$_SettingsModel(
+_$_SettingModel _$$_SettingModelFromJson(Map<String, dynamic> json) =>
+    _$_SettingModel(
       languageCode: $enumDecode(_$LangCodeEnumMap, json['languageCode']),
       currency: $enumDecode(_$CurrencyEnumMap, json['currency']),
     );
 
-Map<String, dynamic> _$$_SettingsModelToJson(_$_SettingsModel instance) =>
+Map<String, dynamic> _$$_SettingModelToJson(_$_SettingModel instance) =>
     <String, dynamic>{
       'languageCode': _$LangCodeEnumMap[instance.languageCode]!,
       'currency': _$CurrencyEnumMap[instance.currency]!,
