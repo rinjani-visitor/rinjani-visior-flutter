@@ -1,23 +1,28 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:rinjani_visitor/features/authentication/presentation/authentication_riverpod.dart';
 import 'package:rinjani_visitor/theme/theme.dart';
 
-class SplashScreen extends StatefulWidget {
+class SplashScreen extends ConsumerStatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
 
   @override
   _SplashScreenState createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen> {
+class _SplashScreenState extends ConsumerState<SplashScreen> {
   @override
   void initState() {
-    // TODO: implement initState
-    Timer(Duration(seconds: 2), () {
-      Navigator.pushNamed(context, '/login-page');
-    });
     super.initState();
+
+    ref.read(authenticationProvider).getToken().then((value) {
+      if (value.isEmpty) {
+        debugPrint("value $value");
+        Navigator.pushReplacementNamed(context, '/login-page');
+        return;
+      }
+      Navigator.pushReplacementNamed(context, '/home-page');
+    });
   }
 
   @override

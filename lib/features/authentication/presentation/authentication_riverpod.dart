@@ -10,8 +10,14 @@ class AuthenticationNotifier extends ChangeNotifier implements AuthUsecase {
   final FlutterSecureStorage secureStorage;
   AuthenticationNotifier(this.secureStorage);
 
+  @override
   Future<String> getToken() async {
-    return await secureStorage.read(key: JWT_TOKEN) ?? "";
+    // TODO: keep this function until API specs is provided
+    // Simulate get token behaviour when get data from API
+    return Future.delayed(
+      const Duration(seconds: 3),
+      () => "",
+    );
   }
 
   @override

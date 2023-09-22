@@ -4,6 +4,10 @@ abstract class DataState<T> {
   const DataState({this.data, this.error});
 }
 
+class DataLoading<T> extends DataState<T> {
+  const DataLoading();
+}
+
 class DataResult<T> extends DataState<T> {
   const DataResult(T data) : super(data: data);
 }
