@@ -68,7 +68,7 @@ class BigCard extends StatelessWidget {
                         child: Text(
                           "Booking",
                           style: whiteTextStyle.copyWith(
-                              fontSize: 12, fontWeight: regular),
+                              fontSize: 12, fontWeight: semibold),
                         ),
                       ),
                     ))
