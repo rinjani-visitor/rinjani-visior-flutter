@@ -8,13 +8,12 @@ enum RouteMap {
   search,
 }
 
-enum language { system, enUS, enCK, idID }
+enum Language { system, enUS, enCK, idID }
 
-var ROUTES = {
-  "/": "",
-  "welcome": "",
-  "home": "",
-  "event": "",
-  "wishlist": "",
-  "profile": ""
+enum ConstantProps {
+  apiUrl,
+}
+
+const Map<ConstantProps, dynamic> constant = {
+  ConstantProps.apiUrl: "http://localhost"
 };
