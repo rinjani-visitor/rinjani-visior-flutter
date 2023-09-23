@@ -25,7 +25,7 @@ const _$LangCodeEnumMap = {
 };
 
 const _$CurrencyEnumMap = {
-  Currency.usd: 'usd',
-  Currency.eur: 'eur',
-  Currency.idr: 'idr',
+  Currency.USD: 'USD',
+  Currency.EUR: 'EUR',
+  Currency.IDR: 'IDR',
 };

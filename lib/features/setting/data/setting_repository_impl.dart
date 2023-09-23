@@ -17,14 +17,15 @@ class SettingRepositoryImpt implements SettingRepository {
   });
 
   @override
-  LocalState<SettingModel> getSettings() {
-    final stringData = source.fetchSettingPreferences();
+  Stream<LocalState<SettingModel>> getSettings() async* {
+    yield const LocalLoading();
+    final stringData = await source.fetchSettingPreferences();
     try {
       final jsonData = jsonDecode(stringData);
       final data = SettingModel.fromJson(jsonData);
-      return LocalResult(data);
+      yield LocalResult(data);
     } on Exception catch (e) {
-      return LocalError(e);
+      yield LocalError(e);
     }
   }
 

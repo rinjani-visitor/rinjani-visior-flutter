@@ -1,3 +1,5 @@
+// ignore_for_file: constant_identifier_names
+
 enum LangCode {
   enUS('enUS'),
   enUK('enUK'),
@@ -8,9 +10,9 @@ enum LangCode {
 }
 
 enum Currency {
-  usd('USD'),
-  eur("EUR"),
-  idr("IDR");
+  USD('USD'),
+  EUR("EUR"),
+  IDR("IDR");
 
   const Currency(this.value);
   final String value;

@@ -15,15 +15,12 @@ class SettingRiverpod extends ChangeNotifier {
         repository: ref.read(SettingRepositoryImpt.provider));
   });
 
-  SettingModel getSettings() {
-    final data = repository.getSettings();
+  void getSettings() async {
+    final data = await repository.getSettings().last;
     if (data is LocalResult) {
       setting = data.data;
-    } else {
-      setting =
-          SettingModel(languageCode: LangCode.enUS, currency: Currency.usd);
     }
-    return setting!;
+    setting = SettingModel(languageCode: LangCode.enUS, currency: Currency.USD);
   }
 
   void changeLanguage(LangCode code) {
@@ -32,5 +29,9 @@ class SettingRiverpod extends ChangeNotifier {
 
   void changeCurrency(Currency currency) {
     setting?.currency = currency;
+  }
+
+  void updateCurrentSetting() {
+    if (setting != null) repository.updateSettings(setting!);
   }
 }
