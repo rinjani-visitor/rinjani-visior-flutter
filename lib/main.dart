@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:rinjani_visitor/page/detail_page.dart';
 import 'package:rinjani_visitor/page/event_detail.dart';
 import 'package:rinjani_visitor/page/login_page.dart';
 import 'package:rinjani_visitor/page/main_page.dart';
@@ -30,7 +31,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CupertinoApp(
-      theme: CupertinoThemeData(brightness: Brightness.light),
+      theme: const CupertinoThemeData(brightness: Brightness.light),
       routes: {
         '/': (context) => const SplashScreen(),
         '/login-page': (context) => const LoginPage(),
@@ -38,6 +39,7 @@ class MyApp extends StatelessWidget {
         '/home-page': (context) => const MainPage(),
         '/search-page': (context) => const SearchPage(),
         '/event-detail-page': (context) => const EventDetail(),
+        '/detail-page': (context) => const DetailPage(),
       },
     );
   }

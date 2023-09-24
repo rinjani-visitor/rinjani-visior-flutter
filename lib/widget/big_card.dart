@@ -79,21 +79,27 @@ class BigCard extends StatelessWidget {
       );
     }
 
-    return Container(
-        width: 357,
-        height: 136,
-        margin: EdgeInsets.only(left: 16, top: 16),
-        decoration: BoxDecoration(
-            color: whiteColor, borderRadius: BorderRadius.circular(bigRadius)),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            imageContainer(),
-            SizedBox(
-              width: 16,
-            ),
-            information()
-          ],
-        ));
+    return GestureDetector(
+      onTap: () {
+        Navigator.pushNamed(context, '/detail-page');
+      },
+      child: Container(
+          width: 357,
+          height: 136,
+          margin: EdgeInsets.only(left: 16, top: 16),
+          decoration: BoxDecoration(
+              color: whiteColor,
+              borderRadius: BorderRadius.circular(bigRadius)),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              imageContainer(),
+              SizedBox(
+                width: 16,
+              ),
+              information()
+            ],
+          )),
+    );
   }
 }
