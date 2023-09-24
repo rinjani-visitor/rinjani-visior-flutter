@@ -1,12 +1,18 @@
 import 'package:flutter/cupertino.dart';
+import 'package:rinjani_visitor/theme/theme.dart';
 
 class WishlistPage extends StatelessWidget {
-const WishlistPage({ Key? key }) : super(key: key);
+  const WishlistPage({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context){
-    return Container(
-      child: Text('this is event'),
-    );
+  Widget build(BuildContext context) {
+    return CupertinoPageScaffold(
+        backgroundColor: backgroundColor,
+        child: CupertinoNavigationBar(
+          leading: Text(
+            'Wishlist',
+            style: blackTextStyle.copyWith(fontSize: 34, fontWeight: bold),
+          ),
+        ));
   }
 }
