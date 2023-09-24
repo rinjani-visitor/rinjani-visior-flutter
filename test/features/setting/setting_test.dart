@@ -1,8 +1,5 @@
-// ignore_for_file: avoid_print
-
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:rinjani_visitor/core/datastate/local_state.dart';
 import 'package:rinjani_visitor/features/setting/data/setting_repository_impl.dart';
 import 'package:rinjani_visitor/features/setting/data/source/local.dart';
 import 'package:rinjani_visitor/features/setting/domain/setting_model.dart';
@@ -26,9 +23,21 @@ void main() {
     SharedPreferences.setMockInitialValues(
         {"setting_data": '{"languageCode": "enUS", "currency":"IDR"}'});
     final container = ProviderContainer();
-    final data = container.read(repository).getSettings();
-    final result = await data.last;
-    expect(result.runtimeType, LocalResult<SettingModel>);
-    print(result.data.toString());
+    final data = await container.read(repository).getSettings();
+    final result = data;
+    expect(result, isA<SettingModel>());
+  });
+  test(
+      "settings repository should return error if data in storage is not provided / invalid",
+      () async {
+    var result = null;
+    SharedPreferences.setMockInitialValues({"setting_data": ''});
+    final container = ProviderContainer();
+    try {
+      final data = await container.read(repository).getSettings();
+    } on Exception catch (e) {
+      result = e;
+    }
+    expect(result, isA<Exception>());
   });
 }
