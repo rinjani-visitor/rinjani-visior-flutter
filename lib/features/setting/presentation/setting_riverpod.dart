@@ -16,9 +16,9 @@ class SettingRiverpod extends ChangeNotifier {
   });
 
   void getSettings() async {
-    final data = await repository.getSettings().last;
+    final data = await repository.getSettings();
     if (data is LocalResult) {
-      setting = data.data;
+      setting = data;
     }
     setting = SettingModel(languageCode: LangCode.enUS, currency: Currency.USD);
   }

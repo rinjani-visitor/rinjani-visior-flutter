@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:rinjani_visitor/core/datastate/local_state.dart';
 import 'package:rinjani_visitor/features/setting/data/source/local.dart';
 import 'package:rinjani_visitor/features/setting/domain/setting_model.dart';
 import 'package:rinjani_visitor/features/setting/domain/setting_repository.dart';
@@ -17,30 +16,27 @@ class SettingRepositoryImpt implements SettingRepository {
   });
 
   @override
-  Stream<LocalState<SettingModel>> getSettings() async* {
-    yield const LocalLoading();
+  Future<SettingModel> getSettings() async {
     final stringData = await source.fetchSettingPreferences();
     try {
       final jsonData = jsonDecode(stringData);
       final data = SettingModel.fromJson(jsonData);
-      yield LocalResult(data);
-    } on Exception catch (e) {
-      yield LocalError(e);
+      return data;
+    } on Exception catch (_) {
+      rethrow;
     }
   }
 
   @override
-  Stream<LocalState<SettingModel>> updateSettings(
-      SettingModel settings) async* {
-    yield const LocalLoading();
+  Future<SettingModel> updateSettings(SettingModel settings) async {
     final settingsData = settings.toJson().toString();
     final stringData = await source.updateSettingPreference(settingsData);
     try {
       final jsonData = jsonDecode(stringData);
       final data = SettingModel.fromJson(jsonData);
-      yield LocalResult(data);
-    } on Exception catch (e) {
-      yield LocalError(e);
+      return data;
+    } on Exception catch (_) {
+      rethrow;
     }
   }
 }
