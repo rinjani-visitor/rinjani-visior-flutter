@@ -2,24 +2,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rinjani_visitor/theme/theme.dart';
 import 'package:rinjani_visitor/widget/rating_widget.dart';
+import 'package:rinjani_visitor/widget/status.dart';
 
 class BigCard extends StatelessWidget {
   const BigCard({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    Widget status() {
-      return Container(
-        padding: EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(smallRadius), color: infoBlue),
-        child: Text(
-          'Available',
-          style: whiteTextStyle.copyWith(fontSize: 10, fontWeight: regular),
-        ),
-      );
-    }
-
     Widget imageContainer() {
       return Container(
         width: 108,
@@ -40,7 +29,7 @@ class BigCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
-              children: [status(), Spacer(), RatingWidget()],
+              children: [Status(), Spacer(), RatingWidget()],
             ),
             Spacer(),
             Text(
