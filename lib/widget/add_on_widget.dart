@@ -32,13 +32,16 @@ class _AddOnWidgetState extends State<AddOnWidget> {
             ],
           ),
           Spacer(),
-          CupertinoSwitch(
-              value: addOnCheck,
-              onChanged: (bool? value) {
-                setState(() {
-                  addOnCheck = value!;
-                });
-              })
+          CupertinoCheckbox(
+            value: addOnCheck,
+            onChanged: (value) {
+              //TODO: Put this at root page instead of child to avoid re-rendering
+
+              setState(() {
+                addOnCheck = !addOnCheck;
+              });
+            },
+          )
         ],
       ),
     );
