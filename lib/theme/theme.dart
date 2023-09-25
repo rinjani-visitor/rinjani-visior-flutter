@@ -19,6 +19,7 @@ Color errorRed = Color(0xffD92D20);
 TextStyle whiteTextStyle = GoogleFonts.poppins(color: whiteColor);
 TextStyle redTextStyle = GoogleFonts.poppins(color: errorRed);
 TextStyle blackTextStyle = GoogleFonts.poppins(color: blackColor);
+TextStyle grayTextStyle = GoogleFonts.poppins(color: lightGray);
 
 FontWeight light = FontWeight.w300;
 FontWeight regular = FontWeight.w400;
