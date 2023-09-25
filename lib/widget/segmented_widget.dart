@@ -1,5 +1,8 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:rinjani_visitor/theme/theme.dart';
+import 'package:rinjani_visitor/widget/add_on_widget.dart';
+import 'package:rinjani_visitor/widget/date_picker_widget.dart';
 
 class SegmentedWidget extends StatefulWidget {
   const SegmentedWidget({Key? key}) : super(key: key);
@@ -21,6 +24,7 @@ class _SegmentedWidgetState extends State<SegmentedWidget> {
         width: 357,
         margin: EdgeInsets.only(top: 16),
         child: Column(
+          //header here
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
@@ -33,14 +37,21 @@ class _SegmentedWidgetState extends State<SegmentedWidget> {
               height: 16,
             ),
             Column(
+              // add on here
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   'Trip add on',
                   style: blackTextStyle.copyWith(
                       fontSize: 16, fontWeight: semibold),
-                )
+                ),
+                AddOnWidget(),
               ],
-            )
+            ),
+            SizedBox(
+              height: 16,
+            ),
+            DatePickerWidget(),
           ],
         ),
       );
