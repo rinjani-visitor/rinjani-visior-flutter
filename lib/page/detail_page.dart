@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rinjani_visitor/core/go_router_builder.dart';
 import 'package:rinjani_visitor/theme/theme.dart';
+import 'package:rinjani_visitor/widget/add_on_widget.dart';
 import 'package:rinjani_visitor/widget/rating_widget.dart';
 import 'package:rinjani_visitor/widget/segmented_widget.dart';
 import 'package:rinjani_visitor/widget/status.dart';
@@ -82,7 +83,7 @@ class DetailPage extends StatelessWidget {
             Text(
               'Trip duration: 2 Days - 1 Night',
               style: blackTextStyle.copyWith(fontSize: 16),
-            )
+            ),
           ],
         ),
       );
@@ -103,11 +104,11 @@ class DetailPage extends StatelessWidget {
                 ),
               ],
             ),
-            Container(
-              width: double.infinity,
-              height: 53,
-              color: primaryColor,
-            )
+            // Container(
+            //   width: double.infinity,
+            //   height: 53,
+            //   color: primaryColor,
+            // )
           ],
         )));
   }
