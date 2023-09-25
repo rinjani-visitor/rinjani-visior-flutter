@@ -10,96 +10,94 @@ import 'package:rinjani_visitor/widget/small_card.dart';
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
-    Widget categories() {
-      return Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Categories',
-              style:
-                  blackTextStyle.copyWith(fontSize: 24, fontWeight: semibold),
-            ),
-            SizedBox(
-              height: 16,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                CategoryItem(
-                  label: 'Rinjani',
-                ),
-                CategoryItem(
-                  label: 'Home Stay',
-                ),
-                CategoryItem(
-                  label: 'Culture',
-                ),
-                CategoryItem(
-                  label: 'Landscape',
-                ),
-              ],
-            )
-          ],
-        ),
-      );
-    }
-
-    Widget recommended() {
-      return Column(
+  Widget _categories() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Container(
-            margin: const EdgeInsets.only(left: 16),
-            child: Text(
-              'Recommeded',
-              style:
-                  blackTextStyle.copyWith(fontSize: 24, fontWeight: semibold),
-            ),
+          Text(
+            'Categories',
+            style: blackTextStyle.copyWith(fontSize: 24, fontWeight: semibold),
           ),
-          SizedBox(
+          const SizedBox(
             height: 16,
           ),
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Row(children: [
-              SmallCard(),
-              SmallCard(),
-              SmallCard(),
-            ]),
+          const Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              CategoryItem(
+                label: 'Rinjani',
+              ),
+              CategoryItem(
+                label: 'Home Stay',
+              ),
+              CategoryItem(
+                label: 'Culture',
+              ),
+              CategoryItem(
+                label: 'Landscape',
+              ),
+            ],
           )
         ],
-      );
-    }
+      ),
+    );
+  }
 
-    Widget rinjaniTrip() {
-      return Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            margin: EdgeInsets.symmetric(horizontal: 16),
-            child: Text(
-              'Rinjani Trip',
-              style:
-                  blackTextStyle.copyWith(fontSize: 24, fontWeight: semibold),
-            ),
+  Widget _recommended() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Container(
+          margin: const EdgeInsets.only(left: 16),
+          child: Text(
+            'Recommeded',
+            style: blackTextStyle.copyWith(fontSize: 24, fontWeight: semibold),
           ),
-          BigCard(),
-          BigCard(),
-          BigCard(),
-          BigCard(),
-        ],
-      );
-    }
+        ),
+        const SizedBox(
+          height: 16,
+        ),
+        const SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(children: [
+            SmallCard(),
+            SmallCard(),
+            SmallCard(),
+          ]),
+        )
+      ],
+    );
+  }
 
+  Widget _rinjaniTrip() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Container(
+          margin: const EdgeInsets.symmetric(horizontal: 16),
+          child: Text(
+            'Rinjani Trip',
+            style: blackTextStyle.copyWith(fontSize: 24, fontWeight: semibold),
+          ),
+        ),
+        const BigCard(),
+        const BigCard(),
+        const BigCard(),
+        const BigCard(),
+      ],
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-          preferredSize: const Size(390, 124),
+          preferredSize: Size(MediaQuery.of(context).size.width, 135),
           child: Container(
-            padding: EdgeInsets.only(top: 48, left: 16, right: 16, bottom: 18),
+            padding:
+                const EdgeInsets.only(top: 48, left: 16, right: 16, bottom: 18),
             decoration: BoxDecoration(
                 color: primaryColor,
                 borderRadius: BorderRadius.only(
@@ -115,7 +113,7 @@ class HomePage extends StatelessWidget {
                       style: whiteTextStyle.copyWith(
                           fontSize: 34, fontWeight: bold),
                     ),
-                    Spacer(),
+                    const Spacer(),
                     IconButton(
                         onPressed: () {},
                         icon: Icon(
@@ -125,9 +123,7 @@ class HomePage extends StatelessWidget {
                         ))
                   ],
                 ),
-                const SizedBox(
-                  height: 16,
-                ),
+                const Expanded(child: Center()),
                 CupertinoSearchTextField(
                   onTap: () {
                     Navigator.pushNamed(context, '/search-page');
@@ -141,18 +137,18 @@ class HomePage extends StatelessWidget {
       backgroundColor: backgroundColor,
       body: ListView(
         children: [
-          SizedBox(
+          const SizedBox(
             height: 24,
           ),
-          categories(),
-          SizedBox(
+          _categories(),
+          const SizedBox(
             height: 24,
           ),
-          recommended(),
-          SizedBox(
+          _recommended(),
+          const SizedBox(
             height: 24,
           ),
-          rinjaniTrip()
+          _rinjaniTrip()
         ],
       ),
     );
