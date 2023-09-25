@@ -1,14 +1,18 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:rinjani_visitor/features/authentication/domain/auth_usecase.dart';
 import 'package:rinjani_visitor/features/secure_storage/presentation/secure_storage_riverpod.dart';
 
-class AuthenticationNotifier extends ChangeNotifier implements AuthUsecase {
+class AuthRiverpod implements AuthUsecase {
   static const JWT_TOKEN = 'jwt_token';
 
   final FlutterSecureStorage secureStorage;
-  AuthenticationNotifier(this.secureStorage);
+  AuthRiverpod(this.secureStorage);
+
+  static final provider = Provider<AuthRiverpod>((ref) {
+    final secureStorage = ref.read(secureStorageProvider);
+    return AuthRiverpod(secureStorage);
+  });
 
   @override
   Future<String> getToken() async {
@@ -34,10 +38,9 @@ class AuthenticationNotifier extends ChangeNotifier implements AuthUsecase {
   void register(String email, String password, String password2) {
     // TODO: implement register
   }
-}
 
-final authenticationProvider =
-    ChangeNotifierProvider<AuthenticationNotifier>((ref) {
-  final secureStorage = ref.watch(secureStorageProvider);
-  return AuthenticationNotifier(secureStorage);
-});
+  @override
+  void loginWithGoogle() {
+    // TODO: implement loginWithGoogle
+  }
+}
