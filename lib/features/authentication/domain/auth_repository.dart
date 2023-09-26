@@ -1,8 +1,8 @@
 import 'package:rinjani_visitor/core/datastate/local_state.dart';
 
 abstract class AuthRepository {
-  Future<LocalState> logIn(String email, String password);
-  Future<LocalState> register(String email, String password, String password2);
-  Future<LocalState> logout();
+  Future<String> logIn(String email, String password);
+  Future<String> register(String email, String password, String password2);
+  Future<String> logout();
   Future<String> getToken();
 }

@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rinjani_visitor/core/datastate/local_state.dart';
 import 'package:rinjani_visitor/features/authentication/data/source/local.dart';
@@ -20,21 +22,22 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Future<LocalState> logIn(String email, String password) async {
+  Future<String> logIn(String email, String password) async {
     await Future.delayed(const Duration(seconds: 3));
-    return const LocalResult("");
+    return "login done";
   }
 
   @override
-  Future<LocalState> logout() async {
+  Future<String> logout() async {
     await Future.delayed(const Duration(seconds: 3));
-    return const LocalResult("");
+    await localSource.storage.delete(key: AuthLocalSource.TOKEN_KEY);
+    return "data done";
   }
 
   @override
-  Future<LocalState> register(
+  Future<String> register(
       String email, String password, String password2) async {
     await Future.delayed(const Duration(seconds: 3));
-    return const LocalResult("");
+    return "";
   }
 }

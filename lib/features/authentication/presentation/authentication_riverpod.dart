@@ -1,17 +1,17 @@
+import 'dart:async';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:rinjani_visitor/features/authentication/domain/auth_usecase.dart';
-import 'package:rinjani_visitor/features/secure_storage/presentation/secure_storage_riverpod.dart';
+import 'package:rinjani_visitor/core/datastate/local_state.dart';
+import 'package:rinjani_visitor/features/authentication/data/auth_repsitory_impl.dart';
+import 'package:rinjani_visitor/features/authentication/domain/auth_model.dart';
 
-class AuthRiverpod implements AuthUsecase {
+class AuthRiverpod {
   static const JWT_TOKEN = 'jwt_token';
-
-  final FlutterSecureStorage secureStorage;
-  AuthRiverpod(this.secureStorage);
+  final AuthRepositoryImpl repository;
+  AuthRiverpod(this.repository);
 
   static final provider = Provider<AuthRiverpod>((ref) {
-    final secureStorage = ref.read(secureStorageProvider);
-    return AuthRiverpod(secureStorage);
+    return AuthRiverpod(ref.read(AuthRepositoryImpl.provider));
   });
 
   @override
@@ -24,23 +24,35 @@ class AuthRiverpod implements AuthUsecase {
     );
   }
 
-  @override
-  void logout() {
-    // TODO: implement logout
-  }
-
-  @override
-  void logIn(String email, String password) {
-    // TODO: implement logIn
-  }
-
-  @override
-  void register(String email, String password, String password2) {
-    // TODO: implement register
-  }
-
-  @override
   void loginWithGoogle() {
     // TODO: implement loginWithGoogle
+  }
+
+  Future<LocalState<String>> logIn(String email, String password) async {
+    try {
+      await repository.logIn(email, password);
+      return const LocalResult("login success");
+    } on Exception catch (e) {
+      return LocalError(e);
+    }
+  }
+
+  Future<LocalState<String>> logout() async {
+    try {
+      await repository.logout();
+      return const LocalResult("");
+    } on Exception catch (e) {
+      return LocalError(e);
+    }
+  }
+
+  Future<LocalState<String>> register(
+      String email, String password, String password2) async {
+    try {
+      final result = await repository.register(email, password, password2);
+      return LocalResult(result);
+    } on Exception catch (e) {
+      return LocalError(e);
+    }
   }
 }

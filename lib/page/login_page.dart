@@ -1,6 +1,11 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:go_router/go_router.dart';
+import 'package:rinjani_visitor/core/datastate/local_state.dart';
 import 'package:rinjani_visitor/features/authentication/presentation/authentication_riverpod.dart';
 import 'package:rinjani_visitor/theme/theme.dart';
 import 'package:rinjani_visitor/widget/input_field.dart';
@@ -15,7 +20,6 @@ class LoginPage extends ConsumerStatefulWidget {
 class _LoginPageState extends ConsumerState<LoginPage> {
   final emailTxtController = TextEditingController();
   final passwordTxtController = TextEditingController();
-
   @override
   void dispose() {
     emailTxtController.dispose();
@@ -23,10 +27,19 @@ class _LoginPageState extends ConsumerState<LoginPage> {
     super.dispose();
   }
 
-  void _submitForm() {
+  void _goHome() {
+    Navigator.of(context).pushReplacementNamed('/home-page');
+  }
+
+  void _submitForm() async {
     final email = emailTxtController.text;
     final pass = passwordTxtController.text;
-    ref.read(AuthRiverpod.provider).logIn(email, pass);
+    final result = await ref.read(AuthRiverpod.provider).logIn(email, pass);
+    if (result is LocalResult) {
+      _goHome();
+    } else {
+      Fluttertoast.showToast(msg: "Error occured: ${result.error.toString()}");
+    }
   }
 
   @override
@@ -136,7 +149,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
         ),
         TextButton(
             onPressed: () {
-              Navigator.pushNamed(context, '/sign-up');
+              _submitForm();
             },
             child: Text(
               "Sign Up",
