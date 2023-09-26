@@ -2,7 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rinjani_visitor/theme/theme.dart';
 import 'package:rinjani_visitor/widget/add_on_widget.dart';
+import 'package:rinjani_visitor/widget/date_picker_widget.dart';
 // import 'package:rinjani_visitor/widget/date_picker_widget.dart';
+import 'package:rinjani_visitor/widget/time_button_widget.dart';
 
 class SegmentedWidget extends StatefulWidget {
   const SegmentedWidget({Key? key}) : super(key: key);
@@ -51,7 +53,20 @@ class _SegmentedWidgetState extends State<SegmentedWidget> {
             SizedBox(
               height: 16,
             ),
-            // DatePickerWidget(),
+            Column(
+              children: [
+                DatePickerWidget(),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    TimeButtonWidget(),
+                    TimeButtonWidget(),
+                    TimeButtonWidget(),
+                  ],
+                )
+              ],
+            ),
+            
           ],
         ),
       );
