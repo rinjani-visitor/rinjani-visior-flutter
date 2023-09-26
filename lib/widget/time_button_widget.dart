@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:rinjani_visitor/theme/theme.dart';
 
 class TimeButtonWidget extends StatefulWidget {
-  const TimeButtonWidget({Key? key}) : super(key: key);
+  final String time;
+  const TimeButtonWidget({Key? key, required this.time}) : super(key: key);
 
   @override
   State<TimeButtonWidget> createState() => _TimeButtonWidgetState();
@@ -11,29 +12,32 @@ class TimeButtonWidget extends StatefulWidget {
 
 class _TimeButtonWidgetState extends State<TimeButtonWidget> {
   bool isSelected = false;
+  void _handleButtonTap() {
+    setState(() {
+      isSelected = !isSelected;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    return TextButton(
-        onPressed: () {
-          (bool? value) {
-            setState(() {
-              isSelected = true;
-            });
-          };
-        },
+    return GestureDetector(
+        onTap: _handleButtonTap,
         child: Container(
-          width: 93,
+          width: 100,
           height: 36,
           decoration: BoxDecoration(
               color: isSelected ? primaryColor : Colors.transparent,
-              border: Border.all(color: lightGray),
+              border: isSelected
+                  ? Border.all(color: Colors.transparent)
+                  : Border.all(color: lightGray),
               borderRadius: BorderRadius.circular(smallRadius)),
           child: Center(
-            child: Text(
-              '09:00 AM',
-              style: isSelected ? whiteTextStyle : blackTextStyle,
-            ),
-          ),
+              child: Text(
+            '${widget.time}',
+            style: isSelected
+                ? whiteTextStyle.copyWith(fontWeight: medium, fontSize: 16)
+                : blackTextStyle.copyWith(fontWeight: medium, fontSize: 16),
+          )),
         ));
   }
 }

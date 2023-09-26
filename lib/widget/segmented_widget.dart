@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rinjani_visitor/theme/theme.dart';
+import 'package:rinjani_visitor/widget/accomodation_widget.dart';
 import 'package:rinjani_visitor/widget/add_on_widget.dart';
 import 'package:rinjani_visitor/widget/date_picker_widget.dart';
 // import 'package:rinjani_visitor/widget/date_picker_widget.dart';
@@ -21,6 +22,7 @@ class _SegmentedWidgetState extends State<SegmentedWidget> {
   int _sliding = 0;
   @override
   Widget build(BuildContext context) {
+
     Widget description() {
       return Container(
         width: 357,
@@ -56,17 +58,27 @@ class _SegmentedWidgetState extends State<SegmentedWidget> {
             Column(
               children: [
                 DatePickerWidget(),
+                SizedBox(
+                  height: 8,
+                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    TimeButtonWidget(),
-                    TimeButtonWidget(),
-                    TimeButtonWidget(),
+                    TimeButtonWidget(
+                      time: '09:00 AM',
+                    ),
+                    TimeButtonWidget(
+                      time: '10:00 AM',
+                    ),
+                    TimeButtonWidget(
+                      time: '11:00 AM',
+                    ),
                   ],
                 )
               ],
             ),
-            
+            SizedBox(height: 16,),
+            AccomodationWidget()
           ],
         ),
       );
