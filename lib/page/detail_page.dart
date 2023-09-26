@@ -104,11 +104,29 @@ class DetailPage extends StatelessWidget {
                 ),
               ],
             ),
-            // Container(
-            //   width: double.infinity,
-            //   height: 53,
-            //   color: primaryColor,
-            // )
+            GestureDetector(
+              onTap: () {},
+              child: Container(
+                width: double.infinity,
+                height: 63,
+                padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                color: whiteColor,
+                child: Container(
+                  width: 358,
+                  height: 43,
+                  decoration: BoxDecoration(
+                      color: primaryColor,
+                      borderRadius: BorderRadius.circular(smallRadius)),
+                  child: Center(
+                    child: Text(
+                      'Continue',
+                      style: whiteTextStyle.copyWith(
+                          fontSize: 16, fontWeight: semibold),
+                    ),
+                  ),
+                ),
+              ),
+            )
           ],
         )));
   }

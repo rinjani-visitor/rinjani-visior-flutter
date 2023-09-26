@@ -4,6 +4,7 @@ import 'package:rinjani_visitor/theme/theme.dart';
 import 'package:rinjani_visitor/widget/accomodation_widget.dart';
 import 'package:rinjani_visitor/widget/add_on_widget.dart';
 import 'package:rinjani_visitor/widget/date_picker_widget.dart';
+import 'package:rinjani_visitor/widget/review_widget.dart';
 // import 'package:rinjani_visitor/widget/date_picker_widget.dart';
 import 'package:rinjani_visitor/widget/time_button_widget.dart';
 
@@ -22,7 +23,6 @@ class _SegmentedWidgetState extends State<SegmentedWidget> {
   int _sliding = 0;
   @override
   Widget build(BuildContext context) {
-
     Widget description() {
       return Container(
         width: 357,
@@ -77,8 +77,14 @@ class _SegmentedWidgetState extends State<SegmentedWidget> {
                 )
               ],
             ),
-            SizedBox(height: 16,),
-            AccomodationWidget()
+            SizedBox(
+              height: 16,
+            ),
+            AccomodationWidget(),
+            SizedBox(
+              height: 8,
+            ),
+            ReviewWidget()
           ],
         ),
       );
