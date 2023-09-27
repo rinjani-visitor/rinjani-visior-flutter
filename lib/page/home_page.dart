@@ -28,15 +28,19 @@ class HomePage extends StatelessWidget {
             children: [
               CategoryItem(
                 label: 'Rinjani',
+                iconName: Icons.landscape,
               ),
               CategoryItem(
                 label: 'Home Stay',
+                iconName: Icons.hotel,
               ),
               CategoryItem(
                 label: 'Culture',
+                iconName: Icons.person,
               ),
               CategoryItem(
                 label: 'Landscape',
+                iconName: Icons.hiking,
               ),
             ],
           )

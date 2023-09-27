@@ -5,7 +5,8 @@ import 'package:rinjani_visitor/theme/theme.dart';
 
 class CategoryItem extends StatelessWidget {
   final String label;
-  const CategoryItem({Key? key, required this.label}) : super(key: key);
+  final IconData iconName;
+  const CategoryItem({Key? key, required this.label, required this.iconName}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +28,7 @@ class CategoryItem extends StatelessWidget {
                         builder: (context) =>
                             CategoryExplorePage(title: '$label')));
               },
-              icon: Icon(Icons.landscape),
+              icon:  Icon(iconName),
               iconSize: 32,
               color: primaryColor,
             )),
