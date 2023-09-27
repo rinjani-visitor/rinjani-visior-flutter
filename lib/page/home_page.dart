@@ -76,21 +76,25 @@ class HomePage extends StatelessWidget {
   }
 
   Widget _rinjaniTrip() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Container(
-          margin: const EdgeInsets.symmetric(horizontal: 16),
-          child: Text(
-            'Rinjani Trip',
-            style: blackTextStyle.copyWith(fontSize: 24, fontWeight: semibold),
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            margin: const EdgeInsets.symmetric(horizontal: 16),
+            child: Text(
+              'Rinjani Trip',
+              style:
+                  blackTextStyle.copyWith(fontSize: 24, fontWeight: semibold),
+            ),
           ),
-        ),
-        const BigCard(),
-        const BigCard(),
-        const BigCard(),
-        const BigCard(),
-      ],
+          const BigCard(),
+          const BigCard(),
+          const BigCard(),
+          const BigCard(),
+        ],
+      ),
     );
   }
 
