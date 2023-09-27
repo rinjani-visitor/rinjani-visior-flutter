@@ -42,7 +42,8 @@ class BigCard extends StatelessWidget {
               children: [
                 Text(
                   '\$20 - \$40/Person',
-                  style: blackTextStyle.copyWith(fontWeight: medium),
+                  style:
+                      blackTextStyle.copyWith(fontWeight: medium, fontSize: 14),
                 ),
                 Spacer(),
                 TextButton(
