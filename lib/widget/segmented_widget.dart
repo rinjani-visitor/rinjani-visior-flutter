@@ -84,7 +84,16 @@ class _SegmentedWidgetState extends State<SegmentedWidget> {
             SizedBox(
               height: 8,
             ),
-            ReviewWidget()
+            ReviewWidget(),
+            TextButton(
+                style: ButtonStyle(
+                    backgroundColor: MaterialStatePropertyAll(primaryColor),
+                    fixedSize: MaterialStatePropertyAll(Size.fromWidth(357))),
+                onPressed: () {},
+                child: Text(
+                  'Continue',
+                  style: whiteTextStyle.copyWith(fontSize: 16),
+                ))
           ],
         ),
       );
