@@ -1,17 +1,20 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rinjani_visitor/core/datastate/local_state.dart';
 import 'package:rinjani_visitor/features/authentication/data/source/local.dart';
+import 'package:rinjani_visitor/features/authentication/data/source/remote.dart';
 import 'package:rinjani_visitor/features/authentication/domain/auth_repository.dart';
 
 //TODO: this methods should return classModel, not data state
 class AuthRepositoryImpl implements AuthRepository {
   // final String remoteSource;
   final AuthLocalSource localSource;
+  final AuthRemoteSource remoteSource;
 
-  static final provider = Provider((ref) =>
-      AuthRepositoryImpl(localSource: ref.read(AuthLocalSource.provider)));
+  static final provider = Provider((ref) => AuthRepositoryImpl(
+      localSource: ref.read(AuthLocalSource.provider),
+      remoteSource: ref.read(AuthRemoteSource.provider)));
 
-  AuthRepositoryImpl({required this.localSource});
+  AuthRepositoryImpl({required this.localSource, required this.remoteSource});
 
   @override
   Future<String> getToken() async {
@@ -19,10 +22,18 @@ class AuthRepositoryImpl implements AuthRepository {
     return token;
   }
 
+  void setToken(String token) {
+    localSource.saveToken(token);
+  }
+
   @override
-  Future<String> logIn(String email, String password) async {
-    await Future.delayed(const Duration(seconds: 3));
-    return "login done";
+  Future<LocalState<String>> logIn(String email, String password) async {
+    try {
+      final result = await remoteSource.logIn(email: email, password: password);
+      return LocalResult(result);
+    } on Exception catch (e) {
+      return LocalError(e);
+    }
   }
 
   @override

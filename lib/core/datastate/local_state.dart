@@ -4,6 +4,10 @@ abstract class LocalState<T> {
   const LocalState({this.data, this.error});
 }
 
+class LocalInit<T> extends LocalState<T> {
+  const LocalInit();
+}
+
 class LocalLoading<T> extends LocalState<T> {
   const LocalLoading();
 }

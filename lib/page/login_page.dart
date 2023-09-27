@@ -4,9 +4,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:go_router/go_router.dart';
 import 'package:rinjani_visitor/core/datastate/local_state.dart';
-import 'package:rinjani_visitor/features/authentication/presentation/authentication_riverpod.dart';
+import 'package:rinjani_visitor/features/authentication/presentation/auth_riverpod.dart';
 import 'package:rinjani_visitor/theme/theme.dart';
 import 'package:rinjani_visitor/widget/input_field.dart';
 
@@ -14,12 +13,14 @@ class LoginPage extends ConsumerStatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
 
   @override
-  ConsumerState<LoginPage> createState() => _LoginPageState();
+  _LoginPageState createState() => _LoginPageState();
 }
 
 class _LoginPageState extends ConsumerState<LoginPage> {
+  bool isLlogin = false;
   final emailTxtController = TextEditingController();
   final passwordTxtController = TextEditingController();
+
   @override
   void dispose() {
     emailTxtController.dispose();
@@ -27,19 +28,28 @@ class _LoginPageState extends ConsumerState<LoginPage> {
     super.dispose();
   }
 
-  void _goHome() {
-    Navigator.of(context).pushReplacementNamed('/home-page');
+  @override
+  void initState() {
+    super.initState();
+    ref.read(AuthRiverpod.provider).loginStatus.stream.listen((event) {
+      debugPrint(
+          "${toStringShort()} - stream test with value ${event.toString()}");
+
+      if (event is LocalResult) {
+        print("done");
+        _toHome();
+      }
+    });
+  }
+
+  void _toHome() {
+    Navigator.pushReplacementNamed(context, '/home-page');
   }
 
   void _submitForm() async {
     final email = emailTxtController.text;
     final pass = passwordTxtController.text;
-    final result = await ref.read(AuthRiverpod.provider).logIn(email, pass);
-    if (result is LocalResult) {
-      _goHome();
-    } else {
-      Fluttertoast.showToast(msg: "Error occured: ${result.error.toString()}");
-    }
+    await ref.read(AuthRiverpod.provider).logIn(email, pass);
   }
 
   @override
@@ -91,12 +101,16 @@ class _LoginPageState extends ConsumerState<LoginPage> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
-        const InputField(
-            label: 'Email', secureText: false, placeholder: "your@email.com"),
+        InputField(
+            label: 'Email',
+            secureText: false,
+            placeholder: "your@email.com",
+            controller: emailTxtController),
         const SizedBox(
           height: 12,
         ),
-        const InputField(
+        InputField(
+          controller: passwordTxtController,
           label: 'Password',
           secureText: true,
           placeholder: "your password of course",
@@ -120,7 +134,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
   Widget _actionButton() {
     return TextButton(
         onPressed: () {
-          Navigator.pushNamed(context, '/home-page');
+          _submitForm();
         },
         child: Container(
           constraints:

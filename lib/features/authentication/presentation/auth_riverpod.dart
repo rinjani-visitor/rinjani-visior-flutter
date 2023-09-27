@@ -1,12 +1,16 @@
 import 'dart:async';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rinjani_visitor/core/datastate/local_state.dart';
 import 'package:rinjani_visitor/features/authentication/data/auth_repsitory_impl.dart';
-import 'package:rinjani_visitor/features/authentication/domain/auth_model.dart';
 
 class AuthRiverpod {
+  // ignore: constant_identifier_names
   static const JWT_TOKEN = 'jwt_token';
+
+  StreamController<LocalState<String>> loginStatus = StreamController()
+    ..add(const LocalInit());
   final AuthRepositoryImpl repository;
   AuthRiverpod(this.repository);
 
@@ -28,13 +32,12 @@ class AuthRiverpod {
     // TODO: implement loginWithGoogle
   }
 
-  Future<LocalState<String>> logIn(String email, String password) async {
-    try {
-      await repository.logIn(email, password);
-      return const LocalResult("login success");
-    } on Exception catch (e) {
-      return LocalError(e);
-    }
+  Future<void> logIn(String email, String password) async {
+    loginStatus.add(const LocalLoading());
+    debugPrint("${this.toString()} - Loading");
+    final data = await repository.logIn(email, password);
+    loginStatus.add(data);
+    debugPrint("${this.toString()} - Done: ${loginStatus.toString()}");
   }
 
   Future<LocalState<String>> logout() async {
