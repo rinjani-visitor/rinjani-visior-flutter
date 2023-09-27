@@ -10,16 +10,16 @@ import 'package:rinjani_visitor/widget/status.dart';
 class DetailPage extends StatelessWidget {
   const DetailPage({Key? key}) : super(key: key);
 
+  Widget imageContainer() {
+    return Container(
+      width: double.infinity,
+      height: 241,
+      decoration: BoxDecoration(color: primaryColor),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    Widget imageContainer() {
-      return Container(
-        width: double.infinity,
-        height: 241,
-        decoration: BoxDecoration(color: primaryColor),
-      );
-    }
-
     Widget header() {
       return Padding(
         padding: const EdgeInsets.all(16),
@@ -127,17 +127,6 @@ class DetailPage extends StatelessWidget {
                   imageContainer(),
                   header(),
                   SegmentedWidget(),
-                  TextButton(
-                      style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStatePropertyAll(primaryColor),
-                          fixedSize:
-                              MaterialStatePropertyAll(Size.fromWidth(357))),
-                      onPressed: () {},
-                      child: Text(
-                        'Continue',
-                        style: whiteTextStyle.copyWith(fontSize: 16),
-                      ))
                 ],
               ),
             ],
