@@ -36,7 +36,7 @@ class HomePage extends StatelessWidget {
               ),
               CategoryItem(
                 label: 'Culture',
-                iconName: Icons.person,
+                iconName: Icons.self_improvement,
               ),
               CategoryItem(
                 label: 'Landscape',
