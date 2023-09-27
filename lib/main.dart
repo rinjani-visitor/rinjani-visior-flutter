@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:rinjani_visitor/page/category_explore_page.dart';
 import 'package:rinjani_visitor/page/detail_page.dart';
 import 'package:rinjani_visitor/page/event_detail.dart';
 import 'package:rinjani_visitor/page/login_page.dart';
