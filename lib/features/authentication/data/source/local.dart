@@ -12,7 +12,7 @@ class AuthLocalSource {
   static final provider = Provider(
       (ref) => AuthLocalSource(storage: ref.read(secureStorageProvider)));
 
-  void saveToken(String token) async {
+  Future<void> setToken(String token) async {
     await storage.write(key: AuthLocalSource.TOKEN_KEY, value: token);
   }
 

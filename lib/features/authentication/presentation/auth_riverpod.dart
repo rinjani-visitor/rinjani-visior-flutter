@@ -1,15 +1,11 @@
 import 'dart:async';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rinjani_visitor/core/datastate/local_state.dart';
 import 'package:rinjani_visitor/features/authentication/data/auth_repsitory_impl.dart';
 
 class AuthRiverpod {
-  // ignore: constant_identifier_names
-  static const JWT_TOKEN = 'jwt_token';
-
-  StreamController<LocalState<String>> loginStatus = StreamController()
+  StreamController<LocalState<String>> authState = StreamController()
     ..add(const LocalInit());
   final AuthRepositoryImpl repository;
   AuthRiverpod(this.repository);
@@ -18,29 +14,16 @@ class AuthRiverpod {
     return AuthRiverpod(ref.read(AuthRepositoryImpl.provider));
   });
 
-  @override
-  Future<String> getToken() async {
-    // TODO: keep this function until API specs is provided
-    // Simulate get token behaviour when get data from API
-    return Future.delayed(
-      const Duration(seconds: 3),
-      () => "",
-    );
-  }
-
-  void loginWithGoogle() {
-    // TODO: implement loginWithGoogle
+  Future<LocalState<String>> getToken() async {
+    final data = await repository.checkSession();
+    return data;
   }
 
   Future<void> logIn(String email, String password) async {
-    loginStatus.add(const LocalLoading());
-    debugPrint("${this.toString()} - Loading");
-    final data = await repository.logIn(email, password);
-    loginStatus.add(data);
-    debugPrint("${this.toString()} - Done: ${loginStatus.toString()}");
+    authState.addStream(repository.logIn(email, password));
   }
 
-  Future<LocalState<String>> logout() async {
+  Future<LocalState<String>> logOut() async {
     try {
       await repository.logout();
       return const LocalResult("");
@@ -49,13 +32,7 @@ class AuthRiverpod {
     }
   }
 
-  Future<LocalState<String>> register(
-      String email, String password, String password2) async {
-    try {
-      final result = await repository.register(email, password, password2);
-      return LocalResult(result);
-    } on Exception catch (e) {
-      return LocalError(e);
-    }
+  Future<void> register(String email, String password, String password2) async {
+    authState.addStream(repository.register(email, password, password2));
   }
 }

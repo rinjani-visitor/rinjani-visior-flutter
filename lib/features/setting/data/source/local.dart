@@ -4,6 +4,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 class SettingLocalSource {
   // ignore: constant_identifier_names
   static const SETTING_DATA = "setting_data";
+  // ignore: constant_identifier_names
+  static const JWT_TOKEN = 'jwt_token';
 
   static final provider = Provider<SettingLocalSource>((ref) {
     return SettingLocalSource();

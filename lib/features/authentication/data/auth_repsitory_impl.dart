@@ -17,36 +17,68 @@ class AuthRepositoryImpl implements AuthRepository {
   AuthRepositoryImpl({required this.localSource, required this.remoteSource});
 
   @override
-  Future<String> getToken() async {
-    final token = await localSource.getToken();
-    return token;
-  }
-
-  void setToken(String token) {
-    localSource.saveToken(token);
-  }
-
-  @override
-  Future<LocalState<String>> logIn(String email, String password) async {
+  Future<LocalState<String>> saveSession(String token) async {
     try {
-      final result = await remoteSource.logIn(email: email, password: password);
-      return LocalResult(result);
+      await localSource.setToken(token);
+      return LocalResult(token);
     } on Exception catch (e) {
       return LocalError(e);
     }
   }
 
   @override
-  Future<String> logout() async {
-    await Future.delayed(const Duration(seconds: 3));
-    await localSource.storage.delete(key: AuthLocalSource.TOKEN_KEY);
-    return "data done";
+  Future<LocalState<String>> clearSession() async {
+    try {
+      await localSource.setToken("");
+      return const LocalResult("");
+    } on Exception catch (e) {
+      return LocalError(e);
+    }
   }
 
   @override
-  Future<String> register(
-      String email, String password, String password2) async {
-    await Future.delayed(const Duration(seconds: 3));
-    return "";
+  Stream<LocalState<String>> register(
+      String email, String password, String password2) async* {
+    yield const LocalLoading();
+    try {
+      final data =
+          await remoteSource.register(email: email, password: password);
+      yield LocalResult(data);
+    } on Exception catch (e) {
+      yield LocalError(e);
+    }
+  }
+
+  @override
+  Stream<LocalState<String>> logIn(String email, String password) async* {
+    yield const LocalLoading();
+    try {
+      final result = await remoteSource.logIn(email: email, password: password);
+      yield LocalResult(result);
+    } on Exception catch (e) {
+      yield LocalError(e);
+    }
+  }
+
+  @override
+  Future<LocalState<String>> logout() async {
+    try {
+      await localSource.storage.delete(key: AuthLocalSource.TOKEN_KEY);
+      return const LocalResult("success");
+    } on Exception catch (e) {
+      return LocalError(e);
+    }
+  }
+
+  @override
+  Future<LocalState<String>> checkSession() async {
+    final token = await localSource.getToken();
+    return LocalResult(token);
+  }
+
+  @override
+  Future<LocalState<String>> refreshSession() {
+    // TODO: implement refreshSession
+    throw UnimplementedError();
   }
 }
