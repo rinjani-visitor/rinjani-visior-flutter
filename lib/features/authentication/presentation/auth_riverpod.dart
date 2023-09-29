@@ -5,8 +5,7 @@ import 'package:rinjani_visitor/core/datastate/local_state.dart';
 import 'package:rinjani_visitor/features/authentication/data/auth_repsitory_impl.dart';
 
 class AuthRiverpod {
-  StreamController<LocalState<String>> authState = StreamController()
-    ..add(const LocalInit());
+  StreamController<LocalState<String>> authState = StreamController();
   final AuthRepositoryImpl repository;
   AuthRiverpod(this.repository);
 
