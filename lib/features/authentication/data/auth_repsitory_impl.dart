@@ -52,6 +52,10 @@ class AuthRepositoryImpl implements AuthRepository {
   @override
   Stream<LocalState<String>> logIn(String email, String password) async* {
     yield const LocalLoading();
+    if (email.isEmpty || password.isEmpty) {
+      yield LocalError(Exception("email / password not provided"));
+      return;
+    }
     try {
       final result = await remoteSource.logIn(email: email, password: password);
       yield LocalResult(result);
