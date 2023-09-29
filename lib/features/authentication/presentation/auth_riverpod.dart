@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rinjani_visitor/core/datastate/local_state.dart';
 import 'package:rinjani_visitor/features/authentication/data/auth_repsitory_impl.dart';
@@ -7,6 +8,7 @@ import 'package:rinjani_visitor/features/authentication/data/auth_repsitory_impl
 class AuthRiverpod {
   StreamController<LocalState<String>> authState = StreamController();
   final AuthRepositoryImpl repository;
+  bool _isStreamAlreadyRunning = false;
   AuthRiverpod(this.repository);
 
   static final provider = Provider<AuthRiverpod>((ref) {
@@ -19,7 +21,13 @@ class AuthRiverpod {
   }
 
   Future<void> logIn(String email, String password) async {
-    authState.addStream(repository.logIn(email, password));
+    if (_isStreamAlreadyRunning) {
+      return;
+    }
+    debugPrint("Login emitted");
+    _isStreamAlreadyRunning = true;
+    await authState.addStream(repository.logIn(email, password));
+    _isStreamAlreadyRunning = false;
   }
 
   Future<LocalState<String>> logOut() async {
