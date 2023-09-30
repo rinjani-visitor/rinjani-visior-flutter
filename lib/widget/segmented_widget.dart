@@ -4,6 +4,7 @@ import 'package:rinjani_visitor/theme/theme.dart';
 import 'package:rinjani_visitor/widget/accomodation_widget.dart';
 import 'package:rinjani_visitor/widget/add_on_widget.dart';
 import 'package:rinjani_visitor/widget/date_picker_widget.dart';
+import 'package:rinjani_visitor/widget/person_counter_widget.dart';
 import 'package:rinjani_visitor/widget/review_widget.dart';
 // import 'package:rinjani_visitor/widget/date_picker_widget.dart';
 import 'package:rinjani_visitor/widget/time_button_widget.dart';
@@ -112,7 +113,20 @@ class _SegmentedWidgetState extends State<SegmentedWidget> {
               style: ButtonStyle(
                   backgroundColor: MaterialStatePropertyAll(primaryColor),
                   fixedSize: MaterialStatePropertyAll(Size.fromWidth(357))),
-              onPressed: () {},
+              onPressed: () {
+                showCupertinoModalPopup(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return Container(
+                        width: double.infinity,
+                        height: 300,
+                        decoration: BoxDecoration(
+                            color: whiteColor,
+                            borderRadius: BorderRadius.circular(bigRadius)),
+                        child: PersonCounterWidget(),
+                      );
+                    });
+              },
               child: Text(
                 'Continue',
                 style: whiteTextStyle.copyWith(fontSize: 16),
