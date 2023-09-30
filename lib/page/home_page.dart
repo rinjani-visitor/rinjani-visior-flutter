@@ -123,7 +123,9 @@ class HomePage extends StatelessWidget {
                     ),
                     const Spacer(),
                     IconButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.pushNamed(context, '/notification-page');
+                        },
                         icon: Icon(
                           Icons.notifications,
                           size: 32.0,
