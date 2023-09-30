@@ -82,7 +82,6 @@ class _PersonCounterWidgetState extends State<PersonCounterWidget> {
               onPressed: () {},
               child: Container(
                   width: 294,
-                  height: 32,
                   child: Center(
                       child: Text(
                     'Continue',
