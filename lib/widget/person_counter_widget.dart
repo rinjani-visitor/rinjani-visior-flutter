@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:rinjani_visitor/page/booking_detail_page.dart';
 import 'package:rinjani_visitor/theme/theme.dart';
 
 class PersonCounterWidget extends StatefulWidget {
@@ -79,7 +80,13 @@ class _PersonCounterWidgetState extends State<PersonCounterWidget> {
           TextButton(
               style: ButtonStyle(
                   backgroundColor: MaterialStatePropertyAll(primaryColor)),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pop(context);
+                Navigator.push(
+                    context,
+                    CupertinoPageRoute(
+                        builder: (context) => BookingDetailPage()));
+              },
               child: Container(
                   width: 294,
                   child: Center(
