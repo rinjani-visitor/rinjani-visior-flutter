@@ -1,10 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rinjani_visitor/theme/theme.dart';
-import 'package:rinjani_visitor/widget/add_on_widget.dart';
 import 'package:rinjani_visitor/widget/big_card.dart';
 import 'package:rinjani_visitor/widget/category_item.dart';
-import 'package:rinjani_visitor/widget/search_delegate.dart';
 import 'package:rinjani_visitor/widget/small_card.dart';
 
 class HomePage extends StatelessWidget {
@@ -134,11 +132,14 @@ class HomePage extends StatelessWidget {
                   ],
                 ),
                 const Expanded(child: Center()),
-                CupertinoSearchTextField(
+                InkWell(
                   onTap: () {
                     Navigator.pushNamed(context, '/search-page');
                   },
-                  backgroundColor: whiteColor,
+                  child: CupertinoSearchTextField(
+                    backgroundColor: whiteColor,
+                    enabled: false,
+                  ),
                 ),
               ],
             ),
