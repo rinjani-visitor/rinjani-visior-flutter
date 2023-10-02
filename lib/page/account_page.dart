@@ -1,3 +1,4 @@
+import 'package:circular_profile_avatar/circular_profile_avatar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:rinjani_visitor/theme/theme.dart';
 
@@ -19,16 +20,22 @@ class AccountPage extends StatelessWidget {
             padding: const EdgeInsets.only(top: 16),
             child: Column(
               children: [
-                Container(
-                  width: 100,
-                  height: 100,
-                  decoration:
-                      BoxDecoration(shape: BoxShape.circle, color: lightGray),
-                  child: Center(child: Text('h')),
+                //package profile pict
+                CircularProfileAvatar(
+                  //code buat akses file di onTap
+                  onTap: () {},
+
+                  child: Image.asset('assets/Google.png'),
+                  borderColor: mediumGray,
+                  backgroundColor: lightGray,
+                  initialsText: Text('AD'),
+                  '',
                 ),
                 SizedBox(
                   height: 8,
                 ),
+
+                //username dari user
                 Text(
                   'Username',
                   style:
