@@ -9,7 +9,12 @@ class SearchPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
-      child: Text('search'),
+      backgroundColor: backgroundColor,
+      navigationBar: CupertinoNavigationBar(
+        padding: EdgeInsetsDirectional.only(bottom: 8),
+        middle: CupertinoSearchTextField(),
+      ),
+      child: Center(child: Text('search')),
     );
   }
 }
