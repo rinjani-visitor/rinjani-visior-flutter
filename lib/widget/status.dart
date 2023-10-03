@@ -1,19 +1,81 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:rinjani_visitor/theme/theme.dart';
 
+//enum untuk menentukan status dari widget agar sesuai warna dan teksnya
+enum StatusColor {
+  error,
+  offering,
+  success,
+  waiting,
+  review,
+  available
+  // Add more colors as needed
+}
+
 class Status extends StatelessWidget {
-const Status({ Key? key }) : super(key: key);
+  final StatusColor status;
+  const Status({
+    Key? key,
+    required this.status
+  }) : super(key: key);
 
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
+
+    //fungsi untuk menentukan warna pada widget status berdasarkan enum
+    Color getColor(StatusColor statusColor) {
+      switch (statusColor) {
+        case StatusColor.error:
+          return errorRed;
+        case StatusColor.offering:
+          return infoBlue;
+        case StatusColor.success:
+          return successGreen;
+        case StatusColor.waiting:
+          return warningYellow;
+        case StatusColor.review:
+          return statusBrown;
+        case StatusColor.available:
+          return infoBlue;
+        default:
+          return infoBlue;
+      }
+    }
+
+    //fungsi untuk menentukan teks pada status
+    String getStatus(StatusColor statusInfo) {
+      switch (statusInfo) {
+        case StatusColor.error:
+          return 'Declined';
+        case StatusColor.offering:
+          return 'Offering';
+        case StatusColor.success:
+          return 'Success';
+        case StatusColor.waiting:
+          return 'Waiting for payment';
+        case StatusColor.review:
+          return 'Reviewing';
+        case StatusColor.available:
+          return 'Available';
+        default:
+          return 'offering';
+      }
+    }
+
     return Container(
-        padding: EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(smallRadius), color: infoBlue),
-        child: Text(
-          'Available',
-          style: whiteTextStyle.copyWith(fontSize: 10, fontWeight: regular),
-        ),
-      );
+      padding: EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(smallRadius),
+
+          //ubah warna status berdasarkan kondisinya
+          color: getColor(status)),
+      child: Text(
+
+        //ubah teks pada status berdasarkan kondisinya
+        getStatus(status),
+        style: whiteTextStyle.copyWith(fontSize: 12, fontWeight: regular),
+      ),
+    );
   }
 }
