@@ -21,6 +21,7 @@ class BigCard extends StatelessWidget {
       );
     }
 
+    //widget buat informasi yang ada di card
     Widget information() {
       return Container(
         height: 113,
@@ -70,9 +71,11 @@ class BigCard extends StatelessWidget {
     }
 
     return GestureDetector(
+      //function buat ke halaman detail
       onTap: () {
         Navigator.pushNamed(context, '/detail-page');
       },
+      //
       child: Container(
           width: 357,
           height: 136,
