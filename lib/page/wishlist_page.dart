@@ -7,12 +7,15 @@ class WishlistPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
-        backgroundColor: backgroundColor,
-        child: CupertinoNavigationBar(
+        navigationBar: CupertinoNavigationBar(
           leading: Text(
             'Wishlist',
             style: blackTextStyle.copyWith(fontSize: 34, fontWeight: bold),
           ),
+        ),
+        backgroundColor: backgroundColor,
+        child: Center(
+          child: Text('No content'),
         ));
   }
 }
