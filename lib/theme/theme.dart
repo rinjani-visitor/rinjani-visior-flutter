@@ -15,6 +15,7 @@ Color successGreen = Color(0xff039855);
 Color warningYellow = Color(0xffDC6803);
 Color infoBlue = Color(0xff026AA2);
 Color errorRed = Color(0xffD92D20);
+Color statusBrown = Color(0xff934400);
 
 TextStyle whiteTextStyle = GoogleFonts.poppins(color: whiteColor);
 TextStyle redTextStyle = GoogleFonts.poppins(color: errorRed);
