@@ -30,7 +30,13 @@ class BigCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
-              children: [Status(), Spacer(), RatingWidget()],
+              children: [
+                Status(
+                  status: StatusColor.available,
+                ),
+                Spacer(),
+                RatingWidget()
+              ],
             ),
             Spacer(),
             Text(

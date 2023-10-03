@@ -34,7 +34,9 @@ class DetailPage extends StatelessWidget {
                       blackTextStyle.copyWith(fontSize: 24, fontWeight: bold),
                 ),
                 Spacer(),
-                Status()
+                Status(
+                  status: StatusColor.available,
+                )
               ],
             ),
             SizedBox(
@@ -129,7 +131,6 @@ class DetailPage extends StatelessWidget {
     //     ),
     //   );
     // }
-
 
     return CupertinoPageScaffold(
         navigationBar: CupertinoNavigationBar(

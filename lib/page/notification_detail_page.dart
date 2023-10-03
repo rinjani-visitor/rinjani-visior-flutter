@@ -37,7 +37,7 @@ class NotificationDetailPage extends StatelessWidget {
           ],
         ),
         const Spacer(),
-        Status()
+        Status(status: StatusColor.offering,)
       ],
     );
   }
