@@ -3,5 +3,6 @@ import 'package:rinjani_visitor/features/product_package/domain/package_model.da
 
 abstract class ProductRespository {
   Future<LocalState<List<PackageModel>>> getPackages();
-  Future<LocalState<PackageModel>> getPackage();
+  Future<LocalState<PackageModel>> getPackageDetail();
+  Future<LocalState<PackageModel>> bookPackage();
 }
