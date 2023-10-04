@@ -1,15 +1,14 @@
 import 'package:rinjani_visitor/core/datastate/local_state.dart';
 
 abstract class AuthRepository {
-  Stream<LocalState<String>> logIn(String email, String password);
-  Stream<LocalState<String>> register(
-      String email, String password, String password2);
+  Future<void> register(
+      {required String username,
+      required String email,
+      required String country,
+      required String phone,
+      required String password}) async {}
 
-  ////////
-  Future<LocalState<String>> logout();
-  ///////
-  Future<LocalState<String>> saveSession(String token);
-  Future<LocalState<String>> clearSession();
-  Future<LocalState<String>> checkSession();
-  Future<LocalState<String>> refreshSession();
+  Future<void> login({required String email, required String password}) async {}
+
+  Future<void> logout();
 }

@@ -7,8 +7,11 @@ part 'auth_model.g.dart';
 
 @freezed
 class AuthModel with _$AuthModel {
-  const factory AuthModel({required String name, required String description}) =
-      _AuthModel;
+  const factory AuthModel(
+      {required String userId,
+      required String username,
+      required String email,
+      String? token}) = _AuthModel;
   factory AuthModel.fromJson(Map<String, Object> json) =>
       _$AuthModelFromJson(json);
 }

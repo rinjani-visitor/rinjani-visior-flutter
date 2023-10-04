@@ -6,7 +6,6 @@ import 'package:rinjani_visitor/features/authentication/domain/auth_repository.d
 
 //TODO: this methods should return classModel, not data state
 class AuthRepositoryImpl implements AuthRepository {
-  // final String remoteSource;
   final AuthLocalSource localSource;
   final AuthRemoteSource remoteSource;
 
@@ -16,73 +15,58 @@ class AuthRepositoryImpl implements AuthRepository {
 
   AuthRepositoryImpl({required this.localSource, required this.remoteSource});
 
+//========================//
+
   @override
-  Future<LocalState<String>> saveSession(String token) async {
+  Future<void> logout() async {
+    await localSource.storage.delete(key: AuthLocalSource.TOKEN_KEY);
+  }
+
+  @override
+  Future<void> register(
+      {required String username,
+      required String email,
+      required String country,
+      required String phone,
+      required String password}) async {
+    if (username.isEmpty ||
+        email.isEmpty ||
+        country.isEmpty ||
+        phone.isEmpty ||
+        password.isEmpty) {
+      throw Exception("field must not be empty");
+    }
     try {
-      await localSource.setToken(token);
-      return LocalResult(token);
-    } on Exception catch (e) {
-      return LocalError(e);
+      final response = await remoteSource.register(
+          username: username,
+          country: country,
+          phone: phone,
+          email: email,
+          password: password);
+      final body = response.data;
+      if (body == null) {
+        throw Exception("Body is empty");
+      }
+    } on Exception catch (_) {
+      rethrow;
     }
   }
 
   @override
-  Future<LocalState<String>> clearSession() async {
-    try {
-      await localSource.setToken("");
-      return const LocalResult("");
-    } on Exception catch (e) {
-      return LocalError(e);
-    }
-  }
-
-  @override
-  Stream<LocalState<String>> register(
-      String email, String password, String password2) async* {
-    yield const LocalLoading();
-    try {
-      final data =
-          await remoteSource.register(email: email, password: password);
-      yield LocalResult(data);
-    } on Exception catch (e) {
-      yield LocalError(e);
-    }
-  }
-
-  @override
-  Stream<LocalState<String>> logIn(String email, String password) async* {
-    yield const LocalLoading();
+  Future<void> login({required String email, required String password}) async {
     if (email.isEmpty || password.isEmpty) {
-      yield LocalError(Exception("email / password not provided"));
-      return;
+      throw Exception("Email / password should not be null");
     }
     try {
-      final result = await remoteSource.logIn(email: email, password: password);
-      yield LocalResult(result);
-    } on Exception catch (e) {
-      yield LocalError(e);
+      final remoteResponse =
+          await remoteSource.logIn(email: email, password: password);
+      final token = remoteResponse.data?.token;
+      if (token == null) {
+        throw Exception("error");
+      }
+      await localSource.setToken(token);
+    } on Exception catch (_) {
+      rethrow;
     }
-  }
-
-  @override
-  Future<LocalState<String>> logout() async {
-    try {
-      await localSource.storage.delete(key: AuthLocalSource.TOKEN_KEY);
-      return const LocalResult("success");
-    } on Exception catch (e) {
-      return LocalError(e);
-    }
-  }
-
-  @override
-  Future<LocalState<String>> checkSession() async {
-    final token = await localSource.getToken();
-    return LocalResult(token);
-  }
-
-  @override
-  Future<LocalState<String>> refreshSession() {
-    // TODO: implement refreshSession
-    throw UnimplementedError();
   }
 }

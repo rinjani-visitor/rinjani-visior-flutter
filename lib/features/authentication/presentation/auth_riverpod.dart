@@ -15,18 +15,20 @@ class AuthRiverpod {
     return AuthRiverpod(ref.read(AuthRepositoryImpl.provider));
   });
 
-  Future<LocalState<String>> getToken() async {
-    final data = await repository.checkSession();
-    return data;
-  }
-
   Future<void> logIn(String email, String password) async {
     if (_isStreamAlreadyRunning) {
       return;
     }
+
     debugPrint("Login emitted");
     _isStreamAlreadyRunning = true;
-    await authState.addStream(repository.logIn(email, password));
+    try {
+      authState.add(const LocalLoading());
+      await repository.login(email: email, password: password);
+      authState.add(const LocalResult(""));
+    } on Exception catch (e) {
+      authState.add(LocalError(e));
+    }
     _isStreamAlreadyRunning = false;
   }
 
@@ -39,7 +41,25 @@ class AuthRiverpod {
     }
   }
 
-  Future<void> register(String email, String password, String password2) async {
-    authState.addStream(repository.register(email, password, password2));
+  Future<void> register(String username, String email, String country,
+      String phone, String password, String password2) async {
+    if (_isStreamAlreadyRunning) {
+      return;
+    }
+    _isStreamAlreadyRunning = true;
+
+    authState.add(const LocalLoading());
+    try {
+      await repository.register(
+          username: username,
+          email: email,
+          country: country,
+          phone: phone,
+          password: password);
+      authState.add(const LocalResult("done"));
+    } on Exception catch (e) {
+      authState.add(LocalError(e));
+    }
+    _isStreamAlreadyRunning = false;
   }
 }

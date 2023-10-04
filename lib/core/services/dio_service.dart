@@ -1,15 +1,25 @@
 import 'package:dio/dio.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+enum RequestType { post, get, delete, put }
 
 class DioService {
-  late Dio _client;
-  Dio get client => _client;
+  final _baseUrl = "https://rinjanispecapi-tpe6yyswta-as.a.run.app/api/v1";
+  late final Dio client;
 
   DioService() {
-    final dioOptions = BaseOptions(
-      baseUrl: "http://localhost",
-    );
-    _client = Dio(dioOptions);
+    client = _createDio();
   }
 
-  callApi({required String endpoint}) {}
+  Dio _createDio() {
+    final dio = Dio(BaseOptions(
+        baseUrl: _baseUrl,
+        receiveTimeout: const Duration(seconds: 10),
+        connectTimeout: const Duration(seconds: 10),
+        sendTimeout: const Duration(seconds: 10)));
+
+    return dio;
+  }
 }
+
+final dioServiceProvider = Provider((ref) => DioService());
