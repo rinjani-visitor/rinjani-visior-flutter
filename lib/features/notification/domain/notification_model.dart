@@ -7,7 +7,8 @@ part 'notification_model.g.dart';
 @freezed
 class NotificationModel with _$NotificationModel {
   const factory NotificationModel(
-      {required String title,
+      {required String notificationId,
+      required String title,
       required String description,
       required String orderBookingNo,
       required String orderDate,

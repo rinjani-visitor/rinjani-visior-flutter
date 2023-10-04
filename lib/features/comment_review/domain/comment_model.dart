@@ -8,6 +8,7 @@ part 'comment_model.g.dart';
 class CommentModel with _$CommentModel {
   const factory CommentModel(
       {required String user,
+      required String commentId,
       required String reviewScore,
       required String content}) = _CommentModel;
 

@@ -21,6 +21,7 @@ CommentModel _$CommentModelFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$CommentModel {
   String get user => throw _privateConstructorUsedError;
+  String get commentId => throw _privateConstructorUsedError;
   String get reviewScore => throw _privateConstructorUsedError;
   String get content => throw _privateConstructorUsedError;
 
@@ -36,7 +37,8 @@ abstract class $CommentModelCopyWith<$Res> {
           CommentModel value, $Res Function(CommentModel) then) =
       _$CommentModelCopyWithImpl<$Res, CommentModel>;
   @useResult
-  $Res call({String user, String reviewScore, String content});
+  $Res call(
+      {String user, String commentId, String reviewScore, String content});
 }
 
 /// @nodoc
@@ -53,6 +55,7 @@ class _$CommentModelCopyWithImpl<$Res, $Val extends CommentModel>
   @override
   $Res call({
     Object? user = null,
+    Object? commentId = null,
     Object? reviewScore = null,
     Object? content = null,
   }) {
@@ -60,6 +63,10 @@ class _$CommentModelCopyWithImpl<$Res, $Val extends CommentModel>
       user: null == user
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
+              as String,
+      commentId: null == commentId
+          ? _value.commentId
+          : commentId // ignore: cast_nullable_to_non_nullable
               as String,
       reviewScore: null == reviewScore
           ? _value.reviewScore
@@ -81,7 +88,8 @@ abstract class _$$_CommentModelCopyWith<$Res>
       __$$_CommentModelCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String user, String reviewScore, String content});
+  $Res call(
+      {String user, String commentId, String reviewScore, String content});
 }
 
 /// @nodoc
@@ -96,6 +104,7 @@ class __$$_CommentModelCopyWithImpl<$Res>
   @override
   $Res call({
     Object? user = null,
+    Object? commentId = null,
     Object? reviewScore = null,
     Object? content = null,
   }) {
@@ -103,6 +112,10 @@ class __$$_CommentModelCopyWithImpl<$Res>
       user: null == user
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
+              as String,
+      commentId: null == commentId
+          ? _value.commentId
+          : commentId // ignore: cast_nullable_to_non_nullable
               as String,
       reviewScore: null == reviewScore
           ? _value.reviewScore
@@ -120,7 +133,10 @@ class __$$_CommentModelCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_CommentModel with DiagnosticableTreeMixin implements _CommentModel {
   const _$_CommentModel(
-      {required this.user, required this.reviewScore, required this.content});
+      {required this.user,
+      required this.commentId,
+      required this.reviewScore,
+      required this.content});
 
   factory _$_CommentModel.fromJson(Map<String, dynamic> json) =>
       _$$_CommentModelFromJson(json);
@@ -128,13 +144,15 @@ class _$_CommentModel with DiagnosticableTreeMixin implements _CommentModel {
   @override
   final String user;
   @override
+  final String commentId;
+  @override
   final String reviewScore;
   @override
   final String content;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'CommentModel(user: $user, reviewScore: $reviewScore, content: $content)';
+    return 'CommentModel(user: $user, commentId: $commentId, reviewScore: $reviewScore, content: $content)';
   }
 
   @override
@@ -143,6 +161,7 @@ class _$_CommentModel with DiagnosticableTreeMixin implements _CommentModel {
     properties
       ..add(DiagnosticsProperty('type', 'CommentModel'))
       ..add(DiagnosticsProperty('user', user))
+      ..add(DiagnosticsProperty('commentId', commentId))
       ..add(DiagnosticsProperty('reviewScore', reviewScore))
       ..add(DiagnosticsProperty('content', content));
   }
@@ -153,6 +172,8 @@ class _$_CommentModel with DiagnosticableTreeMixin implements _CommentModel {
         (other.runtimeType == runtimeType &&
             other is _$_CommentModel &&
             (identical(other.user, user) || other.user == user) &&
+            (identical(other.commentId, commentId) ||
+                other.commentId == commentId) &&
             (identical(other.reviewScore, reviewScore) ||
                 other.reviewScore == reviewScore) &&
             (identical(other.content, content) || other.content == content));
@@ -160,7 +181,8 @@ class _$_CommentModel with DiagnosticableTreeMixin implements _CommentModel {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, user, reviewScore, content);
+  int get hashCode =>
+      Object.hash(runtimeType, user, commentId, reviewScore, content);
 
   @JsonKey(ignore: true)
   @override
@@ -179,6 +201,7 @@ class _$_CommentModel with DiagnosticableTreeMixin implements _CommentModel {
 abstract class _CommentModel implements CommentModel {
   const factory _CommentModel(
       {required final String user,
+      required final String commentId,
       required final String reviewScore,
       required final String content}) = _$_CommentModel;
 
@@ -187,6 +210,8 @@ abstract class _CommentModel implements CommentModel {
 
   @override
   String get user;
+  @override
+  String get commentId;
   @override
   String get reviewScore;
   @override
