@@ -29,7 +29,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
   @override
   void initState() {
     super.initState();
-    ref.read(AuthRiverpod.provider).authState.stream.listen((event) {
+    ref.read(AuthController.provider).authState.stream.listen((event) {
       debugPrint(
           "${toStringShort()} - stream test with value ${event.toString()}");
       if (event is LocalResult) {
@@ -49,7 +49,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
   void _submitForm() async {
     final email = emailTxtController.text;
     final pass = passwordTxtController.text;
-    await ref.read(AuthRiverpod.provider).logIn(email, pass);
+    await ref.read(AuthController.provider).logIn(email, pass);
   }
 
   @override

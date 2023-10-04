@@ -16,7 +16,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
   void initState() {
     super.initState();
 
-    ref.read(AuthRiverpod.provider).getToken().then((value) {
+    ref.read(AuthController.provider).getToken().then((value) {
       if (value is LocalResult && value.data != null) {
         debugPrint("value $value");
         Navigator.pushReplacementNamed(context, '/login-page');

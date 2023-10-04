@@ -5,15 +5,19 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rinjani_visitor/core/datastate/local_state.dart';
 import 'package:rinjani_visitor/features/authentication/data/auth_repsitory_impl.dart';
 
-class AuthRiverpod {
+class AuthController {
   StreamController<LocalState<String>> authState = StreamController();
   final AuthRepositoryImpl repository;
   bool _isStreamAlreadyRunning = false;
-  AuthRiverpod(this.repository);
+  AuthController(this.repository);
 
-  static final provider = Provider<AuthRiverpod>((ref) {
-    return AuthRiverpod(ref.read(AuthRepositoryImpl.provider));
+  static final provider = Provider<AuthController>((ref) {
+    return AuthController(ref.read(AuthRepositoryImpl.provider));
   });
+  Future<LocalState<String>> getToken() async {
+    await Future.delayed(const Duration(seconds: 2));
+    return const LocalResult("data");
+  }
 
   Future<void> logIn(String email, String password) async {
     if (_isStreamAlreadyRunning) {
