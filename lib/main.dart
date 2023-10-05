@@ -1,14 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:rinjani_visitor/page/home_page.dart';
+import 'package:rinjani_visitor/page/category_explore_page.dart';
+import 'package:rinjani_visitor/page/detail_page.dart';
+import 'package:rinjani_visitor/page/event_detail.dart';
 import 'package:rinjani_visitor/page/login_page.dart';
 import 'package:rinjani_visitor/page/main_page.dart';
+import 'package:rinjani_visitor/page/notification_page.dart';
 import 'package:rinjani_visitor/page/register_page.dart';
+import 'package:rinjani_visitor/page/search_page.dart';
 import 'package:rinjani_visitor/page/splash_screen.dart';
 
 void main() {
@@ -30,12 +33,16 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CupertinoApp(
-      theme: CupertinoThemeData(brightness: Brightness.light),
+      theme: const CupertinoThemeData(brightness: Brightness.light),
       routes: {
         '/': (context) => const SplashScreen(),
         '/login-page': (context) => const LoginPage(),
         '/sign-up': (context) => const RegisterPage(),
-        '/home-page': (context) => const HomePage()
+        '/home-page': (context) => const MainPage(),
+        '/search-page': (context) => const SearchPage(),
+        '/event-detail-page': (context) => const EventDetail(),
+        '/detail-page': (context) => const DetailPage(),
+        '/notification-page': (context) => const NotificationPage(),
       },
     );
   }

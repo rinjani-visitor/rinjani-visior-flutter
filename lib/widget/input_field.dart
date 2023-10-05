@@ -4,8 +4,15 @@ import 'package:rinjani_visitor/theme/theme.dart';
 
 class InputField extends StatelessWidget {
   final String label;
+  final String? placeholder;
+  final TextEditingController? controller;
   final bool secureText;
-  const InputField({Key? key, required this.label, required this.secureText})
+  const InputField(
+      {Key? key,
+      required this.label,
+      required this.secureText,
+      this.placeholder,
+      this.controller})
       : super(key: key);
 
   @override
@@ -20,14 +27,17 @@ class InputField extends StatelessWidget {
         const SizedBox(
           height: 4,
         ),
-        CupertinoTextField(
-          padding: EdgeInsets.symmetric(vertical: 14, horizontal: 16),
+        Container(
           decoration: BoxDecoration(
               color: mediumGray,
               borderRadius: BorderRadius.circular(smallRadius),
               border: Border.all(color: lightGray)),
-          placeholder: 'your@email.com',
-          obscureText: secureText,
+          child: CupertinoTextFormFieldRow(
+            autovalidateMode: AutovalidateMode.onUserInteraction,
+            controller: controller,
+            placeholder: placeholder,
+            obscureText: secureText,
+          ),
         )
       ],
     );
