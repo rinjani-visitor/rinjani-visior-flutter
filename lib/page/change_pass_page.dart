@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rinjani_visitor/theme/theme.dart';
+import 'package:rinjani_visitor/widget/input_field.dart';
 
 class ChangePassPage extends StatelessWidget {
   const ChangePassPage({Key? key}) : super(key: key);
@@ -16,7 +17,7 @@ class ChangePassPage extends StatelessWidget {
           child: Container(
             margin: EdgeInsets.all(16),
             padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-            height: 160,
+            height: 200,
             decoration: BoxDecoration(
                 color: whiteColor,
                 borderRadius: BorderRadius.circular(smallRadius)),
@@ -27,11 +28,8 @@ class ChangePassPage extends StatelessWidget {
                 ),
                 Spacer(),
                 Container(
-                  width: double.infinity,
-                  child: CupertinoTextField(
-                    placeholder: 'email',
-                  ),
-                ),
+                    width: double.infinity,
+                    child: InputField(label: 'Email', secureText: false)),
                 Spacer(),
                 TextButton(
                     onPressed: () {
