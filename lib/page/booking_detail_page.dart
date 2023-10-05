@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rinjani_visitor/theme/theme.dart';
+import 'package:rinjani_visitor/widget/input_field.dart';
 
 class BookingDetailPage extends StatelessWidget {
   const BookingDetailPage({Key? key}) : super(key: key);
@@ -114,10 +115,58 @@ class BookingDetailPage extends StatelessWidget {
     );
   }
 
+  Widget addOn() {
+    return Container(
+      padding: EdgeInsets.all(16),
+      color: whiteColor,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Your add on',
+            style: blackTextStyle.copyWith(fontSize: 20),
+          ),
+          CupertinoListTile(
+              padding: EdgeInsets.all(0),
+              leading: Icon(
+                Icons.time_to_leave,
+                color: blackColor,
+              ),
+              title: Text(
+                '+Rp.200.000',
+                style: greenTextStyle,
+              ))
+        ],
+      ),
+    );
+  }
+
   Widget payment() {
     return Container(
-      height: 190,
+      height: 180,
       color: whiteColor,
+      padding: EdgeInsets.all(16),
+      child: Column(
+        children: [
+          InputField(
+            label: 'Enter your price offer',
+            secureText: false,
+            placeholder: 'Price should be in range',
+          ),
+          CupertinoButton(
+              child: Container(
+                  height: 43,
+                  decoration: BoxDecoration(
+                      color: primaryColor,
+                      borderRadius: BorderRadius.circular(smallRadius)),
+                  child: Center(
+                      child: Text(
+                    'Make an offer',
+                    style: whiteTextStyle.copyWith(fontWeight: medium),
+                  ))),
+              onPressed: () {})
+        ],
+      ),
     );
   }
 
@@ -136,6 +185,10 @@ class BookingDetailPage extends StatelessWidget {
                 height: 8,
               ),
               tripDetail(),
+              SizedBox(
+                height: 8,
+              ),
+              addOn(),
               SizedBox(
                 height: 8,
               ),
