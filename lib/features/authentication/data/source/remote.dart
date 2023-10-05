@@ -8,7 +8,7 @@ import 'package:rinjani_visitor/core/services/dio_service.dart';
 import 'package:rinjani_visitor/features/authentication/domain/auth_model.dart';
 
 class AuthRemoteSource {
-  final DioService dioService;
+  final Dio dioService;
 
   AuthRemoteSource(this.dioService);
   static final provider = Provider((ref) {
@@ -30,12 +30,10 @@ class AuthRemoteSource {
         "email": email,
         "password": password,
       };
-      return const RemoteResult(
-          AuthModel(userId: "userId", username: "username", email: "email"));
-
-      debugPrint("get");
-      final response = await dioService.client.post("/login", data: body);
+      debugPrint("login post");
+      Response response = await dioService.post("/login", data: body);
       final result = AuthModel.fromJson(response.data);
+      debugPrint("login with new data: ${result.toString()}");
       return RemoteResult(result);
     } catch (e) {
       if (e is DioException) {
@@ -61,7 +59,7 @@ class AuthRemoteSource {
         "password": password,
       };
       debugPrint("get");
-      final response = await dioService.client.post("/register", data: body);
+      final response = await dioService.post("/register", data: body);
       final result = AuthModel.fromJson(response.data);
       return RemoteResult(result);
     } catch (e) {

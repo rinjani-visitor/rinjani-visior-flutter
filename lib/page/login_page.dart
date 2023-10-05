@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -36,8 +37,15 @@ class _LoginPageState extends ConsumerState<LoginPage> {
         _toHome();
       }
       if (event is LocalError) {
-        Fluttertoast.showToast(
-            msg: "Error occured: ${event.error?.toString()}");
+        final err = event.error;
+        if (err is DioException) {
+          Fluttertoast.showToast(
+              toastLength: Toast.LENGTH_LONG, msg: "Error: ${err.message}");
+        } else {
+          Fluttertoast.showToast(
+              toastLength: Toast.LENGTH_LONG,
+              msg: "Error occured: ${err.toString()}");
+        }
       }
     });
   }

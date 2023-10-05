@@ -1,8 +1,11 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rinjani_visitor/core/datastate/local_state.dart';
+import 'package:rinjani_visitor/core/datastate/remote_state.dart';
 import 'package:rinjani_visitor/features/authentication/data/source/local.dart';
 import 'package:rinjani_visitor/features/authentication/data/source/remote.dart';
+import 'package:rinjani_visitor/features/authentication/domain/auth_model.dart';
 import 'package:rinjani_visitor/features/authentication/domain/auth_repository.dart';
 
 //TODO: this methods should return classModel, not data state
@@ -54,18 +57,28 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Future<void> login({required String email, required String password}) async {
+  Future<LocalState<AuthModel>> login(
+      {required String email, required String password}) async {
+    // validation
     if (email.isEmpty || password.isEmpty) {
-      throw Exception("Email / password should not be null");
+      final exception = Exception("Email / password should not be null");
+      return LocalError(exception);
     }
     try {
       final remoteResponse =
           await remoteSource.logIn(email: email, password: password);
+      debugPrint(
+          "Repository: new data from remote: ${remoteResponse.data?.toString()}");
+      if (remoteResponse is RemoteError && remoteResponse.error != null) {
+        final exception = remoteResponse.error!;
+        throw exception;
+      }
       final token = remoteResponse.data?.token;
       if (token == null) {
-        throw Exception("error");
+        return LocalError(Exception("login failed"));
       }
       await localSource.setToken(token);
+      return LocalResult(remoteResponse.data!);
     } on DioException catch (_) {
       throw Exception("server error");
     } on Exception catch (_) {

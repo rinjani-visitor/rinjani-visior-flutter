@@ -32,7 +32,7 @@ class AuthController {
       authState.add(const LocalResult(""));
     } on Exception catch (e) {
       //TODO: workaround for avoid login error
-      authState.add(LocalResult(""));
+      authState.add(LocalError(e));
     }
     _isStreamAlreadyRunning = false;
   }
