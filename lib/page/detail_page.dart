@@ -14,7 +14,9 @@ class DetailPage extends StatelessWidget {
     return Container(
       width: double.infinity,
       height: 241,
-      decoration: BoxDecoration(color: primaryColor),
+      decoration: BoxDecoration(
+          image: DecorationImage(
+              fit: BoxFit.fill, image: AssetImage('assets/rinjani.jpeg'))),
     );
   }
 
@@ -91,50 +93,9 @@ class DetailPage extends StatelessWidget {
       );
     }
 
-    // Widget customButton() {
-    //   return Container(
-    //     width: double.infinity,
-    //     height: 63,
-    //     padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-    //     color: whiteColor,
-    //     child: Container(
-    //       width: 358,
-    //       height: 43,
-    //       decoration: BoxDecoration(
-    //           color: primaryColor,
-    //           borderRadius: BorderRadius.circular(smallRadius)),
-    //       child: Center(
-    //           child: TextButton(
-    //               style: ButtonStyle(
-    //                   backgroundColor: MaterialStatePropertyAll(primaryColor),
-    //                   fixedSize: MaterialStatePropertyAll(Size.fromWidth(357))),
-    //               onPressed: () {
-    //                 showModalBottomSheet(
-    //                     context: context,
-    //                     builder: (BuildContext context) {
-    //                       return SizedBox(
-    //                         height: 400,
-    //                         child: Center(
-    //                           child: ElevatedButton(
-    //                               onPressed: () {
-    //                                 Navigator.pop(context);
-    //                               },
-    //                               child: Text('close')),
-    //                         ),
-    //                       );
-    //                     });
-    //               },
-    //               child: Text(
-    //                 'Continue',
-    //                 style: whiteTextStyle.copyWith(fontSize: 16),
-    //               ))),
-    //     ),
-    //   );
-    // }
-
     return CupertinoPageScaffold(
         navigationBar: CupertinoNavigationBar(
-          middle: Text('detail trip'),
+          middle: Text('Detail Trip'),
         ),
         child: SafeArea(
           child: ListView(

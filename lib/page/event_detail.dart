@@ -4,8 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rinjani_visitor/theme/theme.dart';
 import 'package:rinjani_visitor/widget/big_card.dart';
-import 'package:rinjani_visitor/widget/rating_widget.dart';
-import 'package:rinjani_visitor/widget/status.dart';
 
 class EventDetail extends StatelessWidget {
   const EventDetail({Key? key}) : super(key: key);
@@ -13,7 +11,9 @@ class EventDetail extends StatelessWidget {
     return Container(
       width: double.infinity,
       height: 241,
-      decoration: BoxDecoration(color: primaryColor),
+      decoration: BoxDecoration(
+          image: DecorationImage(
+              fit: BoxFit.fill, image: AssetImage('assets/event.jpeg'))),
     );
   }
 

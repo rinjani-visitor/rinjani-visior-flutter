@@ -19,7 +19,9 @@ class BookingDetailPage extends StatelessWidget {
             height: 125,
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(smallRadius),
-                color: primaryColor),
+                image: DecorationImage(
+                    fit: BoxFit.fill,
+                    image: AssetImage('assets/rinjani.jpeg'))),
           ),
           Spacer(),
           Column(
