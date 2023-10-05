@@ -36,7 +36,7 @@ class AccountPage extends StatelessWidget {
     );
   }
 
-  Widget information() {
+  Widget information(BuildContext context) {
     return Container(
       width: double.infinity,
       height: 138,
@@ -51,6 +51,9 @@ class AccountPage extends StatelessWidget {
           Column(
             children: [
               CupertinoListTile(
+                onTap: () {
+                  Navigator.pushNamed(context, '/personal-info-page');
+                },
                 padding: EdgeInsets.all(0),
                 leading: Icon(
                   Icons.person,
@@ -67,6 +70,9 @@ class AccountPage extends StatelessWidget {
                 color: blackColor,
               ),
               CupertinoListTile(
+                onTap: () {
+                  Navigator.pushNamed(context, '/user-setting-page');
+                },
                 padding: EdgeInsets.all(0),
                 leading: Icon(
                   Icons.settings,
@@ -101,7 +107,7 @@ class AccountPage extends StatelessWidget {
           height: 314,
           margin: EdgeInsets.symmetric(vertical: 16, horizontal: 16),
           child: Column(
-            children: [userProfile(), information()],
+            children: [userProfile(), information(context)],
           ),
         )));
   }

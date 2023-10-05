@@ -14,7 +14,8 @@ class BigCard extends StatelessWidget {
         width: 108,
         height: 136,
         decoration: BoxDecoration(
-            color: primaryColor,
+            image: DecorationImage(
+                fit: BoxFit.fill, image: AssetImage('assets/rinjani.jpeg')),
             borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(bigRadius),
                 bottomLeft: Radius.circular(bigRadius))),
@@ -53,22 +54,6 @@ class BigCard extends StatelessWidget {
                       blackTextStyle.copyWith(fontWeight: medium, fontSize: 14),
                 ),
                 Spacer(),
-                TextButton(
-                    onPressed: () {},
-                    child: Container(
-                      width: 69,
-                      height: 23,
-                      decoration: BoxDecoration(
-                          color: primaryColor,
-                          borderRadius: BorderRadius.circular(smallRadius)),
-                      child: Center(
-                        child: Text(
-                          "Booking",
-                          style: whiteTextStyle.copyWith(
-                              fontSize: 12, fontWeight: semibold),
-                        ),
-                      ),
-                    ))
               ],
             )
           ],

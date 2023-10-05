@@ -5,14 +5,18 @@ import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rinjani_visitor/page/category_explore_page.dart';
+import 'package:rinjani_visitor/page/change_email_page.dart';
+import 'package:rinjani_visitor/page/change_pass_page.dart';
 import 'package:rinjani_visitor/page/detail_page.dart';
 import 'package:rinjani_visitor/page/event_detail.dart';
 import 'package:rinjani_visitor/page/login_page.dart';
 import 'package:rinjani_visitor/page/main_page.dart';
 import 'package:rinjani_visitor/page/notification_page.dart';
+import 'package:rinjani_visitor/page/personal_info_page.dart';
 import 'package:rinjani_visitor/page/register_page.dart';
 import 'package:rinjani_visitor/page/search_page.dart';
 import 'package:rinjani_visitor/page/splash_screen.dart';
+import 'package:rinjani_visitor/page/user_setting_page.dart';
 
 void main() {
   // Force google font to use offline fonts instead of re-downloading again
@@ -43,6 +47,10 @@ class MyApp extends StatelessWidget {
         '/event-detail-page': (context) => const EventDetail(),
         '/detail-page': (context) => const DetailPage(),
         '/notification-page': (context) => const NotificationPage(),
+        '/personal-info-page': (context) => const PersonalInfoPage(),
+        '/user-setting-page': (context) => const UserSettingPage(),
+        '/change-pass-page': (context) => const ChangePassPage(),
+        '/change-email-page': (context) => const ChangeEmailPage(),
       },
     );
   }

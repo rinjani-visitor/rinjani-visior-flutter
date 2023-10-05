@@ -12,7 +12,9 @@ class EventCard extends StatelessWidget {
         width: double.infinity,
         height: 181,
         decoration: BoxDecoration(
-            color: primaryColor, borderRadius: BorderRadius.circular(8)),
+            image: DecorationImage(
+                fit: BoxFit.fill, image: AssetImage('assets/event.jpeg')),
+            borderRadius: BorderRadius.circular(8)),
       );
     }
 

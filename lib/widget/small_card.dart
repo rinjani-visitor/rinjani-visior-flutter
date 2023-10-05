@@ -13,19 +13,19 @@ class SmallCard extends StatelessWidget {
       },
       child: Container(
         width: 177,
-        height: 218,
+        height: 250,
         margin: EdgeInsets.only(left: 16),
-        padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+        padding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
         decoration: BoxDecoration(
             color: whiteColor, borderRadius: BorderRadius.circular(18)),
         child: Column(
           children: [
             Container(
-              width: double.infinity,
-              height: 84,
+              height: 165,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(smallRadius),
-                color: primaryColor,
+                image: DecorationImage(
+                    fit: BoxFit.fill, image: AssetImage('assets/rinjani.jpeg')),
               ),
             ),
             SizedBox(
@@ -48,21 +48,6 @@ class SmallCard extends StatelessWidget {
                   SizedBox(
                     height: 8,
                   ),
-                  TextButton(
-                      onPressed: () {},
-                      child: Container(
-                        width: 80,
-                        height: 30,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(smallRadius),
-                            color: primaryColor),
-                        child: Center(
-                            child: Text(
-                          'Booking',
-                          style: whiteTextStyle.copyWith(
-                              fontSize: 12, fontWeight: semibold),
-                        )),
-                      ))
                 ],
               ),
             )
