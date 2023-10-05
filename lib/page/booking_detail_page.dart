@@ -50,7 +50,6 @@ class BookingDetailPage extends StatelessWidget {
   Widget tripDetail() {
     return Container(
       padding: EdgeInsets.all(16),
-      height: 162,
       color: whiteColor,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -68,46 +67,51 @@ class BookingDetailPage extends StatelessWidget {
               Text(
                 'Date',
                 style:
-                    blackTextStyle.copyWith(fontSize: 16, fontWeight: semibold),
+                    blackTextStyle.copyWith(fontSize: 16, fontWeight: medium),
               ),
               SizedBox(
-                height: 8,
+                height: 4,
               ),
-              Row(
-                children: [
-                  Icon(
+              CupertinoListTile(
+                  leadingToTitle: 4,
+                  padding: EdgeInsets.all(0),
+                  leading: Icon(
                     Icons.calendar_month,
                     color: blackColor,
                   ),
-                  SizedBox(
-                    width: 6,
-                  ),
-                  Text(
-                    '20 - 08 - 2023',
-                    style: blackTextStyle.copyWith(
-                        fontSize: 14, fontWeight: medium),
-                  )
-                ],
+                  title: Text('20 - 08 - 23')),
+              Text(
+                'Arrival',
+                style:
+                    blackTextStyle.copyWith(fontSize: 16, fontWeight: medium),
               ),
               SizedBox(
-                height: 6,
+                height: 4,
               ),
-              Row(
-                children: [
-                  Icon(
+              CupertinoListTile(
+                  leadingToTitle: 4,
+                  padding: EdgeInsets.all(0),
+                  leading: Icon(
                     Icons.access_time,
                     color: blackColor,
                   ),
-                  SizedBox(
-                    width: 6,
-                  ),
-                  Text(
-                    '09:00 AM',
-                    style: blackTextStyle.copyWith(
-                        fontSize: 14, fontWeight: medium),
-                  )
-                ],
+                  title: Text('09:00 AM')),
+              Text(
+                'Person',
+                style:
+                    blackTextStyle.copyWith(fontSize: 16, fontWeight: medium),
               ),
+              SizedBox(
+                height: 4,
+              ),
+              CupertinoListTile(
+                  leadingToTitle: 4,
+                  padding: EdgeInsets.all(0),
+                  leading: Icon(
+                    Icons.person,
+                    color: blackColor,
+                  ),
+                  title: Text('2 person')),
             ],
           )
         ],
