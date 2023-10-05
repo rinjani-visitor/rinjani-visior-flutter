@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rinjani_visitor/core/datastate/local_state.dart';
 import 'package:rinjani_visitor/features/authentication/data/source/local.dart';
@@ -65,6 +66,8 @@ class AuthRepositoryImpl implements AuthRepository {
         throw Exception("error");
       }
       await localSource.setToken(token);
+    } on DioException catch (_) {
+      throw Exception("server error");
     } on Exception catch (_) {
       rethrow;
     }

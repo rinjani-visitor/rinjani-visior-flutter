@@ -14,10 +14,12 @@ class DioService {
   Dio _createDio() {
     final dio = Dio(BaseOptions(
         baseUrl: _baseUrl,
-        receiveTimeout: const Duration(seconds: 10),
-        connectTimeout: const Duration(seconds: 10),
-        sendTimeout: const Duration(seconds: 10)));
-
+        receiveTimeout: const Duration(seconds: 5),
+        connectTimeout: const Duration(seconds: 5),
+        sendTimeout: const Duration(seconds: 5)));
+    dio.interceptors.add(InterceptorsWrapper(onError: (error, handler) {
+      handler.reject(error);
+    }));
     return dio;
   }
 }

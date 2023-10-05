@@ -1,6 +1,7 @@
 import 'dart:isolate';
 
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rinjani_visitor/core/datastate/remote_state.dart';
 import 'package:rinjani_visitor/core/services/dio_service.dart';
@@ -29,11 +30,19 @@ class AuthRemoteSource {
         "email": email,
         "password": password,
       };
+      return const RemoteResult(
+          AuthModel(userId: "userId", username: "username", email: "email"));
+
+      debugPrint("get");
       final response = await dioService.client.post("/login", data: body);
       final result = AuthModel.fromJson(response.data);
       return RemoteResult(result);
-    } on DioException catch (e) {
-      return RemoteError(e);
+    } catch (e) {
+      if (e is DioException) {
+        return RemoteError(e);
+      }
+      return RemoteError(DioException.connectionTimeout(
+          timeout: Duration(seconds: 5), requestOptions: RequestOptions()));
     }
   }
 
@@ -51,11 +60,17 @@ class AuthRemoteSource {
         "phone": phone,
         "password": password,
       };
+      debugPrint("get");
       final response = await dioService.client.post("/register", data: body);
       final result = AuthModel.fromJson(response.data);
       return RemoteResult(result);
-    } on DioException catch (e) {
-      return RemoteError(e);
+    } catch (e) {
+      if (e is DioException) {
+        return RemoteError(e);
+      }
+      return RemoteError(DioException.connectionTimeout(
+          timeout: const Duration(seconds: 5),
+          requestOptions: RequestOptions()));
     }
   }
 }
