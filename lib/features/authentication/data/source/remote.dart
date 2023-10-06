@@ -4,8 +4,8 @@ import 'package:retrofit/http.dart';
 import 'package:rinjani_visitor/core/constant/network.dart';
 
 import 'package:rinjani_visitor/features/authentication/domain/auth_model.dart';
-import 'package:rinjani_visitor/features/authentication/domain/data/login_request.dart';
-import 'package:rinjani_visitor/features/authentication/domain/data/register_request.dart';
+import 'package:rinjani_visitor/features/authentication/domain/data/remote/login_request.dart';
+import 'package:rinjani_visitor/features/authentication/domain/data/remote/register_request.dart';
 
 part 'remote.g.dart';
 

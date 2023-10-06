@@ -1,6 +1,3 @@
-import 'package:rinjani_visitor/core/datastate/local_state.dart';
-import 'package:rinjani_visitor/features/authentication/domain/auth_model.dart';
-
 abstract class AuthRepository {
   Future<void> register(
       {required String username,
@@ -9,7 +6,7 @@ abstract class AuthRepository {
       required String phone,
       required String password}) async {}
 
-  Future<void> login({required String email, required String password});
+  Future<void> logIn({required String email, required String password}) async {}
 
   Future<void> logout();
 }

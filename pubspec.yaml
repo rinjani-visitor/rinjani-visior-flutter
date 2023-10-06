@@ -51,6 +51,7 @@ dependencies:
   fluttertoast: ^8.2.2
   circular_profile_avatar: ^2.0.5
   retrofit: ^4.0.2
+  logger: ^2.0.2+1
 
 dev_dependencies:
   flutter_test:
