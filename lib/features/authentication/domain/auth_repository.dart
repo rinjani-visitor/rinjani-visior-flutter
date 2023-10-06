@@ -9,8 +9,7 @@ abstract class AuthRepository {
       required String phone,
       required String password}) async {}
 
-  Future<LocalState<AuthModel>> login(
-      {required String email, required String password});
+  Future<void> login({required String email, required String password});
 
   Future<void> logout();
 }

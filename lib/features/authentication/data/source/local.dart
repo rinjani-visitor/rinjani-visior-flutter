@@ -19,4 +19,8 @@ class AuthLocalSource {
   Future<String> getToken() async {
     return await storage.read(key: AuthLocalSource.TOKEN_KEY) ?? "";
   }
+
+  Future<void> removeToken() async {
+    await storage.delete(key: AuthLocalSource.TOKEN_KEY);
+  }
 }

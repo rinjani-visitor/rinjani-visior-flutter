@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rinjani_visitor/core/datastate/local_state.dart';
 import 'package:rinjani_visitor/core/datastate/remote_state.dart';
+import 'package:rinjani_visitor/core/services/dio_service.dart';
 import 'package:rinjani_visitor/features/authentication/data/source/local.dart';
 import 'package:rinjani_visitor/features/authentication/data/source/remote.dart';
 import 'package:rinjani_visitor/features/authentication/domain/auth_model.dart';
@@ -15,7 +16,7 @@ class AuthRepositoryImpl implements AuthRepository {
 
   static final provider = Provider((ref) => AuthRepositoryImpl(
       localSource: ref.read(AuthLocalSource.provider),
-      remoteSource: ref.read(AuthRemoteSource.provider)));
+      remoteSource: AuthRemoteSource(dioServiceProvider)));
 
   AuthRepositoryImpl({required this.localSource, required this.remoteSource});
 
@@ -23,7 +24,7 @@ class AuthRepositoryImpl implements AuthRepository {
 
   @override
   Future<void> logout() async {
-    await localSource.storage.delete(key: AuthLocalSource.TOKEN_KEY);
+    await localSource.removeToken();
   }
 
   @override
@@ -47,38 +48,29 @@ class AuthRepositoryImpl implements AuthRepository {
           phone: phone,
           email: email,
           password: password);
-      final body = response.data;
-      if (body == null) {
-        throw Exception("Body is empty");
-      }
     } on Exception catch (_) {
       rethrow;
     }
   }
 
   @override
-  Future<LocalState<AuthModel>> login(
-      {required String email, required String password}) async {
+  Future<void> login({required String email, required String password}) async {
     // validation
     if (email.isEmpty || password.isEmpty) {
       final exception = Exception("Email / password should not be null");
-      return LocalError(exception);
+      throw exception;
     }
     try {
       final remoteResponse =
           await remoteSource.logIn(email: email, password: password);
       debugPrint(
-          "Repository: new data from remote: ${remoteResponse.data?.toString()}");
-      if (remoteResponse is RemoteError && remoteResponse.error != null) {
-        final exception = remoteResponse.error!;
-        throw exception;
-      }
-      final token = remoteResponse.data?.token;
+          "Repository: new data from remote: ${remoteResponse.toString()}");
+
+      final token = remoteResponse.token;
       if (token == null) {
-        return LocalError(Exception("login failed"));
+        throw Exception("login failed");
       }
       await localSource.setToken(token);
-      return LocalResult(remoteResponse.data!);
     } on DioException catch (_) {
       throw Exception("server error");
     } on Exception catch (_) {

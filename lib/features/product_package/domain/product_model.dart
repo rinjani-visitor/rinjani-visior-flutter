@@ -1,7 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'package_model.g.dart';
-part 'package_model.freezed.dart';
+part 'product_model.g.dart';
+part 'product_model.freezed.dart';
 
 @freezed
 class PackageModel with _$PackageModel {
