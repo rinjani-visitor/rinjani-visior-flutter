@@ -8,12 +8,11 @@ part of 'remote.dart';
 
 // ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers
 
-class _AuthRemoteSource extends AuthRemoteSource {
+class _AuthRemoteSource implements AuthRemoteSource {
   _AuthRemoteSource(
-    this._dio,
-    Dio dioService, {
+    this._dio, {
     this.baseUrl,
-  }) : super(dioService) {
+  }) {
     baseUrl ??= 'https://rinjanispecapi-tpe6yyswta-as.a.run.app/api/v1';
   }
 

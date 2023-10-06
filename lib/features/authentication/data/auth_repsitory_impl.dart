@@ -8,6 +8,8 @@ import 'package:rinjani_visitor/features/authentication/data/source/local.dart';
 import 'package:rinjani_visitor/features/authentication/data/source/remote.dart';
 import 'package:rinjani_visitor/features/authentication/domain/auth_model.dart';
 import 'package:rinjani_visitor/features/authentication/domain/auth_repository.dart';
+import 'package:rinjani_visitor/features/authentication/domain/data/login_request.dart';
+import 'package:rinjani_visitor/features/authentication/domain/data/register_request.dart';
 
 //TODO: this methods should return classModel, not data state
 class AuthRepositoryImpl implements AuthRepository {
@@ -16,7 +18,7 @@ class AuthRepositoryImpl implements AuthRepository {
 
   static final provider = Provider((ref) => AuthRepositoryImpl(
       localSource: ref.read(AuthLocalSource.provider),
-      remoteSource: AuthRemoteSource(dioServiceProvider)));
+      remoteSource: AuthRemoteSource(ref.read(dioServiceProvider))));
 
   AuthRepositoryImpl({required this.localSource, required this.remoteSource});
 
@@ -42,12 +44,8 @@ class AuthRepositoryImpl implements AuthRepository {
       throw Exception("field must not be empty");
     }
     try {
-      final response = await remoteSource.register(
-          username: username,
-          country: country,
-          phone: phone,
-          email: email,
-          password: password);
+      final response = await remoteSource
+          .register(const RegisterRequest(name: "name", email: "email"));
     } on Exception catch (_) {
       rethrow;
     }
@@ -62,7 +60,7 @@ class AuthRepositoryImpl implements AuthRepository {
     }
     try {
       final remoteResponse =
-          await remoteSource.logIn(email: email, password: password);
+          await remoteSource.logIn(const LoginRequest(name: "", email: ""));
       debugPrint(
           "Repository: new data from remote: ${remoteResponse.toString()}");
 

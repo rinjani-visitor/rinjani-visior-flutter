@@ -12,6 +12,6 @@ class AuthModel with _$AuthModel {
       required String username,
       required String email,
       String? token}) = _AuthModel;
-  factory AuthModel.fromJson(Map<String, Object> json) =>
+  factory AuthModel.fromJson(Map<String, dynamic> json) =>
       _$AuthModelFromJson(json);
 }

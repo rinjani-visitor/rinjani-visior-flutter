@@ -8,6 +8,6 @@ class RegisterRequest with _$RegisterRequest {
   const factory RegisterRequest({required String name, required String email}) =
       _RegisterRequest;
 
-  factory RegisterRequest.fromJson(Map<String, Object?> json) =>
+  factory RegisterRequest.fromJson(Map<String, dynamic> json) =>
       _$RegisterRequestFromJson(json);
 }

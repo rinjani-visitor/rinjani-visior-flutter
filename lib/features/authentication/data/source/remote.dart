@@ -1,5 +1,3 @@
-import 'dart:isolate';
-
 import 'package:dio/dio.dart';
 
 import 'package:retrofit/http.dart';
@@ -13,9 +11,7 @@ part 'remote.g.dart';
 
 @RestApi(baseUrl: restApiBaseUrl)
 abstract class AuthRemoteSource {
-  final Dio dioService;
-
-  AuthRemoteSource(this.dioService);
+  factory AuthRemoteSource(Dio dio, {String? baseUrl}) = _AuthRemoteSource;
 
   @POST("/login")
   Future<AuthModel> logIn(@Body() LoginRequest body);
