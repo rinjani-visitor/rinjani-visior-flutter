@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rinjani_visitor/core/datastate/local_state.dart';
 import 'package:rinjani_visitor/core/services/dio_service.dart';
+import 'package:rinjani_visitor/core/utils/exception_utils.dart';
 import 'package:rinjani_visitor/features/authentication/data/source/local.dart';
 import 'package:rinjani_visitor/features/authentication/data/source/remote.dart';
 import 'package:rinjani_visitor/features/authentication/domain/auth_model.dart';
@@ -29,7 +30,7 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Future<void> register(
+  Future<LocalState<AuthModel>> register(
       {required String username,
       required String email,
       required String country,
@@ -40,25 +41,19 @@ class AuthRepositoryImpl implements AuthRepository {
         country.isEmpty ||
         phone.isEmpty ||
         password.isEmpty) {
-      throw Exception("field must not be empty");
+      return LocalError(Exception("field must not be empty"));
     }
+
     try {
-      await remoteSource
+      final response = await remoteSource
           .register(const RegisterRequest(username: "name", email: "email"));
+      debugPrint("Repository: new data from remote: ${response.toString()}");
+      return LocalResult(AuthModel(
+          userId: response.userId!,
+          username: response.userId!,
+          email: response.email!));
     } catch (e) {
-      switch (e.runtimeType) {
-        case DioException:
-          final res = (e as DioException).response;
-          debugPrint(
-              "Error occured: ${res?.statusCode} - ${res?.statusMessage}");
-          rethrow;
-        case Exception:
-          final res = (e as Exception).toString();
-          debugPrint("Error occured: $res");
-          rethrow;
-        default:
-          rethrow;
-      }
+      return exceptionHandler<AuthModel>(e);
     }
   }
 
@@ -83,19 +78,7 @@ class AuthRepositoryImpl implements AuthRepository {
           email: response.email,
           token: response.token));
     } catch (e) {
-      switch (e.runtimeType) {
-        case DioException:
-          final res = (e as DioException).response;
-          debugPrint(
-              "Error occured: ${res?.statusCode} - ${res?.statusMessage}");
-          return LocalError(Exception(res));
-        case Exception:
-          final res = (e as Exception).toString();
-          debugPrint("Error occured: $res");
-          return LocalError(e);
-        default:
-          return LocalError(Exception());
-      }
+      return exceptionHandler<AuthModel>(e);
     }
   }
 }

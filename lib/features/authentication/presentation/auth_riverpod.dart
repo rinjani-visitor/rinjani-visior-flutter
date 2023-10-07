@@ -7,9 +7,7 @@ import 'package:rinjani_visitor/features/authentication/data/auth_repsitory_impl
 import 'package:rinjani_visitor/features/authentication/domain/auth_model.dart';
 
 class AuthController {
-  StreamController<LocalState<String>> authState = StreamController();
   final AuthRepositoryImpl repository;
-  bool _isStreamAlreadyRunning = false;
   AuthController(this.repository);
 
   static final provider = Provider<AuthController>((ref) {
@@ -35,25 +33,14 @@ class AuthController {
     }
   }
 
-  Future<void> register(String username, String email, String country,
-      String phone, String password, String password2) async {
-    if (_isStreamAlreadyRunning) {
-      return;
-    }
-    _isStreamAlreadyRunning = true;
-
-    authState.add(const LocalLoading());
-    try {
-      await repository.register(
-          username: username,
-          email: email,
-          country: country,
-          phone: phone,
-          password: password);
-      authState.add(const LocalResult("done"));
-    } on Exception catch (e) {
-      authState.add(LocalError(e));
-    }
-    _isStreamAlreadyRunning = false;
+  Future<LocalState<AuthModel>> register(String username, String email,
+      String country, String phone, String password, String password2) async {
+    final result = repository.register(
+        username: username,
+        email: email,
+        country: country,
+        phone: phone,
+        password: password);
+    return result;
   }
 }
