@@ -21,14 +21,14 @@ class _AuthRemoteSource implements AuthRemoteSource {
   String? baseUrl;
 
   @override
-  Future<AuthModel> logIn(LoginRequest body) async {
+  Future<LoginResponse> logIn(LoginRequest body) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(body.toJson());
     final _result = await _dio
-        .fetch<Map<String, dynamic>>(_setStreamType<AuthModel>(Options(
+        .fetch<Map<String, dynamic>>(_setStreamType<LoginResponse>(Options(
       method: 'POST',
       headers: _headers,
       extra: _extra,
@@ -44,18 +44,19 @@ class _AuthRemoteSource implements AuthRemoteSource {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    final value = AuthModel.fromJson(_result.data!);
+    final value = LoginResponse.fromJson(_result.data!);
     return value;
   }
 
   @override
-  Future<AuthModel> register(RegisterRequest body) async {
+  Future<RegisterResponse> register(RegisterRequest body) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = body;
+    final _data = <String, dynamic>{};
+    _data.addAll(body.toJson());
     final _result = await _dio
-        .fetch<Map<String, dynamic>>(_setStreamType<AuthModel>(Options(
+        .fetch<Map<String, dynamic>>(_setStreamType<RegisterResponse>(Options(
       method: 'POST',
       headers: _headers,
       extra: _extra,
@@ -71,7 +72,7 @@ class _AuthRemoteSource implements AuthRemoteSource {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    final value = AuthModel.fromJson(_result.data!);
+    final value = RegisterResponse.fromJson(_result.data!);
     return value;
   }
 

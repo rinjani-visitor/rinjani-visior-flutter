@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:rinjani_visitor/core/datastate/local_state.dart';
+import 'package:rinjani_visitor/features/authentication/domain/data/remote/response/login_response.dart';
 import 'package:rinjani_visitor/features/authentication/presentation/auth_riverpod.dart';
 import 'package:rinjani_visitor/theme/theme.dart';
 import 'package:rinjani_visitor/widget/input_field.dart';
@@ -30,24 +31,6 @@ class _LoginPageState extends ConsumerState<LoginPage> {
   @override
   void initState() {
     super.initState();
-    ref.read(AuthController.provider).authState.stream.listen((event) {
-      debugPrint(
-          "${toStringShort()} - stream test with value ${event.toString()}");
-      if (event is LocalResult) {
-        _toHome();
-      }
-      if (event is LocalError) {
-        final err = event.error;
-        if (err is DioException) {
-          Fluttertoast.showToast(
-              toastLength: Toast.LENGTH_LONG, msg: "Error: ${err.message}");
-        } else {
-          Fluttertoast.showToast(
-              toastLength: Toast.LENGTH_LONG,
-              msg: "Error occured: ${err.toString()}");
-        }
-      }
-    });
   }
 
   void _toHome() {
@@ -57,7 +40,12 @@ class _LoginPageState extends ConsumerState<LoginPage> {
   void _submitForm() async {
     final email = emailTxtController.text;
     final pass = passwordTxtController.text;
-    await ref.read(AuthController.provider).logIn(email, pass);
+    final result = await ref.read(AuthController.provider).logIn(email, pass);
+    if (result is LocalResult && result.data is LoginResponse) {
+      _toHome();
+      return;
+    }
+    Fluttertoast.showToast(msg: "Error occured: ${result.error.toString()}");
   }
 
   @override

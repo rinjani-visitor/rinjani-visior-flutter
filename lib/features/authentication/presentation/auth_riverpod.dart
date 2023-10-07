@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rinjani_visitor/core/datastate/local_state.dart';
 import 'package:rinjani_visitor/features/authentication/data/auth_repsitory_impl.dart';
+import 'package:rinjani_visitor/features/authentication/domain/auth_model.dart';
 
 class AuthController {
   StreamController<LocalState<String>> authState = StreamController();
@@ -19,22 +20,10 @@ class AuthController {
     return const LocalResult("data");
   }
 
-  Future<void> logIn(String email, String password) async {
-    if (_isStreamAlreadyRunning) {
-      return;
-    }
-
+  Future<LocalState<AuthModel>> logIn(String email, String password) async {
     debugPrint("Login emitted");
-    _isStreamAlreadyRunning = true;
-    try {
-      authState.add(const LocalLoading());
-      await repository.login(email: email, password: password);
-      authState.add(const LocalResult(""));
-    } on Exception catch (e) {
-      //TODO: workaround for avoid login error
-      authState.add(LocalError(e));
-    }
-    _isStreamAlreadyRunning = false;
+    final result = repository.logIn(email: email, password: password);
+    return result;
   }
 
   Future<LocalState<String>> logOut() async {

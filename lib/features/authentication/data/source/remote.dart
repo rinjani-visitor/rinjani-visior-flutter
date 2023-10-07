@@ -3,9 +3,10 @@ import 'package:dio/dio.dart';
 import 'package:retrofit/http.dart';
 import 'package:rinjani_visitor/core/constant/network.dart';
 
-import 'package:rinjani_visitor/features/authentication/domain/auth_model.dart';
-import 'package:rinjani_visitor/features/authentication/domain/data/remote/login_request.dart';
-import 'package:rinjani_visitor/features/authentication/domain/data/remote/register_request.dart';
+import 'package:rinjani_visitor/features/authentication/domain/data/remote/request/login_request.dart';
+import 'package:rinjani_visitor/features/authentication/domain/data/remote/request/register_request.dart';
+import 'package:rinjani_visitor/features/authentication/domain/data/remote/response/login_response.dart';
+import 'package:rinjani_visitor/features/authentication/domain/data/remote/response/register_response.dart';
 
 part 'remote.g.dart';
 
@@ -14,8 +15,8 @@ abstract class AuthRemoteSource {
   factory AuthRemoteSource(Dio dio, {String? baseUrl}) = _AuthRemoteSource;
 
   @POST("/login")
-  Future<AuthModel> logIn(@Body() LoginRequest body);
+  Future<LoginResponse> logIn(@Body() LoginRequest body);
 
   @POST('/register')
-  Future<AuthModel> register(@Body() RegisterRequest body);
+  Future<RegisterResponse> register(@Body() RegisterRequest body);
 }
