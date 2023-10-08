@@ -1,10 +1,53 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:rinjani_visitor/core/datastate/local_state.dart';
+import 'package:rinjani_visitor/features/authentication/domain/auth_model.dart';
+import 'package:rinjani_visitor/features/authentication/presentation/auth_riverpod.dart';
 import 'package:rinjani_visitor/theme/theme.dart';
 import 'package:rinjani_visitor/widget/input_field.dart';
 
-class RegisterPage extends StatelessWidget {
+class RegisterPage extends ConsumerStatefulWidget {
   const RegisterPage({Key? key}) : super(key: key);
+
+  @override
+  ConsumerState<RegisterPage> createState() => _RegisterPageState();
+}
+
+class _RegisterPageState extends ConsumerState<RegisterPage> {
+  final usernameTxtController = TextEditingController();
+  final emailTxtController = TextEditingController();
+  final phoneNumberTxtController = TextEditingController();
+  final passwordTxtController = TextEditingController();
+
+  @override
+  void dispose() {
+    usernameTxtController.dispose();
+    emailTxtController.dispose();
+    phoneNumberTxtController.dispose();
+    passwordTxtController.dispose();
+    super.dispose();
+  }
+
+  void _toLogin() {
+    Navigator.pushReplacementNamed(context, '/login-page');
+  }
+
+  void _onFormSubmit() async {
+    final result = await ref.read(AuthController.provider).register(
+        usernameTxtController.text,
+        emailTxtController.text,
+        "country",
+        phoneNumberTxtController.text,
+        passwordTxtController.text,
+        passwordTxtController.text);
+    if (result is LocalResult && result.data is AuthModel) {
+      _toLogin();
+    }
+    Fluttertoast.showToast(msg: result.error.toString());
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +84,7 @@ class RegisterPage extends StatelessWidget {
     Widget signUpButton() {
       return TextButton(
           onPressed: () {
-            Navigator.pushNamed(context, '/login-page');
+            _onFormSubmit();
           },
           child: Container(
             width: 357,

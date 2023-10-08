@@ -1,7 +1,6 @@
 import 'package:rinjani_visitor/core/datastate/local_state.dart';
-import 'package:rinjani_visitor/features/product_package/domain/package_model.dart';
+import 'package:rinjani_visitor/features/product/domain/product_model.dart';
 
-// TODO: rename this domain to booking
 abstract class ProductRespository {
   ///get packages from API with additional query (page, item, category)
   Future<LocalState<List<PackageModel>>> getPackages(

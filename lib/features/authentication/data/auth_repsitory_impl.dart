@@ -1,18 +1,24 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rinjani_visitor/core/datastate/local_state.dart';
+import 'package:rinjani_visitor/core/services/dio_service.dart';
+import 'package:rinjani_visitor/core/utils/exception_utils.dart';
 import 'package:rinjani_visitor/features/authentication/data/source/local.dart';
 import 'package:rinjani_visitor/features/authentication/data/source/remote.dart';
-import 'package:rinjani_visitor/features/authentication/domain/auth_repository.dart';
+import 'package:rinjani_visitor/features/authentication/domain/auth_model.dart';
 
-//TODO: this methods should return classModel, not data state
+import 'package:rinjani_visitor/features/authentication/domain/auth_repository.dart';
+import 'package:rinjani_visitor/features/authentication/domain/data/remote/request/login_request.dart';
+import 'package:rinjani_visitor/features/authentication/domain/data/remote/request/register_request.dart';
+
 class AuthRepositoryImpl implements AuthRepository {
   final AuthLocalSource localSource;
   final AuthRemoteSource remoteSource;
 
   static final provider = Provider((ref) => AuthRepositoryImpl(
       localSource: ref.read(AuthLocalSource.provider),
-      remoteSource: ref.read(AuthRemoteSource.provider)));
+      remoteSource: AuthRemoteSource(ref.read(dioServiceProvider))));
 
   AuthRepositoryImpl({required this.localSource, required this.remoteSource});
 
@@ -20,11 +26,11 @@ class AuthRepositoryImpl implements AuthRepository {
 
   @override
   Future<void> logout() async {
-    await localSource.storage.delete(key: AuthLocalSource.TOKEN_KEY);
+    await localSource.removeToken();
   }
 
   @override
-  Future<void> register(
+  Future<LocalState<AuthModel>> register(
       {required String username,
       required String email,
       required String country,
@@ -35,41 +41,47 @@ class AuthRepositoryImpl implements AuthRepository {
         country.isEmpty ||
         phone.isEmpty ||
         password.isEmpty) {
-      throw Exception("field must not be empty");
+      return LocalError(Exception("field must not be empty"));
     }
+
     try {
-      final response = await remoteSource.register(
-          username: username,
-          country: country,
-          phone: phone,
-          email: email,
-          password: password);
-      final body = response.data;
-      if (body == null) {
-        throw Exception("Body is empty");
-      }
-    } on Exception catch (_) {
-      rethrow;
+      final response = await remoteSource
+          .register(const RegisterRequest(username: "name", email: "email"));
+      debugPrint("Repository: new data from remote: ${response.toString()}");
+      return LocalResult(AuthModel(
+          userId: response.userId!,
+          username: response.userId!,
+          email: response.email!));
+    } catch (e) {
+      return exceptionHandler<AuthModel>(e);
     }
   }
 
   @override
-  Future<void> login({required String email, required String password}) async {
+  Future<LocalState<AuthModel>> logIn(
+      {required String email, required String password}) async {
+    debugPrint("AuthRepositoryImpl: Login...");
+
     if (email.isEmpty || password.isEmpty) {
-      throw Exception("Email / password should not be null");
+      final exception = Exception("Email / password should not be null");
+      return LocalError(exception);
     }
+
     try {
-      final remoteResponse =
-          await remoteSource.logIn(email: email, password: password);
-      final token = remoteResponse.data?.token;
-      if (token == null) {
-        throw Exception("error");
-      }
+      final response = await remoteSource
+          .logIn(LoginRequest(password: password, email: email));
+      debugPrint("Repository: new data from remote: ${response.toString()}");
+
+      final token = response.token;
       await localSource.setToken(token);
-    } on DioException catch (_) {
-      throw Exception("server error");
-    } on Exception catch (_) {
-      rethrow;
+      return LocalResult(AuthModel(
+          userId: response.userId,
+          username: response.username,
+          email: response.email,
+          token: response.token));
+    } catch (e) {
+      debugPrint("Repository: error: ${e.toString()}");
+      return exceptionHandler<AuthModel>(e);
     }
   }
 }

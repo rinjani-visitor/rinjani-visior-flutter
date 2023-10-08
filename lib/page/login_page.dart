@@ -1,8 +1,10 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:rinjani_visitor/core/datastate/local_state.dart';
+import 'package:rinjani_visitor/features/authentication/domain/data/remote/response/login_response.dart';
 import 'package:rinjani_visitor/features/authentication/presentation/auth_riverpod.dart';
 import 'package:rinjani_visitor/theme/theme.dart';
 import 'package:rinjani_visitor/widget/input_field.dart';
@@ -16,7 +18,7 @@ class LoginPage extends ConsumerStatefulWidget {
 }
 
 class _LoginPageState extends ConsumerState<LoginPage> {
-  bool isLlogin = false;
+  bool isLoading = false;
   final emailTxtController = TextEditingController();
   final passwordTxtController = TextEditingController();
 
@@ -30,17 +32,6 @@ class _LoginPageState extends ConsumerState<LoginPage> {
   @override
   void initState() {
     super.initState();
-    ref.read(AuthController.provider).authState.stream.listen((event) {
-      debugPrint(
-          "${toStringShort()} - stream test with value ${event.toString()}");
-      if (event is LocalResult) {
-        _toHome();
-      }
-      if (event is LocalError) {
-        Fluttertoast.showToast(
-            msg: "Error occured: ${event.error?.toString()}");
-      }
-    });
   }
 
   void _toHome() {
@@ -48,9 +39,21 @@ class _LoginPageState extends ConsumerState<LoginPage> {
   }
 
   void _submitForm() async {
+    setState(() {
+      isLoading = true;
+    });
     final email = emailTxtController.text;
     final pass = passwordTxtController.text;
-    await ref.read(AuthController.provider).logIn(email, pass);
+    final result = await ref.read(AuthController.provider).logIn(email, pass);
+    setState(() {
+      isLoading = false;
+    });
+    if (result is LocalResult) {
+      debugPrint("LoginPage: result ${result.data.toString()}");
+      _toHome();
+      return;
+    }
+    Fluttertoast.showToast(msg: "Error occured: ${result.error.toString()}");
   }
 
   @override
@@ -82,10 +85,11 @@ class _LoginPageState extends ConsumerState<LoginPage> {
             _signUpButton(),
             const Spacer(),
             LoginButton(
-                child: const Text("Log in"),
+                isLoading: isLoading,
                 onPressed: () {
                   _submitForm();
-                }),
+                },
+                child: const Text("Log in")),
           ],
         ),
       )),
