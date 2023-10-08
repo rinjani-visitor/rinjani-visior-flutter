@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rinjani_visitor/theme/theme.dart';
 import 'package:rinjani_visitor/widget/big_card.dart';
+import 'package:rinjani_visitor/widget/status.dart';
 
 class EventDetail extends StatelessWidget {
   const EventDetail({Key? key}) : super(key: key);
@@ -11,7 +12,7 @@ class EventDetail extends StatelessWidget {
     return Container(
       width: double.infinity,
       height: 241,
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
           image: DecorationImage(
               fit: BoxFit.fill, image: AssetImage('assets/event.jpeg'))),
     );
@@ -113,9 +114,12 @@ class EventDetail extends StatelessWidget {
             style: blackTextStyle.copyWith(fontSize: 20, fontWeight: semibold),
           ),
         ),
-        BigCard(),
-        BigCard(),
-        BigCard(),
+        const BigCard(
+            image: AssetImage("assets/rinjani.jpeg"),
+            title: "Rinjani Trip",
+            price: "\$80 - \$90 - Person",
+            status: StatusColor.available,
+            rating: "4.9"),
       ],
     );
   }
