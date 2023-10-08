@@ -60,14 +60,16 @@ class AuthRepositoryImpl implements AuthRepository {
   @override
   Future<LocalState<AuthModel>> logIn(
       {required String email, required String password}) async {
+    debugPrint("AuthRepositoryImpl: Login...");
+
     if (email.isEmpty || password.isEmpty) {
       final exception = Exception("Email / password should not be null");
       return LocalError(exception);
     }
 
     try {
-      final response =
-          await remoteSource.logIn(const LoginRequest(password: "", email: ""));
+      final response = await remoteSource
+          .logIn(LoginRequest(password: password, email: email));
       debugPrint("Repository: new data from remote: ${response.toString()}");
 
       final token = response.token;
@@ -78,6 +80,7 @@ class AuthRepositoryImpl implements AuthRepository {
           email: response.email,
           token: response.token));
     } catch (e) {
+      debugPrint("Repository: error: ${e.toString()}");
       return exceptionHandler<AuthModel>(e);
     }
   }

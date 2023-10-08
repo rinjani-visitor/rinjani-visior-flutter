@@ -13,7 +13,7 @@ class _AuthRemoteSource implements AuthRemoteSource {
     this._dio, {
     this.baseUrl,
   }) {
-    baseUrl ??= 'https://rinjanispecapi-tpe6yyswta-as.a.run.app/api/v1';
+    baseUrl ??= 'https://foxhound-settling-especially.ngrok-free.app/';
   }
 
   final Dio _dio;
@@ -35,7 +35,7 @@ class _AuthRemoteSource implements AuthRemoteSource {
     )
             .compose(
               _dio.options,
-              '/login',
+              'login',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -63,7 +63,7 @@ class _AuthRemoteSource implements AuthRemoteSource {
     )
             .compose(
               _dio.options,
-              '/register',
+              'register',
               queryParameters: queryParameters,
               data: _data,
             )

@@ -20,7 +20,8 @@ class AuthController {
 
   Future<LocalState<AuthModel>> logIn(String email, String password) async {
     debugPrint("Login emitted");
-    final result = repository.logIn(email: email, password: password);
+    final result = await repository.logIn(email: email, password: password);
+    debugPrint("AuthRiverpod: Result retrieved: ${result.data.toString()}");
     return result;
   }
 

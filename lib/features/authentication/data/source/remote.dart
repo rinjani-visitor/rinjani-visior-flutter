@@ -14,9 +14,9 @@ part 'remote.g.dart';
 abstract class AuthRemoteSource {
   factory AuthRemoteSource(Dio dio, {String? baseUrl}) = _AuthRemoteSource;
 
-  @POST("/login")
+  @POST("login")
   Future<LoginResponse> logIn(@Body() LoginRequest body);
 
-  @POST('/register')
+  @POST('register')
   Future<RegisterResponse> register(@Body() RegisterRequest body);
 }
