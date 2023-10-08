@@ -5,32 +5,39 @@ import 'package:rinjani_visitor/widget/rating_widget.dart';
 import 'package:rinjani_visitor/widget/status.dart';
 
 class BigCard extends StatelessWidget {
-  const BigCard({Key? key}) : super(key: key);
+  final ImageProvider image;
+  final String title;
+  final StatusColor status;
+  final String price;
+  final String? rating;
+  const BigCard(
+      {Key? key,
+      required this.image,
+      required this.title,
+      required this.status,
+      required this.price,
+      this.rating})
+      : super(key: key);
+  Widget _imageContainer() {
+    return Container(
+      width: 108,
+      height: 136,
+      decoration: BoxDecoration(
+          image: DecorationImage(fit: BoxFit.fill, image: image),
+          borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(bigRadius),
+              bottomLeft: Radius.circular(bigRadius))),
+    );
+  }
 
-  @override
-  Widget build(BuildContext context) {
-    Widget imageContainer() {
-      return Container(
-        width: 108,
-        height: 136,
-        decoration: BoxDecoration(
-            image: DecorationImage(
-                fit: BoxFit.fill, image: AssetImage('assets/rinjani.jpeg')),
-            borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(bigRadius),
-                bottomLeft: Radius.circular(bigRadius))),
-      );
-    }
-
-    //widget buat informasi yang ada di card
-    Widget information() {
-      return Container(
-        height: 113,
-        width: 221,
+  Widget _information() {
+    return Flexible(
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
+            const Row(
               children: [
                 Status(
                   status: StatusColor.available,
@@ -41,7 +48,7 @@ class BigCard extends StatelessWidget {
             ),
             Spacer(),
             Text(
-              'Rinjani Trip',
+              title,
               style:
                   blackTextStyle.copyWith(fontSize: 20, fontWeight: semibold),
             ),
@@ -49,7 +56,7 @@ class BigCard extends StatelessWidget {
             Row(
               children: [
                 Text(
-                  '\$20 - \$40/Person',
+                  price,
                   style:
                       blackTextStyle.copyWith(fontWeight: medium, fontSize: 14),
                 ),
@@ -58,8 +65,13 @@ class BigCard extends StatelessWidget {
             )
           ],
         ),
-      );
-    }
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    //widget buat informasi yang ada di card
 
     return GestureDetector(
       //function buat ke halaman detail
@@ -68,21 +80,14 @@ class BigCard extends StatelessWidget {
       },
       //
       child: Container(
-          width: 357,
+          width: MediaQuery.of(context).size.width,
           height: 136,
-          margin: EdgeInsets.only(left: 16, top: 16),
           decoration: BoxDecoration(
               color: whiteColor,
               borderRadius: BorderRadius.circular(bigRadius)),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              imageContainer(),
-              SizedBox(
-                width: 16,
-              ),
-              information()
-            ],
+            children: [_imageContainer(), _information()],
           )),
     );
   }
