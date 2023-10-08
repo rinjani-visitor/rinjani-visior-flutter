@@ -8,6 +8,7 @@ import 'package:rinjani_visitor/features/authentication/domain/data/remote/respo
 import 'package:rinjani_visitor/features/authentication/presentation/auth_riverpod.dart';
 import 'package:rinjani_visitor/theme/theme.dart';
 import 'package:rinjani_visitor/widget/input_field.dart';
+import 'package:rinjani_visitor/widget/button/login_button.dart';
 
 class LoginPage extends ConsumerStatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -76,7 +77,11 @@ class _LoginPageState extends ConsumerState<LoginPage> {
             ),
             _signUpButton(),
             const Spacer(),
-            _actionButton(),
+            LoginButton(
+                child: const Text("Log in"),
+                onPressed: () {
+                  _submitForm();
+                }),
           ],
         ),
       )),
