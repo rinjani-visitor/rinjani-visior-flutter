@@ -19,13 +19,19 @@ class LoginButton extends StatelessWidget {
           constraints:
               BoxConstraints(minWidth: MediaQuery.of(context).size.width),
           decoration: BoxDecoration(
-              color: primaryColor,
+              color: isLoading ? Colors.grey : primaryColor,
               borderRadius: BorderRadius.circular(smallRadius)),
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Center(
                 child: isLoading
-                    ? const CircularProgressIndicator()
+                    ? const SizedBox(
+                        width: 27,
+                        height: 27,
+                        child: const CircularProgressIndicator(
+                          color: Colors.white,
+                        ),
+                      )
                     : DefaultTextStyle.merge(
                         style: whiteTextStyle.copyWith(
                             fontSize: 18, fontWeight: semibold),
