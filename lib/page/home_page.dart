@@ -4,6 +4,7 @@ import 'package:rinjani_visitor/theme/theme.dart';
 import 'package:rinjani_visitor/widget/big_card.dart';
 import 'package:rinjani_visitor/widget/category_item.dart';
 import 'package:rinjani_visitor/widget/small_card.dart';
+import 'package:rinjani_visitor/widget/status.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -87,10 +88,23 @@ class HomePage extends StatelessWidget {
                   blackTextStyle.copyWith(fontSize: 24, fontWeight: semibold),
             ),
           ),
-          const BigCard(),
-          const BigCard(),
-          const BigCard(),
-          const BigCard(),
+          // TODO: update this with new repository structure
+          ListView.builder(
+            physics: const NeverScrollableScrollPhysics(),
+            shrinkWrap: true,
+            itemCount: 3,
+            itemBuilder: (context, index) {
+              return const Padding(
+                padding: EdgeInsets.only(bottom: 8, left: 16, right: 16),
+                child: BigCard(
+                    image: AssetImage("assets/rinjani.jpeg"),
+                    title: "Rinjani Trip",
+                    price: "\$80 - \$90 - Person",
+                    status: StatusColor.available,
+                    rating: "4.9"),
+              );
+            },
+          )
         ],
       ),
     );
