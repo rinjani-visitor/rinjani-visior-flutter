@@ -33,7 +33,7 @@ class BigCard extends StatelessWidget {
   Widget _information() {
     return Flexible(
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
