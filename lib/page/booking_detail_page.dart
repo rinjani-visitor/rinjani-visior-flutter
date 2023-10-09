@@ -147,7 +147,7 @@ class BookingDetailPage extends StatelessWidget {
     );
   }
 
-  Widget payment() {
+  Widget payment(BuildContext context) {
     return Container(
       height: 180,
       color: whiteColor,
@@ -170,7 +170,9 @@ class BookingDetailPage extends StatelessWidget {
                     'Make an offer',
                     style: whiteTextStyle.copyWith(fontWeight: medium),
                   ))),
-              onPressed: () {})
+              onPressed: () {
+                Navigator.popAndPushNamed(context, '/success-booking-page');
+              })
         ],
       ),
     );
@@ -198,7 +200,7 @@ class BookingDetailPage extends StatelessWidget {
               SizedBox(
                 height: 8,
               ),
-              payment()
+              payment(context)
             ],
           ),
         ));
