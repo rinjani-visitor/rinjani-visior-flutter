@@ -20,16 +20,21 @@ PackageModel _$PackageModelFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$PackageModel {
+  String get packageId => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
-  String get imgUrl => throw _privateConstructorUsedError;
   String get location => throw _privateConstructorUsedError;
   String? get locationUrl => throw _privateConstructorUsedError;
-  String get lowestPricing => throw _privateConstructorUsedError;
-  String get highestPricing => throw _privateConstructorUsedError;
-  String get description => throw _privateConstructorUsedError;
-  String get tripDuration => throw _privateConstructorUsedError;
-  String? get avaiabilityStatus => throw _privateConstructorUsedError;
+  String get imgUrl => throw _privateConstructorUsedError;
+
+  /// example: 80$- 90$ / person
+  String get rangePricing => throw _privateConstructorUsedError;
   String get rating => throw _privateConstructorUsedError;
+  String get tripDuration => throw _privateConstructorUsedError;
+  String get description => throw _privateConstructorUsedError;
+  String get accomodation => throw _privateConstructorUsedError;
+  List<String>? get addOnIds => throw _privateConstructorUsedError;
+  List<String>? get reviewIds => throw _privateConstructorUsedError;
+  String? get avaiabilityStatus => throw _privateConstructorUsedError;
   int get reviewCount => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -45,16 +50,19 @@ abstract class $PackageModelCopyWith<$Res> {
       _$PackageModelCopyWithImpl<$Res, PackageModel>;
   @useResult
   $Res call(
-      {String title,
-      String imgUrl,
+      {String packageId,
+      String title,
       String location,
       String? locationUrl,
-      String lowestPricing,
-      String highestPricing,
-      String description,
-      String tripDuration,
-      String? avaiabilityStatus,
+      String imgUrl,
+      String rangePricing,
       String rating,
+      String tripDuration,
+      String description,
+      String accomodation,
+      List<String>? addOnIds,
+      List<String>? reviewIds,
+      String? avaiabilityStatus,
       int reviewCount});
 }
 
@@ -71,26 +79,29 @@ class _$PackageModelCopyWithImpl<$Res, $Val extends PackageModel>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? packageId = null,
     Object? title = null,
-    Object? imgUrl = null,
     Object? location = null,
     Object? locationUrl = freezed,
-    Object? lowestPricing = null,
-    Object? highestPricing = null,
-    Object? description = null,
-    Object? tripDuration = null,
-    Object? avaiabilityStatus = freezed,
+    Object? imgUrl = null,
+    Object? rangePricing = null,
     Object? rating = null,
+    Object? tripDuration = null,
+    Object? description = null,
+    Object? accomodation = null,
+    Object? addOnIds = freezed,
+    Object? reviewIds = freezed,
+    Object? avaiabilityStatus = freezed,
     Object? reviewCount = null,
   }) {
     return _then(_value.copyWith(
+      packageId: null == packageId
+          ? _value.packageId
+          : packageId // ignore: cast_nullable_to_non_nullable
+              as String,
       title: null == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
-              as String,
-      imgUrl: null == imgUrl
-          ? _value.imgUrl
-          : imgUrl // ignore: cast_nullable_to_non_nullable
               as String,
       location: null == location
           ? _value.location
@@ -100,30 +111,42 @@ class _$PackageModelCopyWithImpl<$Res, $Val extends PackageModel>
           ? _value.locationUrl
           : locationUrl // ignore: cast_nullable_to_non_nullable
               as String?,
-      lowestPricing: null == lowestPricing
-          ? _value.lowestPricing
-          : lowestPricing // ignore: cast_nullable_to_non_nullable
+      imgUrl: null == imgUrl
+          ? _value.imgUrl
+          : imgUrl // ignore: cast_nullable_to_non_nullable
               as String,
-      highestPricing: null == highestPricing
-          ? _value.highestPricing
-          : highestPricing // ignore: cast_nullable_to_non_nullable
+      rangePricing: null == rangePricing
+          ? _value.rangePricing
+          : rangePricing // ignore: cast_nullable_to_non_nullable
               as String,
-      description: null == description
-          ? _value.description
-          : description // ignore: cast_nullable_to_non_nullable
+      rating: null == rating
+          ? _value.rating
+          : rating // ignore: cast_nullable_to_non_nullable
               as String,
       tripDuration: null == tripDuration
           ? _value.tripDuration
           : tripDuration // ignore: cast_nullable_to_non_nullable
               as String,
+      description: null == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String,
+      accomodation: null == accomodation
+          ? _value.accomodation
+          : accomodation // ignore: cast_nullable_to_non_nullable
+              as String,
+      addOnIds: freezed == addOnIds
+          ? _value.addOnIds
+          : addOnIds // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
+      reviewIds: freezed == reviewIds
+          ? _value.reviewIds
+          : reviewIds // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
       avaiabilityStatus: freezed == avaiabilityStatus
           ? _value.avaiabilityStatus
           : avaiabilityStatus // ignore: cast_nullable_to_non_nullable
               as String?,
-      rating: null == rating
-          ? _value.rating
-          : rating // ignore: cast_nullable_to_non_nullable
-              as String,
       reviewCount: null == reviewCount
           ? _value.reviewCount
           : reviewCount // ignore: cast_nullable_to_non_nullable
@@ -141,16 +164,19 @@ abstract class _$$_PackageModelCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String title,
-      String imgUrl,
+      {String packageId,
+      String title,
       String location,
       String? locationUrl,
-      String lowestPricing,
-      String highestPricing,
-      String description,
-      String tripDuration,
-      String? avaiabilityStatus,
+      String imgUrl,
+      String rangePricing,
       String rating,
+      String tripDuration,
+      String description,
+      String accomodation,
+      List<String>? addOnIds,
+      List<String>? reviewIds,
+      String? avaiabilityStatus,
       int reviewCount});
 }
 
@@ -165,26 +191,29 @@ class __$$_PackageModelCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? packageId = null,
     Object? title = null,
-    Object? imgUrl = null,
     Object? location = null,
     Object? locationUrl = freezed,
-    Object? lowestPricing = null,
-    Object? highestPricing = null,
-    Object? description = null,
-    Object? tripDuration = null,
-    Object? avaiabilityStatus = freezed,
+    Object? imgUrl = null,
+    Object? rangePricing = null,
     Object? rating = null,
+    Object? tripDuration = null,
+    Object? description = null,
+    Object? accomodation = null,
+    Object? addOnIds = freezed,
+    Object? reviewIds = freezed,
+    Object? avaiabilityStatus = freezed,
     Object? reviewCount = null,
   }) {
     return _then(_$_PackageModel(
+      packageId: null == packageId
+          ? _value.packageId
+          : packageId // ignore: cast_nullable_to_non_nullable
+              as String,
       title: null == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
-              as String,
-      imgUrl: null == imgUrl
-          ? _value.imgUrl
-          : imgUrl // ignore: cast_nullable_to_non_nullable
               as String,
       location: null == location
           ? _value.location
@@ -194,30 +223,42 @@ class __$$_PackageModelCopyWithImpl<$Res>
           ? _value.locationUrl
           : locationUrl // ignore: cast_nullable_to_non_nullable
               as String?,
-      lowestPricing: null == lowestPricing
-          ? _value.lowestPricing
-          : lowestPricing // ignore: cast_nullable_to_non_nullable
+      imgUrl: null == imgUrl
+          ? _value.imgUrl
+          : imgUrl // ignore: cast_nullable_to_non_nullable
               as String,
-      highestPricing: null == highestPricing
-          ? _value.highestPricing
-          : highestPricing // ignore: cast_nullable_to_non_nullable
+      rangePricing: null == rangePricing
+          ? _value.rangePricing
+          : rangePricing // ignore: cast_nullable_to_non_nullable
               as String,
-      description: null == description
-          ? _value.description
-          : description // ignore: cast_nullable_to_non_nullable
+      rating: null == rating
+          ? _value.rating
+          : rating // ignore: cast_nullable_to_non_nullable
               as String,
       tripDuration: null == tripDuration
           ? _value.tripDuration
           : tripDuration // ignore: cast_nullable_to_non_nullable
               as String,
+      description: null == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String,
+      accomodation: null == accomodation
+          ? _value.accomodation
+          : accomodation // ignore: cast_nullable_to_non_nullable
+              as String,
+      addOnIds: freezed == addOnIds
+          ? _value._addOnIds
+          : addOnIds // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
+      reviewIds: freezed == reviewIds
+          ? _value._reviewIds
+          : reviewIds // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
       avaiabilityStatus: freezed == avaiabilityStatus
           ? _value.avaiabilityStatus
           : avaiabilityStatus // ignore: cast_nullable_to_non_nullable
               as String?,
-      rating: null == rating
-          ? _value.rating
-          : rating // ignore: cast_nullable_to_non_nullable
-              as String,
       reviewCount: null == reviewCount
           ? _value.reviewCount
           : reviewCount // ignore: cast_nullable_to_non_nullable
@@ -230,47 +271,76 @@ class __$$_PackageModelCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_PackageModel implements _PackageModel {
   const _$_PackageModel(
-      {required this.title,
-      required this.imgUrl,
+      {required this.packageId,
+      required this.title,
       required this.location,
       required this.locationUrl,
-      required this.lowestPricing,
-      required this.highestPricing,
-      required this.description,
-      required this.tripDuration,
-      required this.avaiabilityStatus,
+      required this.imgUrl,
+      required this.rangePricing,
       required this.rating,
-      required this.reviewCount});
+      required this.tripDuration,
+      required this.description,
+      required this.accomodation,
+      required final List<String>? addOnIds,
+      required final List<String>? reviewIds,
+      required this.avaiabilityStatus,
+      required this.reviewCount})
+      : _addOnIds = addOnIds,
+        _reviewIds = reviewIds;
 
   factory _$_PackageModel.fromJson(Map<String, dynamic> json) =>
       _$$_PackageModelFromJson(json);
 
   @override
-  final String title;
+  final String packageId;
   @override
-  final String imgUrl;
+  final String title;
   @override
   final String location;
   @override
   final String? locationUrl;
   @override
-  final String lowestPricing;
+  final String imgUrl;
+
+  /// example: 80$- 90$ / person
   @override
-  final String highestPricing;
+  final String rangePricing;
   @override
-  final String description;
+  final String rating;
   @override
   final String tripDuration;
   @override
-  final String? avaiabilityStatus;
+  final String description;
   @override
-  final String rating;
+  final String accomodation;
+  final List<String>? _addOnIds;
+  @override
+  List<String>? get addOnIds {
+    final value = _addOnIds;
+    if (value == null) return null;
+    if (_addOnIds is EqualUnmodifiableListView) return _addOnIds;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  final List<String>? _reviewIds;
+  @override
+  List<String>? get reviewIds {
+    final value = _reviewIds;
+    if (value == null) return null;
+    if (_reviewIds is EqualUnmodifiableListView) return _reviewIds;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  @override
+  final String? avaiabilityStatus;
   @override
   final int reviewCount;
 
   @override
   String toString() {
-    return 'PackageModel(title: $title, imgUrl: $imgUrl, location: $location, locationUrl: $locationUrl, lowestPricing: $lowestPricing, highestPricing: $highestPricing, description: $description, tripDuration: $tripDuration, avaiabilityStatus: $avaiabilityStatus, rating: $rating, reviewCount: $reviewCount)';
+    return 'PackageModel(packageId: $packageId, title: $title, location: $location, locationUrl: $locationUrl, imgUrl: $imgUrl, rangePricing: $rangePricing, rating: $rating, tripDuration: $tripDuration, description: $description, accomodation: $accomodation, addOnIds: $addOnIds, reviewIds: $reviewIds, avaiabilityStatus: $avaiabilityStatus, reviewCount: $reviewCount)';
   }
 
   @override
@@ -278,23 +348,28 @@ class _$_PackageModel implements _PackageModel {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_PackageModel &&
+            (identical(other.packageId, packageId) ||
+                other.packageId == packageId) &&
             (identical(other.title, title) || other.title == title) &&
-            (identical(other.imgUrl, imgUrl) || other.imgUrl == imgUrl) &&
             (identical(other.location, location) ||
                 other.location == location) &&
             (identical(other.locationUrl, locationUrl) ||
                 other.locationUrl == locationUrl) &&
-            (identical(other.lowestPricing, lowestPricing) ||
-                other.lowestPricing == lowestPricing) &&
-            (identical(other.highestPricing, highestPricing) ||
-                other.highestPricing == highestPricing) &&
-            (identical(other.description, description) ||
-                other.description == description) &&
+            (identical(other.imgUrl, imgUrl) || other.imgUrl == imgUrl) &&
+            (identical(other.rangePricing, rangePricing) ||
+                other.rangePricing == rangePricing) &&
+            (identical(other.rating, rating) || other.rating == rating) &&
             (identical(other.tripDuration, tripDuration) ||
                 other.tripDuration == tripDuration) &&
+            (identical(other.description, description) ||
+                other.description == description) &&
+            (identical(other.accomodation, accomodation) ||
+                other.accomodation == accomodation) &&
+            const DeepCollectionEquality().equals(other._addOnIds, _addOnIds) &&
+            const DeepCollectionEquality()
+                .equals(other._reviewIds, _reviewIds) &&
             (identical(other.avaiabilityStatus, avaiabilityStatus) ||
                 other.avaiabilityStatus == avaiabilityStatus) &&
-            (identical(other.rating, rating) || other.rating == rating) &&
             (identical(other.reviewCount, reviewCount) ||
                 other.reviewCount == reviewCount));
   }
@@ -303,16 +378,19 @@ class _$_PackageModel implements _PackageModel {
   @override
   int get hashCode => Object.hash(
       runtimeType,
+      packageId,
       title,
-      imgUrl,
       location,
       locationUrl,
-      lowestPricing,
-      highestPricing,
-      description,
-      tripDuration,
-      avaiabilityStatus,
+      imgUrl,
+      rangePricing,
       rating,
+      tripDuration,
+      description,
+      accomodation,
+      const DeepCollectionEquality().hash(_addOnIds),
+      const DeepCollectionEquality().hash(_reviewIds),
+      avaiabilityStatus,
       reviewCount);
 
   @JsonKey(ignore: true)
@@ -331,41 +409,52 @@ class _$_PackageModel implements _PackageModel {
 
 abstract class _PackageModel implements PackageModel {
   const factory _PackageModel(
-      {required final String title,
-      required final String imgUrl,
+      {required final String packageId,
+      required final String title,
       required final String location,
       required final String? locationUrl,
-      required final String lowestPricing,
-      required final String highestPricing,
-      required final String description,
-      required final String tripDuration,
-      required final String? avaiabilityStatus,
+      required final String imgUrl,
+      required final String rangePricing,
       required final String rating,
+      required final String tripDuration,
+      required final String description,
+      required final String accomodation,
+      required final List<String>? addOnIds,
+      required final List<String>? reviewIds,
+      required final String? avaiabilityStatus,
       required final int reviewCount}) = _$_PackageModel;
 
   factory _PackageModel.fromJson(Map<String, dynamic> json) =
       _$_PackageModel.fromJson;
 
   @override
-  String get title;
+  String get packageId;
   @override
-  String get imgUrl;
+  String get title;
   @override
   String get location;
   @override
   String? get locationUrl;
   @override
-  String get lowestPricing;
+  String get imgUrl;
   @override
-  String get highestPricing;
+
+  /// example: 80$- 90$ / person
+  String get rangePricing;
   @override
-  String get description;
+  String get rating;
   @override
   String get tripDuration;
   @override
-  String? get avaiabilityStatus;
+  String get description;
   @override
-  String get rating;
+  String get accomodation;
+  @override
+  List<String>? get addOnIds;
+  @override
+  List<String>? get reviewIds;
+  @override
+  String? get avaiabilityStatus;
   @override
   int get reviewCount;
   @override
