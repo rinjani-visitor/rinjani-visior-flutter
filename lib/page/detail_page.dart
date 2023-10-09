@@ -20,79 +20,77 @@ class DetailPage extends StatelessWidget {
     );
   }
 
+  Widget header() {
+    return Padding(
+      padding: const EdgeInsets.all(16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Text(
+                'Rinjani Trip',
+                style: blackTextStyle.copyWith(fontSize: 24, fontWeight: bold),
+              ),
+              Spacer(),
+              Status(
+                status: StatusColor.available,
+              )
+            ],
+          ),
+          SizedBox(
+            height: 8,
+          ),
+          Row(
+            children: [
+              Icon(
+                Icons.location_pin,
+                color: lightGray,
+              ),
+              SizedBox(
+                width: 8,
+              ),
+              Text(
+                'Lombok, Indonesia',
+                style: grayTextStyle.copyWith(fontSize: 16, fontWeight: medium),
+              )
+            ],
+          ),
+          SizedBox(
+            height: 8,
+          ),
+          Row(
+            children: [
+              Text(
+                '\$20 - \$40/person',
+                style:
+                    blackTextStyle.copyWith(fontSize: 16, fontWeight: semibold),
+              ),
+              Spacer(),
+              Icon(
+                Icons.favorite_outline,
+                color: lightGray,
+              )
+            ],
+          ),
+          SizedBox(
+            height: 8,
+          ),
+          RatingWidget(),
+          SizedBox(
+            height: 8,
+          ),
+          Text(
+            'Trip duration: 2 Days - 1 Night',
+            style: blackTextStyle.copyWith(fontSize: 16),
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    Widget header() {
-      return Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                Text(
-                  'Rinjani Trip',
-                  style:
-                      blackTextStyle.copyWith(fontSize: 24, fontWeight: bold),
-                ),
-                Spacer(),
-                Status(
-                  status: StatusColor.available,
-                )
-              ],
-            ),
-            SizedBox(
-              height: 8,
-            ),
-            Row(
-              children: [
-                Icon(
-                  Icons.location_pin,
-                  color: lightGray,
-                ),
-                SizedBox(
-                  width: 8,
-                ),
-                Text(
-                  'Lombok, Indonesia',
-                  style:
-                      grayTextStyle.copyWith(fontSize: 16, fontWeight: medium),
-                )
-              ],
-            ),
-            SizedBox(
-              height: 8,
-            ),
-            Row(
-              children: [
-                Text(
-                  '\$20 - \$40/person',
-                  style: blackTextStyle.copyWith(
-                      fontSize: 16, fontWeight: semibold),
-                ),
-                Spacer(),
-                Icon(
-                  Icons.favorite_outline,
-                  color: lightGray,
-                )
-              ],
-            ),
-            SizedBox(
-              height: 8,
-            ),
-            RatingWidget(),
-            SizedBox(
-              height: 8,
-            ),
-            Text(
-              'Trip duration: 2 Days - 1 Night',
-              style: blackTextStyle.copyWith(fontSize: 16),
-            ),
-          ],
-        ),
-      );
-    }
-
     return CupertinoPageScaffold(
         navigationBar: CupertinoNavigationBar(
           middle: Text('Detail Trip'),
@@ -104,7 +102,10 @@ class DetailPage extends StatelessWidget {
                 children: [
                   imageContainer(),
                   header(),
-                  SegmentedWidget(),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: SegmentedWidget(),
+                  ),
                 ],
               ),
             ],
