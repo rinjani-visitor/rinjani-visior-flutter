@@ -23,9 +23,8 @@ class _DatePickerWidgetState extends State<DatePickerWidget> {
         ),
         CupertinoButton(
             padding: EdgeInsets.all(0),
-            child: Container(
-              width: 390,
-              height: 32,
+            child: ConstrainedBox(
+              constraints: BoxConstraints.expand(height: 32),
               child: Row(
                 children: [
                   Container(
@@ -52,8 +51,8 @@ class _DatePickerWidgetState extends State<DatePickerWidget> {
             onPressed: () {
               showCupertinoModalPopup(
                   context: context,
-                  builder: (BuildContext context) => SizedBox(
-                        height: 250,
+                  builder: (BuildContext context) => ConstrainedBox(
+                        constraints: const BoxConstraints.expand(height: 250),
                         child: CupertinoDatePicker(
                             backgroundColor: whiteColor,
                             use24hFormat: true,
@@ -63,7 +62,6 @@ class _DatePickerWidgetState extends State<DatePickerWidget> {
                             }),
                       ));
             })
-        // IconButton(onPressed: () {}, icon: Icon(Icons.calendar_month))
       ],
     );
   }

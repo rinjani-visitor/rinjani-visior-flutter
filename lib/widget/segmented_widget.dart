@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:rinjani_visitor/theme/theme.dart';
 import 'package:rinjani_visitor/widget/accomodation_widget.dart';
 import 'package:rinjani_visitor/widget/add_on_widget.dart';
+import 'package:rinjani_visitor/widget/button/primary_button.dart';
 import 'package:rinjani_visitor/widget/date_picker_widget.dart';
 import 'package:rinjani_visitor/widget/person_counter_widget.dart';
 import 'package:rinjani_visitor/widget/review_widget.dart';
@@ -48,90 +50,92 @@ class _SegmentedWidgetState extends State<SegmentedWidget> {
   }
 
   Widget description() {
-    return Container(
-      width: 357,
-      margin: EdgeInsets.only(top: 16),
-      child: Column(
-        //header here
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            "Indah Pemandangan Air Terjun Sindang Gila yang memiliki 2 terjunan, satu-satunya yang ada di Pulau Lombok.",
-            style: blackTextStyle.copyWith(
-              fontSize: 14,
+    return ConstrainedBox(
+      constraints: BoxConstraints(minWidth: MediaQuery.of(context).size.width),
+      child: Padding(
+        padding: const EdgeInsets.only(top: 12),
+        child: Column(
+          //header here
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              "Indah Pemandangan Air Terjun Sindang Gila yang memiliki 2 terjunan, satu-satunya yang ada di Pulau Lombok.",
+              style: blackTextStyle.copyWith(
+                fontSize: 14,
+              ),
             ),
-          ),
-          SizedBox(
-            height: 16,
-          ),
-          Column(
-            // add on here
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Trip add on',
-                style:
-                    blackTextStyle.copyWith(fontSize: 16, fontWeight: semibold),
-              ),
-              AddOnWidget(),
-            ],
-          ),
-          SizedBox(
-            height: 16,
-          ),
-          Column(
-            children: [
-              DatePickerWidget(),
-              SizedBox(
-                height: 8,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  TimeButtonWidget(
-                    time: '09:00 AM',
-                  ),
-                  TimeButtonWidget(
-                    time: '10:00 AM',
-                  ),
-                  TimeButtonWidget(
-                    time: '11:00 AM',
-                  ),
-                ],
-              )
-            ],
-          ),
-          SizedBox(
-            height: 16,
-          ),
-          AccomodationWidget(),
-          SizedBox(
-            height: 8,
-          ),
-          ReviewWidget(),
-          TextButton(
-              style: ButtonStyle(
-                  backgroundColor: MaterialStatePropertyAll(primaryColor),
-                  fixedSize: MaterialStatePropertyAll(Size.fromWidth(357))),
-              onPressed: () {
-                showCupertinoModalPopup(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return Container(
-                        width: double.infinity,
-                        height: 300,
-                        decoration: BoxDecoration(
-                            color: whiteColor,
-                            borderRadius: BorderRadius.circular(bigRadius)),
-                        child: PersonCounterWidget(),
-                      );
-                    });
-              },
-              child: Text(
-                'Continue',
-                style: whiteTextStyle.copyWith(fontSize: 16),
-              ))
-        ],
+            SizedBox(
+              height: 16,
+            ),
+            Column(
+              // add on here
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Trip add on',
+                  style: blackTextStyle.copyWith(
+                      fontSize: 16, fontWeight: semibold),
+                ),
+                AddOnWidgetMock(),
+              ],
+            ),
+            SizedBox(
+              height: 16,
+            ),
+            Column(
+              children: [
+                DatePickerWidget(),
+                SizedBox(
+                  height: 8,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    TimeButtonWidget(
+                      time: '09:00 AM',
+                    ),
+                    TimeButtonWidget(
+                      time: '10:00 AM',
+                    ),
+                    TimeButtonWidget(
+                      time: '11:00 AM',
+                    ),
+                  ],
+                )
+              ],
+            ),
+            SizedBox(
+              height: 16,
+            ),
+            AccomodationWidget(),
+            SizedBox(
+              height: 8,
+            ),
+            ReviewWidget(),
+            LoginButton(
+                onPressed: () {
+                  showCupertinoModalPopup(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return Container(
+                          width: double.infinity,
+                          height: 300,
+                          decoration: BoxDecoration(
+                              color: whiteColor,
+                              borderRadius: BorderRadius.circular(bigRadius)),
+                          child: PersonCounterWidget(),
+                        );
+                      });
+                },
+                child: Text(
+                  'Buy Product',
+                  style: whiteTextStyle.copyWith(fontSize: 16),
+                )),
+            SizedBox(
+              height: 16,
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -143,7 +147,8 @@ class _SegmentedWidgetState extends State<SegmentedWidget> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
-          width: 357,
+          constraints:
+              BoxConstraints(minWidth: MediaQuery.of(context).size.width),
           child: CupertinoSlidingSegmentedControl(
               groupValue: _sliding,
               children: children,
