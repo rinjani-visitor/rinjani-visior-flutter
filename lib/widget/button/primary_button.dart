@@ -14,6 +14,8 @@ class LoginButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextButton(
+        style: ButtonStyle(
+            padding: MaterialStateProperty.all(const EdgeInsets.all(0))),
         onPressed: isLoading ? null : () => onPressed(),
         child: Container(
           constraints:
