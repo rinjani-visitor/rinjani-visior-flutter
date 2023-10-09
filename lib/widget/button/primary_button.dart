@@ -28,7 +28,7 @@ class LoginButton extends StatelessWidget {
                     ? const SizedBox(
                         width: 27,
                         height: 27,
-                        child: const CircularProgressIndicator(
+                        child: CircularProgressIndicator(
                           color: Colors.white,
                         ),
                       )
