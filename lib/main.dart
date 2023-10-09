@@ -16,6 +16,7 @@ import 'package:rinjani_visitor/page/personal_info_page.dart';
 import 'package:rinjani_visitor/page/register_page.dart';
 import 'package:rinjani_visitor/page/search_page.dart';
 import 'package:rinjani_visitor/page/splash_screen.dart';
+import 'package:rinjani_visitor/page/success_booking_page.dart';
 import 'package:rinjani_visitor/page/user_setting_page.dart';
 
 void main() {
@@ -37,7 +38,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CupertinoApp(
-      theme: const CupertinoThemeData(brightness: Brightness.light),
+      theme: const CupertinoThemeData(
+        brightness: Brightness.light,
+      ),
       routes: {
         '/': (context) => const SplashScreen(),
         '/login-page': (context) => const LoginPage(),
@@ -51,6 +54,7 @@ class MyApp extends StatelessWidget {
         '/user-setting-page': (context) => const UserSettingPage(),
         '/change-pass-page': (context) => const ChangePassPage(),
         '/change-email-page': (context) => const ChangeEmailPage(),
+        '/success-booking-page': (context) => const SuccessBookingPage(),
       },
     );
   }
