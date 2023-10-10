@@ -8,6 +8,7 @@ import 'package:rinjani_visitor/core/datastate/local_state.dart';
 import 'package:rinjani_visitor/features/authentication/domain/auth_model.dart';
 import 'package:rinjani_visitor/features/authentication/presentation/auth_riverpod.dart';
 import 'package:rinjani_visitor/theme/theme.dart';
+import 'package:rinjani_visitor/widget/button/primary_button.dart';
 import 'package:rinjani_visitor/widget/form/dropdown_textfield.dart';
 import 'package:rinjani_visitor/widget/input_field.dart';
 
@@ -55,85 +56,79 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
 
   @override
   Widget build(BuildContext context) {
-    Widget header() {
-      return Container(
-        margin: EdgeInsets.only(top: 24, bottom: 32),
-        child: Text(
-          "Let's start your\njourney with us",
-          style: blackTextStyle.copyWith(fontSize: 32, fontWeight: bold),
-        ),
-      );
-    }
-
-    Widget inputSection() {
-      return Column(
-        children: [
-          DropdownTextfield(
-            label: "Country",
-            controller: countryTxtController,
-            placeholder: "Eg: Vatikan",
-            items: countryLists,
-          ),
-          SizedBox(
-            height: 12,
-          ),
-          InputField(label: 'Username'),
-          SizedBox(
-            height: 12,
-          ),
-          InputField(label: 'Email'),
-          SizedBox(
-            height: 12,
-          ),
-          InputField(
-            label: 'Phone number',
-            keyboardType: TextInputType.phone,
-          ),
-          SizedBox(
-            height: 12,
-          ),
-          InputField(label: 'Password', secureText: true)
-        ],
-      );
-    }
-
-    Widget signUpButton() {
-      return TextButton(
-          onPressed: () {
-            _onFormSubmit();
-          },
-          child: Container(
-            width: 357,
-            height: 43,
-            decoration: BoxDecoration(
-                color: primaryColor,
-                borderRadius: BorderRadius.circular(smallRadius)),
-            child: Center(
-                child: Text(
-              'Sign Up',
-              style:
-                  whiteTextStyle.copyWith(fontSize: 18, fontWeight: semibold),
-            )),
-          ));
-    }
-
     return CupertinoPageScaffold(
-      resizeToAvoidBottomInset: false,
+      resizeToAvoidBottomInset: true,
       backgroundColor: whiteColor,
       child: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              header(),
-              inputSection(),
-              const Spacer(),
-              signUpButton()
-            ],
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                header(),
+                inputSection(),
+                SizedBox(
+                  height: 36,
+                ),
+                signUpButton()
+              ],
+            ),
           ),
         ),
       ),
     );
+  }
+
+  Widget header() {
+    return Container(
+      margin: EdgeInsets.only(top: 24, bottom: 32),
+      child: Text(
+        "Let's start your\njourney with us",
+        style: blackTextStyle.copyWith(fontSize: 32, fontWeight: bold),
+      ),
+    );
+  }
+
+  Widget inputSection() {
+    return Column(
+      children: [
+        DropdownTextfield(
+          label: "Country",
+          controller: countryTxtController,
+          placeholder: "Eg: Vatikan",
+          items: countryLists,
+        ),
+        SizedBox(
+          height: 12,
+        ),
+        InputField(label: 'Username'),
+        SizedBox(
+          height: 12,
+        ),
+        InputField(label: 'Email'),
+        SizedBox(
+          height: 12,
+        ),
+        InputField(
+          label: 'Phone number',
+          keyboardType: TextInputType.phone,
+        ),
+        SizedBox(
+          height: 12,
+        ),
+        InputField(label: 'Password', secureText: true)
+      ],
+    );
+  }
+
+  Widget signUpButton() {
+    return LoginButton(
+        onPressed: () {
+          _onFormSubmit();
+        },
+        child: Text(
+          'Sign Up',
+        ));
   }
 }
