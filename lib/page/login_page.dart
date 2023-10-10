@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:rinjani_visitor/core/datastate/local_state.dart';
 import 'package:rinjani_visitor/features/authentication/presentation/auth_riverpod.dart';
 import 'package:rinjani_visitor/theme/theme.dart';
 import 'package:rinjani_visitor/widget/input_field.dart';
@@ -37,21 +36,18 @@ class _LoginPageState extends ConsumerState<LoginPage> {
   }
 
   void _submitForm() async {
-    setState(() {
-      isLoading = true;
-    });
     final email = emailTxtController.text;
     final pass = passwordTxtController.text;
-    final result = await ref.read(AuthController.provider).logIn(email, pass);
-    setState(() {
-      isLoading = false;
-    });
-    if (result is LocalResult) {
-      debugPrint("LoginPage: result ${result.data.toString()}");
-      _toHome();
+    await ref.read(authControllerProvider.notifier).logIn(email, pass);
+    if (ref.read(authControllerProvider).hasError) {
+      Fluttertoast.showToast(
+          msg:
+              "Error occured: ${ref.read(authControllerProvider).asError?.error.toString()}");
       return;
     }
-    Fluttertoast.showToast(msg: "Error occured: ${result.error.toString()}");
+    debugPrint(
+        "LoginPage: result ${ref.read(authControllerProvider).value.toString()}");
+    _toHome();
   }
 
   @override
@@ -83,7 +79,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
             _signUpButton(),
             const Spacer(),
             LoginButton(
-                isLoading: isLoading,
+                isLoading: ref.watch(authControllerProvider).isLoading,
                 onPressed: () {
                   _submitForm();
                 },
