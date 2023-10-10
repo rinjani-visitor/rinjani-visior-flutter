@@ -1,4 +1,6 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:rinjani_visitor/theme/theme.dart';
 import 'package:rinjani_visitor/widget/input_field.dart';
 
 class DropdownTextfield extends StatefulWidget {
@@ -19,7 +21,9 @@ class DropdownTextfield extends StatefulWidget {
 }
 
 class _DropdownTextfieldState extends State<DropdownTextfield> {
-  bool _isTapped = false;
+  final OverlayPortalController _tooltipController = OverlayPortalController();
+  final _link = LayerLink();
+  double? _buttonWidth;
   List<String> _list = [];
   List<String> _filteredList = [];
   @override
@@ -31,45 +35,72 @@ class _DropdownTextfieldState extends State<DropdownTextfield> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        InputField(
-          controller: widget.controller,
-          label: widget.label,
-          placeholder: widget.placeholder,
-          onChanged: (value) {
-            _filteredList = _list
-                .where((element) =>
-                    element.toLowerCase().contains(value.toLowerCase()))
-                .toList();
+    return TapRegion(
+      onTapOutside: (event) {
+        setState(() {
+          _tooltipController.hide();
+        });
+      },
+      child: CompositedTransformTarget(
+        link: _link,
+        child: OverlayPortal(
+          controller: _tooltipController,
+          overlayChildBuilder: (context) {
+            return CompositedTransformFollower(
+              link: _link,
+              targetAnchor: Alignment.bottomLeft,
+              child: Align(
+                  alignment: AlignmentDirectional.topStart, child: _content()),
+            );
           },
-          onTap: () => _isTapped = true,
+          child: InputField(
+            controller: widget.controller,
+            label: widget.label,
+            placeholder: widget.placeholder,
+            onChanged: (value) {
+              debugPrint("current text: ${value}");
+              setState(() {
+                _filteredList = _list
+                    .where((element) =>
+                        element.toLowerCase().contains(value.toLowerCase()))
+                    .toList();
+              });
+            },
+            onTap: () => setState(() {
+              _buttonWidth = context.size?.width;
+              _tooltipController.show();
+            }),
+          ),
         ),
-        //Dropdown Items
-        _isTapped && _filteredList.isNotEmpty
-            ? Container(
-                height: 150.0,
-                padding: const EdgeInsets.symmetric(horizontal: 8),
-                child: ListView.builder(
-                  itemCount: _filteredList.length,
-                  itemBuilder: (context, index) {
-                    return GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          _isTapped = !_isTapped;
-                          widget.controller.text = _filteredList[index];
-                        });
-                      },
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 8.0),
-                        child: Text(_filteredList[index]),
-                      ),
-                    );
-                  },
-                ),
-              )
-            : const SizedBox.shrink()
-      ],
+      ),
+    );
+  }
+
+  Widget _content() {
+    return Container(
+      height: 150.0,
+      width: _buttonWidth,
+      decoration: const BoxDecoration(
+        color: Colors.amberAccent,
+      ),
+      padding: const EdgeInsets.symmetric(horizontal: 8),
+      child: ListView.builder(
+        itemCount: _filteredList.length,
+        itemBuilder: (context, index) {
+          return GestureDetector(
+            onTap: () {
+              setState(() {
+                _tooltipController.hide();
+                widget.controller.text = _filteredList[index];
+              });
+            },
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8.0),
+              child: Text(_filteredList[index]),
+            ),
+          );
+        },
+      ),
     );
   }
 }

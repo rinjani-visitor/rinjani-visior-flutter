@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:rinjani_visitor/core/constant/country.dart';
 import 'package:rinjani_visitor/core/datastate/local_state.dart';
 import 'package:rinjani_visitor/features/authentication/domain/auth_model.dart';
 import 'package:rinjani_visitor/features/authentication/presentation/auth_riverpod.dart';
 import 'package:rinjani_visitor/theme/theme.dart';
+import 'package:rinjani_visitor/widget/form/dropdown_textfield.dart';
 import 'package:rinjani_visitor/widget/input_field.dart';
 
 class RegisterPage extends ConsumerStatefulWidget {
@@ -19,6 +21,7 @@ class RegisterPage extends ConsumerStatefulWidget {
 class _RegisterPageState extends ConsumerState<RegisterPage> {
   final usernameTxtController = TextEditingController();
   final emailTxtController = TextEditingController();
+  final countryTxtController = TextEditingController();
   final phoneNumberTxtController = TextEditingController();
   final passwordTxtController = TextEditingController();
 
@@ -28,6 +31,7 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
     emailTxtController.dispose();
     phoneNumberTxtController.dispose();
     passwordTxtController.dispose();
+    countryTxtController.dispose();
     super.dispose();
   }
 
@@ -64,19 +68,31 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
     Widget inputSection() {
       return Column(
         children: [
-          InputField(label: 'Username', secureText: false),
+          DropdownTextfield(
+            label: "Country",
+            controller: countryTxtController,
+            placeholder: "Eg: Vatikan",
+            items: countryLists,
+          ),
           SizedBox(
             height: 12,
           ),
-          InputField(label: 'Email', secureText: false),
+          InputField(label: 'Username'),
           SizedBox(
             height: 12,
           ),
-          InputField(label: 'Phone number', secureText: false),
+          InputField(label: 'Email'),
           SizedBox(
             height: 12,
           ),
-          InputField(label: 'Password', secureText: false)
+          InputField(
+            label: 'Phone number',
+            keyboardType: TextInputType.phone,
+          ),
+          SizedBox(
+            height: 12,
+          ),
+          InputField(label: 'Password', secureText: true)
         ],
       );
     }
