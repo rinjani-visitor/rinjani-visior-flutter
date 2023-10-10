@@ -15,14 +15,14 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
   @override
   void initState() {
     super.initState();
-
-    ref.read(AuthController.provider).getToken().then((value) {
-      if (value is LocalResult && value.data != null) {
-        debugPrint("value $value");
-        Navigator.pushReplacementNamed(context, '/login-page');
+    ref.read(authControllerProvider.notifier).getToken().then((token) {
+      if (token.isNotEmpty) {
+        debugPrint("value $token");
+        Navigator.pushReplacementNamed(context, '/home-page');
         return;
+      } else {
+        Navigator.pushReplacementNamed(context, '/login-page');
       }
-      Navigator.pushReplacementNamed(context, '/home-page');
     });
   }
 

@@ -114,7 +114,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-          preferredSize: Size(MediaQuery.of(context).size.width, 120),
+          preferredSize: const Size.fromHeight(130),
           child: Container(
             padding:
                 const EdgeInsets.only(top: 48, left: 16, right: 16, bottom: 18),

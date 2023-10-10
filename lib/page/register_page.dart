@@ -41,17 +41,18 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
   }
 
   void _onFormSubmit() async {
-    final result = await ref.read(AuthController.provider).register(
+    await ref.read(authControllerProvider.notifier).register(
         usernameTxtController.text,
         emailTxtController.text,
-        "country",
+        countryTxtController.text,
         phoneNumberTxtController.text,
         passwordTxtController.text,
         passwordTxtController.text);
-    if (result is LocalResult && result.data is AuthModel) {
+    if (ref.read(authControllerProvider).hasValue) {
       _toLogin();
     }
-    Fluttertoast.showToast(msg: result.error.toString());
+    Fluttertoast.showToast(
+        msg: ref.read(authControllerProvider).asError!.error.toString());
   }
 
   @override
@@ -127,6 +128,7 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
         onPressed: () {
           _onFormSubmit();
         },
+        isLoading: ref.watch(authControllerProvider).isLoading,
         child: Text(
           'Sign Up',
         ));
