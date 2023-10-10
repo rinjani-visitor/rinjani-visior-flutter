@@ -19,10 +19,10 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
     ref.read(AuthController.provider).getToken().then((value) {
       if (value is LocalResult && value.data != null) {
         debugPrint("value $value");
-        Navigator.pushReplacementNamed(context, '/home-page');
+        Navigator.pushReplacementNamed(context, '/login-page');
         return;
       }
-      Navigator.pushReplacementNamed(context, '/login-page');
+      Navigator.pushReplacementNamed(context, '/home-page');
     });
   }
 
