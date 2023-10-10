@@ -5,6 +5,7 @@ import 'package:rinjani_visitor/theme/theme.dart';
 class InputField extends StatelessWidget {
   final String label;
   final String? placeholder;
+  final TextInputType? keyboardType;
   final TextEditingController? controller;
   final void Function(String value)? onChanged;
   final void Function()? onTap;
@@ -16,6 +17,7 @@ class InputField extends StatelessWidget {
       this.placeholder,
       this.controller,
       this.onChanged,
+      this.keyboardType,
       this.onTap})
       : super(key: key);
 
@@ -42,6 +44,7 @@ class InputField extends StatelessWidget {
             controller: controller,
             placeholder: placeholder,
             obscureText: secureText,
+            keyboardType: keyboardType,
             onTap: onTap,
           ),
         )
