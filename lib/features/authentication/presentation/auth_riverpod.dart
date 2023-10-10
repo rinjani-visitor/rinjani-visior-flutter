@@ -1,47 +1,48 @@
-import 'dart:async';
-
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:rinjani_visitor/core/datastate/local_state.dart';
 import 'package:rinjani_visitor/features/authentication/data/auth_repsitory_impl.dart';
 import 'package:rinjani_visitor/features/authentication/domain/auth_model.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-class AuthController {
-  final AuthRepositoryImpl repository;
-  AuthController(this.repository);
+part 'auth_riverpod.g.dart';
 
-  static final provider = Provider<AuthController>((ref) {
-    return AuthController(ref.read(AuthRepositoryImpl.provider));
-  });
-  Future<LocalState<String>> getToken() async {
-    await Future.delayed(const Duration(seconds: 2));
-    return const LocalResult("data");
+@Riverpod(keepAlive: true)
+class AuthController extends _$AuthController {
+  late final AuthRepositoryImpl repository;
+
+  @override
+  FutureOr<AuthModel> build() async {
+    final repo = ref.read(AuthRepositoryImpl.provider);
+    repository = repo;
+    return await repository.getSavedSession();
   }
 
-  Future<LocalState<AuthModel>> logIn(String email, String password) async {
+  FutureOr<void> logIn(String email, String password) async {
+    state = const AsyncLoading();
     debugPrint("Login emitted");
-    final result = await repository.logIn(email: email, password: password);
-    debugPrint("AuthRiverpod: Result retrieved: ${result.data.toString()}");
-    return result;
+    state = await AsyncValue.guard(
+        () async => await repository.logIn(email: email, password: password));
   }
 
-  Future<LocalState<String>> logOut() async {
-    try {
+  FutureOr<void> logOut() async {
+    if (state.hasValue && state.value?.token != null) {
       await repository.logout();
-      return const LocalResult("");
-    } on Exception catch (e) {
-      return LocalError(e);
+      state = const AsyncData(AuthModel());
     }
   }
 
-  Future<LocalState<AuthModel>> register(String username, String email,
-      String country, String phone, String password, String password2) async {
-    final result = repository.register(
+  FutureOr<void> register(String username, String email, String country,
+      String phone, String password, String password2) async {
+    state = const AsyncValue.loading();
+    state = await AsyncValue.guard(() async => await repository.register(
         username: username,
         email: email,
         country: country,
         phone: phone,
-        password: password);
-    return result;
+        password: password));
+  }
+
+  Future<String> getToken() async {
+    await Future.delayed(const Duration(seconds: 3));
+    return state.asData?.value.userId ?? "";
   }
 }

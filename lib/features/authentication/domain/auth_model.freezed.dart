@@ -20,9 +20,9 @@ AuthModel _$AuthModelFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$AuthModel {
-  String get userId => throw _privateConstructorUsedError;
-  String get username => throw _privateConstructorUsedError;
-  String get email => throw _privateConstructorUsedError;
+  String? get userId => throw _privateConstructorUsedError;
+  String? get username => throw _privateConstructorUsedError;
+  String? get email => throw _privateConstructorUsedError;
   String? get token => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -36,7 +36,7 @@ abstract class $AuthModelCopyWith<$Res> {
   factory $AuthModelCopyWith(AuthModel value, $Res Function(AuthModel) then) =
       _$AuthModelCopyWithImpl<$Res, AuthModel>;
   @useResult
-  $Res call({String userId, String username, String email, String? token});
+  $Res call({String? userId, String? username, String? email, String? token});
 }
 
 /// @nodoc
@@ -52,24 +52,24 @@ class _$AuthModelCopyWithImpl<$Res, $Val extends AuthModel>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? userId = null,
-    Object? username = null,
-    Object? email = null,
+    Object? userId = freezed,
+    Object? username = freezed,
+    Object? email = freezed,
     Object? token = freezed,
   }) {
     return _then(_value.copyWith(
-      userId: null == userId
+      userId: freezed == userId
           ? _value.userId
           : userId // ignore: cast_nullable_to_non_nullable
-              as String,
-      username: null == username
+              as String?,
+      username: freezed == username
           ? _value.username
           : username // ignore: cast_nullable_to_non_nullable
-              as String,
-      email: null == email
+              as String?,
+      email: freezed == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       token: freezed == token
           ? _value.token
           : token // ignore: cast_nullable_to_non_nullable
@@ -85,7 +85,7 @@ abstract class _$$_AuthModelCopyWith<$Res> implements $AuthModelCopyWith<$Res> {
       __$$_AuthModelCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String userId, String username, String email, String? token});
+  $Res call({String? userId, String? username, String? email, String? token});
 }
 
 /// @nodoc
@@ -99,24 +99,24 @@ class __$$_AuthModelCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? userId = null,
-    Object? username = null,
-    Object? email = null,
+    Object? userId = freezed,
+    Object? username = freezed,
+    Object? email = freezed,
     Object? token = freezed,
   }) {
     return _then(_$_AuthModel(
-      userId: null == userId
+      userId: freezed == userId
           ? _value.userId
           : userId // ignore: cast_nullable_to_non_nullable
-              as String,
-      username: null == username
+              as String?,
+      username: freezed == username
           ? _value.username
           : username // ignore: cast_nullable_to_non_nullable
-              as String,
-      email: null == email
+              as String?,
+      email: freezed == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       token: freezed == token
           ? _value.token
           : token // ignore: cast_nullable_to_non_nullable
@@ -128,21 +128,17 @@ class __$$_AuthModelCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_AuthModel implements _AuthModel {
-  const _$_AuthModel(
-      {required this.userId,
-      required this.username,
-      required this.email,
-      this.token});
+  const _$_AuthModel({this.userId, this.username, this.email, this.token});
 
   factory _$_AuthModel.fromJson(Map<String, dynamic> json) =>
       _$$_AuthModelFromJson(json);
 
   @override
-  final String userId;
+  final String? userId;
   @override
-  final String username;
+  final String? username;
   @override
-  final String email;
+  final String? email;
   @override
   final String? token;
 
@@ -183,20 +179,20 @@ class _$_AuthModel implements _AuthModel {
 
 abstract class _AuthModel implements AuthModel {
   const factory _AuthModel(
-      {required final String userId,
-      required final String username,
-      required final String email,
+      {final String? userId,
+      final String? username,
+      final String? email,
       final String? token}) = _$_AuthModel;
 
   factory _AuthModel.fromJson(Map<String, dynamic> json) =
       _$_AuthModel.fromJson;
 
   @override
-  String get userId;
+  String? get userId;
   @override
-  String get username;
+  String? get username;
   @override
-  String get email;
+  String? get email;
   @override
   String? get token;
   @override
