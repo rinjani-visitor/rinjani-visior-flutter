@@ -43,7 +43,32 @@ class _DropdownTextfieldState extends State<DropdownTextfield> {
                     element.toLowerCase().contains(value.toLowerCase()))
                 .toList();
           },
+          onTap: () => _isTapped = true,
         ),
+        //Dropdown Items
+        _isTapped && _filteredList.isNotEmpty
+            ? Container(
+                height: 150.0,
+                padding: const EdgeInsets.symmetric(horizontal: 8),
+                child: ListView.builder(
+                  itemCount: _filteredList.length,
+                  itemBuilder: (context, index) {
+                    return GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          _isTapped = !_isTapped;
+                          widget.controller.text = _filteredList[index];
+                        });
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 8.0),
+                        child: Text(_filteredList[index]),
+                      ),
+                    );
+                  },
+                ),
+              )
+            : const SizedBox.shrink()
       ],
     );
   }
