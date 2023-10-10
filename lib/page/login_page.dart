@@ -1,10 +1,8 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:rinjani_visitor/core/datastate/local_state.dart';
-import 'package:rinjani_visitor/features/authentication/domain/data/remote/response/login_response.dart';
 import 'package:rinjani_visitor/features/authentication/presentation/auth_riverpod.dart';
 import 'package:rinjani_visitor/theme/theme.dart';
 import 'package:rinjani_visitor/widget/input_field.dart';
@@ -172,7 +170,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
         ),
         TextButton(
             onPressed: () {
-              _submitForm();
+              Navigator.pushNamed(context, '/register-page');
             },
             child: Text(
               "Sign Up",

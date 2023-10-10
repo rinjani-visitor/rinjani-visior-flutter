@@ -36,6 +36,8 @@ class AuthRepositoryImpl implements AuthRepository {
       required String country,
       required String phone,
       required String password}) async {
+    debugPrint("${NAME}: Register...");
+
     if (username.isEmpty ||
         email.isEmpty ||
         country.isEmpty ||
@@ -60,7 +62,7 @@ class AuthRepositoryImpl implements AuthRepository {
   @override
   Future<LocalState<AuthModel>> logIn(
       {required String email, required String password}) async {
-    debugPrint("AuthRepositoryImpl: Login...");
+    debugPrint("${NAME}: Login...");
 
     if (email.isEmpty || password.isEmpty) {
       final exception = Exception("Email / password should not be null");
@@ -84,4 +86,6 @@ class AuthRepositoryImpl implements AuthRepository {
       return exceptionHandler<AuthModel>(e);
     }
   }
+
+  static const NAME = "AuthRepository";
 }
