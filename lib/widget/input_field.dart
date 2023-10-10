@@ -6,13 +6,17 @@ class InputField extends StatelessWidget {
   final String label;
   final String? placeholder;
   final TextEditingController? controller;
+  final void Function(String value)? onChanged;
+  final void Function()? onTap;
   final bool secureText;
   const InputField(
       {Key? key,
       required this.label,
-      required this.secureText,
+      this.secureText = false,
       this.placeholder,
-      this.controller})
+      this.controller,
+      this.onChanged,
+      this.onTap})
       : super(key: key);
 
   @override
@@ -34,9 +38,11 @@ class InputField extends StatelessWidget {
               border: Border.all(color: lightGray)),
           child: CupertinoTextFormFieldRow(
             autovalidateMode: AutovalidateMode.onUserInteraction,
+            onChanged: onChanged,
             controller: controller,
             placeholder: placeholder,
             obscureText: secureText,
+            onTap: onTap,
           ),
         )
       ],
