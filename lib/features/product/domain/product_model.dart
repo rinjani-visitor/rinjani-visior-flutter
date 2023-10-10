@@ -6,8 +6,8 @@ part 'product_model.freezed.dart';
 /// for `rangePricing`, remember to make something like this:
 /// '80$- 90$ / person'
 @freezed
-class PackageModel with _$PackageModel {
-  const factory PackageModel(
+class ProductModel with _$ProductModel {
+  const factory ProductModel(
       {required String packageId,
       required String title,
       required String location,
@@ -25,6 +25,6 @@ class PackageModel with _$PackageModel {
       required String? avaiabilityStatus,
       required int reviewCount}) = _PackageModel;
 
-  factory PackageModel.fromJson(Map<String, Object?> json) =>
-      _$PackageModelFromJson(json);
+  factory ProductModel.fromJson(Map<String, Object?> json) =>
+      _$ProductModelFromJson(json);
 }

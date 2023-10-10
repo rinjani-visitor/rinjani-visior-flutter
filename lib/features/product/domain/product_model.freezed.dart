@@ -14,12 +14,12 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
-PackageModel _$PackageModelFromJson(Map<String, dynamic> json) {
+ProductModel _$ProductModelFromJson(Map<String, dynamic> json) {
   return _PackageModel.fromJson(json);
 }
 
 /// @nodoc
-mixin _$PackageModel {
+mixin _$ProductModel {
   String get packageId => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
   String get location => throw _privateConstructorUsedError;
@@ -39,15 +39,15 @@ mixin _$PackageModel {
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $PackageModelCopyWith<PackageModel> get copyWith =>
+  $ProductModelCopyWith<ProductModel> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $PackageModelCopyWith<$Res> {
-  factory $PackageModelCopyWith(
-          PackageModel value, $Res Function(PackageModel) then) =
-      _$PackageModelCopyWithImpl<$Res, PackageModel>;
+abstract class $ProductModelCopyWith<$Res> {
+  factory $ProductModelCopyWith(
+          ProductModel value, $Res Function(ProductModel) then) =
+      _$ProductModelCopyWithImpl<$Res, ProductModel>;
   @useResult
   $Res call(
       {String packageId,
@@ -67,9 +67,9 @@ abstract class $PackageModelCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$PackageModelCopyWithImpl<$Res, $Val extends PackageModel>
-    implements $PackageModelCopyWith<$Res> {
-  _$PackageModelCopyWithImpl(this._value, this._then);
+class _$ProductModelCopyWithImpl<$Res, $Val extends ProductModel>
+    implements $ProductModelCopyWith<$Res> {
+  _$ProductModelCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -157,7 +157,7 @@ class _$PackageModelCopyWithImpl<$Res, $Val extends PackageModel>
 
 /// @nodoc
 abstract class _$$_PackageModelCopyWith<$Res>
-    implements $PackageModelCopyWith<$Res> {
+    implements $ProductModelCopyWith<$Res> {
   factory _$$_PackageModelCopyWith(
           _$_PackageModel value, $Res Function(_$_PackageModel) then) =
       __$$_PackageModelCopyWithImpl<$Res>;
@@ -182,7 +182,7 @@ abstract class _$$_PackageModelCopyWith<$Res>
 
 /// @nodoc
 class __$$_PackageModelCopyWithImpl<$Res>
-    extends _$PackageModelCopyWithImpl<$Res, _$_PackageModel>
+    extends _$ProductModelCopyWithImpl<$Res, _$_PackageModel>
     implements _$$_PackageModelCopyWith<$Res> {
   __$$_PackageModelCopyWithImpl(
       _$_PackageModel _value, $Res Function(_$_PackageModel) _then)
@@ -340,7 +340,7 @@ class _$_PackageModel implements _PackageModel {
 
   @override
   String toString() {
-    return 'PackageModel(packageId: $packageId, title: $title, location: $location, locationUrl: $locationUrl, imgUrl: $imgUrl, rangePricing: $rangePricing, rating: $rating, tripDuration: $tripDuration, description: $description, accomodation: $accomodation, addOnIds: $addOnIds, reviewIds: $reviewIds, avaiabilityStatus: $avaiabilityStatus, reviewCount: $reviewCount)';
+    return 'ProductModel(packageId: $packageId, title: $title, location: $location, locationUrl: $locationUrl, imgUrl: $imgUrl, rangePricing: $rangePricing, rating: $rating, tripDuration: $tripDuration, description: $description, accomodation: $accomodation, addOnIds: $addOnIds, reviewIds: $reviewIds, avaiabilityStatus: $avaiabilityStatus, reviewCount: $reviewCount)';
   }
 
   @override
@@ -407,7 +407,7 @@ class _$_PackageModel implements _PackageModel {
   }
 }
 
-abstract class _PackageModel implements PackageModel {
+abstract class _PackageModel implements ProductModel {
   const factory _PackageModel(
       {required final String packageId,
       required final String title,

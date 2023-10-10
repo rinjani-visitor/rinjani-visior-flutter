@@ -3,14 +3,14 @@ import 'package:rinjani_visitor/features/product/domain/product_model.dart';
 
 abstract class ProductRespository {
   ///get packages from API with additional query (page, item, category)
-  Future<LocalState<List<PackageModel>>> getPackages(
+  Future<LocalState<List<ProductModel>>> getPackages(
       {int pages = 1,
       int? itemsPerPage = 10,
       String? category,
       String? avaiability});
 
   /// get package detail, with addons avaiable, etc.
-  Future<LocalState<PackageModel>> getPackageDetail(
+  Future<LocalState<ProductModel>> getPackageDetail(
       {required String packageId});
 
   /// cancel purchased package.
@@ -18,6 +18,6 @@ abstract class ProductRespository {
   Future<void> cancelPackage({required String packageId});
 
   ///  purchase / booking current package
-  Future<LocalState<PackageModel>> bookingPackage(
+  Future<LocalState<ProductModel>> bookingPackage(
       {required String packageId, List<String>? addOns, String? paymentMethod});
 }
