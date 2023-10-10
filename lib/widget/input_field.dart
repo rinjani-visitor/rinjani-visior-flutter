@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:rinjani_visitor/theme/theme.dart';
 
 class InputField extends StatelessWidget {
