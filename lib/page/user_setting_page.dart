@@ -51,7 +51,35 @@ class UserSettingPage extends StatelessWidget {
               Spacer(),
               TextButton(
                 onPressed: () {
-                  //fungsi log out di sini
+                  showCupertinoModalPopup(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return CupertinoAlertDialog(
+                          title: const Text('Account Logout'),
+                          content:
+                              const Text('Are you sure you want to logout?'),
+                          actions: [
+                            CupertinoDialogAction(
+                              child: const Text("No"),
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                            ),
+                            CupertinoDialogAction(
+                              child: Text(
+                                "Yes",
+                                style:
+                                    redTextStyle.copyWith(fontSize: subtitle1),
+                              ),
+                              onPressed: () {
+                                //fungsi logout booking taruh di sini
+
+                                Navigator.pop(context);
+                              },
+                            ),
+                          ],
+                        );
+                      });
                 },
                 child: Text(
                   'Log out',
