@@ -1,3 +1,5 @@
+import 'dart:collection';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rinjani_visitor/theme/theme.dart';
@@ -8,7 +10,8 @@ class NotificationDetailPage extends StatelessWidget {
   //variabel buat atus status
   final ButtonStatus statusNotif;
 
-  const NotificationDetailPage({Key? key, required this.statusNotif}) : super(key: key);
+  const NotificationDetailPage({Key? key, required this.statusNotif})
+      : super(key: key);
 
   Widget imageContainer() {
     return Container(
@@ -140,7 +143,7 @@ class NotificationDetailPage extends StatelessWidget {
     );
   }
 
-  Widget declinedBottom() {
+  Widget declinedBottom(BuildContext context) {
     return Column(
       children: [
         Container(
@@ -149,7 +152,66 @@ class NotificationDetailPage extends StatelessWidget {
               color: primaryColor,
               borderRadius: BorderRadius.circular(smallRadius)),
           child: TextButton(
-              onPressed: () {},
+              onPressed: () {
+                showCupertinoModalPopup(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return Container(
+                        padding: EdgeInsets.all(24),
+                        width: double.infinity,
+                        height: 300,
+                        decoration: BoxDecoration(
+                            color: whiteColor,
+                            borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(bigRadius),
+                                topRight: Radius.circular(bigRadius))),
+                        child: Column(
+                          children: [
+                            // Spacer(),
+                            Text(
+                              'Input price to offer',
+                              style: blackTextStyle.copyWith(
+                                  fontSize: heading5, fontWeight: semibold),
+                            ),
+                            SizedBox(
+                              height: 24,
+                            ),
+                            CupertinoTextField(
+                              decoration: BoxDecoration(
+                                  borderRadius:
+                                      BorderRadius.circular(smallRadius),
+                                  border: Border.all(color: lightGray)),
+                              padding: EdgeInsets.all(16),
+                              placeholder: 'input price here',
+                            ),
+                            SizedBox(
+                              height: 16,
+                            ),
+                            TextButton(
+                                onPressed: () {
+                                  Navigator.popAndPushNamed(
+                                      context, '/success-offer-page');
+                                },
+                                child: Container(
+                                  height: 43,
+                                  decoration: BoxDecoration(
+                                      color: primaryColor,
+                                      borderRadius:
+                                          BorderRadius.circular(smallRadius)),
+                                  child: Center(
+                                      child: Text(
+                                    'Make offer',
+                                    style: whiteTextStyle.copyWith(
+                                        fontSize: textButton2,
+                                        fontWeight: semibold),
+                                  )),
+                                )),
+                            Spacer()
+                          ],
+                        ),
+                      );
+                    });
+              },
               child: Text(
                 'Make another offer',
                 style:
@@ -160,7 +222,36 @@ class NotificationDetailPage extends StatelessWidget {
           height: 8,
         ),
         TextButton(
-            onPressed: () {},
+            onPressed: () {
+              showCupertinoModalPopup(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return CupertinoAlertDialog(
+                      title: const Text('Cancel booking'),
+                      content:
+                          const Text('Are you sure to cancel this booking?'),
+                      actions: [
+                        CupertinoDialogAction(
+                          child: const Text("No"),
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                        ),
+                        CupertinoDialogAction(
+                          child: Text(
+                            "Yes",
+                            style: redTextStyle.copyWith(fontSize: subtitle1),
+                          ),
+                          onPressed: () {
+                            //fungsi cancel booking taruh di sini
+
+                            Navigator.pop(context);
+                          },
+                        ),
+                      ],
+                    );
+                  });
+            },
             child: Text(
               'Cancel this booking',
               style: redTextStyle.copyWith(
@@ -204,9 +295,37 @@ class NotificationDetailPage extends StatelessWidget {
     return Container();
   }
 
-  Widget offeringButton() {
+  Widget offeringButton(BuildContext context) {
     return TextButton(
-        onPressed: () {},
+        onPressed: () {
+          showCupertinoModalPopup(
+              context: context,
+              builder: (BuildContext context) {
+                return CupertinoAlertDialog(
+                  title: const Text('Cancel booking'),
+                  content: const Text('Are you sure to cancel this booking?'),
+                  actions: [
+                    CupertinoDialogAction(
+                      child: const Text("No"),
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                    ),
+                    CupertinoDialogAction(
+                      child: Text(
+                        "Yes",
+                        style: redTextStyle.copyWith(fontSize: subtitle1),
+                      ),
+                      onPressed: () {
+                        //fungsi cancel booking taruh di sini
+
+                        Navigator.pop(context);
+                      },
+                    ),
+                  ],
+                );
+              });
+        },
         child: Text(
           'Cancel this booking',
           style: redTextStyle.copyWith(
@@ -220,9 +339,9 @@ class NotificationDetailPage extends StatelessWidget {
     Widget getButton(ButtonStatus buttonStatus) {
       switch (buttonStatus) {
         case ButtonStatus.declined:
-          return declinedBottom();
+          return declinedBottom(context);
         case ButtonStatus.offering:
-          return offeringButton();
+          return offeringButton(context);
         case ButtonStatus.waiting:
           return waitingButton();
         case ButtonStatus.review:
