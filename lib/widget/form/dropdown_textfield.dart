@@ -34,11 +34,7 @@ class _DropdownTextfieldState extends State<DropdownTextfield> {
   @override
   Widget build(BuildContext context) {
     return TapRegion(
-      onTapOutside: (event) {
-        setState(() {
-          _tooltipController.hide();
-        });
-      },
+      onTapOutside: (event) {},
       child: CompositedTransformTarget(
         link: _link,
         child: OverlayPortal(
@@ -56,7 +52,11 @@ class _DropdownTextfieldState extends State<DropdownTextfield> {
             label: widget.label,
             placeholder: widget.placeholder,
             onChanged: (value) {
-              debugPrint("current text: ${value}");
+              if (!_tooltipController.isShowing) {
+                _tooltipController.show();
+              }
+              debugPrint(
+                  "current text: ${value}, controller text ${widget.controller.text}");
               setState(() {
                 _filteredList = _list
                     .where((element) =>
@@ -88,8 +88,9 @@ class _DropdownTextfieldState extends State<DropdownTextfield> {
           return GestureDetector(
             onTap: () {
               setState(() {
-                _tooltipController.hide();
                 widget.controller.text = _filteredList[index];
+                debugPrint("Controller new text ${widget.controller.value}");
+                _tooltipController.hide();
               });
             },
             child: Padding(
