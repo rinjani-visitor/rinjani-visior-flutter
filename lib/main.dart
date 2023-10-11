@@ -17,6 +17,7 @@ import 'package:rinjani_visitor/page/register_page.dart';
 import 'package:rinjani_visitor/page/search_page.dart';
 import 'package:rinjani_visitor/page/splash_screen.dart';
 import 'package:rinjani_visitor/page/success_booking_page.dart';
+import 'package:rinjani_visitor/page/success_offer_page.dart';
 import 'package:rinjani_visitor/page/user_setting_page.dart';
 
 void main() {
@@ -55,6 +56,7 @@ class MyApp extends StatelessWidget {
         '/change-pass-page': (context) => const ChangePassPage(),
         '/change-email-page': (context) => const ChangeEmailPage(),
         '/success-booking-page': (context) => const SuccessBookingPage(),
+        '/success-offer-page': (context) => const SuccessOfferPage(),
       },
     );
   }
