@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:like_button/like_button.dart';
 import 'package:rinjani_visitor/core/go_router_builder.dart';
 import 'package:rinjani_visitor/theme/theme.dart';
 import 'package:rinjani_visitor/widget/add_on_widget.dart';
+import 'package:rinjani_visitor/widget/like_widget.dart';
 import 'package:rinjani_visitor/widget/rating_widget.dart';
 import 'package:rinjani_visitor/widget/segmented_widget.dart';
 import 'package:rinjani_visitor/widget/status.dart';
@@ -67,10 +69,7 @@ class DetailPage extends StatelessWidget {
                     blackTextStyle.copyWith(fontSize: 16, fontWeight: semibold),
               ),
               Spacer(),
-              Icon(
-                Icons.favorite_outline,
-                color: lightGray,
-              )
+              LikeButton()
             ],
           ),
           SizedBox(
