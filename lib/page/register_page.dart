@@ -48,11 +48,13 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
         phoneNumberTxtController.text,
         passwordTxtController.text,
         passwordTxtController.text);
-    if (ref.read(authControllerProvider).hasValue) {
-      _toLogin();
+    if (ref.read(authControllerProvider).hasError) {
+      Fluttertoast.showToast(
+          msg: ref.read(authControllerProvider).asError!.error.toString());
+
+      return;
     }
-    Fluttertoast.showToast(
-        msg: ref.read(authControllerProvider).asError!.error.toString());
+    _toLogin();
   }
 
   @override
@@ -69,7 +71,7 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
               children: [
                 header(),
                 inputSection(),
-                SizedBox(
+                const SizedBox(
                   height: 36,
                 ),
                 signUpButton()
@@ -103,22 +105,33 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
         SizedBox(
           height: 12,
         ),
-        InputField(label: 'Username'),
+        InputField(
+          label: 'Username',
+          controller: usernameTxtController,
+        ),
         SizedBox(
           height: 12,
         ),
-        InputField(label: 'Email'),
+        InputField(
+          label: 'Email',
+          controller: emailTxtController,
+        ),
         SizedBox(
           height: 12,
         ),
         InputField(
           label: 'Phone number',
           keyboardType: TextInputType.phone,
+          controller: phoneNumberTxtController,
         ),
         SizedBox(
           height: 12,
         ),
-        InputField(label: 'Password', secureText: true)
+        InputField(
+          label: 'Password',
+          secureText: true,
+          controller: passwordTxtController,
+        )
       ],
     );
   }

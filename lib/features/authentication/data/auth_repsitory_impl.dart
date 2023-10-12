@@ -45,6 +45,8 @@ class AuthRepositoryImpl implements AuthRepository {
         country.isEmpty ||
         phone.isEmpty ||
         password.isEmpty) {
+      debugPrint(
+          "values: email - $email, country - $country, phone - $phone, password - $password");
       throw Exception("field must not be empty");
     }
 

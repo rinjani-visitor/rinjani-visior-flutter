@@ -39,6 +39,7 @@ class AuthController extends _$AuthController {
         country: country,
         phone: phone,
         password: password));
+    debugPrint("value ${state.asData?.value.toString()}");
   }
 
   Future<String> getToken() async {
