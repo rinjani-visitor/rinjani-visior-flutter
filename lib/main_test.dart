@@ -4,6 +4,8 @@ import 'package:flutter/services.dart';
 
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:rinjani_visitor/core/constant/country.dart';
+import 'package:rinjani_visitor/widget/form/dropdown_textfield.dart';
 
 void main() {
   // Force google font to use offline fonts instead of re-downloading again
@@ -40,11 +42,28 @@ class DevPage extends StatefulWidget {
 }
 
 class _DevPageState extends State<DevPage> {
+  TextEditingController countryController = TextEditingController();
+
+  @override
+  void dispose() {
+    countryController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return const CupertinoPageScaffold(
-      child: Center(
-        child: Text("hello"),
+    return CupertinoPageScaffold(
+      child: Column(
+        children: [
+          Padding(
+            padding: EdgeInsets.all(9),
+            child: DropdownTextfield(
+                label: "Pilih negara",
+                controller: countryController,
+                items: countryLists,
+                placeholder: "example indeed"),
+          ),
+        ],
       ),
     );
   }

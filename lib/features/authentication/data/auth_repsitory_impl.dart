@@ -13,6 +13,8 @@ import 'package:rinjani_visitor/features/authentication/domain/auth_model.dart';
 import 'package:rinjani_visitor/features/authentication/domain/auth_repository.dart';
 import 'package:rinjani_visitor/features/authentication/domain/data/remote/request/login_request.dart';
 import 'package:rinjani_visitor/features/authentication/domain/data/remote/request/register_request.dart';
+import 'package:rinjani_visitor/features/authentication/domain/data/remote/response/basic_response.dart';
+import 'package:rinjani_visitor/features/authentication/domain/data/remote/response/login_response.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
   final AuthLocalSource localSource;
@@ -80,15 +82,17 @@ class AuthRepositoryImpl implements AuthRepository {
       final response = await remoteSource
           .logIn(LoginRequest(password: password, email: email));
       debugPrint("Repository: new data from remote: ${response.toString()}");
-
-      final token = response.token;
-      await localSource.setToken(response.toJson().toString());
+      final loginResult = response.loginResult!;
+      await localSource.setToken(loginResult.token.toString());
       return AuthModel(
-          userId: response.userId,
-          username: response.username,
-          email: response.email,
-          token: response.token);
+          userId: loginResult.userId,
+          email: loginResult.email,
+          token: loginResult.token);
     } catch (e) {
+      if (e is DioException) {
+        debugPrint("DioException, response: ${e.response?.data.toString()}");
+        throw Exception(BasicResponse.fromJson(e.response?.data).message);
+      }
       debugPrint("Repository: error: ${e.toString()}");
       rethrow;
       // return exceptionHandler<AuthModel>(e);
