@@ -51,7 +51,6 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
     if (ref.read(authControllerProvider).hasError) {
       Fluttertoast.showToast(
           msg: ref.read(authControllerProvider).asError!.error.toString());
-
       return;
     }
     _toLogin();

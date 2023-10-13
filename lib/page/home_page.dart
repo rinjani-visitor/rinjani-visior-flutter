@@ -1,12 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:rinjani_visitor/features/authentication/presentation/auth_riverpod.dart';
 import 'package:rinjani_visitor/theme/theme.dart';
 import 'package:rinjani_visitor/widget/big_card.dart';
 import 'package:rinjani_visitor/widget/category_item.dart';
 import 'package:rinjani_visitor/widget/small_card.dart';
 import 'package:rinjani_visitor/widget/status.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends ConsumerWidget {
   const HomePage({Key? key}) : super(key: key);
 
   Widget _categories() {
@@ -111,7 +113,9 @@ class HomePage extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, ref) {
+    final username =
+        ref.read(authControllerProvider).asData?.value.username ?? "User";
     return Scaffold(
       appBar: PreferredSize(
           preferredSize: const Size.fromHeight(170),
@@ -129,7 +133,7 @@ class HomePage extends StatelessWidget {
                 Row(
                   children: [
                     Text(
-                      'Hi, Alex',
+                      'Hi, $username',
                       style: whiteTextStyle.copyWith(
                           fontSize: 34, fontWeight: bold),
                     ),

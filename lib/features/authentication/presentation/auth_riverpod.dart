@@ -33,6 +33,8 @@ class AuthController extends _$AuthController {
   FutureOr<void> register(String username, String email, String country,
       String phone, String password, String password2) async {
     state = const AsyncValue.loading();
+    debugPrint("Register emitted");
+
     state = await AsyncValue.guard(() async => await repository.register(
         username: username,
         email: email,

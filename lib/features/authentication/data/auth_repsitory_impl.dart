@@ -47,20 +47,28 @@ class AuthRepositoryImpl implements AuthRepository {
         country.isEmpty ||
         phone.isEmpty ||
         password.isEmpty) {
-      debugPrint(
-          "values: email - $email, country - $country, phone - $phone, password - $password");
       throw Exception("field must not be empty");
     }
 
     try {
-      final response = await remoteSource
-          .register(const RegisterRequest(username: "name", email: "email"));
+      debugPrint(
+          "values: email - $email, country - $country, phone - $phone, password - $password");
+      final response = await remoteSource.register(RegisterRequest(
+          username: username,
+          email: email,
+          country: country,
+          password: password,
+          phone: phone));
       debugPrint("Repository: new data from remote: ${response.toString()}");
       return AuthModel(
-          userId: response.userId!,
-          username: response.userId!,
-          email: response.email!);
+          userId: response.user?.userId!,
+          username: response.user?.username!,
+          email: response.user?.email!);
     } catch (e) {
+      if (e is DioException) {
+        debugPrint("DioException, response: ${e.response?.data.toString()}");
+        throw Exception(BasicResponse.fromJson(e.response?.data).message);
+      }
       rethrow;
       // return exceptionHandler<AuthModel>(e);
     }
