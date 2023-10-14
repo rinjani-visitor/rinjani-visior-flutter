@@ -3,6 +3,7 @@ import 'dart:collection';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rinjani_visitor/theme/theme.dart';
+import 'package:rinjani_visitor/widget/cancel_button_widget.dart';
 
 enum ButtonStatus { success, declined, offering, waiting, review }
 
@@ -221,47 +222,12 @@ class NotificationDetailPage extends StatelessWidget {
         SizedBox(
           height: 8,
         ),
-        TextButton(
-            onPressed: () {
-              showCupertinoModalPopup(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return CupertinoAlertDialog(
-                      title: const Text('Cancel booking'),
-                      content:
-                          const Text('Are you sure to cancel this booking?'),
-                      actions: [
-                        CupertinoDialogAction(
-                          child: const Text("No"),
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                        ),
-                        CupertinoDialogAction(
-                          child: Text(
-                            "Yes",
-                            style: redTextStyle.copyWith(fontSize: subtitle1),
-                          ),
-                          onPressed: () {
-                            //fungsi cancel booking taruh di sini
-
-                            Navigator.pop(context);
-                          },
-                        ),
-                      ],
-                    );
-                  });
-            },
-            child: Text(
-              'Cancel this booking',
-              style: redTextStyle.copyWith(
-                  fontSize: 12, decoration: TextDecoration.underline),
-            ))
+        CancelButtonWidget()
       ],
     );
   }
 
-  Widget waitingButton() {
+  Widget waitingButton(context) {
     return Column(
       children: [
         Container(
@@ -270,7 +236,9 @@ class NotificationDetailPage extends StatelessWidget {
               color: primaryColor,
               borderRadius: BorderRadius.circular(smallRadius)),
           child: TextButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushNamed(context, '/continue-payment-page');
+              },
               child: Text(
                 'Continue for payment',
                 style:
@@ -280,13 +248,7 @@ class NotificationDetailPage extends StatelessWidget {
         SizedBox(
           height: 8,
         ),
-        TextButton(
-            onPressed: () {},
-            child: Text(
-              'Cancel this booking',
-              style: redTextStyle.copyWith(
-                  fontSize: 12, decoration: TextDecoration.underline),
-            ))
+        CancelButtonWidget()
       ],
     );
   }
@@ -343,7 +305,7 @@ class NotificationDetailPage extends StatelessWidget {
         case ButtonStatus.offering:
           return offeringButton(context);
         case ButtonStatus.waiting:
-          return waitingButton();
+          return waitingButton(context);
         case ButtonStatus.review:
           return succesAndReviewing();
         case ButtonStatus.success:
