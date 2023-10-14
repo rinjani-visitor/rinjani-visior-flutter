@@ -7,9 +7,7 @@ class AccountPage extends StatelessWidget {
   const AccountPage({Key? key}) : super(key: key);
 
   Widget userProfile() {
-    return Container(
-      width: double.infinity,
-      height: 144,
+    return Flexible(
       child: Column(
         children: [
           CircularProfileAvatar(
@@ -25,7 +23,6 @@ class AccountPage extends StatelessWidget {
           SizedBox(
             height: 8,
           ),
-
           //username dari user
           Text(
             'Username',
@@ -37,10 +34,7 @@ class AccountPage extends StatelessWidget {
   }
 
   Widget information(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      height: 138,
-      margin: EdgeInsets.only(top: 32),
+    return Flexible(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
