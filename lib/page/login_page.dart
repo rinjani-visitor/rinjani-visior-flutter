@@ -62,21 +62,14 @@ class _LoginPageState extends ConsumerState<LoginPage> {
           children: [
             header(),
             _inputSection(),
-            const SizedBox(
-              height: 48,
-            ),
+            const Spacer(),
             Divider(
               color: blackColor,
             ),
-            const SizedBox(
-              height: 48,
+            const Spacer(),
+            Column(
+              children: [googleLogin(), _signUpButton()],
             ),
-            googleLogin(),
-            // const LoginGoogle(),
-            const SizedBox(
-              height: 24,
-            ),
-            _signUpButton(),
             const Spacer(),
             LoginButton(
                 isLoading: ref.watch(authControllerProvider).isLoading,
