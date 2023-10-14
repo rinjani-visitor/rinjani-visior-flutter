@@ -7,6 +7,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rinjani_visitor/page/category_explore_page.dart';
 import 'package:rinjani_visitor/page/change_email_page.dart';
 import 'package:rinjani_visitor/page/change_pass_page.dart';
+import 'package:rinjani_visitor/page/continue_payment_page.dart';
 import 'package:rinjani_visitor/page/detail_page.dart';
 import 'package:rinjani_visitor/page/event_detail.dart';
 import 'package:rinjani_visitor/page/login_page.dart';
@@ -57,6 +58,7 @@ class MyApp extends StatelessWidget {
         '/change-email-page': (context) => const ChangeEmailPage(),
         '/success-booking-page': (context) => const SuccessBookingPage(),
         '/success-offer-page': (context) => const SuccessOfferPage(),
+        '/continue-payment-page': (context) => const ContinuePaymentPage(),
       },
     );
   }
