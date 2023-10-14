@@ -11,7 +11,7 @@ import 'package:rinjani_visitor/widget/status.dart';
 class HomePage extends ConsumerWidget {
   const HomePage({Key? key}) : super(key: key);
 
-  Widget _categories() {
+  Widget _categoriesWidgets() {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Column(
@@ -50,7 +50,7 @@ class HomePage extends ConsumerWidget {
     );
   }
 
-  Widget _recommended() {
+  Widget _recommendedWidgets() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -76,7 +76,7 @@ class HomePage extends ConsumerWidget {
     );
   }
 
-  Widget _rinjaniTrip() {
+  Widget _rinjaniTripWidgets() {
     return Padding(
       padding: const EdgeInsets.only(bottom: 16),
       child: Column(
@@ -112,72 +112,80 @@ class HomePage extends ConsumerWidget {
     );
   }
 
+  Widget _appBar(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.only(top: 48, left: 16, right: 16, bottom: 18),
+      decoration: BoxDecoration(
+          color: primaryColor,
+          borderRadius: BorderRadius.only(
+              bottomLeft: Radius.circular(bigRadius),
+              bottomRight: Radius.circular(bigRadius))),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Text(
+                'Hi, user',
+                style: whiteTextStyle.copyWith(fontSize: 34, fontWeight: bold),
+              ),
+              const Spacer(),
+              IconButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/notification-page');
+                  },
+                  icon: Icon(
+                    Icons.notifications,
+                    size: 32.0,
+                    color: whiteColor,
+                  ))
+            ],
+          ),
+          const SizedBox(
+            height: 12,
+          ),
+          InkWell(
+            onTap: () {
+              Navigator.pushNamed(context, '/search-page');
+            },
+            child: CupertinoSearchTextField(
+              backgroundColor: whiteColor,
+              enabled: false,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context, ref) {
     final username =
         ref.read(authControllerProvider).asData?.value.username ?? "User";
     return Scaffold(
-      appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(170),
-          child: Container(
-            padding:
-                const EdgeInsets.only(top: 48, left: 16, right: 16, bottom: 18),
-            decoration: BoxDecoration(
-                color: primaryColor,
-                borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(bigRadius),
-                    bottomRight: Radius.circular(bigRadius))),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  children: [
-                    Text(
-                      'Hi, $username',
-                      style: whiteTextStyle.copyWith(
-                          fontSize: 34, fontWeight: bold),
-                    ),
-                    const Spacer(),
-                    IconButton(
-                        onPressed: () {
-                          Navigator.pushNamed(context, '/notification-page');
-                        },
-                        icon: Icon(
-                          Icons.notifications,
-                          size: 32.0,
-                          color: whiteColor,
-                        ))
-                  ],
-                ),
-                const Expanded(child: Center()),
-                InkWell(
-                  onTap: () {
-                    Navigator.pushNamed(context, '/search-page');
-                  },
-                  child: CupertinoSearchTextField(
-                    backgroundColor: whiteColor,
-                    enabled: false,
-                  ),
-                ),
-              ],
-            ),
-          )),
-      resizeToAvoidBottomInset: false,
       backgroundColor: backgroundColor,
-      body: ListView(
-        children: [
-          const SizedBox(
-            height: 24,
-          ),
-          _categories(),
-          const SizedBox(
-            height: 24,
-          ),
-          _recommended(),
-          const SizedBox(
-            height: 24,
-          ),
-          _rinjaniTrip()
+      body: CustomScrollView(
+        scrollBehavior: CupertinoScrollBehavior(),
+        primary: false,
+        slivers: [
+          SliverToBoxAdapter(child: _appBar(context)),
+          SliverToBoxAdapter(
+              child: Column(
+            children: [
+              const SizedBox(
+                height: 24,
+              ),
+              _categoriesWidgets(),
+              const SizedBox(
+                height: 24,
+              ),
+              _recommendedWidgets(),
+              const SizedBox(
+                height: 24,
+              ),
+              _rinjaniTripWidgets()
+            ],
+          )),
         ],
       ),
     );
