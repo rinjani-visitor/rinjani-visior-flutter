@@ -25,6 +25,7 @@ class AuthController extends _$AuthController {
 
   FutureOr<void> logOut() async {
     if (state.hasValue && state.value?.token != null) {
+      state = const AsyncValue.loading();
       await repository.logout();
       state = const AsyncData(AuthModel());
     }

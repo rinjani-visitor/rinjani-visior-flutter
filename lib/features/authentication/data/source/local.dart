@@ -38,8 +38,7 @@ class AuthLocalSource {
 
   Future<void> setSession(AuthModel session) async {
     final stringJson = jsonEncode(session.toJson());
-    final data = await storage.write(
-        key: AuthLocalSource.SESSION_KEY, value: stringJson);
+    await storage.write(key: AuthLocalSource.SESSION_KEY, value: stringJson);
     return;
   }
 }

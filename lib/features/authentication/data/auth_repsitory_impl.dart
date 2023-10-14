@@ -31,6 +31,7 @@ class AuthRepositoryImpl implements AuthRepository {
   @override
   Future<void> logout() async {
     await localSource.removeToken();
+    await localSource.setSession(AuthModel());
   }
 
   @override
