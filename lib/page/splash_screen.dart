@@ -15,6 +15,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
   @override
   void initState() {
     super.initState();
+    debugPrint("${ref.read(authControllerProvider).asData?.value.toString()}");
     ref.read(authControllerProvider.notifier).getToken().then((token) {
       if (token.isNotEmpty) {
         debugPrint("value $token");

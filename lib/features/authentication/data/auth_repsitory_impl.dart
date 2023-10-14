@@ -91,11 +91,12 @@ class AuthRepositoryImpl implements AuthRepository {
           .logIn(LoginRequest(password: password, email: email));
       debugPrint("Repository: new data from remote: ${response.toString()}");
       final loginResult = response.loginResult!;
-      await localSource.setToken(loginResult.token.toString());
-      return AuthModel(
+      final result = AuthModel(
           userId: loginResult.userId,
           email: loginResult.email,
           token: loginResult.token);
+      await localSource.setSession(result);
+      return result;
     } catch (e) {
       if (e is DioException) {
         debugPrint("DioException, response: ${e.response?.data.toString()}");
@@ -109,11 +110,14 @@ class AuthRepositoryImpl implements AuthRepository {
 
   @override
   Future<AuthModel> getSavedSession() async {
-    final stringJson = await localSource.getToken();
+    final stringJson = await localSource.getSession();
     try {
-      final authModel = AuthModel.fromJson(jsonDecode(stringJson));
+      final dataJson = jsonDecode(stringJson);
+      final authModel = AuthModel.fromJson(dataJson);
+      debugPrint("$NAME : $dataJson");
       return authModel;
     } catch (e) {
+      debugPrint("$NAME : Error - ${e.toString()}");
       return const AuthModel();
     }
   }

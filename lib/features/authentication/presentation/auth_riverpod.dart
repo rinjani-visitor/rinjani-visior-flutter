@@ -46,6 +46,11 @@ class AuthController extends _$AuthController {
 
   Future<String> getToken() async {
     await Future.delayed(const Duration(seconds: 3));
-    return state.asData?.value.userId ?? "";
+    debugPrint("current token: ${state.asData?.value.token}");
+    return state.asData?.value.token ?? "";
   }
+
+  // Future<AuthModel> getSession() async {
+  //   await Future.delayed(const Duration(seconds: 3));
+  // }
 }
