@@ -1,12 +1,25 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:rinjani_visitor/features/authentication/presentation/auth_riverpod.dart';
 import 'package:rinjani_visitor/theme/theme.dart';
 
-class UserSettingPage extends StatelessWidget {
+class UserSettingPage extends ConsumerWidget {
   const UserSettingPage({Key? key}) : super(key: key);
 
+  void _logOutMethod(WidgetRef ref, void Function() onLoggingOut) async {
+    await ref.read(authControllerProvider.notifier).logOut();
+    if (ref.read(authControllerProvider).hasError) {
+      Fluttertoast.showToast(
+          msg: "${ref.read(authControllerProvider).error?.toString()}");
+      return;
+    }
+    onLoggingOut();
+  }
+
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, ref) {
     return CupertinoPageScaffold(
         navigationBar: CupertinoNavigationBar(
           middle: Text('Account settings'),
@@ -48,7 +61,7 @@ class UserSettingPage extends StatelessWidget {
                   color: blackColor,
                 ),
               ),
-              Spacer(),
+              const Spacer(),
               TextButton(
                 onPressed: () {
                   showCupertinoModalPopup(
@@ -73,8 +86,11 @@ class UserSettingPage extends StatelessWidget {
                               ),
                               onPressed: () {
                                 //fungsi logout booking taruh di sini
-
-                                Navigator.pop(context);
+                                _logOutMethod(
+                                  ref,
+                                  () => Navigator.popAndPushNamed(
+                                      context, '/login-page'),
+                                );
                               },
                             ),
                           ],
