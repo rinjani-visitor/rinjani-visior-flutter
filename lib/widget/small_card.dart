@@ -13,9 +13,8 @@ class SmallCard extends StatelessWidget {
       },
       child: Container(
         width: 177,
-        height: 250,
-        margin: EdgeInsets.only(left: 16),
-        padding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+        margin: const EdgeInsets.only(left: 16),
+        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
         decoration: BoxDecoration(
             color: whiteColor, borderRadius: BorderRadius.circular(18)),
         child: Column(
@@ -24,11 +23,11 @@ class SmallCard extends StatelessWidget {
               height: 165,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(smallRadius),
-                image: DecorationImage(
+                image: const DecorationImage(
                     fit: BoxFit.fill, image: AssetImage('assets/rinjani.jpeg')),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 8,
             ),
             Container(
@@ -41,11 +40,11 @@ class SmallCard extends StatelessWidget {
                     style: blackTextStyle.copyWith(
                         fontSize: 16, fontWeight: semibold),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 4,
                   ),
-                  RatingWidget(),
-                  SizedBox(
+                  const RatingWidget(),
+                  const SizedBox(
                     height: 8,
                   ),
                 ],
