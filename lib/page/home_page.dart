@@ -116,81 +116,131 @@ class HomePage extends ConsumerWidget {
     );
   }
 
-  Widget _appBar(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.only(top: 48, left: 16, right: 16, bottom: 18),
-      decoration: BoxDecoration(
-          color: primaryColor,
-          borderRadius: BorderRadius.only(
-              bottomLeft: Radius.circular(bigRadius),
-              bottomRight: Radius.circular(bigRadius))),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              Text(
-                'Hi, user',
-                style: whiteTextStyle.copyWith(fontSize: 34, fontWeight: bold),
-              ),
-              const Spacer(),
-              IconButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/notification-page');
-                  },
-                  icon: Icon(
-                    Icons.notifications,
-                    size: 32.0,
-                    color: whiteColor,
-                  ))
-            ],
-          ),
-          const SizedBox(
-            height: 12,
-          ),
-          InkWell(
-            onTap: () {
-              Navigator.pushNamed(context, '/search-page');
-            },
-            child: CupertinoSearchTextField(
-              backgroundColor: whiteColor,
-              enabled: false,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
+  // Widget _appBar(BuildContext context) {
+  //   return Container(
+  //     padding: const EdgeInsets.only(top: 48, left: 16, right: 16, bottom: 18),
+  //     decoration: BoxDecoration(
+  //         color: primaryColor,
+  //         borderRadius: BorderRadius.only(
+  //             bottomLeft: Radius.circular(bigRadius),
+  //             bottomRight: Radius.circular(bigRadius))),
+  //     child: Column(
+  //       crossAxisAlignment: CrossAxisAlignment.start,
+  //       children: [
+  //         Row(
+  //           children: [
+  //             Text(
+  //               'Hi, user',
+  //               style: whiteTextStyle.copyWith(fontSize: 34, fontWeight: bold),
+  //             ),
+  //             const Spacer(),
+  //             IconButton(
+  //                 onPressed: () {
+  //                   Navigator.pushNamed(context, '/notification-page');
+  //                 },
+  //                 icon: Icon(
+  //                   Icons.notifications,
+  //                   size: 32.0,
+  //                   color: whiteColor,
+  //                 ))
+  //           ],
+  //         ),
+  //         const SizedBox(
+  //           height: 12,
+  //         ),
+  //         InkWell(
+  //           onTap: () {
+  //             Navigator.pushNamed(context, '/search-page');
+  //           },
+  //           child: CupertinoSearchTextField(
+  //             backgroundColor: whiteColor,
+  //             enabled: false,
+  //           ),
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
 
   @override
   Widget build(BuildContext context, ref) {
+    double deviceHeight = MediaQuery.of(context).size.height;
+    double appBarHeight = deviceHeight * 0.15;
     final username =
         ref.read(authControllerProvider).asData?.value.username ?? "User";
     return Scaffold(
       backgroundColor: backgroundColor,
+      appBar: PreferredSize(
+          preferredSize: Size.fromHeight(appBarHeight),
+          child: Container(
+            padding: EdgeInsets.symmetric(horizontal: 16),
+            decoration: BoxDecoration(
+                color: primaryColor,
+                borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(bigRadius),
+                    bottomRight: Radius.circular(bigRadius))),
+            child: SafeArea(
+              child: Column(
+                children: [
+                  // Spacer(),
+                  Row(
+                    children: [
+                      Text(
+                        'Hi, Alex',
+                        style: whiteTextStyle.copyWith(
+                            fontSize: deviceHeight * 0.04, fontWeight: bold),
+                      ),
+                      Spacer(),
+                      IconButton(
+                          onPressed: () {},
+                          icon: Icon(
+                            Icons.notifications,
+                            color: whiteColor,
+                            size: deviceHeight * 0.04,
+                          )),
+                    ],
+                  ),
+                  Spacer(),
+                  InkWell(
+                    onTap: () {
+                      Navigator.pushNamed(context, '/search-page');
+                    },
+                    child: CupertinoSearchTextField(
+                      backgroundColor: whiteColor,
+                      enabled: false,
+                    ),
+                  ),
+                  Spacer()
+                ],
+              ),
+            ),
+          )),
       body: CustomScrollView(
         scrollBehavior: const CupertinoScrollBehavior(),
         primary: false,
         physics: const ClampingScrollPhysics(),
         slivers: [
-          SliverToBoxAdapter(child: _appBar(context)),
           SliverToBoxAdapter(
-              child: Column(
+              child: Stack(
             children: [
-              const SizedBox(
-                height: 24,
-              ),
-              _categoriesWidgets(),
-              const SizedBox(
-                height: 24,
-              ),
-              _recommendedWidgets(),
-              const SizedBox(
-                height: 24,
-              ),
-              _rinjaniTripWidgets(),
-              const SizedBox(
-                height: 80,
+              Column(
+                children: [
+                  const SizedBox(
+                    height: 24,
+                  ),
+                  _categoriesWidgets(),
+                  const SizedBox(
+                    height: 24,
+                  ),
+                  _recommendedWidgets(),
+                  const SizedBox(
+                    height: 24,
+                  ),
+                  _rinjaniTripWidgets(),
+                  const SizedBox(
+                    height: 80,
+                  )
+                ],
               )
             ],
           )),
