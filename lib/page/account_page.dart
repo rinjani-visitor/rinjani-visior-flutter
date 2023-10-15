@@ -89,20 +89,22 @@ class AccountPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
-        navigationBar: CupertinoNavigationBar(
-          leading: Text(
-            'Profile',
-            style: blackTextStyle.copyWith(fontSize: 32, fontWeight: semibold),
-          ),
+        child: CustomScrollView(
+      slivers: [
+        CupertinoSliverNavigationBar(
+          largeTitle: Text('Profile'),
         ),
-        child: SafeArea(
-            child: Container(
-          width: double.infinity,
-          height: 314,
-          margin: EdgeInsets.symmetric(vertical: 16, horizontal: 16),
-          child: Column(
-            children: [userProfile(), information(context)],
+        SliverToBoxAdapter(
+          child: Container(
+            width: double.infinity,
+            height: 314,
+            margin: EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+            child: Column(
+              children: [userProfile(), information(context)],
+            ),
           ),
-        )));
+        )
+      ],
+    ));
   }
 }

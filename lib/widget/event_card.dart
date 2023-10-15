@@ -75,10 +75,8 @@ class EventCard extends StatelessWidget {
         Navigator.pushNamed(context, '/event-detail-page');
       },
       child: Container(
-        width: 200,
-        height: 309,
         padding: EdgeInsets.all(10.0),
-        margin: EdgeInsets.only(top: 16, bottom: 8),
+        margin: EdgeInsets.only(top: 8, left: 16, right: 16),
         decoration: BoxDecoration(
             color: whiteColor, borderRadius: BorderRadius.circular(18)),
         child: Column(
