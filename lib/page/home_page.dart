@@ -62,7 +62,7 @@ class HomePage extends ConsumerWidget {
           ),
         ),
         const SizedBox(
-          height: 16,
+          height: 10,
         ),
         const SingleChildScrollView(
           scrollDirection: Axis.horizontal,
@@ -90,10 +90,14 @@ class HomePage extends ConsumerWidget {
                   blackTextStyle.copyWith(fontSize: 24, fontWeight: semibold),
             ),
           ),
+          const SizedBox(
+            height: 16,
+          ),
           // TODO: update this with new repository structure
           ListView.builder(
             physics: const NeverScrollableScrollPhysics(),
             shrinkWrap: true,
+            padding: EdgeInsets.zero,
             itemCount: 3,
             itemBuilder: (context, index) {
               return const Padding(
