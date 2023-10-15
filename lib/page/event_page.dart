@@ -17,13 +17,15 @@ class EventPage extends StatelessWidget {
               largeTitle: Text("Events"),
             ),
             SliverToBoxAdapter(
-              child: Column(
-                children: [
-                  EventCard(),
-                  EventCard(),
-                  EventCard(),
-                  EventCard(),
-                ],
+              child: SafeArea(
+                child: Column(
+                  children: [
+                    EventCard(),
+                    EventCard(),
+                    EventCard(),
+                    EventCard(),
+                  ],
+                ),
               ),
             )
           ],
