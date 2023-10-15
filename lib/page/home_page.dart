@@ -188,7 +188,10 @@ class HomePage extends ConsumerWidget {
               const SizedBox(
                 height: 24,
               ),
-              _rinjaniTripWidgets()
+              _rinjaniTripWidgets(),
+              const SizedBox(
+                height: 80,
+              )
             ],
           )),
         ],
