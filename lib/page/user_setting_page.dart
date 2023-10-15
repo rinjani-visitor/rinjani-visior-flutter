@@ -87,10 +87,11 @@ class UserSettingPage extends ConsumerWidget {
                               onPressed: () {
                                 //fungsi logout booking taruh di sini
                                 _logOutMethod(
-                                  ref,
-                                  () => Navigator.popUntil(context,
-                                      ModalRoute.withName("/login-page")),
-                                );
+                                    ref,
+                                    () => Navigator.pushNamedAndRemoveUntil(
+                                        context,
+                                        '/login-page',
+                                        (route) => false));
                               },
                             ),
                           ],
