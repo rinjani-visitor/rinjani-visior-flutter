@@ -3,15 +3,14 @@ import 'package:rinjani_visitor/features/product/domain/product_model.dart';
 
 abstract class ProductRespository {
   ///get packages from API with additional query (page, item, category)
-  Future<LocalState<List<ProductModel>>> getPackages(
+  Future<List<ProductModel>> getPackages(
       {int pages = 1,
       int? itemsPerPage = 10,
       String? category,
       String? avaiability});
 
   /// get package detail, with addons avaiable, etc.
-  Future<LocalState<ProductModel>> getPackageDetail(
-      {required String packageId});
+  Future<ProductModel> getPackageDetail({required String packageId});
 
   /// cancel purchased package.
   /// this method will throw error if current package has already purchased
