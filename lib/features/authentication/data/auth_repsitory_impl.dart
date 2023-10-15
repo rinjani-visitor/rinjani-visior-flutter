@@ -1,11 +1,7 @@
-import 'dart:convert';
-
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:rinjani_visitor/core/datastate/local_state.dart';
 import 'package:rinjani_visitor/core/services/dio_service.dart';
-import 'package:rinjani_visitor/core/utils/exception_utils.dart';
 import 'package:rinjani_visitor/features/authentication/data/source/local.dart';
 import 'package:rinjani_visitor/features/authentication/data/source/remote.dart';
 import 'package:rinjani_visitor/features/authentication/domain/auth_model.dart';
@@ -14,7 +10,6 @@ import 'package:rinjani_visitor/features/authentication/domain/auth_repository.d
 import 'package:rinjani_visitor/features/authentication/domain/data/remote/request/login_request.dart';
 import 'package:rinjani_visitor/features/authentication/domain/data/remote/request/register_request.dart';
 import 'package:rinjani_visitor/features/authentication/domain/data/remote/response/basic_response.dart';
-import 'package:rinjani_visitor/features/authentication/domain/data/remote/response/login_response.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
   final AuthLocalSource localSource;
@@ -105,18 +100,15 @@ class AuthRepositoryImpl implements AuthRepository {
       }
       debugPrint("Repository: error: ${e.toString()}");
       rethrow;
-      // return exceptionHandler<AuthModel>(e);
     }
   }
 
   @override
   Future<AuthModel> getSavedSession() async {
-    final stringJson = await localSource.getSession();
+    final sessionModel = await localSource.getSession();
     try {
-      final dataJson = jsonDecode(stringJson);
-      final authModel = AuthModel.fromJson(dataJson);
-      debugPrint("$NAME : $dataJson");
-      return authModel;
+      debugPrint("$NAME : $sessionModel");
+      return sessionModel;
     } catch (e) {
       debugPrint("$NAME : Error - ${e.toString()}");
       return const AuthModel();
