@@ -9,15 +9,15 @@ class EventPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
         backgroundColor: backgroundColor,
-        child: CustomScrollView(
-          primary: false,
-          scrollBehavior: CupertinoScrollBehavior(),
-          slivers: [
-            const CupertinoSliverNavigationBar(
-              largeTitle: Text("Events"),
-            ),
-            SliverToBoxAdapter(
-              child: SafeArea(
+        child: SafeArea(
+          child: CustomScrollView(
+            primary: false,
+            scrollBehavior: CupertinoScrollBehavior(),
+            slivers: [
+              const CupertinoSliverNavigationBar(
+                largeTitle: Text("Events"),
+              ),
+              SliverToBoxAdapter(
                 child: Column(
                   children: [
                     EventCard(),
@@ -26,9 +26,9 @@ class EventPage extends StatelessWidget {
                     EventCard(),
                   ],
                 ),
-              ),
-            )
-          ],
+              )
+            ],
+          ),
         ));
   }
 }
