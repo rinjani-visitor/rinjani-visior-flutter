@@ -165,8 +165,9 @@ class HomePage extends ConsumerWidget {
     return Scaffold(
       backgroundColor: backgroundColor,
       body: CustomScrollView(
-        scrollBehavior: CupertinoScrollBehavior(),
+        scrollBehavior: const CupertinoScrollBehavior(),
         primary: false,
+        physics: const ClampingScrollPhysics(),
         slivers: [
           SliverToBoxAdapter(child: _appBar(context)),
           SliverToBoxAdapter(
