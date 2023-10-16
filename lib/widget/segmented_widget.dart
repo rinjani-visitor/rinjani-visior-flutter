@@ -1,15 +1,10 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/gestures.dart';
-import 'package:flutter/material.dart';
 import 'package:rinjani_visitor/theme/theme.dart';
-import 'package:rinjani_visitor/widget/accomodation_widget.dart';
-import 'package:rinjani_visitor/widget/add_on_widget.dart';
 import 'package:rinjani_visitor/widget/button/primary_button.dart';
 import 'package:rinjani_visitor/widget/date_picker_widget.dart';
 import 'package:rinjani_visitor/widget/person_counter_widget.dart';
 import 'package:rinjani_visitor/widget/review_widget.dart';
 // import 'package:rinjani_visitor/widget/date_picker_widget.dart';
-import 'package:rinjani_visitor/widget/time_button_widget.dart';
 
 final _mockInitenary = [
   '09:00 - 09:30 Go to sembalun',
@@ -33,8 +28,8 @@ class DetailIniteraryWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        margin: const EdgeInsets.only(top: 10),
+    return Padding(
+        padding: const EdgeInsets.only(top: 12),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -48,7 +43,7 @@ class DetailIniteraryWidget extends StatelessWidget {
             ),
             Text(
               initenaryDatas(),
-              style: TextStyle(fontSize: 16),
+              style: TextStyle(fontSize: body1),
             ),
           ],
         ));
@@ -90,7 +85,7 @@ class _DetailDescriptionWidgetState extends State<DetailDescriptionWidget> {
           Text(
             widget.description,
             style: blackTextStyle.copyWith(
-              fontSize: 14,
+              fontSize: body2,
             ),
           ),
           const SizedBox(
@@ -98,7 +93,8 @@ class _DetailDescriptionWidgetState extends State<DetailDescriptionWidget> {
           ),
           Text(
             'Add On',
-            style: blackTextStyle.copyWith(fontSize: 16, fontWeight: semibold),
+            style:
+                blackTextStyle.copyWith(fontSize: body1, fontWeight: semibold),
           ),
           widget.addOnWidget,
 
@@ -138,7 +134,7 @@ class _DetailDescriptionWidgetState extends State<DetailDescriptionWidget> {
             height: 8,
           ),
           widget.reviewWidget,
-          LoginButton(
+          PrimaryButton(
               onPressed: () {
                 showCupertinoModalPopup(
                     context: context,
@@ -159,7 +155,7 @@ class _DetailDescriptionWidgetState extends State<DetailDescriptionWidget> {
                 'Buy Product',
                 style: whiteTextStyle.copyWith(fontSize: 16),
               )),
-          SizedBox(
+          const SizedBox(
             height: 16,
           ),
         ],
