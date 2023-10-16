@@ -98,28 +98,20 @@ class _DetailDescriptionWidgetState extends State<DetailDescriptionWidget> {
             const SizedBox(
               height: 16,
             ),
-            Column(
-              // add on here
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Add On',
-                  style: blackTextStyle.copyWith(
-                      fontSize: 16, fontWeight: semibold),
-                ),
-                widget.addOnWidget,
-              ],
+            Text(
+              'Add On',
+              style:
+                  blackTextStyle.copyWith(fontSize: 16, fontWeight: semibold),
             ),
+            widget.addOnWidget,
+
             const SizedBox(
               height: 16,
             ),
-            Column(
-              children: [
-                widget.datePickerWidget,
-                const SizedBox(
-                  height: 8,
-                ),
-              ],
+            widget.datePickerWidget,
+
+            const SizedBox(
+              height: 8,
             ),
             // Flexible(
             //   fit: FlexFit.tight,
@@ -133,20 +125,18 @@ class _DetailDescriptionWidgetState extends State<DetailDescriptionWidget> {
             const SizedBox(
               height: 16,
             ),
-            Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Text(
-                'Accomodation',
-                style: blackTextStyle.copyWith(
-                    fontSize: heading5, fontWeight: semibold),
-              ),
-              const SizedBox(
-                height: 8,
-              ),
-              Text(
-                widget.accomodation,
-                style: TextStyle(fontSize: 16),
-              ),
-            ]),
+            Text(
+              'Accomodation',
+              style: blackTextStyle.copyWith(
+                  fontSize: heading5, fontWeight: semibold),
+            ),
+            const SizedBox(
+              height: 8,
+            ),
+            Text(
+              widget.accomodation,
+              style: TextStyle(fontSize: 16),
+            ),
             const SizedBox(
               height: 8,
             ),
