@@ -27,12 +27,14 @@ LoginResponseBody _$LoginResponseBodyFromJson(Map<String, dynamic> json) =>
     LoginResponseBody(
       userId: json['userId'] as String,
       email: json['email'] as String,
+      username: json['username'] as String,
       token: json['token'] as String,
     );
 
 Map<String, dynamic> _$LoginResponseBodyToJson(LoginResponseBody instance) =>
     <String, dynamic>{
       'userId': instance.userId,
+      'username': instance.username,
       'email': instance.email,
       'token': instance.token,
     };

@@ -22,6 +22,8 @@ class ProductModel with _$ProductModel {
       required String accomodation,
       required List<String>? addOnIds,
       required List<String>? reviewIds,
+      required List<String> initenaryList,
+      required List<String> timeList24H,
       required String? avaiabilityStatus,
       required int reviewCount}) = _PackageModel;
 

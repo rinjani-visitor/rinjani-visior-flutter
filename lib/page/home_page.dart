@@ -173,7 +173,7 @@ class HomePage extends ConsumerWidget {
       appBar: PreferredSize(
           preferredSize: Size.fromHeight(appBarHeight),
           child: Container(
-            padding: EdgeInsets.symmetric(horizontal: 16),
+            padding: const EdgeInsets.symmetric(horizontal: 16),
             decoration: BoxDecoration(
                 color: primaryColor,
                 borderRadius: BorderRadius.only(
@@ -186,7 +186,7 @@ class HomePage extends ConsumerWidget {
                   Row(
                     children: [
                       Text(
-                        'Hi, Alex',
+                        'Hi, $username',
                         style: whiteTextStyle.copyWith(
                             fontSize: deviceHeight * 0.04, fontWeight: bold),
                       ),

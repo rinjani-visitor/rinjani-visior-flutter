@@ -33,20 +33,22 @@ class ProductRepositoryImpl implements ProductRespository {
       String? avaiability}) async {
     final dataMock = [
       const ProductModel(
-          packageId: "packageId",
-          title: "title",
-          location: "location",
-          locationUrl: "locationUrl",
-          imgUrl: "imgUrl",
-          rangePricing: "rangePricing",
-          rating: "rating",
-          tripDuration: "tripDuration",
-          description: "description",
+          packageId: "thisispackageid",
+          title: "Rinjani Trip",
+          location: "Lombok Utara, Indonesia",
+          locationUrl: "",
+          imgUrl: "",
+          rangePricing: "10\$ - 20\$/person",
+          rating: "4.9",
+          tripDuration: "2 days, 1 night",
+          description: "Basic package",
           accomodation: "accomodation",
-          addOnIds: ["addonId"],
-          reviewIds: ["reviewIds"],
-          avaiabilityStatus: "avaiabilityStatus",
-          reviewCount: 5)
+          addOnIds: [""],
+          reviewIds: [""],
+          avaiabilityStatus: "avaiable",
+          initenaryList: [""],
+          reviewCount: 32,
+          timeList24H: ["08.00", "12.00"])
     ];
     //TODO: remove this
     await Future.delayed(Duration(seconds: 2));

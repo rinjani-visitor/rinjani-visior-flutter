@@ -50,7 +50,7 @@ class MyApp extends StatelessWidget {
         '/home-page': (context) => const MainPage(),
         '/search-page': (context) => const SearchPage(),
         '/event-detail-page': (context) => const EventDetail(),
-        '/detail-page': (context) => const DetailPage(),
+        '/detail-page': (context) => DetailPage(),
         '/notification-page': (context) => const NotificationPage(),
         '/personal-info-page': (context) => const PersonalInfoPage(),
         '/user-setting-page': (context) => const UserSettingPage(),

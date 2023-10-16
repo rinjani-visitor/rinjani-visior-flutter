@@ -11,23 +11,30 @@ import 'package:rinjani_visitor/widget/review_widget.dart';
 // import 'package:rinjani_visitor/widget/date_picker_widget.dart';
 import 'package:rinjani_visitor/widget/time_button_widget.dart';
 
-class SegmentedWidget extends StatefulWidget {
-  const SegmentedWidget({Key? key}) : super(key: key);
+final _mockInitenary = [
+  '09:00 - 09:30 Go to sembalun',
+  '09:30 - 10:00 Go to Rinjani',
+  '10:00 - 11:00 Lunch'
+];
+
+final _mockDescription = [];
+
+class DetailIniteraryWidget extends StatelessWidget {
+  final List<String> initenaryList;
+  const DetailIniteraryWidget({super.key, required this.initenaryList});
+
+  String initenaryDatas() {
+    var string = "";
+    for (final item in initenaryList) {
+      string = string += "$item\n";
+    }
+    return string;
+  }
 
   @override
-  _SegmentedWidgetState createState() => _SegmentedWidgetState();
-}
-
-class _SegmentedWidgetState extends State<SegmentedWidget> {
-  Map<dynamic, Widget> children = <dynamic, Widget>{
-    0: const Text('Description'),
-    1: const Text('Initenary')
-  };
-  int _sliding = 0;
-
-  Widget initenary() {
+  Widget build(BuildContext context) {
     return Container(
-        margin: EdgeInsets.only(top: 10),
+        margin: const EdgeInsets.only(top: 10),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -36,20 +43,44 @@ class _SegmentedWidgetState extends State<SegmentedWidget> {
               style:
                   blackTextStyle.copyWith(fontSize: 20, fontWeight: semibold),
             ),
-            SizedBox(
+            const SizedBox(
               height: 8,
             ),
             Text(
-              '09:00 - 09:30 Go to sembalun\n'
-              '09:30 - 10:00 Go to Rinjani\n'
-              '10:00 - 11:00 Lunch\n',
+              initenaryDatas(),
               style: TextStyle(fontSize: 16),
             ),
           ],
         ));
   }
+}
 
-  Widget description() {
+class DetailDescriptionWidget extends StatefulWidget {
+  final DatePickerWidget datePickerWidget;
+  final ReviewWidget reviewWidget;
+  final Widget addOnWidget;
+  final String accomodation;
+  final String description;
+  final List<String> timeListFormat24H;
+  const DetailDescriptionWidget({
+    super.key,
+    required this.datePickerWidget,
+    required this.addOnWidget,
+    required this.reviewWidget,
+    required this.description,
+    required this.accomodation,
+    required this.timeListFormat24H,
+  });
+
+  @override
+  State<DetailDescriptionWidget> createState() =>
+      _DetailDescriptionWidgetState();
+}
+
+class _DetailDescriptionWidgetState extends State<DetailDescriptionWidget> {
+  int personCount = 0;
+  @override
+  Widget build(BuildContext context) {
     return ConstrainedBox(
       constraints: BoxConstraints(minWidth: MediaQuery.of(context).size.width),
       child: Padding(
@@ -59,12 +90,12 @@ class _SegmentedWidgetState extends State<SegmentedWidget> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              "Indah Pemandangan Air Terjun Sindang Gila yang memiliki 2 terjunan, satu-satunya yang ada di Pulau Lombok.",
+              widget.description,
               style: blackTextStyle.copyWith(
                 fontSize: 14,
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 16,
             ),
             Column(
@@ -72,46 +103,51 @@ class _SegmentedWidgetState extends State<SegmentedWidget> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Trip add on',
+                  'Add On',
                   style: blackTextStyle.copyWith(
                       fontSize: 16, fontWeight: semibold),
                 ),
-                AddOnWidgetMock(),
+                widget.addOnWidget,
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 16,
             ),
             Column(
               children: [
-                DatePickerWidget(),
-                SizedBox(
+                widget.datePickerWidget,
+                const SizedBox(
                   height: 8,
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    TimeButtonWidget(
-                      time: '09:00 AM',
-                    ),
-                    TimeButtonWidget(
-                      time: '10:00 AM',
-                    ),
-                    TimeButtonWidget(
-                      time: '11:00 AM',
-                    ),
-                  ],
+                ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  padding: EdgeInsets.zero,
+                  itemBuilder: (context, index) =>
+                      TimeButtonWidget(time: widget.timeListFormat24H[index]),
                 )
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 16,
             ),
-            AccomodationWidget(),
-            SizedBox(
+            Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              Text(
+                'Accomodation',
+                style: blackTextStyle.copyWith(
+                    fontSize: heading5, fontWeight: semibold),
+              ),
+              const SizedBox(
+                height: 8,
+              ),
+              Text(
+                widget.accomodation,
+                style: TextStyle(fontSize: 16),
+              ),
+            ]),
+            const SizedBox(
               height: 8,
             ),
-            ReviewWidget(),
+            widget.reviewWidget,
             LoginButton(
                 onPressed: () {
                   showCupertinoModalPopup(
@@ -123,7 +159,9 @@ class _SegmentedWidgetState extends State<SegmentedWidget> {
                           decoration: BoxDecoration(
                               color: whiteColor,
                               borderRadius: BorderRadius.circular(bigRadius)),
-                          child: PersonCounterWidget(),
+                          child: PersonCounterWidget(
+                            onSubmit: (value) => personCount = value,
+                          ),
                         );
                       });
                 },
@@ -139,6 +177,27 @@ class _SegmentedWidgetState extends State<SegmentedWidget> {
       ),
     );
   }
+}
+
+class DetailSegmentedWidget extends StatefulWidget {
+  final Widget descriptionWidget;
+  final Widget initenaryWidget;
+  const DetailSegmentedWidget(
+      {Key? key,
+      required this.descriptionWidget,
+      required this.initenaryWidget})
+      : super(key: key);
+
+  @override
+  _DetailSegmentedWidgetState createState() => _DetailSegmentedWidgetState();
+}
+
+class _DetailSegmentedWidgetState extends State<DetailSegmentedWidget> {
+  Map<dynamic, Widget> children = <dynamic, Widget>{
+    0: const Text('Description'),
+    1: const Text('Initenary')
+  };
+  int _sliding = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -158,7 +217,7 @@ class _SegmentedWidgetState extends State<SegmentedWidget> {
                 });
               }),
         ),
-        _sliding == 0 ? description() : initenary()
+        _sliding == 0 ? widget.descriptionWidget : widget.initenaryWidget
       ],
     ));
   }

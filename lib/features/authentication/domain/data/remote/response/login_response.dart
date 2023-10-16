@@ -18,11 +18,15 @@ class LoginResponse {
 @JsonSerializable()
 class LoginResponseBody {
   final String userId;
+  final String username;
   final String email;
   final String token;
 
   LoginResponseBody(
-      {required this.userId, required this.email, required this.token});
+      {required this.userId,
+      required this.email,
+      required this.username,
+      required this.token});
 
   factory LoginResponseBody.fromJson(Map<String, dynamic> json) =>
       _$LoginResponseBodyFromJson(json);

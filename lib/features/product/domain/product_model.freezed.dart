@@ -34,6 +34,8 @@ mixin _$ProductModel {
   String get accomodation => throw _privateConstructorUsedError;
   List<String>? get addOnIds => throw _privateConstructorUsedError;
   List<String>? get reviewIds => throw _privateConstructorUsedError;
+  List<String> get initenaryList => throw _privateConstructorUsedError;
+  List<String> get timeList24H => throw _privateConstructorUsedError;
   String? get avaiabilityStatus => throw _privateConstructorUsedError;
   int get reviewCount => throw _privateConstructorUsedError;
 
@@ -62,6 +64,8 @@ abstract class $ProductModelCopyWith<$Res> {
       String accomodation,
       List<String>? addOnIds,
       List<String>? reviewIds,
+      List<String> initenaryList,
+      List<String> timeList24H,
       String? avaiabilityStatus,
       int reviewCount});
 }
@@ -91,6 +95,8 @@ class _$ProductModelCopyWithImpl<$Res, $Val extends ProductModel>
     Object? accomodation = null,
     Object? addOnIds = freezed,
     Object? reviewIds = freezed,
+    Object? initenaryList = null,
+    Object? timeList24H = null,
     Object? avaiabilityStatus = freezed,
     Object? reviewCount = null,
   }) {
@@ -143,6 +149,14 @@ class _$ProductModelCopyWithImpl<$Res, $Val extends ProductModel>
           ? _value.reviewIds
           : reviewIds // ignore: cast_nullable_to_non_nullable
               as List<String>?,
+      initenaryList: null == initenaryList
+          ? _value.initenaryList
+          : initenaryList // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      timeList24H: null == timeList24H
+          ? _value.timeList24H
+          : timeList24H // ignore: cast_nullable_to_non_nullable
+              as List<String>,
       avaiabilityStatus: freezed == avaiabilityStatus
           ? _value.avaiabilityStatus
           : avaiabilityStatus // ignore: cast_nullable_to_non_nullable
@@ -176,6 +190,8 @@ abstract class _$$_PackageModelCopyWith<$Res>
       String accomodation,
       List<String>? addOnIds,
       List<String>? reviewIds,
+      List<String> initenaryList,
+      List<String> timeList24H,
       String? avaiabilityStatus,
       int reviewCount});
 }
@@ -203,6 +219,8 @@ class __$$_PackageModelCopyWithImpl<$Res>
     Object? accomodation = null,
     Object? addOnIds = freezed,
     Object? reviewIds = freezed,
+    Object? initenaryList = null,
+    Object? timeList24H = null,
     Object? avaiabilityStatus = freezed,
     Object? reviewCount = null,
   }) {
@@ -255,6 +273,14 @@ class __$$_PackageModelCopyWithImpl<$Res>
           ? _value._reviewIds
           : reviewIds // ignore: cast_nullable_to_non_nullable
               as List<String>?,
+      initenaryList: null == initenaryList
+          ? _value._initenaryList
+          : initenaryList // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      timeList24H: null == timeList24H
+          ? _value._timeList24H
+          : timeList24H // ignore: cast_nullable_to_non_nullable
+              as List<String>,
       avaiabilityStatus: freezed == avaiabilityStatus
           ? _value.avaiabilityStatus
           : avaiabilityStatus // ignore: cast_nullable_to_non_nullable
@@ -283,10 +309,14 @@ class _$_PackageModel implements _PackageModel {
       required this.accomodation,
       required final List<String>? addOnIds,
       required final List<String>? reviewIds,
+      required final List<String> initenaryList,
+      required final List<String> timeList24H,
       required this.avaiabilityStatus,
       required this.reviewCount})
       : _addOnIds = addOnIds,
-        _reviewIds = reviewIds;
+        _reviewIds = reviewIds,
+        _initenaryList = initenaryList,
+        _timeList24H = timeList24H;
 
   factory _$_PackageModel.fromJson(Map<String, dynamic> json) =>
       _$$_PackageModelFromJson(json);
@@ -333,6 +363,22 @@ class _$_PackageModel implements _PackageModel {
     return EqualUnmodifiableListView(value);
   }
 
+  final List<String> _initenaryList;
+  @override
+  List<String> get initenaryList {
+    if (_initenaryList is EqualUnmodifiableListView) return _initenaryList;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_initenaryList);
+  }
+
+  final List<String> _timeList24H;
+  @override
+  List<String> get timeList24H {
+    if (_timeList24H is EqualUnmodifiableListView) return _timeList24H;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_timeList24H);
+  }
+
   @override
   final String? avaiabilityStatus;
   @override
@@ -340,7 +386,7 @@ class _$_PackageModel implements _PackageModel {
 
   @override
   String toString() {
-    return 'ProductModel(packageId: $packageId, title: $title, location: $location, locationUrl: $locationUrl, imgUrl: $imgUrl, rangePricing: $rangePricing, rating: $rating, tripDuration: $tripDuration, description: $description, accomodation: $accomodation, addOnIds: $addOnIds, reviewIds: $reviewIds, avaiabilityStatus: $avaiabilityStatus, reviewCount: $reviewCount)';
+    return 'ProductModel(packageId: $packageId, title: $title, location: $location, locationUrl: $locationUrl, imgUrl: $imgUrl, rangePricing: $rangePricing, rating: $rating, tripDuration: $tripDuration, description: $description, accomodation: $accomodation, addOnIds: $addOnIds, reviewIds: $reviewIds, initenaryList: $initenaryList, timeList24H: $timeList24H, avaiabilityStatus: $avaiabilityStatus, reviewCount: $reviewCount)';
   }
 
   @override
@@ -368,6 +414,10 @@ class _$_PackageModel implements _PackageModel {
             const DeepCollectionEquality().equals(other._addOnIds, _addOnIds) &&
             const DeepCollectionEquality()
                 .equals(other._reviewIds, _reviewIds) &&
+            const DeepCollectionEquality()
+                .equals(other._initenaryList, _initenaryList) &&
+            const DeepCollectionEquality()
+                .equals(other._timeList24H, _timeList24H) &&
             (identical(other.avaiabilityStatus, avaiabilityStatus) ||
                 other.avaiabilityStatus == avaiabilityStatus) &&
             (identical(other.reviewCount, reviewCount) ||
@@ -390,6 +440,8 @@ class _$_PackageModel implements _PackageModel {
       accomodation,
       const DeepCollectionEquality().hash(_addOnIds),
       const DeepCollectionEquality().hash(_reviewIds),
+      const DeepCollectionEquality().hash(_initenaryList),
+      const DeepCollectionEquality().hash(_timeList24H),
       avaiabilityStatus,
       reviewCount);
 
@@ -421,6 +473,8 @@ abstract class _PackageModel implements ProductModel {
       required final String accomodation,
       required final List<String>? addOnIds,
       required final List<String>? reviewIds,
+      required final List<String> initenaryList,
+      required final List<String> timeList24H,
       required final String? avaiabilityStatus,
       required final int reviewCount}) = _$_PackageModel;
 
@@ -453,6 +507,10 @@ abstract class _PackageModel implements ProductModel {
   List<String>? get addOnIds;
   @override
   List<String>? get reviewIds;
+  @override
+  List<String> get initenaryList;
+  @override
+  List<String> get timeList24H;
   @override
   String? get avaiabilityStatus;
   @override

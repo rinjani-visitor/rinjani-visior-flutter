@@ -24,6 +24,12 @@ _$_PackageModel _$$_PackageModelFromJson(Map<String, dynamic> json) =>
       reviewIds: (json['reviewIds'] as List<dynamic>?)
           ?.map((e) => e as String)
           .toList(),
+      initenaryList: (json['initenaryList'] as List<dynamic>)
+          .map((e) => e as String)
+          .toList(),
+      timeList24H: (json['timeList24H'] as List<dynamic>)
+          .map((e) => e as String)
+          .toList(),
       avaiabilityStatus: json['avaiabilityStatus'] as String?,
       reviewCount: json['reviewCount'] as int,
     );
@@ -42,6 +48,8 @@ Map<String, dynamic> _$$_PackageModelToJson(_$_PackageModel instance) =>
       'accomodation': instance.accomodation,
       'addOnIds': instance.addOnIds,
       'reviewIds': instance.reviewIds,
+      'initenaryList': instance.initenaryList,
+      'timeList24H': instance.timeList24H,
       'avaiabilityStatus': instance.avaiabilityStatus,
       'reviewCount': instance.reviewCount,
     };

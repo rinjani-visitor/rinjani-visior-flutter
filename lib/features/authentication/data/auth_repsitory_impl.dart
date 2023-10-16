@@ -90,6 +90,7 @@ class AuthRepositoryImpl implements AuthRepository {
       final result = AuthModel(
           userId: loginResult.userId,
           email: loginResult.email,
+          username: loginResult.username,
           token: loginResult.token);
       await localSource.setSession(result);
       return result;

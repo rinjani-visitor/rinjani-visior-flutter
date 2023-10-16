@@ -1,13 +1,44 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:like_button/like_button.dart';
+import 'package:rinjani_visitor/features/product/domain/product_model.dart';
 import 'package:rinjani_visitor/theme/theme.dart';
+import 'package:rinjani_visitor/widget/add_on_widget.dart';
+import 'package:rinjani_visitor/widget/date_picker_widget.dart';
 import 'package:rinjani_visitor/widget/rating_widget.dart';
+import 'package:rinjani_visitor/widget/review_widget.dart';
 import 'package:rinjani_visitor/widget/segmented_widget.dart';
 import 'package:rinjani_visitor/widget/status.dart';
 
-class DetailPage extends StatelessWidget {
-  const DetailPage({Key? key}) : super(key: key);
+const dataMock = ProductModel(
+    packageId: "thisispackageid",
+    title: "Rinjani Trip",
+    location: "Lombok Utara, Indonesia",
+    locationUrl: "",
+    imgUrl: "",
+    rangePricing: "10\$ - 20\$/person",
+    rating: "4.9",
+    tripDuration: "2 days, 1 night",
+    description: "Basic package",
+    accomodation: "accomodation",
+    addOnIds: [""],
+    reviewIds: [""],
+    avaiabilityStatus: "avaiable",
+    initenaryList: [""],
+    reviewCount: 32,
+    timeList24H: ["08.00", "12.00"]);
+
+class DetailPage extends ConsumerStatefulWidget {
+  DetailPage({Key? key}) : super(key: key);
+
+  @override
+  ConsumerState<DetailPage> createState() => _DetailPageState();
+}
+
+class _DetailPageState extends ConsumerState<DetailPage> {
+  // TODO: override later
+  final ProductModel data = dataMock;
 
   Widget imageContainer() {
     return Container(
@@ -28,7 +59,7 @@ class DetailPage extends StatelessWidget {
           Row(
             children: [
               Text(
-                'Rinjani Trip',
+                data.title,
                 style: blackTextStyle.copyWith(fontSize: 24, fontWeight: bold),
               ),
               Spacer(),
@@ -50,7 +81,7 @@ class DetailPage extends StatelessWidget {
                 width: 8,
               ),
               Text(
-                'Lombok, Indonesia',
+                data.location,
                 style: grayTextStyle.copyWith(fontSize: 16, fontWeight: medium),
               )
             ],
@@ -61,7 +92,7 @@ class DetailPage extends StatelessWidget {
           Row(
             children: [
               Text(
-                '\$20 - \$40/person',
+                data.rangePricing,
                 style:
                     blackTextStyle.copyWith(fontSize: 16, fontWeight: semibold),
               ),
@@ -77,7 +108,7 @@ class DetailPage extends StatelessWidget {
             height: 8,
           ),
           Text(
-            'Trip duration: 2 Days - 1 Night',
+            'Trip duration: ${data.tripDuration}',
             style: blackTextStyle.copyWith(fontSize: 16),
           ),
         ],
@@ -100,7 +131,17 @@ class DetailPage extends StatelessWidget {
                   header(),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16),
-                    child: SegmentedWidget(),
+                    child: DetailSegmentedWidget(
+                      descriptionWidget: DetailDescriptionWidget(
+                          accomodation: data.accomodation,
+                          description: data.description,
+                          datePickerWidget: DatePickerWidget(),
+                          timeListFormat24H: data.timeList24H,
+                          reviewWidget: ReviewWidget(),
+                          addOnWidget: AddOnWidgetMock()),
+                      initenaryWidget: DetailIniteraryWidget(
+                          initenaryList: data.initenaryList),
+                    ),
                   ),
                 ],
               ),
