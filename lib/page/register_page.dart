@@ -136,7 +136,7 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
   }
 
   Widget signUpButton() {
-    return LoginButton(
+    return PrimaryButton(
         onPressed: () {
           _onFormSubmit();
         },

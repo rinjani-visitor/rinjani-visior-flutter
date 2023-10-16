@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:rinjani_visitor/theme/theme.dart';
 
-class LoginButton extends StatelessWidget {
+class PrimaryButton extends StatelessWidget {
   final bool isLoading;
   final Widget child;
   final Function onPressed;
-  const LoginButton(
+  const PrimaryButton(
       {super.key,
       required this.child,
       this.isLoading = false,

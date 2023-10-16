@@ -71,7 +71,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
               children: [googleLogin(), _signUpButton()],
             ),
             const Spacer(),
-            LoginButton(
+            PrimaryButton(
                 isLoading: ref.watch(authControllerProvider).isLoading,
                 onPressed: () {
                   _submitForm();
