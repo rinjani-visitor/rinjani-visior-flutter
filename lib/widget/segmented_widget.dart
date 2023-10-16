@@ -119,14 +119,17 @@ class _DetailDescriptionWidgetState extends State<DetailDescriptionWidget> {
                 const SizedBox(
                   height: 8,
                 ),
-                ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  padding: EdgeInsets.zero,
-                  itemBuilder: (context, index) =>
-                      TimeButtonWidget(time: widget.timeListFormat24H[index]),
-                )
               ],
             ),
+            // Flexible(
+            //   fit: FlexFit.tight,
+            //   child: ListView.builder(
+            //     scrollDirection: Axis.horizontal,
+            //     padding: EdgeInsets.zero,
+            //     itemBuilder: (context, index) =>
+            //         TimeButtonWidget(time: widget.timeListFormat24H[index]),
+            //   ),
+            // ),
             const SizedBox(
               height: 16,
             ),
