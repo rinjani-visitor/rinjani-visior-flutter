@@ -25,7 +25,7 @@ const dataMock = ProductModel(
     addOnIds: [""],
     reviewIds: [""],
     avaiabilityStatus: "avaiable",
-    initenaryList: [""],
+    initenaryList: ["08.00 - Wake up"],
     reviewCount: 32,
     timeList24H: ["08.00", "12.00"]);
 

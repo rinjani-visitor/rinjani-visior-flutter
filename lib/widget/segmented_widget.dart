@@ -81,102 +81,88 @@ class _DetailDescriptionWidgetState extends State<DetailDescriptionWidget> {
   int personCount = 0;
   @override
   Widget build(BuildContext context) {
-    return ConstrainedBox(
-      constraints: BoxConstraints(minWidth: MediaQuery.of(context).size.width),
-      child: Padding(
-        padding: const EdgeInsets.only(top: 12),
-        child: Column(
-          //header here
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              widget.description,
-              style: blackTextStyle.copyWith(
-                fontSize: 14,
-              ),
+    return Padding(
+      padding: const EdgeInsets.only(top: 12),
+      child: Column(
+        //header here
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            widget.description,
+            style: blackTextStyle.copyWith(
+              fontSize: 14,
             ),
-            const SizedBox(
-              height: 16,
-            ),
-            Column(
-              // add on here
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Add On',
-                  style: blackTextStyle.copyWith(
-                      fontSize: 16, fontWeight: semibold),
-                ),
-                widget.addOnWidget,
-              ],
-            ),
-            const SizedBox(
-              height: 16,
-            ),
-            Column(
-              children: [
-                widget.datePickerWidget,
-                const SizedBox(
-                  height: 8,
-                ),
-              ],
-            ),
-            // Flexible(
-            //   fit: FlexFit.tight,
-            //   child: ListView.builder(
-            //     scrollDirection: Axis.horizontal,
-            //     padding: EdgeInsets.zero,
-            //     itemBuilder: (context, index) =>
-            //         TimeButtonWidget(time: widget.timeListFormat24H[index]),
-            //   ),
-            // ),
-            const SizedBox(
-              height: 16,
-            ),
-            Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Text(
-                'Accomodation',
-                style: blackTextStyle.copyWith(
-                    fontSize: heading5, fontWeight: semibold),
-              ),
-              const SizedBox(
-                height: 8,
-              ),
-              Text(
-                widget.accomodation,
-                style: TextStyle(fontSize: 16),
-              ),
-            ]),
-            const SizedBox(
-              height: 8,
-            ),
-            widget.reviewWidget,
-            LoginButton(
-                onPressed: () {
-                  showCupertinoModalPopup(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return Container(
-                          width: double.infinity,
-                          height: 300,
-                          decoration: BoxDecoration(
-                              color: whiteColor,
-                              borderRadius: BorderRadius.circular(bigRadius)),
-                          child: PersonCounterWidget(
-                            onSubmit: (value) => personCount = value,
-                          ),
-                        );
-                      });
-                },
-                child: Text(
-                  'Buy Product',
-                  style: whiteTextStyle.copyWith(fontSize: 16),
-                )),
-            SizedBox(
-              height: 16,
-            ),
-          ],
-        ),
+          ),
+          const SizedBox(
+            height: 16,
+          ),
+          Text(
+            'Add On',
+            style: blackTextStyle.copyWith(fontSize: 16, fontWeight: semibold),
+          ),
+          widget.addOnWidget,
+
+          const SizedBox(
+            height: 16,
+          ),
+          widget.datePickerWidget,
+
+          const SizedBox(
+            height: 8,
+          ),
+          // Flexible(
+          //   fit: FlexFit.tight,
+          //   child: ListView.builder(
+          //     scrollDirection: Axis.horizontal,
+          //     padding: EdgeInsets.zero,
+          //     itemBuilder: (context, index) =>
+          //         TimeButtonWidget(time: widget.timeListFormat24H[index]),
+          //   ),
+          // ),
+          const SizedBox(
+            height: 16,
+          ),
+          Text(
+            'Accomodation',
+            style: blackTextStyle.copyWith(
+                fontSize: heading5, fontWeight: semibold),
+          ),
+          const SizedBox(
+            height: 8,
+          ),
+          Text(
+            widget.accomodation,
+            style: TextStyle(fontSize: 16),
+          ),
+          const SizedBox(
+            height: 8,
+          ),
+          widget.reviewWidget,
+          LoginButton(
+              onPressed: () {
+                showCupertinoModalPopup(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return Container(
+                        width: double.infinity,
+                        height: 300,
+                        decoration: BoxDecoration(
+                            color: whiteColor,
+                            borderRadius: BorderRadius.circular(bigRadius)),
+                        child: PersonCounterWidget(
+                          onSubmit: (value) => personCount = value,
+                        ),
+                      );
+                    });
+              },
+              child: Text(
+                'Buy Product',
+                style: whiteTextStyle.copyWith(fontSize: 16),
+              )),
+          SizedBox(
+            height: 16,
+          ),
+        ],
       ),
     );
   }
