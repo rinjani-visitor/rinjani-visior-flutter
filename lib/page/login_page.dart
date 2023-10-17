@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:rinjani_visitor/core/extension/validator.dart';
 import 'package:rinjani_visitor/features/authentication/presentation/auth_riverpod.dart';
 import 'package:rinjani_visitor/theme/theme.dart';
 import 'package:rinjani_visitor/widget/input_field.dart';
@@ -15,6 +16,7 @@ class LoginPage extends ConsumerStatefulWidget {
 }
 
 class _LoginPageState extends ConsumerState<LoginPage> {
+
   bool isLoading = false;
   final emailTxtController = TextEditingController();
   final passwordTxtController = TextEditingController();
@@ -94,60 +96,48 @@ class _LoginPageState extends ConsumerState<LoginPage> {
   }
 
   Widget _inputSection() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.end,
-      children: [
-        InputField(
-            label: 'Email',
-            secureText: false,
-            placeholder: "your@email.com",
-            controller: emailTxtController),
-        const SizedBox(
-          height: 12,
-        ),
-        InputField(
-          controller: passwordTxtController,
-          label: 'Password',
-          secureText: true,
-          placeholder: "your password of course",
-        ),
-        const SizedBox(
-          height: 12,
-        ),
-        TextButton(
-            onPressed: () {
-              Navigator.pushNamed(context, '/home-page');
-            },
-            child: Text(
-              "Forgot your password?",
-              style:
-                  blackTextStyle.copyWith(fontSize: 12, fontWeight: semibold),
-            ))
-      ],
-    );
-  }
-
-  Widget _actionButton() {
-    return TextButton(
-        onPressed: () {
-          _submitForm();
-        },
-        child: Container(
-          constraints:
-              BoxConstraints(minWidth: MediaQuery.of(context).size.width),
-          decoration: BoxDecoration(
-              color: primaryColor,
-              borderRadius: BorderRadius.circular(smallRadius)),
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Center(
-                child: Text(
-              'Log In',
-              style:
-                  whiteTextStyle.copyWith(fontSize: 18, fontWeight: semibold),
-            )),
+    return Form(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          InputFormField(
+              label: 'Email',
+              secureText: false,
+              placeholder: "your@email.com",
+              validator: (val) {
+                if(val == null || val.length == 0) {
+                  return "this field mustn't be empty";
+                }
+                if(!val.isEmailValid()) {
+                  return "not valid email";
+                }
+                return null;
+              },
+              controller: emailTxtController),
+          const SizedBox(
+            height: 12,
           ),
-        ));
+          InputFormField(
+            controller: passwordTxtController,
+            label: 'Password',
+            secureText: true,
+            placeholder: "your password of course",
+          ),
+          const SizedBox(
+            height: 12,
+          ),
+          TextButton(
+              onPressed: () {
+                Navigator.pushNamed(context, '/home-page');
+              },
+              child: Text(
+                "Forgot your password?",
+                style:
+                    blackTextStyle.copyWith(fontSize: 12, fontWeight: semibold),
+              ))
+        ],
+      ),
+    );
   }
 
   Widget _signUpButton() {

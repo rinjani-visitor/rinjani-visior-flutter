@@ -41,7 +41,7 @@ class InputField extends StatelessWidget {
               border: Border.all(
                 color: lightGray,
               )),
-          scrollPadding: const EdgeInsets.symmetric(vertical: 12.0),
+          padding:const EdgeInsets.all(12.0) ,
           onChanged: (value) {
             if (onChanged != null) {
               onChanged!(value);
@@ -87,6 +87,7 @@ class InputFormField extends FormField<String> {
                 controller: controller,
                 keyboardType: keyboardType,
                 label: label,
+                secureText: secureText,
                 onTap: onTap,
                 onChanged: (value) {
                   state.didChange(value);
