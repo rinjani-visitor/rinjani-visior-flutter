@@ -27,7 +27,7 @@ const dataMock = ProductModel(
     avaiabilityStatus: "avaiable",
     initenaryList: ["08.00 - Wake up"],
     reviewCount: 32,
-    timeList24H: ["08.00", "12.00"]);
+    timeList24H: ["08.00", "12.00", "15.00", "18.00"]);
 
 class DetailPage extends ConsumerStatefulWidget {
   DetailPage({Key? key}) : super(key: key);
@@ -39,12 +39,13 @@ class DetailPage extends ConsumerStatefulWidget {
 class _DetailPageState extends ConsumerState<DetailPage> {
   // TODO: override later
   final ProductModel data = dataMock;
+  final listData = ["08.00", "12.00"];
 
   Widget imageContainer() {
     return Container(
       width: double.infinity,
       height: 241,
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
           image: DecorationImage(
               fit: BoxFit.fill, image: AssetImage('assets/rinjani.jpeg'))),
     );
@@ -52,7 +53,7 @@ class _DetailPageState extends ConsumerState<DetailPage> {
 
   Widget header() {
     return Padding(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.symmetric(vertical: 16.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -122,31 +123,35 @@ class _DetailPageState extends ConsumerState<DetailPage> {
         navigationBar: CupertinoNavigationBar(
           middle: Text('Detail Trip'),
         ),
-        child: SafeArea(
-          child: ListView(
-            children: [
-              Column(
-                children: [
-                  imageContainer(),
-                  header(),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    child: DetailSegmentedWidget(
+        child: CustomScrollView(
+
+          slivers: [
+            SliverToBoxAdapter(
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  children: [
+                    imageContainer(),
+                    header(),
+                    DetailSegmentedWidget(
                       descriptionWidget: DetailDescriptionWidget(
                           accomodation: data.accomodation,
                           description: data.description,
                           datePickerWidget: DatePickerWidget(),
                           timeListFormat24H: data.timeList24H,
                           reviewWidget: ReviewWidget(),
-                          addOnWidget: AddOnWidgetMock()),
+                          addOnWidget: AddOnWidgetMock()
+                      ),
                       initenaryWidget: DetailIniteraryWidget(
                           initenaryList: data.initenaryList),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ],
-          ),
+            ),
+
+          ],
+
         ));
   }
 }

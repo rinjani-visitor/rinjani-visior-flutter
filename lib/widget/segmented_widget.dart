@@ -4,15 +4,8 @@ import 'package:rinjani_visitor/widget/button/primary_button.dart';
 import 'package:rinjani_visitor/widget/date_picker_widget.dart';
 import 'package:rinjani_visitor/widget/person_counter_widget.dart';
 import 'package:rinjani_visitor/widget/review_widget.dart';
-// import 'package:rinjani_visitor/widget/date_picker_widget.dart';
+import 'package:rinjani_visitor/widget/time_button_widget.dart';
 
-final _mockInitenary = [
-  '09:00 - 09:30 Go to sembalun',
-  '09:30 - 10:00 Go to Rinjani',
-  '10:00 - 11:00 Lunch'
-];
-
-final _mockDescription = [];
 
 class DetailIniteraryWidget extends StatelessWidget {
   final List<String> initenaryList;
@@ -28,25 +21,23 @@ class DetailIniteraryWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-        padding: const EdgeInsets.only(top: 12),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Initenary',
-              style:
-                  blackTextStyle.copyWith(fontSize: 20, fontWeight: semibold),
-            ),
-            const SizedBox(
-              height: 8,
-            ),
-            Text(
-              initenaryDatas(),
-              style: TextStyle(fontSize: body1),
-            ),
-          ],
-        ));
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'Initenary',
+          style:
+              blackTextStyle.copyWith(fontSize: 20, fontWeight: semibold),
+        ),
+        const SizedBox(
+          height: 8,
+        ),
+        Text(
+          initenaryDatas(),
+          style: TextStyle(fontSize: body1),
+        ),
+      ],
+    );
   }
 }
 
@@ -76,90 +67,95 @@ class _DetailDescriptionWidgetState extends State<DetailDescriptionWidget> {
   int personCount = 0;
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 12),
-      child: Column(
-        //header here
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            widget.description,
-            style: blackTextStyle.copyWith(
-              fontSize: body2,
-            ),
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      //header here
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          widget.description,
+          style: blackTextStyle.copyWith(
+            fontSize: body2,
           ),
-          const SizedBox(
-            height: 16,
-          ),
-          Text(
-            'Add On',
-            style:
-                blackTextStyle.copyWith(fontSize: body1, fontWeight: semibold),
-          ),
-          widget.addOnWidget,
+        ),
+        const SizedBox(
+          height: 16,
+        ),
+        Text(
+          'Add On',
+          style:
+              blackTextStyle.copyWith(fontSize: body1, fontWeight: semibold),
+        ),
+        widget.addOnWidget,
 
-          const SizedBox(
-            height: 16,
-          ),
-          widget.datePickerWidget,
+        const SizedBox(
+          height: 16,
+        ),
+        widget.datePickerWidget,
 
-          const SizedBox(
-            height: 8,
+        const SizedBox(
+          height: 8,
+        ),
+        Container(
+          height: 36,
+          child: ListView.builder(
+            scrollDirection: Axis.horizontal,
+            padding: EdgeInsets.zero,
+            shrinkWrap: true,
+            itemCount: widget.timeListFormat24H.length,
+            physics: ClampingScrollPhysics(),
+            itemBuilder: (context, index) =>
+                Padding(
+                  padding: const EdgeInsets.only(right: 4.0),
+                  child: TimeButtonWidget(time: widget.timeListFormat24H[index]),
+                ),
           ),
-          // Flexible(
-          //   fit: FlexFit.tight,
-          //   child: ListView.builder(
-          //     scrollDirection: Axis.horizontal,
-          //     padding: EdgeInsets.zero,
-          //     itemBuilder: (context, index) =>
-          //         TimeButtonWidget(time: widget.timeListFormat24H[index]),
-          //   ),
-          // ),
-          const SizedBox(
-            height: 16,
-          ),
-          Text(
-            'Accomodation',
-            style: blackTextStyle.copyWith(
-                fontSize: heading5, fontWeight: semibold),
-          ),
-          const SizedBox(
-            height: 8,
-          ),
-          Text(
-            widget.accomodation,
-            style: TextStyle(fontSize: 16),
-          ),
-          const SizedBox(
-            height: 8,
-          ),
-          widget.reviewWidget,
-          PrimaryButton(
-              onPressed: () {
-                showCupertinoModalPopup(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return Container(
-                        width: double.infinity,
-                        height: 300,
-                        decoration: BoxDecoration(
-                            color: whiteColor,
-                            borderRadius: BorderRadius.circular(bigRadius)),
-                        child: PersonCounterWidget(
-                          onSubmit: (value) => personCount = value,
-                        ),
-                      );
-                    });
-              },
-              child: Text(
-                'Buy Product',
-                style: whiteTextStyle.copyWith(fontSize: 16),
-              )),
-          const SizedBox(
-            height: 16,
-          ),
-        ],
-      ),
+        ),
+
+        const SizedBox(
+          height: 16,
+        ),
+        Text(
+          'Accomodation',
+          style: blackTextStyle.copyWith(
+              fontSize: heading5, fontWeight: semibold),
+        ),
+        const SizedBox(
+          height: 8,
+        ),
+        Text(
+          widget.accomodation,
+          style: TextStyle(fontSize: 16),
+        ),
+        const SizedBox(
+          height: 8,
+        ),
+        widget.reviewWidget,
+        PrimaryButton(
+            onPressed: () {
+              showCupertinoModalPopup(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return Container(
+                      width: double.infinity,
+                      height: 300,
+                      decoration: BoxDecoration(
+                          color: whiteColor,
+                          borderRadius: BorderRadius.circular(bigRadius)),
+                      child: PersonCounterWidget(
+                        onSubmit: (value) => personCount = value,
+                      ),
+                    );
+                  });
+            },
+            child: Text(
+              'Buy Product',
+              style: whiteTextStyle.copyWith(fontSize: 16),
+            )),
+        const SizedBox(
+          height: 16,
+        ),
+      ],
     );
   }
 }
@@ -186,24 +182,24 @@ class _DetailSegmentedWidgetState extends State<DetailSegmentedWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return CupertinoPageScaffold(
-        child: Column(
+    return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Container(
-          constraints:
-              BoxConstraints(minWidth: MediaQuery.of(context).size.width),
-          child: CupertinoSlidingSegmentedControl(
-              groupValue: _sliding,
-              children: children,
-              onValueChanged: (value) {
-                setState(() {
-                  _sliding = value;
-                });
-              }),
-        ),
-        _sliding == 0 ? widget.descriptionWidget : widget.initenaryWidget
-      ],
-    ));
+    children: [
+    ConstrainedBox(
+      constraints: BoxConstraints(minWidth: MediaQuery.of(context).size.width),
+      child: CupertinoSlidingSegmentedControl(
+          groupValue: _sliding,
+          children: children,
+          onValueChanged: (value) {
+            setState(() {
+              _sliding = value;
+            });
+          }),
+    ),
+    Padding(padding: EdgeInsets.only(top: 12.0), child: _sliding == 0 ? widget.descriptionWidget : widget.initenaryWidget,)
+
+
+    ],
+    );
   }
 }
