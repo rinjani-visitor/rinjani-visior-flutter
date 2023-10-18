@@ -4,19 +4,27 @@ import 'package:flutter/widgets.dart';
 import 'package:rinjani_visitor/theme/theme.dart';
 
 class AddOnWidget extends StatefulWidget {
-  const AddOnWidget({Key? key}) : super(key: key);
+  final String name;
+  final String price;
+  final bool value;
+  final void Function(bool? value)? onChanged;
+  const AddOnWidget(
+      {Key? key,
+      required this.name,
+      required this.price,
+      required this.value,
+      required this.onChanged})
+      : super(key: key);
 
   @override
   State<AddOnWidget> createState() => _AddOnWidgetState();
 }
 
 class _AddOnWidgetState extends State<AddOnWidget> {
-  bool addOnCheck = false;
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 357,
-      height: 48,
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 8.0),
       child: Row(
         children: [
           Row(
@@ -25,25 +33,52 @@ class _AddOnWidgetState extends State<AddOnWidget> {
                 Icons.directions_car,
                 color: blackColor,
               ),
-              SizedBox(
+              const SizedBox(
                 width: 8,
               ),
-              Text('Driver - Rp.200.000')
+              const Text('Driver - Rp.200.000')
             ],
           ),
-          Spacer(),
-          CupertinoCheckbox(
-            value: addOnCheck,
-            onChanged: (value) {
-              //TODO: Put this at root page instead of child to avoid re-rendering
-
-              setState(() {
-                addOnCheck = !addOnCheck;
-              });
-            },
+          const Spacer(),
+          SizedBox(
+            width: 24,
+            height: 24,
+            child: CupertinoCheckbox(
+              onChanged: (value) {
+                if (widget.onChanged != null) {
+                  widget.onChanged!(value);
+                }
+              },
+              value: widget.value,
+            ),
           )
         ],
       ),
+    );
+  }
+}
+
+class AddOnWidgetMock extends StatefulWidget {
+  const AddOnWidgetMock({super.key});
+
+  @override
+  State<AddOnWidgetMock> createState() => _AddOnWidgetMockState();
+}
+
+class _AddOnWidgetMockState extends State<AddOnWidgetMock> {
+  bool val = false;
+  @override
+  Widget build(BuildContext context) {
+    return AddOnWidget(
+      onChanged: (p0) {
+        setState(() {
+          val = !val;
+        });
+        debugPrint("State: ${p0}");
+      },
+      name: "Driver",
+      price: "Rp.200.000",
+      value: val,
     );
   }
 }

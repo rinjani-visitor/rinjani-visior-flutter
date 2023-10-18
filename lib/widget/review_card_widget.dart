@@ -8,9 +8,8 @@ class ReviewCardWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: 198,
-      height: 143,
-      padding: EdgeInsets.all(16),
-      margin: EdgeInsets.only(right: 16),
+      padding: const EdgeInsets.all(16),
+      margin: const EdgeInsets.only(right: 12),
       decoration: BoxDecoration(
           border: Border.all(color: blackColor),
           borderRadius: BorderRadius.circular(bigRadius)),
@@ -23,7 +22,9 @@ class ReviewCardWidget extends StatelessWidget {
               fontSize: 10,
             ),
           ),
-          Spacer(),
+          const SizedBox(
+            height: 4,
+          ),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

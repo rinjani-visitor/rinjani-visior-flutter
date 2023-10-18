@@ -4,7 +4,9 @@ import 'package:rinjani_visitor/page/booking_detail_page.dart';
 import 'package:rinjani_visitor/theme/theme.dart';
 
 class PersonCounterWidget extends StatefulWidget {
-  const PersonCounterWidget({Key? key}) : super(key: key);
+  final void Function(int value) onSubmit;
+  const PersonCounterWidget({Key? key, required this.onSubmit})
+      : super(key: key);
 
   @override
   _PersonCounterWidgetState createState() => _PersonCounterWidgetState();
@@ -21,14 +23,14 @@ class _PersonCounterWidgetState extends State<PersonCounterWidget> {
           child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          SizedBox(
+          const SizedBox(
             height: 16,
           ),
           Text(
             'For how many person?',
             style: blackTextStyle.copyWith(fontWeight: bold, fontSize: 20),
           ),
-          Spacer(),
+          const Spacer(),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -46,7 +48,7 @@ class _PersonCounterWidgetState extends State<PersonCounterWidget> {
                       whiteTextStyle.copyWith(fontSize: 16, fontWeight: bold),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 width: 32,
               ),
               Container(
@@ -57,7 +59,7 @@ class _PersonCounterWidgetState extends State<PersonCounterWidget> {
                     border: Border.all(color: lightGray)),
                 child: Center(child: Text('$person')),
               ),
-              SizedBox(
+              const SizedBox(
                 width: 32,
               ),
               TextButton(
@@ -76,16 +78,13 @@ class _PersonCounterWidgetState extends State<PersonCounterWidget> {
               ),
             ],
           ),
-          Spacer(),
+          const Spacer(),
           TextButton(
               style: ButtonStyle(
                   backgroundColor: MaterialStatePropertyAll(primaryColor)),
               onPressed: () {
+                widget.onSubmit(person);
                 Navigator.pop(context);
-                Navigator.push(
-                    context,
-                    CupertinoPageRoute(
-                        builder: (context) => BookingDetailPage()));
               },
               child: Container(
                   width: 294,
@@ -95,7 +94,7 @@ class _PersonCounterWidgetState extends State<PersonCounterWidget> {
                     style:
                         whiteTextStyle.copyWith(fontSize: 16, fontWeight: bold),
                   )))),
-          Spacer(),
+          const Spacer(),
         ],
       )),
     );

@@ -1,70 +1,57 @@
-import 'dart:async';
-
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:rinjani_visitor/core/datastate/local_state.dart';
 import 'package:rinjani_visitor/features/authentication/data/auth_repsitory_impl.dart';
+import 'package:rinjani_visitor/features/authentication/domain/auth_model.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-class AuthController {
-  StreamController<LocalState<String>> authState = StreamController();
-  final AuthRepositoryImpl repository;
-  bool _isStreamAlreadyRunning = false;
-  AuthController(this.repository);
+part 'auth_riverpod.g.dart';
 
-  static final provider = Provider<AuthController>((ref) {
-    return AuthController(ref.read(AuthRepositoryImpl.provider));
-  });
-  Future<LocalState<String>> getToken() async {
-    await Future.delayed(const Duration(seconds: 2));
-    return const LocalResult("data");
+@Riverpod(keepAlive: true)
+class AuthController extends _$AuthController {
+  late final AuthRepositoryImpl repository;
+
+  @override
+  FutureOr<AuthModel> build() async {
+    final repo = ref.read(AuthRepositoryImpl.provider);
+    repository = repo;
+    return await repository.getSavedSession();
   }
 
-  Future<void> logIn(String email, String password) async {
-    if (_isStreamAlreadyRunning) {
-      return;
-    }
-
+  FutureOr<void> logIn(String email, String password) async {
+    state = const AsyncLoading();
     debugPrint("Login emitted");
-    _isStreamAlreadyRunning = true;
-    try {
-      authState.add(const LocalLoading());
-      await repository.login(email: email, password: password);
-      authState.add(const LocalResult(""));
-    } on Exception catch (e) {
-      //TODO: workaround for avoid login error
-      authState.add(LocalResult(""));
-    }
-    _isStreamAlreadyRunning = false;
+    state = await AsyncValue.guard(
+        () async => await repository.logIn(email: email, password: password));
   }
 
-  Future<LocalState<String>> logOut() async {
-    try {
+  FutureOr<void> logOut() async {
+    if (state.hasValue && state.value?.token != null) {
+      state = const AsyncValue.loading();
       await repository.logout();
-      return const LocalResult("");
-    } on Exception catch (e) {
-      return LocalError(e);
+      state = const AsyncData(AuthModel());
     }
   }
 
-  Future<void> register(String username, String email, String country,
+  FutureOr<void> register(String username, String email, String country,
       String phone, String password, String password2) async {
-    if (_isStreamAlreadyRunning) {
-      return;
-    }
-    _isStreamAlreadyRunning = true;
+    state = const AsyncValue.loading();
+    debugPrint("Register emitted");
 
-    authState.add(const LocalLoading());
-    try {
-      await repository.register(
-          username: username,
-          email: email,
-          country: country,
-          phone: phone,
-          password: password);
-      authState.add(const LocalResult("done"));
-    } on Exception catch (e) {
-      authState.add(LocalError(e));
-    }
-    _isStreamAlreadyRunning = false;
+    state = await AsyncValue.guard(() async => await repository.register(
+        username: username,
+        email: email,
+        country: country,
+        phone: phone,
+        password: password));
+    debugPrint("value ${state.asData?.value.toString()}");
   }
+
+  Future<String> getToken() async {
+    await Future.delayed(const Duration(seconds: 3));
+    debugPrint("current token: ${state.asData?.value.token}");
+    return state.asData?.value.token ?? "";
+  }
+
+  // Future<AuthModel> getSession() async {
+  //   await Future.delayed(const Duration(seconds: 3));
+  // }
 }

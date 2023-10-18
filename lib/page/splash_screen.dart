@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:rinjani_visitor/core/datastate/local_state.dart';
 import 'package:rinjani_visitor/features/authentication/presentation/auth_riverpod.dart';
 import 'package:rinjani_visitor/theme/theme.dart';
 
@@ -15,14 +14,15 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
   @override
   void initState() {
     super.initState();
-
-    ref.read(AuthController.provider).getToken().then((value) {
-      if (value is LocalResult && value.data != null) {
-        debugPrint("value $value");
-        Navigator.pushReplacementNamed(context, '/login-page');
+    debugPrint("${ref.read(authControllerProvider).asData?.value.toString()}");
+    ref.read(authControllerProvider.notifier).getToken().then((token) {
+      if (token.isNotEmpty) {
+        debugPrint("value $token");
+        Navigator.pushReplacementNamed(context, '/home-page');
         return;
+      } else {
+        Navigator.pushReplacementNamed(context, '/login-page');
       }
-      Navigator.pushReplacementNamed(context, '/home-page');
     });
   }
 

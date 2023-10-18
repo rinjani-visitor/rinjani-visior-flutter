@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:rinjani_visitor/theme/theme.dart';
 
 class DatePickerWidget extends StatefulWidget {
@@ -11,7 +10,32 @@ class DatePickerWidget extends StatefulWidget {
 }
 
 class _DatePickerWidgetState extends State<DatePickerWidget> {
-  DateTime selectedDate = DateTime.now();
+  DateTime _selectedDate = DateTime.now();
+
+  void _showDialog(Widget child) {
+    showCupertinoModalPopup<void>(
+      context: context,
+      builder: (BuildContext context) => Container(
+        height: 300,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(bigRadius), color: whiteColor),
+        padding: const EdgeInsets.only(top: 6.0),
+        // The Bottom margin is provided to align the popup above the system
+        // navigation bar.
+        margin: EdgeInsets.only(
+          bottom: MediaQuery.of(context).viewInsets.bottom,
+        ),
+        // Provide a background color for the popup.
+        // color: CupertinoColors.systemBackground.resolveFrom(context),
+        // Use a SafeArea widget to avoid system overlaps.
+        child: SafeArea(
+          top: false,
+          child: child,
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -23,9 +47,8 @@ class _DatePickerWidgetState extends State<DatePickerWidget> {
         ),
         CupertinoButton(
             padding: EdgeInsets.all(0),
-            child: Container(
-              width: 390,
-              height: 32,
+            child: ConstrainedBox(
+              constraints: BoxConstraints.expand(height: 32),
               child: Row(
                 children: [
                   Container(
@@ -43,27 +66,25 @@ class _DatePickerWidgetState extends State<DatePickerWidget> {
                     width: 16,
                   ),
                   Text(
-                    'Date: ${selectedDate.day} - ${selectedDate.month} - ${selectedDate.year}',
+                    'Date: ${_selectedDate.day} - ${_selectedDate.month} - ${_selectedDate.year}',
                     style: blackTextStyle,
                   )
                 ],
               ),
             ),
             onPressed: () {
-              showCupertinoModalPopup(
-                  context: context,
-                  builder: (BuildContext context) => SizedBox(
-                        height: 250,
-                        child: CupertinoDatePicker(
-                            backgroundColor: whiteColor,
-                            use24hFormat: true,
-                            mode: CupertinoDatePickerMode.date,
-                            onDateTimeChanged: (DateTime newTime) {
-                              setState(() => selectedDate = newTime);
-                            }),
-                      ));
+              _showDialog(CupertinoDatePicker(
+                  initialDateTime: _selectedDate,
+                  mode: CupertinoDatePickerMode.date,
+                  use24hFormat: true,
+                  // This shows day of week alongside day of month
+                  showDayOfWeek: true,
+                  onDateTimeChanged: (DateTime newTime) {
+                    setState(() {
+                      _selectedDate = newTime;
+                    });
+                  }));
             })
-        // IconButton(onPressed: () {}, icon: Icon(Icons.calendar_month))
       ],
     );
   }

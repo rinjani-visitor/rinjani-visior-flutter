@@ -2,10 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:rinjani_visitor/core/datastate/local_state.dart';
+import 'package:rinjani_visitor/core/extension/validator.dart';
 import 'package:rinjani_visitor/features/authentication/presentation/auth_riverpod.dart';
 import 'package:rinjani_visitor/theme/theme.dart';
 import 'package:rinjani_visitor/widget/input_field.dart';
+import 'package:rinjani_visitor/widget/button/primary_button.dart';
 
 class LoginPage extends ConsumerStatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -15,7 +16,9 @@ class LoginPage extends ConsumerStatefulWidget {
 }
 
 class _LoginPageState extends ConsumerState<LoginPage> {
-  bool isLlogin = false;
+  final _formKey = GlobalKey<FormState>();
+
+  bool isLoading = false;
   final emailTxtController = TextEditingController();
   final passwordTxtController = TextEditingController();
 
@@ -29,17 +32,6 @@ class _LoginPageState extends ConsumerState<LoginPage> {
   @override
   void initState() {
     super.initState();
-    ref.read(AuthController.provider).authState.stream.listen((event) {
-      debugPrint(
-          "${toStringShort()} - stream test with value ${event.toString()}");
-      if (event is LocalResult) {
-        _toHome();
-      }
-      if (event is LocalError) {
-        Fluttertoast.showToast(
-            msg: "Error occured: ${event.error?.toString()}");
-      }
-    });
   }
 
   void _toHome() {
@@ -47,9 +39,21 @@ class _LoginPageState extends ConsumerState<LoginPage> {
   }
 
   void _submitForm() async {
-    final email = emailTxtController.text;
-    final pass = passwordTxtController.text;
-    await ref.read(AuthController.provider).logIn(email, pass);
+    if (_formKey.currentState!.validate()) {
+      final email = emailTxtController.text;
+      final pass = passwordTxtController.text;
+      debugPrint("$email, $pass");
+      await ref.read(authControllerProvider.notifier).logIn(email, pass);
+      if (ref.read(authControllerProvider).hasError) {
+        Fluttertoast.showToast(
+            msg:
+                "Error occured: ${ref.read(authControllerProvider).asError?.error.toString()}");
+        return;
+      }
+      debugPrint(
+          "LoginPage: result ${ref.read(authControllerProvider).value.toString()}");
+      _toHome();
+    }
   }
 
   @override
@@ -64,23 +68,22 @@ class _LoginPageState extends ConsumerState<LoginPage> {
           children: [
             header(),
             _inputSection(),
-            const SizedBox(
-              height: 48,
-            ),
             Divider(
               color: blackColor,
             ),
             const SizedBox(
-              height: 48,
+              height: 16,
             ),
-            googleLogin(),
-            // const LoginGoogle(),
-            const SizedBox(
-              height: 24,
+            Column(
+              children: [googleLogin(), _signUpButton()],
             ),
-            _signUpButton(),
             const Spacer(),
-            _actionButton(),
+            PrimaryButton(
+                isLoading: ref.watch(authControllerProvider).isLoading,
+                onPressed: () {
+                  _submitForm();
+                },
+                child: const Text("Log in")),
           ],
         ),
       )),
@@ -98,60 +101,52 @@ class _LoginPageState extends ConsumerState<LoginPage> {
   }
 
   Widget _inputSection() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.end,
-      children: [
-        InputField(
-            label: 'Email',
-            secureText: false,
-            placeholder: "your@email.com",
-            controller: emailTxtController),
-        const SizedBox(
-          height: 12,
-        ),
-        InputField(
-          controller: passwordTxtController,
-          label: 'Password',
-          secureText: true,
-          placeholder: "your password of course",
-        ),
-        const SizedBox(
-          height: 12,
-        ),
-        TextButton(
-            onPressed: () {
-              Navigator.pushNamed(context, '/home-page');
+    return Form(
+      key: _formKey,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          InputFormField(
+              label: 'Email',
+              secureText: false,
+              placeholder: "your@email.com",
+              validator: (val) {
+                if (val == null || val.isEmpty) {
+                  return "Email required";
+                }
+                if (!val.isEmailValid()) {
+                  return "not valid email";
+                }
+                return null;
+              },
+              controller: emailTxtController),
+          InputFormField(
+            controller: passwordTxtController,
+            label: 'Password',
+            secureText: true,
+            placeholder: "your password of course",
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return "Password required";
+              }
+              if (value.length < 8) {
+                return "password must have 8 characters minimum";
+              }
+              return null;
             },
-            child: Text(
-              "Forgot your password?",
-              style:
-                  blackTextStyle.copyWith(fontSize: 12, fontWeight: semibold),
-            ))
-      ],
-    );
-  }
-
-  Widget _actionButton() {
-    return TextButton(
-        onPressed: () {
-          _submitForm();
-        },
-        child: Container(
-          constraints:
-              BoxConstraints(minWidth: MediaQuery.of(context).size.width),
-          decoration: BoxDecoration(
-              color: primaryColor,
-              borderRadius: BorderRadius.circular(smallRadius)),
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Center(
-                child: Text(
-              'Log In',
-              style:
-                  whiteTextStyle.copyWith(fontSize: 18, fontWeight: semibold),
-            )),
           ),
-        ));
+          TextButton(
+              onPressed: () {
+                Navigator.pushNamed(context, '/home-page');
+              },
+              child: Text(
+                "Forgot your password?",
+                style:
+                    blackTextStyle.copyWith(fontSize: 12, fontWeight: semibold),
+              ))
+        ],
+      ),
+    );
   }
 
   Widget _signUpButton() {
@@ -163,7 +158,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
         ),
         TextButton(
             onPressed: () {
-              _submitForm();
+              Navigator.pushNamed(context, '/register-page');
             },
             child: Text(
               "Sign Up",

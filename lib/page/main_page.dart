@@ -15,7 +15,7 @@ class MainPage extends StatelessWidget {
         tabBar: CupertinoTabBar(
             inactiveColor: lightGray,
             activeColor: primaryColor,
-            items: [
+            items: const [
               BottomNavigationBarItem(
                 icon: Icon(
                   Icons.home,
@@ -41,15 +41,15 @@ class MainPage extends StatelessWidget {
         tabBuilder: (context, index) {
           switch (index) {
             case 0:
-              return HomePage();
+              return const HomePage();
             case 1:
-              return EventPage();
+              return const EventPage();
             case 2:
-              return WishlistPage();
+              return const WishlistPage();
             case 3:
-              return AccountPage();
+              return const AccountPage();
             default:
-              return HomePage();
+              return const HomePage();
           }
         });
   }

@@ -1,10 +1,7 @@
-import 'dart:ffi';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rinjani_visitor/theme/theme.dart';
 import 'package:rinjani_visitor/widget/big_card.dart';
-import 'package:rinjani_visitor/widget/rating_widget.dart';
 import 'package:rinjani_visitor/widget/status.dart';
 
 class EventDetail extends StatelessWidget {
@@ -13,7 +10,9 @@ class EventDetail extends StatelessWidget {
     return Container(
       width: double.infinity,
       height: 241,
-      decoration: BoxDecoration(color: primaryColor),
+      decoration: const BoxDecoration(
+          image: DecorationImage(
+              fit: BoxFit.fill, image: AssetImage('assets/event.jpeg'))),
     );
   }
 
@@ -101,22 +100,37 @@ class EventDetail extends StatelessWidget {
   }
 
   Widget availableTrip() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 16,
-          ),
-          child: Text(
+    return Padding(
+      padding: const EdgeInsets.all(16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
             'Availabe Trip',
             style: blackTextStyle.copyWith(fontSize: 20, fontWeight: semibold),
           ),
-        ),
-        BigCard(),
-        BigCard(),
-        BigCard(),
-      ],
+          ListView.builder(
+            physics: const NeverScrollableScrollPhysics(),
+            shrinkWrap: true,
+            itemCount: 3,
+            itemBuilder: (context, index) {
+              return const Column(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(top: 8),
+                    child: BigCard(
+                        image: AssetImage("assets/rinjani.jpeg"),
+                        title: "Rinjani Trip",
+                        price: "\$80 - \$90 - Person",
+                        status: StatusColor.available,
+                        rating: "4.9"),
+                  ),
+                ],
+              );
+            },
+          )
+        ],
+      ),
     );
   }
 
@@ -129,14 +143,7 @@ class EventDetail extends StatelessWidget {
         ),
         child: ListView(
           scrollDirection: Axis.vertical,
-          children: [
-            imageContainer(),
-            eventHeader(),
-            SizedBox(
-              height: 8,
-            ),
-            availableTrip()
-          ],
+          children: [imageContainer(), eventHeader(), availableTrip()],
         ));
   }
 }

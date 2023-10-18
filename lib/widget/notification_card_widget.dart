@@ -21,7 +21,9 @@ class NotificationCardWidget extends StatelessWidget {
           Navigator.push(
               context,
               CupertinoPageRoute(
-                  builder: (context) => NotificationDetailPage()));
+                  builder: (context) => NotificationDetailPage(
+                        statusNotif: ButtonStatus.waiting,
+                      )));
         },
         padding: EdgeInsets.symmetric(vertical: 16, horizontal: 16),
         title: Text(

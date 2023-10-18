@@ -7,9 +7,7 @@ class AccountPage extends StatelessWidget {
   const AccountPage({Key? key}) : super(key: key);
 
   Widget userProfile() {
-    return Container(
-      width: double.infinity,
-      height: 144,
+    return Flexible(
       child: Column(
         children: [
           CircularProfileAvatar(
@@ -25,7 +23,6 @@ class AccountPage extends StatelessWidget {
           SizedBox(
             height: 8,
           ),
-
           //username dari user
           Text(
             'Username',
@@ -36,11 +33,8 @@ class AccountPage extends StatelessWidget {
     );
   }
 
-  Widget information() {
-    return Container(
-      width: double.infinity,
-      height: 138,
-      margin: EdgeInsets.only(top: 32),
+  Widget information(BuildContext context) {
+    return Flexible(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -51,6 +45,9 @@ class AccountPage extends StatelessWidget {
           Column(
             children: [
               CupertinoListTile(
+                onTap: () {
+                  Navigator.pushNamed(context, '/personal-info-page');
+                },
                 padding: EdgeInsets.all(0),
                 leading: Icon(
                   Icons.person,
@@ -67,6 +64,9 @@ class AccountPage extends StatelessWidget {
                 color: blackColor,
               ),
               CupertinoListTile(
+                onTap: () {
+                  Navigator.pushNamed(context, '/user-setting-page');
+                },
                 padding: EdgeInsets.all(0),
                 leading: Icon(
                   Icons.settings,
@@ -89,20 +89,22 @@ class AccountPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
-        navigationBar: CupertinoNavigationBar(
-          leading: Text(
-            'Profile',
-            style: blackTextStyle.copyWith(fontSize: 32, fontWeight: semibold),
-          ),
+        child: CustomScrollView(
+      slivers: [
+        CupertinoSliverNavigationBar(
+          largeTitle: Text('Profile'),
         ),
-        child: SafeArea(
-            child: Container(
-          width: double.infinity,
-          height: 314,
-          margin: EdgeInsets.symmetric(vertical: 16, horizontal: 16),
-          child: Column(
-            children: [userProfile(), information()],
+        SliverToBoxAdapter(
+          child: Container(
+            width: double.infinity,
+            height: 314,
+            margin: EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+            child: Column(
+              children: [userProfile(), information(context)],
+            ),
           ),
-        )));
+        )
+      ],
+    ));
   }
 }
