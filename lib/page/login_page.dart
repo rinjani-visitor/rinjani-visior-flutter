@@ -16,6 +16,7 @@ class LoginPage extends ConsumerStatefulWidget {
 }
 
 class _LoginPageState extends ConsumerState<LoginPage> {
+  final _formKey = GlobalKey<FormState>();
 
   bool isLoading = false;
   final emailTxtController = TextEditingController();
@@ -38,18 +39,20 @@ class _LoginPageState extends ConsumerState<LoginPage> {
   }
 
   void _submitForm() async {
-    final email = emailTxtController.text;
-    final pass = passwordTxtController.text;
-    await ref.read(authControllerProvider.notifier).logIn(email, pass);
-    if (ref.read(authControllerProvider).hasError) {
-      Fluttertoast.showToast(
-          msg:
-              "Error occured: ${ref.read(authControllerProvider).asError?.error.toString()}");
-      return;
+    if (_formKey.currentState!.validate()) {
+      final email = emailTxtController.text;
+      final pass = passwordTxtController.text;
+      await ref.read(authControllerProvider.notifier).logIn(email, pass);
+      if (ref.read(authControllerProvider).hasError) {
+        Fluttertoast.showToast(
+            msg:
+                "Error occured: ${ref.read(authControllerProvider).asError?.error.toString()}");
+        return;
+      }
+      debugPrint(
+          "LoginPage: result ${ref.read(authControllerProvider).value.toString()}");
+      _toHome();
     }
-    debugPrint(
-        "LoginPage: result ${ref.read(authControllerProvider).value.toString()}");
-    _toHome();
   }
 
   @override
@@ -64,11 +67,12 @@ class _LoginPageState extends ConsumerState<LoginPage> {
           children: [
             header(),
             _inputSection(),
-            const Spacer(),
             Divider(
               color: blackColor,
             ),
-            const Spacer(),
+            const SizedBox(
+              height: 16,
+            ),
             Column(
               children: [googleLogin(), _signUpButton()],
             ),
@@ -97,6 +101,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
 
   Widget _inputSection() {
     return Form(
+      key: _formKey,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
@@ -105,26 +110,29 @@ class _LoginPageState extends ConsumerState<LoginPage> {
               secureText: false,
               placeholder: "your@email.com",
               validator: (val) {
-                if(val == null || val.length == 0) {
-                  return "this field mustn't be empty";
+                if (val == null || val.isEmpty) {
+                  return "Email required";
                 }
-                if(!val.isEmailValid()) {
+                if (!val.isEmailValid()) {
                   return "not valid email";
                 }
                 return null;
               },
               controller: emailTxtController),
-          const SizedBox(
-            height: 12,
-          ),
           InputFormField(
             controller: passwordTxtController,
             label: 'Password',
             secureText: true,
             placeholder: "your password of course",
-          ),
-          const SizedBox(
-            height: 12,
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return "Password required";
+              }
+              if (value.length < 8) {
+                return "password must have 8 characters minimum";
+              }
+              return null;
+            },
           ),
           TextButton(
               onPressed: () {

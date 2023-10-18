@@ -31,6 +31,16 @@ class _DropdownTextfieldState extends State<DropdownTextfield> {
     super.initState();
   }
 
+  void _updateFilteredList() {
+    setState(() {
+      _filteredList = _list
+          .where((element) => element
+              .toLowerCase()
+              .contains(widget.controller.text.toLowerCase()))
+          .toList();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return TapRegion(
@@ -57,15 +67,11 @@ class _DropdownTextfieldState extends State<DropdownTextfield> {
               }
               debugPrint(
                   "current text: ${value}, controller text ${widget.controller.text}");
-              setState(() {
-                _filteredList = _list
-                    .where((element) =>
-                        element.toLowerCase().contains(value.toLowerCase()))
-                    .toList();
-              });
+              _updateFilteredList();
             },
             onTap: () => setState(() {
               _buttonWidth = context.size?.width;
+              _updateFilteredList();
               _tooltipController.show();
             }),
           ),
@@ -78,9 +84,10 @@ class _DropdownTextfieldState extends State<DropdownTextfield> {
     return Container(
       height: 150.0,
       width: _buttonWidth,
-      decoration: const BoxDecoration(
-        color: Colors.amberAccent,
-      ),
+      decoration: BoxDecoration(
+          border: Border.all(color: Colors.black38),
+          color: Colors.white,
+          borderRadius: const BorderRadius.all(Radius.circular(8.0))),
       padding: const EdgeInsets.symmetric(horizontal: 8),
       child: ListView.builder(
         itemCount: _filteredList.length,

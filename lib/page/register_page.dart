@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:rinjani_visitor/core/constant/country.dart';
 import 'package:rinjani_visitor/core/datastate/local_state.dart';
+import 'package:rinjani_visitor/core/extension/validator.dart';
 import 'package:rinjani_visitor/features/authentication/domain/auth_model.dart';
 import 'package:rinjani_visitor/features/authentication/presentation/auth_riverpod.dart';
 import 'package:rinjani_visitor/theme/theme.dart';
@@ -93,45 +94,66 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
   }
 
   Widget inputSection() {
-    return Column(
-      children: [
-        DropdownTextfield(
-          label: "Country",
-          controller: countryTxtController,
-          placeholder: "Eg: Vatikan",
-          items: countryLists,
-        ),
-        SizedBox(
-          height: 12,
-        ),
-        InputField(
-          label: 'Username',
-          controller: usernameTxtController,
-        ),
-        SizedBox(
-          height: 12,
-        ),
-        InputField(
-          label: 'Email',
-          controller: emailTxtController,
-        ),
-        SizedBox(
-          height: 12,
-        ),
-        InputField(
-          label: 'Phone number',
-          keyboardType: TextInputType.phone,
-          controller: phoneNumberTxtController,
-        ),
-        SizedBox(
-          height: 12,
-        ),
-        InputField(
-          label: 'Password',
-          secureText: true,
-          controller: passwordTxtController,
-        )
-      ],
+    return Form(
+      child: Column(
+        children: [
+          DropdownTextfield(
+            label: "Country",
+            controller: countryTxtController,
+            placeholder: "Eg: Vatikan",
+            items: countryLists,
+          ),
+          SizedBox(
+            height: 12,
+          ),
+          InputFormField(
+            label: 'Username',
+            controller: usernameTxtController,
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return "Username required";
+              }
+              return null;
+            },
+          ),
+          InputFormField(
+            label: 'Email',
+            controller: emailTxtController,
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return "Email required";
+              }
+              if (!value.isEmailValid()) {
+                return "Not valid email";
+              }
+              return null;
+            },
+          ),
+          InputFormField(
+            label: 'Phone number',
+            placeholder: "Same as your Whatsapp",
+            keyboardType: TextInputType.phone,
+            controller: phoneNumberTxtController,
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return "Phone number required";
+              }
+              return null;
+            },
+          ),
+          InputFormField(
+            label: 'Password',
+            secureText: true,
+            controller: passwordTxtController,
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return "Username required";
+              }
+              return null;
+            },
+          )
+        ],
+      ),
     );
   }
 

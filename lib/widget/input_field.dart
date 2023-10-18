@@ -41,7 +41,7 @@ class InputField extends StatelessWidget {
               border: Border.all(
                 color: lightGray,
               )),
-          padding:const EdgeInsets.all(12.0) ,
+          padding: const EdgeInsets.all(12.0),
           onChanged: (value) {
             if (onChanged != null) {
               onChanged!(value);
@@ -53,10 +53,6 @@ class InputField extends StatelessWidget {
           keyboardType: keyboardType,
           onTap: onTap,
         ),
-        Text(
-          errorText ?? "",
-          style: redTextStyle.copyWith(fontSize: body3),
-        )
       ],
     );
   }
@@ -83,17 +79,26 @@ class InputFormField extends FormField<String> {
             autovalidateMode: autovalidateMode,
             builder: (FormFieldState<String> state) {
               controller?.text = state.value ?? "";
-              return InputField(
-                controller: controller,
-                keyboardType: keyboardType,
-                label: label,
-                secureText: secureText,
-                onTap: onTap,
-                onChanged: (value) {
-                  state.didChange(value);
-                },
-                placeholder: placeholder,
-                errorText: state.hasError ? state.errorText : "",
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  InputField(
+                    controller: controller,
+                    keyboardType: keyboardType,
+                    label: label,
+                    secureText: secureText,
+                    onTap: onTap,
+                    onChanged: (value) {
+                      state.didChange(value);
+                    },
+                    placeholder: placeholder,
+                    errorText: state.hasError ? state.errorText : "",
+                  ),
+                  Text(
+                    (state.hasError ? state.errorText : "") ?? "",
+                    style: redTextStyle.copyWith(fontSize: body3),
+                  )
+                ],
               );
             });
 }
