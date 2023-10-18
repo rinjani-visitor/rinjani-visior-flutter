@@ -147,7 +147,10 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
             controller: passwordTxtController,
             validator: (value) {
               if (value == null || value.isEmpty) {
-                return "Username required";
+                return "Password required";
+              }
+              if (value.length < 8) {
+                return "Password must have 8 characters minimum";
               }
               return null;
             },
