@@ -42,6 +42,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
     if (_formKey.currentState!.validate()) {
       final email = emailTxtController.text;
       final pass = passwordTxtController.text;
+      debugPrint("$email, $pass");
       await ref.read(authControllerProvider.notifier).logIn(email, pass);
       if (ref.read(authControllerProvider).hasError) {
         Fluttertoast.showToast(

@@ -78,7 +78,6 @@ class InputFormField extends FormField<String> {
             initialValue: initialValue,
             autovalidateMode: autovalidateMode,
             builder: (FormFieldState<String> state) {
-              controller?.text = state.value ?? "";
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -92,7 +91,6 @@ class InputFormField extends FormField<String> {
                       state.didChange(value);
                     },
                     placeholder: placeholder,
-                    errorText: state.hasError ? state.errorText : "",
                   ),
                   Text(
                     (state.hasError ? state.errorText : "") ?? "",
