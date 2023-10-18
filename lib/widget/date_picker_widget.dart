@@ -2,15 +2,21 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rinjani_visitor/theme/theme.dart';
 
+/// Date Picker widget.
+///
+/// [onChange] - `dateVal` parameter will provide string date with ISO 8601 format
 class DatePickerWidget extends StatefulWidget {
-  const DatePickerWidget({Key? key}) : super(key: key);
+  final void Function(String? dateVal) onChange;
+  const DatePickerWidget({Key? key, required this.onChange}) : super(key: key);
 
   @override
   State<DatePickerWidget> createState() => _DatePickerWidgetState();
 }
 
 class _DatePickerWidgetState extends State<DatePickerWidget> {
-  DateTime _selectedDate = DateTime.now();
+  final DateTime _nowDate = DateTime.now();
+  late final DateTime _minimumDate = DateTime(_nowDate.year, _nowDate.month, _nowDate.day);
+  late DateTime _selectedDate = DateTime(_nowDate.year, _nowDate.month, _nowDate.day + 1);
 
   void _showDialog(Widget child) {
     showCupertinoModalPopup<void>(
@@ -76,6 +82,8 @@ class _DatePickerWidgetState extends State<DatePickerWidget> {
               _showDialog(CupertinoDatePicker(
                   initialDateTime: _selectedDate,
                   mode: CupertinoDatePickerMode.date,
+                  minimumDate: _minimumDate,
+                  minimumYear: _minimumDate.year,
                   use24hFormat: true,
                   // This shows day of week alongside day of month
                   showDayOfWeek: true,
@@ -83,6 +91,7 @@ class _DatePickerWidgetState extends State<DatePickerWidget> {
                     setState(() {
                       _selectedDate = newTime;
                     });
+                    widget.onChange(newTime.toIso8601String());
                   }));
             })
       ],

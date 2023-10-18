@@ -39,7 +39,8 @@ class DetailPage extends ConsumerStatefulWidget {
 class _DetailPageState extends ConsumerState<DetailPage> {
   // TODO: override later
   final ProductModel data = dataMock;
-  final listData = ["08.00", "12.00"];
+
+  final _dateController = TextEditingController();
 
   Widget imageContainer() {
     return Container(
@@ -137,7 +138,11 @@ class _DetailPageState extends ConsumerState<DetailPage> {
                       descriptionWidget: DetailDescriptionWidget(
                           accomodation: data.accomodation,
                           description: data.description,
-                          datePickerWidget: DatePickerWidget(),
+                          datePickerWidget: DatePickerWidget(
+                            onChange: (dateVal) {
+                              _dateController.text = dateVal ?? "";
+                            },
+                          ),
                           timeListFormat24H: data.timeList24H,
                           reviewWidget: ReviewWidget(),
                           addOnWidget: AddOnWidgetMock()
