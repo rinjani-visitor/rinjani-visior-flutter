@@ -23,8 +23,9 @@ mixin _$ProductModel {
   String get packageId => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
   String get location => throw _privateConstructorUsedError;
-  String? get locationUrl => throw _privateConstructorUsedError;
   String get imgUrl => throw _privateConstructorUsedError;
+  String? get locationUrl => throw _privateConstructorUsedError;
+  String? get avaiabilityStatus => throw _privateConstructorUsedError;
 
   /// example: 80$- 90$ / person
   String get rangePricing => throw _privateConstructorUsedError;
@@ -32,12 +33,11 @@ mixin _$ProductModel {
   String get tripDuration => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
   String get accomodation => throw _privateConstructorUsedError;
-  List<String>? get addOnIds => throw _privateConstructorUsedError;
-  List<String>? get reviewIds => throw _privateConstructorUsedError;
+  int get reviewCount => throw _privateConstructorUsedError;
   List<String> get initenaryList => throw _privateConstructorUsedError;
   List<String> get timeList24H => throw _privateConstructorUsedError;
-  String? get avaiabilityStatus => throw _privateConstructorUsedError;
-  int get reviewCount => throw _privateConstructorUsedError;
+  List<String>? get addOnIds => throw _privateConstructorUsedError;
+  List<String>? get reviewIds => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -55,19 +55,19 @@ abstract class $ProductModelCopyWith<$Res> {
       {String packageId,
       String title,
       String location,
-      String? locationUrl,
       String imgUrl,
+      String? locationUrl,
+      String? avaiabilityStatus,
       String rangePricing,
       String rating,
       String tripDuration,
       String description,
       String accomodation,
-      List<String>? addOnIds,
-      List<String>? reviewIds,
+      int reviewCount,
       List<String> initenaryList,
       List<String> timeList24H,
-      String? avaiabilityStatus,
-      int reviewCount});
+      List<String>? addOnIds,
+      List<String>? reviewIds});
 }
 
 /// @nodoc
@@ -86,19 +86,19 @@ class _$ProductModelCopyWithImpl<$Res, $Val extends ProductModel>
     Object? packageId = null,
     Object? title = null,
     Object? location = null,
-    Object? locationUrl = freezed,
     Object? imgUrl = null,
+    Object? locationUrl = freezed,
+    Object? avaiabilityStatus = freezed,
     Object? rangePricing = null,
     Object? rating = null,
     Object? tripDuration = null,
     Object? description = null,
     Object? accomodation = null,
-    Object? addOnIds = freezed,
-    Object? reviewIds = freezed,
+    Object? reviewCount = null,
     Object? initenaryList = null,
     Object? timeList24H = null,
-    Object? avaiabilityStatus = freezed,
-    Object? reviewCount = null,
+    Object? addOnIds = freezed,
+    Object? reviewIds = freezed,
   }) {
     return _then(_value.copyWith(
       packageId: null == packageId
@@ -113,14 +113,18 @@ class _$ProductModelCopyWithImpl<$Res, $Val extends ProductModel>
           ? _value.location
           : location // ignore: cast_nullable_to_non_nullable
               as String,
-      locationUrl: freezed == locationUrl
-          ? _value.locationUrl
-          : locationUrl // ignore: cast_nullable_to_non_nullable
-              as String?,
       imgUrl: null == imgUrl
           ? _value.imgUrl
           : imgUrl // ignore: cast_nullable_to_non_nullable
               as String,
+      locationUrl: freezed == locationUrl
+          ? _value.locationUrl
+          : locationUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
+      avaiabilityStatus: freezed == avaiabilityStatus
+          ? _value.avaiabilityStatus
+          : avaiabilityStatus // ignore: cast_nullable_to_non_nullable
+              as String?,
       rangePricing: null == rangePricing
           ? _value.rangePricing
           : rangePricing // ignore: cast_nullable_to_non_nullable
@@ -141,14 +145,10 @@ class _$ProductModelCopyWithImpl<$Res, $Val extends ProductModel>
           ? _value.accomodation
           : accomodation // ignore: cast_nullable_to_non_nullable
               as String,
-      addOnIds: freezed == addOnIds
-          ? _value.addOnIds
-          : addOnIds // ignore: cast_nullable_to_non_nullable
-              as List<String>?,
-      reviewIds: freezed == reviewIds
-          ? _value.reviewIds
-          : reviewIds // ignore: cast_nullable_to_non_nullable
-              as List<String>?,
+      reviewCount: null == reviewCount
+          ? _value.reviewCount
+          : reviewCount // ignore: cast_nullable_to_non_nullable
+              as int,
       initenaryList: null == initenaryList
           ? _value.initenaryList
           : initenaryList // ignore: cast_nullable_to_non_nullable
@@ -157,14 +157,14 @@ class _$ProductModelCopyWithImpl<$Res, $Val extends ProductModel>
           ? _value.timeList24H
           : timeList24H // ignore: cast_nullable_to_non_nullable
               as List<String>,
-      avaiabilityStatus: freezed == avaiabilityStatus
-          ? _value.avaiabilityStatus
-          : avaiabilityStatus // ignore: cast_nullable_to_non_nullable
-              as String?,
-      reviewCount: null == reviewCount
-          ? _value.reviewCount
-          : reviewCount // ignore: cast_nullable_to_non_nullable
-              as int,
+      addOnIds: freezed == addOnIds
+          ? _value.addOnIds
+          : addOnIds // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
+      reviewIds: freezed == reviewIds
+          ? _value.reviewIds
+          : reviewIds // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
     ) as $Val);
   }
 }
@@ -181,19 +181,19 @@ abstract class _$$_PackageModelCopyWith<$Res>
       {String packageId,
       String title,
       String location,
-      String? locationUrl,
       String imgUrl,
+      String? locationUrl,
+      String? avaiabilityStatus,
       String rangePricing,
       String rating,
       String tripDuration,
       String description,
       String accomodation,
-      List<String>? addOnIds,
-      List<String>? reviewIds,
+      int reviewCount,
       List<String> initenaryList,
       List<String> timeList24H,
-      String? avaiabilityStatus,
-      int reviewCount});
+      List<String>? addOnIds,
+      List<String>? reviewIds});
 }
 
 /// @nodoc
@@ -210,19 +210,19 @@ class __$$_PackageModelCopyWithImpl<$Res>
     Object? packageId = null,
     Object? title = null,
     Object? location = null,
-    Object? locationUrl = freezed,
     Object? imgUrl = null,
+    Object? locationUrl = freezed,
+    Object? avaiabilityStatus = freezed,
     Object? rangePricing = null,
     Object? rating = null,
     Object? tripDuration = null,
     Object? description = null,
     Object? accomodation = null,
-    Object? addOnIds = freezed,
-    Object? reviewIds = freezed,
+    Object? reviewCount = null,
     Object? initenaryList = null,
     Object? timeList24H = null,
-    Object? avaiabilityStatus = freezed,
-    Object? reviewCount = null,
+    Object? addOnIds = freezed,
+    Object? reviewIds = freezed,
   }) {
     return _then(_$_PackageModel(
       packageId: null == packageId
@@ -237,14 +237,18 @@ class __$$_PackageModelCopyWithImpl<$Res>
           ? _value.location
           : location // ignore: cast_nullable_to_non_nullable
               as String,
-      locationUrl: freezed == locationUrl
-          ? _value.locationUrl
-          : locationUrl // ignore: cast_nullable_to_non_nullable
-              as String?,
       imgUrl: null == imgUrl
           ? _value.imgUrl
           : imgUrl // ignore: cast_nullable_to_non_nullable
               as String,
+      locationUrl: freezed == locationUrl
+          ? _value.locationUrl
+          : locationUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
+      avaiabilityStatus: freezed == avaiabilityStatus
+          ? _value.avaiabilityStatus
+          : avaiabilityStatus // ignore: cast_nullable_to_non_nullable
+              as String?,
       rangePricing: null == rangePricing
           ? _value.rangePricing
           : rangePricing // ignore: cast_nullable_to_non_nullable
@@ -265,14 +269,10 @@ class __$$_PackageModelCopyWithImpl<$Res>
           ? _value.accomodation
           : accomodation // ignore: cast_nullable_to_non_nullable
               as String,
-      addOnIds: freezed == addOnIds
-          ? _value._addOnIds
-          : addOnIds // ignore: cast_nullable_to_non_nullable
-              as List<String>?,
-      reviewIds: freezed == reviewIds
-          ? _value._reviewIds
-          : reviewIds // ignore: cast_nullable_to_non_nullable
-              as List<String>?,
+      reviewCount: null == reviewCount
+          ? _value.reviewCount
+          : reviewCount // ignore: cast_nullable_to_non_nullable
+              as int,
       initenaryList: null == initenaryList
           ? _value._initenaryList
           : initenaryList // ignore: cast_nullable_to_non_nullable
@@ -281,14 +281,14 @@ class __$$_PackageModelCopyWithImpl<$Res>
           ? _value._timeList24H
           : timeList24H // ignore: cast_nullable_to_non_nullable
               as List<String>,
-      avaiabilityStatus: freezed == avaiabilityStatus
-          ? _value.avaiabilityStatus
-          : avaiabilityStatus // ignore: cast_nullable_to_non_nullable
-              as String?,
-      reviewCount: null == reviewCount
-          ? _value.reviewCount
-          : reviewCount // ignore: cast_nullable_to_non_nullable
-              as int,
+      addOnIds: freezed == addOnIds
+          ? _value._addOnIds
+          : addOnIds // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
+      reviewIds: freezed == reviewIds
+          ? _value._reviewIds
+          : reviewIds // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
     ));
   }
 }
@@ -300,23 +300,23 @@ class _$_PackageModel implements _PackageModel {
       {required this.packageId,
       required this.title,
       required this.location,
-      required this.locationUrl,
       required this.imgUrl,
+      this.locationUrl,
+      this.avaiabilityStatus,
       required this.rangePricing,
       required this.rating,
       required this.tripDuration,
       required this.description,
       required this.accomodation,
-      required final List<String>? addOnIds,
-      required final List<String>? reviewIds,
+      required this.reviewCount,
       required final List<String> initenaryList,
       required final List<String> timeList24H,
-      required this.avaiabilityStatus,
-      required this.reviewCount})
-      : _addOnIds = addOnIds,
-        _reviewIds = reviewIds,
-        _initenaryList = initenaryList,
-        _timeList24H = timeList24H;
+      final List<String>? addOnIds,
+      final List<String>? reviewIds})
+      : _initenaryList = initenaryList,
+        _timeList24H = timeList24H,
+        _addOnIds = addOnIds,
+        _reviewIds = reviewIds;
 
   factory _$_PackageModel.fromJson(Map<String, dynamic> json) =>
       _$$_PackageModelFromJson(json);
@@ -328,9 +328,11 @@ class _$_PackageModel implements _PackageModel {
   @override
   final String location;
   @override
+  final String imgUrl;
+  @override
   final String? locationUrl;
   @override
-  final String imgUrl;
+  final String? avaiabilityStatus;
 
   /// example: 80$- 90$ / person
   @override
@@ -343,6 +345,24 @@ class _$_PackageModel implements _PackageModel {
   final String description;
   @override
   final String accomodation;
+  @override
+  final int reviewCount;
+  final List<String> _initenaryList;
+  @override
+  List<String> get initenaryList {
+    if (_initenaryList is EqualUnmodifiableListView) return _initenaryList;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_initenaryList);
+  }
+
+  final List<String> _timeList24H;
+  @override
+  List<String> get timeList24H {
+    if (_timeList24H is EqualUnmodifiableListView) return _timeList24H;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_timeList24H);
+  }
+
   final List<String>? _addOnIds;
   @override
   List<String>? get addOnIds {
@@ -363,30 +383,9 @@ class _$_PackageModel implements _PackageModel {
     return EqualUnmodifiableListView(value);
   }
 
-  final List<String> _initenaryList;
-  @override
-  List<String> get initenaryList {
-    if (_initenaryList is EqualUnmodifiableListView) return _initenaryList;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_initenaryList);
-  }
-
-  final List<String> _timeList24H;
-  @override
-  List<String> get timeList24H {
-    if (_timeList24H is EqualUnmodifiableListView) return _timeList24H;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_timeList24H);
-  }
-
-  @override
-  final String? avaiabilityStatus;
-  @override
-  final int reviewCount;
-
   @override
   String toString() {
-    return 'ProductModel(packageId: $packageId, title: $title, location: $location, locationUrl: $locationUrl, imgUrl: $imgUrl, rangePricing: $rangePricing, rating: $rating, tripDuration: $tripDuration, description: $description, accomodation: $accomodation, addOnIds: $addOnIds, reviewIds: $reviewIds, initenaryList: $initenaryList, timeList24H: $timeList24H, avaiabilityStatus: $avaiabilityStatus, reviewCount: $reviewCount)';
+    return 'ProductModel(packageId: $packageId, title: $title, location: $location, imgUrl: $imgUrl, locationUrl: $locationUrl, avaiabilityStatus: $avaiabilityStatus, rangePricing: $rangePricing, rating: $rating, tripDuration: $tripDuration, description: $description, accomodation: $accomodation, reviewCount: $reviewCount, initenaryList: $initenaryList, timeList24H: $timeList24H, addOnIds: $addOnIds, reviewIds: $reviewIds)';
   }
 
   @override
@@ -399,9 +398,11 @@ class _$_PackageModel implements _PackageModel {
             (identical(other.title, title) || other.title == title) &&
             (identical(other.location, location) ||
                 other.location == location) &&
+            (identical(other.imgUrl, imgUrl) || other.imgUrl == imgUrl) &&
             (identical(other.locationUrl, locationUrl) ||
                 other.locationUrl == locationUrl) &&
-            (identical(other.imgUrl, imgUrl) || other.imgUrl == imgUrl) &&
+            (identical(other.avaiabilityStatus, avaiabilityStatus) ||
+                other.avaiabilityStatus == avaiabilityStatus) &&
             (identical(other.rangePricing, rangePricing) ||
                 other.rangePricing == rangePricing) &&
             (identical(other.rating, rating) || other.rating == rating) &&
@@ -411,17 +412,15 @@ class _$_PackageModel implements _PackageModel {
                 other.description == description) &&
             (identical(other.accomodation, accomodation) ||
                 other.accomodation == accomodation) &&
-            const DeepCollectionEquality().equals(other._addOnIds, _addOnIds) &&
-            const DeepCollectionEquality()
-                .equals(other._reviewIds, _reviewIds) &&
+            (identical(other.reviewCount, reviewCount) ||
+                other.reviewCount == reviewCount) &&
             const DeepCollectionEquality()
                 .equals(other._initenaryList, _initenaryList) &&
             const DeepCollectionEquality()
                 .equals(other._timeList24H, _timeList24H) &&
-            (identical(other.avaiabilityStatus, avaiabilityStatus) ||
-                other.avaiabilityStatus == avaiabilityStatus) &&
-            (identical(other.reviewCount, reviewCount) ||
-                other.reviewCount == reviewCount));
+            const DeepCollectionEquality().equals(other._addOnIds, _addOnIds) &&
+            const DeepCollectionEquality()
+                .equals(other._reviewIds, _reviewIds));
   }
 
   @JsonKey(ignore: true)
@@ -431,19 +430,19 @@ class _$_PackageModel implements _PackageModel {
       packageId,
       title,
       location,
-      locationUrl,
       imgUrl,
+      locationUrl,
+      avaiabilityStatus,
       rangePricing,
       rating,
       tripDuration,
       description,
       accomodation,
-      const DeepCollectionEquality().hash(_addOnIds),
-      const DeepCollectionEquality().hash(_reviewIds),
+      reviewCount,
       const DeepCollectionEquality().hash(_initenaryList),
       const DeepCollectionEquality().hash(_timeList24H),
-      avaiabilityStatus,
-      reviewCount);
+      const DeepCollectionEquality().hash(_addOnIds),
+      const DeepCollectionEquality().hash(_reviewIds));
 
   @JsonKey(ignore: true)
   @override
@@ -464,19 +463,19 @@ abstract class _PackageModel implements ProductModel {
       {required final String packageId,
       required final String title,
       required final String location,
-      required final String? locationUrl,
       required final String imgUrl,
+      final String? locationUrl,
+      final String? avaiabilityStatus,
       required final String rangePricing,
       required final String rating,
       required final String tripDuration,
       required final String description,
       required final String accomodation,
-      required final List<String>? addOnIds,
-      required final List<String>? reviewIds,
+      required final int reviewCount,
       required final List<String> initenaryList,
       required final List<String> timeList24H,
-      required final String? avaiabilityStatus,
-      required final int reviewCount}) = _$_PackageModel;
+      final List<String>? addOnIds,
+      final List<String>? reviewIds}) = _$_PackageModel;
 
   factory _PackageModel.fromJson(Map<String, dynamic> json) =
       _$_PackageModel.fromJson;
@@ -488,9 +487,11 @@ abstract class _PackageModel implements ProductModel {
   @override
   String get location;
   @override
+  String get imgUrl;
+  @override
   String? get locationUrl;
   @override
-  String get imgUrl;
+  String? get avaiabilityStatus;
   @override
 
   /// example: 80$- 90$ / person
@@ -504,17 +505,15 @@ abstract class _PackageModel implements ProductModel {
   @override
   String get accomodation;
   @override
-  List<String>? get addOnIds;
-  @override
-  List<String>? get reviewIds;
+  int get reviewCount;
   @override
   List<String> get initenaryList;
   @override
   List<String> get timeList24H;
   @override
-  String? get avaiabilityStatus;
+  List<String>? get addOnIds;
   @override
-  int get reviewCount;
+  List<String>? get reviewIds;
   @override
   @JsonKey(ignore: true)
   _$$_PackageModelCopyWith<_$_PackageModel> get copyWith =>

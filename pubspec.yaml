@@ -73,6 +73,7 @@ dev_dependencies:
   freezed: ^2.4.1
   retrofit_generator: '>=7.0.0 <8.0.0'
   riverpod_generator: ^2.3.3
+  mockito: ^5.4.2
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
