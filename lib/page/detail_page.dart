@@ -5,7 +5,9 @@ import 'package:like_button/like_button.dart';
 import 'package:rinjani_visitor/features/product/domain/product_model.dart';
 import 'package:rinjani_visitor/theme/theme.dart';
 import 'package:rinjani_visitor/widget/add_on_widget.dart';
+import 'package:rinjani_visitor/widget/button/primary_button.dart';
 import 'package:rinjani_visitor/widget/date_picker_widget.dart';
+import 'package:rinjani_visitor/widget/person_counter_widget.dart';
 import 'package:rinjani_visitor/widget/rating_widget.dart';
 import 'package:rinjani_visitor/widget/review_widget.dart';
 import 'package:rinjani_visitor/widget/segmented_widget.dart';
@@ -21,7 +23,7 @@ const dataMock = ProductModel(
     rating: "4.9",
     tripDuration: "2 days, 1 night",
     description: "Basic package",
-    accomodation: "accomodation",
+    accomodation: "self driving, etc is provided by buying this package",
     addOnIds: [""],
     reviewIds: [""],
     avaiabilityStatus: "avaiable",
@@ -125,7 +127,6 @@ class _DetailPageState extends ConsumerState<DetailPage> {
           middle: Text('Detail Trip'),
         ),
         child: CustomScrollView(
-
           slivers: [
             SliverToBoxAdapter(
               child: Padding(
@@ -136,6 +137,31 @@ class _DetailPageState extends ConsumerState<DetailPage> {
                     header(),
                     DetailSegmentedWidget(
                       descriptionWidget: DetailDescriptionWidget(
+                          buyProductWidget: PrimaryButton(
+                              onPressed: () {
+                                showCupertinoModalPopup(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return Container(
+                                        width: double.infinity,
+                                        height: 300,
+                                        decoration: BoxDecoration(
+                                            color: whiteColor,
+                                            borderRadius: BorderRadius.circular(
+                                                bigRadius)),
+                                        child: PersonCounterWidget(
+                                          onSubmit: (value) {
+                                            Navigator.pushNamed(context,
+                                                "/continue-payment-page");
+                                          },
+                                        ),
+                                      );
+                                    });
+                              },
+                              child: Text(
+                                'Buy Product',
+                                style: whiteTextStyle.copyWith(fontSize: 16),
+                              )),
                           accomodation: data.accomodation,
                           description: data.description,
                           datePickerWidget: DatePickerWidget(
@@ -145,8 +171,7 @@ class _DetailPageState extends ConsumerState<DetailPage> {
                           ),
                           timeListFormat24H: data.timeList24H,
                           reviewWidget: ReviewWidget(),
-                          addOnWidget: AddOnWidgetMock()
-                      ),
+                          addOnWidget: AddOnWidgetMock()),
                       initenaryWidget: DetailIniteraryWidget(
                           initenaryList: data.initenaryList),
                     ),
@@ -154,9 +179,7 @@ class _DetailPageState extends ConsumerState<DetailPage> {
                 ),
               ),
             ),
-
           ],
-
         ));
   }
 }

@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:rinjani_visitor/page/booking_detail_page.dart';
 import 'package:rinjani_visitor/page/category_explore_page.dart';
 import 'package:rinjani_visitor/page/change_email_page.dart';
 import 'package:rinjani_visitor/page/change_pass_page.dart';
@@ -49,6 +50,7 @@ class MyApp extends StatelessWidget {
         '/register-page': (context) => const RegisterPage(),
         '/home-page': (context) => const MainPage(),
         '/search-page': (context) => const SearchPage(),
+        '/booking-detail-page': (context) => const BookingDetailPage(),
         '/event-detail-page': (context) => const EventDetail(),
         '/detail-page': (context) => DetailPage(),
         '/notification-page': (context) => const NotificationPage(),

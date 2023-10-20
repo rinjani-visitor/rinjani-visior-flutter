@@ -83,8 +83,8 @@ class _PersonCounterWidgetState extends State<PersonCounterWidget> {
               style: ButtonStyle(
                   backgroundColor: MaterialStatePropertyAll(primaryColor)),
               onPressed: () {
-                widget.onSubmit(person);
                 Navigator.pop(context);
+                widget.onSubmit(person);
               },
               child: Container(
                   width: 294,
