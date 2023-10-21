@@ -8,6 +8,7 @@ class OrderModel with _$OrderModel {
   factory OrderModel({
     String? packageId,
     int? person,
+    String? proofOfPayment,
     required String date,
     required Set<String> time,
     required Set<String> addOnId,

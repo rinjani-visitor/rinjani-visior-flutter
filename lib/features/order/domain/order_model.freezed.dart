@@ -24,6 +24,8 @@ mixin _$OrderModel {
   set packageId(String? value) => throw _privateConstructorUsedError;
   int? get person => throw _privateConstructorUsedError;
   set person(int? value) => throw _privateConstructorUsedError;
+  String? get proofOfPayment => throw _privateConstructorUsedError;
+  set proofOfPayment(String? value) => throw _privateConstructorUsedError;
   String get date => throw _privateConstructorUsedError;
   set date(String value) => throw _privateConstructorUsedError;
   Set<String> get time => throw _privateConstructorUsedError;
@@ -46,6 +48,7 @@ abstract class $OrderModelCopyWith<$Res> {
   $Res call(
       {String? packageId,
       int? person,
+      String? proofOfPayment,
       String date,
       Set<String> time,
       Set<String> addOnId});
@@ -66,6 +69,7 @@ class _$OrderModelCopyWithImpl<$Res, $Val extends OrderModel>
   $Res call({
     Object? packageId = freezed,
     Object? person = freezed,
+    Object? proofOfPayment = freezed,
     Object? date = null,
     Object? time = null,
     Object? addOnId = null,
@@ -79,6 +83,10 @@ class _$OrderModelCopyWithImpl<$Res, $Val extends OrderModel>
           ? _value.person
           : person // ignore: cast_nullable_to_non_nullable
               as int?,
+      proofOfPayment: freezed == proofOfPayment
+          ? _value.proofOfPayment
+          : proofOfPayment // ignore: cast_nullable_to_non_nullable
+              as String?,
       date: null == date
           ? _value.date
           : date // ignore: cast_nullable_to_non_nullable
@@ -106,6 +114,7 @@ abstract class _$$_OrderModelCopyWith<$Res>
   $Res call(
       {String? packageId,
       int? person,
+      String? proofOfPayment,
       String date,
       Set<String> time,
       Set<String> addOnId});
@@ -124,6 +133,7 @@ class __$$_OrderModelCopyWithImpl<$Res>
   $Res call({
     Object? packageId = freezed,
     Object? person = freezed,
+    Object? proofOfPayment = freezed,
     Object? date = null,
     Object? time = null,
     Object? addOnId = null,
@@ -137,6 +147,10 @@ class __$$_OrderModelCopyWithImpl<$Res>
           ? _value.person
           : person // ignore: cast_nullable_to_non_nullable
               as int?,
+      proofOfPayment: freezed == proofOfPayment
+          ? _value.proofOfPayment
+          : proofOfPayment // ignore: cast_nullable_to_non_nullable
+              as String?,
       date: null == date
           ? _value.date
           : date // ignore: cast_nullable_to_non_nullable
@@ -159,6 +173,7 @@ class _$_OrderModel implements _OrderModel {
   _$_OrderModel(
       {this.packageId,
       this.person,
+      this.proofOfPayment,
       required this.date,
       required this.time,
       required this.addOnId});
@@ -171,6 +186,8 @@ class _$_OrderModel implements _OrderModel {
   @override
   int? person;
   @override
+  String? proofOfPayment;
+  @override
   String date;
   @override
   Set<String> time;
@@ -179,7 +196,7 @@ class _$_OrderModel implements _OrderModel {
 
   @override
   String toString() {
-    return 'OrderModel(packageId: $packageId, person: $person, date: $date, time: $time, addOnId: $addOnId)';
+    return 'OrderModel(packageId: $packageId, person: $person, proofOfPayment: $proofOfPayment, date: $date, time: $time, addOnId: $addOnId)';
   }
 
   @JsonKey(ignore: true)
@@ -200,6 +217,7 @@ abstract class _OrderModel implements OrderModel {
   factory _OrderModel(
       {String? packageId,
       int? person,
+      String? proofOfPayment,
       required String date,
       required Set<String> time,
       required Set<String> addOnId}) = _$_OrderModel;
@@ -213,6 +231,9 @@ abstract class _OrderModel implements OrderModel {
   @override
   int? get person;
   set person(int? value);
+  @override
+  String? get proofOfPayment;
+  set proofOfPayment(String? value);
   @override
   String get date;
   set date(String value);

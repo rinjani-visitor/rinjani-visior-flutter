@@ -10,6 +10,7 @@ _$_OrderModel _$$_OrderModelFromJson(Map<String, dynamic> json) =>
     _$_OrderModel(
       packageId: json['packageId'] as String?,
       person: json['person'] as int?,
+      proofOfPayment: json['proofOfPayment'] as String?,
       date: json['date'] as String,
       time: (json['time'] as List<dynamic>).map((e) => e as String).toSet(),
       addOnId:
@@ -20,6 +21,7 @@ Map<String, dynamic> _$$_OrderModelToJson(_$_OrderModel instance) =>
     <String, dynamic>{
       'packageId': instance.packageId,
       'person': instance.person,
+      'proofOfPayment': instance.proofOfPayment,
       'date': instance.date,
       'time': instance.time.toList(),
       'addOnId': instance.addOnId.toList(),
