@@ -55,6 +55,7 @@ dependencies:
   logger: ^2.0.2+1
   like_button: ^2.0.5
   file_picker: ^6.0.0
+  flutter_image_compress: ^2.1.0
 
 dev_dependencies:
   flutter_test:
