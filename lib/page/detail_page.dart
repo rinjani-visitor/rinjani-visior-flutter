@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:like_button/like_button.dart';
+import 'package:rinjani_visitor/features/order/presentation/order_riverpod.dart';
 import 'package:rinjani_visitor/features/product/domain/product_model.dart';
 import 'package:rinjani_visitor/theme/theme.dart';
 import 'package:rinjani_visitor/widget/add_on_widget.dart';
@@ -43,6 +44,13 @@ class _DetailPageState extends ConsumerState<DetailPage> {
   final ProductModel data = dataMock;
 
   final _dateController = TextEditingController();
+
+  void _onSubmit(int personValue) {
+    ref.read(orderRiverpodProvider).person = personValue;
+    ref.read(orderRiverpodProvider.notifier).setDate(_dateController.text);
+    Navigator.pushNamed(context,
+        "/booking-detail-page");
+  }
 
   Widget imageContainer() {
     return Container(
@@ -123,7 +131,7 @@ class _DetailPageState extends ConsumerState<DetailPage> {
   @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
-        navigationBar: CupertinoNavigationBar(
+        navigationBar: const CupertinoNavigationBar(
           middle: Text('Detail Trip'),
         ),
         child: CustomScrollView(
@@ -151,8 +159,7 @@ class _DetailPageState extends ConsumerState<DetailPage> {
                                                 bigRadius)),
                                         child: PersonCounterWidget(
                                           onSubmit: (value) {
-                                            Navigator.pushNamed(context,
-                                                "/continue-payment-page");
+                                            _onSubmit(value);
                                           },
                                         ),
                                       );
@@ -170,6 +177,14 @@ class _DetailPageState extends ConsumerState<DetailPage> {
                             },
                           ),
                           timeListFormat24H: data.timeList24H,
+                          currentSelectedTimeList: ref.read(orderRiverpodProvider).time.toList(),
+                          onTimeListTap: (value, isSelected) {
+                            if(isSelected) {
+                              ref.read(orderRiverpodProvider).time.add(value);
+                            }else {
+                              ref.read(orderRiverpodProvider).time.remove(value);
+                            }
+                          },
                           reviewWidget: ReviewWidget(),
                           addOnWidget: AddOnWidgetMock()),
                       initenaryWidget: DetailIniteraryWidget(

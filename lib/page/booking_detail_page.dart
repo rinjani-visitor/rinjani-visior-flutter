@@ -1,10 +1,21 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:rinjani_visitor/features/order/domain/order_model.dart';
+import 'package:rinjani_visitor/features/order/presentation/order_riverpod.dart';
 import 'package:rinjani_visitor/theme/theme.dart';
 import 'package:rinjani_visitor/widget/input_field.dart';
 
-class BookingDetailPage extends StatelessWidget {
+class BookingDetailPage extends ConsumerStatefulWidget {
   const BookingDetailPage({Key? key}) : super(key: key);
+
+  @override
+  ConsumerState<BookingDetailPage> createState() => _BookingDetailPageState();
+}
+
+class _BookingDetailPageState extends ConsumerState<BookingDetailPage> {
+
+  final _priceRangeController = TextEditingController();
 
   Widget imageTitle() {
     return Container(
@@ -50,6 +61,8 @@ class BookingDetailPage extends StatelessWidget {
   }
 
   Widget tripDetail() {
+    OrderModel state = ref.watch(orderRiverpodProvider);
+
     return Container(
       padding: EdgeInsets.all(16),
       color: whiteColor,
@@ -81,7 +94,7 @@ class BookingDetailPage extends StatelessWidget {
                     Icons.calendar_month,
                     color: blackColor,
                   ),
-                  title: Text('20 - 08 - 23')),
+                  title: Text( state.date)),
               Text(
                 'Arrival',
                 style:
@@ -97,7 +110,7 @@ class BookingDetailPage extends StatelessWidget {
                     Icons.access_time,
                     color: blackColor,
                   ),
-                  title: Text('09:00 AM')),
+                  title: Text(ref.read(orderRiverpodProvider.notifier).getTime())),
               Text(
                 'Person',
                 style:
@@ -113,7 +126,7 @@ class BookingDetailPage extends StatelessWidget {
                     Icons.person,
                     color: blackColor,
                   ),
-                  title: Text('2 person')),
+                  title: Text("${state.person ?? 0} Person")),
             ],
           )
         ],
@@ -139,7 +152,7 @@ class BookingDetailPage extends StatelessWidget {
                 color: blackColor,
               ),
               title: Text(
-                '+Rp.200.000',
+                'Rp.200.000',
                 style: greenTextStyle,
               ))
         ],
@@ -154,10 +167,19 @@ class BookingDetailPage extends StatelessWidget {
       padding: EdgeInsets.all(16),
       child: Column(
         children: [
-          InputField(
+          InputFormField(
+            controller: _priceRangeController,
+            validator: (value) {
+              if(value == null || value.isEmpty) {
+                return "required";
+              }
+              //TODO: tembahkan validasi berdasarkan harga terendah dan harga tertinggi
+              return null;
+            },
             label: 'Enter your price offer',
             secureText: false,
             placeholder: 'Price should be in range',
+            keyboardType: TextInputType.number,
           ),
           CupertinoButton(
               child: Container(

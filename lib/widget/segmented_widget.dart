@@ -1,8 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:rinjani_visitor/theme/theme.dart';
-import 'package:rinjani_visitor/widget/button/primary_button.dart';
 import 'package:rinjani_visitor/widget/date_picker_widget.dart';
-import 'package:rinjani_visitor/widget/person_counter_widget.dart';
 import 'package:rinjani_visitor/widget/review_widget.dart';
 import 'package:rinjani_visitor/widget/time_button_widget.dart';
 
@@ -47,6 +45,8 @@ class DetailDescriptionWidget extends StatefulWidget {
   final String accomodation;
   final String description;
   final List<String> timeListFormat24H;
+  final List<String> currentSelectedTimeList;
+  final void Function(String value, bool isSelected) onTimeListTap;
   const DetailDescriptionWidget(
       {super.key,
       required this.datePickerWidget,
@@ -55,7 +55,9 @@ class DetailDescriptionWidget extends StatefulWidget {
       required this.description,
       required this.accomodation,
       required this.timeListFormat24H,
-      required this.buyProductWidget});
+      required this.currentSelectedTimeList,
+
+      required this.buyProductWidget, required this.onTimeListTap});
 
   @override
   State<DetailDescriptionWidget> createState() =>
@@ -64,6 +66,7 @@ class DetailDescriptionWidget extends StatefulWidget {
 
 class _DetailDescriptionWidgetState extends State<DetailDescriptionWidget> {
   int personCount = 0;
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -102,7 +105,11 @@ class _DetailDescriptionWidgetState extends State<DetailDescriptionWidget> {
             physics: const ClampingScrollPhysics(),
             itemBuilder: (context, index) => Padding(
               padding: const EdgeInsets.only(right: 4.0),
-              child: TimeButtonWidget(time: widget.timeListFormat24H[index]),
+              child: TimeButtonWidget(time: widget.timeListFormat24H[index],
+                selected: widget.currentSelectedTimeList.contains(widget.timeListFormat24H[index]),
+                onToggle: (value, isSelected) {
+                widget.onTimeListTap(value, isSelected);
+              },),
             ),
           ),
         ),

@@ -1,6 +1,8 @@
-import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
 import 'package:rinjani_visitor/page/account_page.dart';
+import 'package:rinjani_visitor/page/booking_detail_page.dart';
+import 'package:rinjani_visitor/page/detail_page.dart';
 import 'package:rinjani_visitor/page/event_detail.dart';
 import 'package:rinjani_visitor/page/event_page.dart';
 import 'package:rinjani_visitor/page/home_page.dart';
@@ -13,10 +15,12 @@ import 'package:rinjani_visitor/page/wishlist_page.dart';
 part 'go_router_builder.g.dart';
 
 @TypedGoRoute<SplashScreenRoute>(path: '/', routes: [
-  TypedGoRoute<LogInRoute>(path: 'log-in'),
+  TypedGoRoute<LogInRoute>(path: 'logIn'),
   TypedGoRoute<RegisterRoute>(path: 'register'),
   TypedGoRoute<HomeRoute>(
       path: 'home', routes: [TypedGoRoute<SearchRoute>(path: 'search')]),
+  TypedGoRoute<ProductDetailRoute>(path: 'product'),
+  TypedGoRoute<BookingDetailRoute>(path: "booking"),
   TypedGoRoute<EventRoute>(
       path: 'event', routes: [TypedGoRoute<EventDetailRoute>(path: ":id")]),
   TypedGoRoute<WishlistRoute>(path: 'wishlist'),
@@ -70,10 +74,11 @@ class EventRoute extends GoRouteData {
   }
 }
 
+@immutable
 class EventDetailRoute extends GoRouteData {
   final String id;
 
-  EventDetailRoute({required this.id});
+  const EventDetailRoute({required this.id});
   @override
   Widget build(BuildContext context, GoRouterState state) {
     return const EventDetail();
@@ -88,10 +93,28 @@ class WishlistRoute extends GoRouteData {
   }
 }
 
+
 @immutable
 class AccountRoute extends GoRouteData {
   @override
   Widget build(BuildContext context, GoRouterState state) {
     return const AccountPage();
+  }
+}
+
+// Poducts
+@immutable
+class ProductDetailRoute extends GoRouteData {
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return DetailPage();
+  }
+}
+
+@immutable
+class BookingDetailRoute extends GoRouteData {
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return const BookingDetailPage();
   }
 }

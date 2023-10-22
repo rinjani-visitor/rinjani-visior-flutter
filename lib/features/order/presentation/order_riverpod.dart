@@ -34,6 +34,11 @@ class OrderRiverpod extends _$OrderRiverpod {
     state.time.remove(time24H);
   }
 
+  String getTime() {
+    final joinData = state.time.fold("Not provided",(_,e) => "$e,");
+    return joinData;
+  }
+
   void addAddons(String addOnId) {
     state.addOnId.add(addOnId);
   }
