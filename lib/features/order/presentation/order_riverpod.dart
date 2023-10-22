@@ -15,6 +15,7 @@ class OrderRiverpod extends _$OrderRiverpod {
     return OrderModel(
         date: DateTime.timestamp().toIso8601String(),
         addOnId: <String>{},
+        person: 0,
         time: <String>{});
   }
 
@@ -35,7 +36,7 @@ class OrderRiverpod extends _$OrderRiverpod {
   }
 
   String getTime() {
-    final joinData = state.time.fold("Not provided",(_,e) => "$e,");
+    final joinData = state.time.fold("Not provided", (_, e) => "$e,");
     return joinData;
   }
 

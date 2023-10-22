@@ -70,22 +70,22 @@ class _$SettingModelCopyWithImpl<$Res, $Val extends SettingModel>
 }
 
 /// @nodoc
-abstract class _$$_SettingModelCopyWith<$Res>
+abstract class _$$SettingModelImplCopyWith<$Res>
     implements $SettingModelCopyWith<$Res> {
-  factory _$$_SettingModelCopyWith(
-          _$_SettingModel value, $Res Function(_$_SettingModel) then) =
-      __$$_SettingModelCopyWithImpl<$Res>;
+  factory _$$SettingModelImplCopyWith(
+          _$SettingModelImpl value, $Res Function(_$SettingModelImpl) then) =
+      __$$SettingModelImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({LangCode languageCode, Currency currency});
 }
 
 /// @nodoc
-class __$$_SettingModelCopyWithImpl<$Res>
-    extends _$SettingModelCopyWithImpl<$Res, _$_SettingModel>
-    implements _$$_SettingModelCopyWith<$Res> {
-  __$$_SettingModelCopyWithImpl(
-      _$_SettingModel _value, $Res Function(_$_SettingModel) _then)
+class __$$SettingModelImplCopyWithImpl<$Res>
+    extends _$SettingModelCopyWithImpl<$Res, _$SettingModelImpl>
+    implements _$$SettingModelImplCopyWith<$Res> {
+  __$$SettingModelImplCopyWithImpl(
+      _$SettingModelImpl _value, $Res Function(_$SettingModelImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -94,7 +94,7 @@ class __$$_SettingModelCopyWithImpl<$Res>
     Object? languageCode = null,
     Object? currency = null,
   }) {
-    return _then(_$_SettingModel(
+    return _then(_$SettingModelImpl(
       languageCode: null == languageCode
           ? _value.languageCode
           : languageCode // ignore: cast_nullable_to_non_nullable
@@ -109,11 +109,11 @@ class __$$_SettingModelCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_SettingModel with DiagnosticableTreeMixin implements _SettingModel {
-  _$_SettingModel({required this.languageCode, required this.currency});
+class _$SettingModelImpl with DiagnosticableTreeMixin implements _SettingModel {
+  _$SettingModelImpl({required this.languageCode, required this.currency});
 
-  factory _$_SettingModel.fromJson(Map<String, dynamic> json) =>
-      _$$_SettingModelFromJson(json);
+  factory _$SettingModelImpl.fromJson(Map<String, dynamic> json) =>
+      _$$SettingModelImplFromJson(json);
 
   @override
   LangCode languageCode;
@@ -137,12 +137,12 @@ class _$_SettingModel with DiagnosticableTreeMixin implements _SettingModel {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_SettingModelCopyWith<_$_SettingModel> get copyWith =>
-      __$$_SettingModelCopyWithImpl<_$_SettingModel>(this, _$identity);
+  _$$SettingModelImplCopyWith<_$SettingModelImpl> get copyWith =>
+      __$$SettingModelImplCopyWithImpl<_$SettingModelImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_SettingModelToJson(
+    return _$$SettingModelImplToJson(
       this,
     );
   }
@@ -151,10 +151,10 @@ class _$_SettingModel with DiagnosticableTreeMixin implements _SettingModel {
 abstract class _SettingModel implements SettingModel {
   factory _SettingModel(
       {required LangCode languageCode,
-      required Currency currency}) = _$_SettingModel;
+      required Currency currency}) = _$SettingModelImpl;
 
   factory _SettingModel.fromJson(Map<String, dynamic> json) =
-      _$_SettingModel.fromJson;
+      _$SettingModelImpl.fromJson;
 
   @override
   LangCode get languageCode;
@@ -164,6 +164,6 @@ abstract class _SettingModel implements SettingModel {
   set currency(Currency value);
   @override
   @JsonKey(ignore: true)
-  _$$_SettingModelCopyWith<_$_SettingModel> get copyWith =>
+  _$$SettingModelImplCopyWith<_$SettingModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

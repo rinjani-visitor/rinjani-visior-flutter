@@ -6,13 +6,13 @@ part of 'setting_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_SettingModel _$$_SettingModelFromJson(Map<String, dynamic> json) =>
-    _$_SettingModel(
+_$SettingModelImpl _$$SettingModelImplFromJson(Map<String, dynamic> json) =>
+    _$SettingModelImpl(
       languageCode: $enumDecode(_$LangCodeEnumMap, json['languageCode']),
       currency: $enumDecode(_$CurrencyEnumMap, json['currency']),
     );
 
-Map<String, dynamic> _$$_SettingModelToJson(_$_SettingModel instance) =>
+Map<String, dynamic> _$$SettingModelImplToJson(_$SettingModelImpl instance) =>
     <String, dynamic>{
       'languageCode': _$LangCodeEnumMap[instance.languageCode]!,
       'currency': _$CurrencyEnumMap[instance.currency]!,

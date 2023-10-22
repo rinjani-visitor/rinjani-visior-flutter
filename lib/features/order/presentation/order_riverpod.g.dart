@@ -6,7 +6,7 @@ part of 'order_riverpod.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$orderRiverpodHash() => r'70a5fe9e42a9b1287da1fdf318fa1d2525234a8f';
+String _$orderRiverpodHash() => r'785540a13f551010215ba71e0e16e9ed60d6ab86';
 
 /// See also [OrderRiverpod].
 @ProviderFor(OrderRiverpod)

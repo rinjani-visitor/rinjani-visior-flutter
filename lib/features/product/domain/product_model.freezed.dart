@@ -170,11 +170,11 @@ class _$ProductModelCopyWithImpl<$Res, $Val extends ProductModel>
 }
 
 /// @nodoc
-abstract class _$$_PackageModelCopyWith<$Res>
+abstract class _$$PackageModelImplCopyWith<$Res>
     implements $ProductModelCopyWith<$Res> {
-  factory _$$_PackageModelCopyWith(
-          _$_PackageModel value, $Res Function(_$_PackageModel) then) =
-      __$$_PackageModelCopyWithImpl<$Res>;
+  factory _$$PackageModelImplCopyWith(
+          _$PackageModelImpl value, $Res Function(_$PackageModelImpl) then) =
+      __$$PackageModelImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -197,11 +197,11 @@ abstract class _$$_PackageModelCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_PackageModelCopyWithImpl<$Res>
-    extends _$ProductModelCopyWithImpl<$Res, _$_PackageModel>
-    implements _$$_PackageModelCopyWith<$Res> {
-  __$$_PackageModelCopyWithImpl(
-      _$_PackageModel _value, $Res Function(_$_PackageModel) _then)
+class __$$PackageModelImplCopyWithImpl<$Res>
+    extends _$ProductModelCopyWithImpl<$Res, _$PackageModelImpl>
+    implements _$$PackageModelImplCopyWith<$Res> {
+  __$$PackageModelImplCopyWithImpl(
+      _$PackageModelImpl _value, $Res Function(_$PackageModelImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -224,7 +224,7 @@ class __$$_PackageModelCopyWithImpl<$Res>
     Object? addOnIds = freezed,
     Object? reviewIds = freezed,
   }) {
-    return _then(_$_PackageModel(
+    return _then(_$PackageModelImpl(
       packageId: null == packageId
           ? _value.packageId
           : packageId // ignore: cast_nullable_to_non_nullable
@@ -295,8 +295,8 @@ class __$$_PackageModelCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_PackageModel implements _PackageModel {
-  const _$_PackageModel(
+class _$PackageModelImpl implements _PackageModel {
+  const _$PackageModelImpl(
       {required this.packageId,
       required this.title,
       required this.location,
@@ -318,8 +318,8 @@ class _$_PackageModel implements _PackageModel {
         _addOnIds = addOnIds,
         _reviewIds = reviewIds;
 
-  factory _$_PackageModel.fromJson(Map<String, dynamic> json) =>
-      _$$_PackageModelFromJson(json);
+  factory _$PackageModelImpl.fromJson(Map<String, dynamic> json) =>
+      _$$PackageModelImplFromJson(json);
 
   @override
   final String packageId;
@@ -392,7 +392,7 @@ class _$_PackageModel implements _PackageModel {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_PackageModel &&
+            other is _$PackageModelImpl &&
             (identical(other.packageId, packageId) ||
                 other.packageId == packageId) &&
             (identical(other.title, title) || other.title == title) &&
@@ -447,12 +447,12 @@ class _$_PackageModel implements _PackageModel {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_PackageModelCopyWith<_$_PackageModel> get copyWith =>
-      __$$_PackageModelCopyWithImpl<_$_PackageModel>(this, _$identity);
+  _$$PackageModelImplCopyWith<_$PackageModelImpl> get copyWith =>
+      __$$PackageModelImplCopyWithImpl<_$PackageModelImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_PackageModelToJson(
+    return _$$PackageModelImplToJson(
       this,
     );
   }
@@ -475,10 +475,10 @@ abstract class _PackageModel implements ProductModel {
       required final List<String> initenaryList,
       required final List<String> timeList24H,
       final List<String>? addOnIds,
-      final List<String>? reviewIds}) = _$_PackageModel;
+      final List<String>? reviewIds}) = _$PackageModelImpl;
 
   factory _PackageModel.fromJson(Map<String, dynamic> json) =
-      _$_PackageModel.fromJson;
+      _$PackageModelImpl.fromJson;
 
   @override
   String get packageId;
@@ -516,6 +516,6 @@ abstract class _PackageModel implements ProductModel {
   List<String>? get reviewIds;
   @override
   @JsonKey(ignore: true)
-  _$$_PackageModelCopyWith<_$_PackageModel> get copyWith =>
+  _$$PackageModelImplCopyWith<_$PackageModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
