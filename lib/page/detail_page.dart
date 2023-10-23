@@ -33,20 +33,24 @@ const dataMock = ProductModel(
     timeList24H: ["08.00", "12.00", "15.00", "18.00"]);
 
 class DetailPage extends ConsumerStatefulWidget {
-  DetailPage({Key? key}) : super(key: key);
+  const DetailPage({Key? key}) : super(key: key);
 
   @override
   ConsumerState<DetailPage> createState() => _DetailPageState();
 }
 
 class _DetailPageState extends ConsumerState<DetailPage> {
-  // TODO: override later
+  // TODO: override later with server data
   final ProductModel data = dataMock;
 
-  final _dateController = TextEditingController();
+  late final _dateController =
+      TextEditingController(text: ref.read(orderRiverpodProvider).date);
+  late final _personController = TextEditingController(
+      text: ref.read(orderRiverpodProvider).person.toString());
 
   void _onSubmit(int personValue) {
-    ref.read(orderRiverpodProvider).person = personValue;
+    ref.read(orderRiverpodProvider).person =
+        int.tryParse(_personController.text);
     ref.read(orderRiverpodProvider.notifier).setDate(_dateController.text);
     Navigator.pushNamed(context, "/booking-detail-page");
   }
@@ -55,23 +59,16 @@ class _DetailPageState extends ConsumerState<DetailPage> {
     showCupertinoModalPopup(
         context: context,
         builder: (BuildContext context) {
-          return Container(
-            width: double.infinity,
-            height: 300,
-            decoration: BoxDecoration(
-                color: whiteColor,
-                borderRadius: BorderRadius.circular(bigRadius)),
-            child: PersonCounterWidget(
-              onSubmit: (value) {
-                _onSubmit(value);
-              },
-            ),
+          return PersonCounterWidget(
+            controller: _personController,
+            onSubmit: (value) {
+              _onSubmit(value);
+            },
           );
         });
   }
 
   // Page Part
-
   Widget heroImage() {
     return Container(
       width: double.infinity,
@@ -170,8 +167,14 @@ class _DetailPageState extends ConsumerState<DetailPage> {
                         accomodation: data.accomodation,
                         addOn: const AddOnWidgetMock(),
                         datePicker: DatePickerWidget(
+                          initialDate: ref
+                              .read(orderRiverpodProvider.notifier)
+                              .getDate(),
                           onChange: (dateVal) {
                             _dateController.text = dateVal ?? "";
+                            ref
+                                .read(orderRiverpodProvider.notifier)
+                                .setDate(dateVal);
                           },
                         ),
                         timeList: TimeList(

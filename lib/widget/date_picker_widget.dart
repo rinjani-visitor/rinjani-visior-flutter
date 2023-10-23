@@ -2,12 +2,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rinjani_visitor/theme/theme.dart';
 
-/// Date Picker widget.
+/// Date Picker widget with ISO8601 date format.
 ///
 /// [onChange] - `dateVal` parameter will provide string date with ISO 8601 format
 class DatePickerWidget extends StatefulWidget {
+  final DateTime? initialDate;
   final void Function(String? dateVal) onChange;
-  const DatePickerWidget({Key? key, required this.onChange}) : super(key: key);
+  const DatePickerWidget({Key? key, this.initialDate, required this.onChange})
+      : super(key: key);
 
   @override
   State<DatePickerWidget> createState() => _DatePickerWidgetState();
@@ -15,8 +17,16 @@ class DatePickerWidget extends StatefulWidget {
 
 class _DatePickerWidgetState extends State<DatePickerWidget> {
   final DateTime _nowDate = DateTime.now();
-  late final DateTime _minimumDate = DateTime(_nowDate.year, _nowDate.month, _nowDate.day);
-  late DateTime _selectedDate = DateTime(_nowDate.year, _nowDate.month, _nowDate.day + 1);
+  late final DateTime _minimumDate =
+      DateTime(_nowDate.year, _nowDate.month, _nowDate.day);
+  late DateTime _selectedDate =
+      DateTime(_nowDate.year, _nowDate.month, _nowDate.day + 1);
+
+  @override
+  void initState() {
+    debugPrint("date: ${widget.initialDate}}");
+    super.initState();
+  }
 
   void _showDialog(Widget child) {
     showCupertinoModalPopup<void>(
@@ -80,7 +90,7 @@ class _DatePickerWidgetState extends State<DatePickerWidget> {
             ),
             onPressed: () {
               _showDialog(CupertinoDatePicker(
-                  initialDateTime: _selectedDate,
+                  initialDateTime: widget.initialDate,
                   mode: CupertinoDatePickerMode.date,
                   minimumDate: _minimumDate,
                   minimumYear: _minimumDate.year,
