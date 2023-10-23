@@ -48,11 +48,31 @@ class _DetailPageState extends ConsumerState<DetailPage> {
   void _onSubmit(int personValue) {
     ref.read(orderRiverpodProvider).person = personValue;
     ref.read(orderRiverpodProvider.notifier).setDate(_dateController.text);
-    Navigator.pushNamed(context,
-        "/booking-detail-page");
+    Navigator.pushNamed(context, "/booking-detail-page");
   }
 
-  Widget imageContainer() {
+  void _showModalPopup() {
+    showCupertinoModalPopup(
+        context: context,
+        builder: (BuildContext context) {
+          return Container(
+            width: double.infinity,
+            height: 300,
+            decoration: BoxDecoration(
+                color: whiteColor,
+                borderRadius: BorderRadius.circular(bigRadius)),
+            child: PersonCounterWidget(
+              onSubmit: (value) {
+                _onSubmit(value);
+              },
+            ),
+          );
+        });
+  }
+
+  // Page Part
+
+  Widget heroImage() {
     return Container(
       width: double.infinity,
       height: 241,
@@ -74,13 +94,13 @@ class _DetailPageState extends ConsumerState<DetailPage> {
                 data.title,
                 style: blackTextStyle.copyWith(fontSize: 24, fontWeight: bold),
               ),
-              Spacer(),
-              Status(
+              const Spacer(),
+              const Status(
                 status: StatusColor.available,
               )
             ],
           ),
-          SizedBox(
+          const SizedBox(
             height: 8,
           ),
           Row(
@@ -89,7 +109,7 @@ class _DetailPageState extends ConsumerState<DetailPage> {
                 Icons.location_pin,
                 color: lightGray,
               ),
-              SizedBox(
+              const SizedBox(
                 width: 8,
               ),
               Text(
@@ -98,7 +118,7 @@ class _DetailPageState extends ConsumerState<DetailPage> {
               )
             ],
           ),
-          SizedBox(
+          const SizedBox(
             height: 8,
           ),
           Row(
@@ -108,15 +128,15 @@ class _DetailPageState extends ConsumerState<DetailPage> {
                 style:
                     blackTextStyle.copyWith(fontSize: 16, fontWeight: semibold),
               ),
-              Spacer(),
-              LikeButton()
+              const Spacer(),
+              const LikeButton()
             ],
           ),
-          SizedBox(
+          const SizedBox(
             height: 8,
           ),
-          RatingWidget(),
-          SizedBox(
+          const RatingWidget(),
+          const SizedBox(
             height: 8,
           ),
           Text(
@@ -130,6 +150,7 @@ class _DetailPageState extends ConsumerState<DetailPage> {
 
   @override
   Widget build(BuildContext context) {
+    final orderData = ref.read(orderRiverpodProvider);
     return CupertinoPageScaffold(
         navigationBar: const CupertinoNavigationBar(
           middle: Text('Detail Trip'),
@@ -141,53 +162,41 @@ class _DetailPageState extends ConsumerState<DetailPage> {
                 padding: const EdgeInsets.all(16.0),
                 child: Column(
                   children: [
-                    imageContainer(),
+                    heroImage(),
                     header(),
                     DetailSegmentedWidget(
-                      descriptionWidget: DetailDescriptionWidget(
-                          buyProductWidget: PrimaryButton(
-                              onPressed: () {
-                                showCupertinoModalPopup(
-                                    context: context,
-                                    builder: (BuildContext context) {
-                                      return Container(
-                                        width: double.infinity,
-                                        height: 300,
-                                        decoration: BoxDecoration(
-                                            color: whiteColor,
-                                            borderRadius: BorderRadius.circular(
-                                                bigRadius)),
-                                        child: PersonCounterWidget(
-                                          onSubmit: (value) {
-                                            _onSubmit(value);
-                                          },
-                                        ),
-                                      );
-                                    });
-                              },
-                              child: Text(
-                                'Buy Product',
-                                style: whiteTextStyle.copyWith(fontSize: 16),
-                              )),
-                          accomodation: data.accomodation,
-                          description: data.description,
-                          datePickerWidget: DatePickerWidget(
-                            onChange: (dateVal) {
-                              _dateController.text = dateVal ?? "";
-                            },
-                          ),
-                          timeListFormat24H: data.timeList24H,
-                          currentSelectedTimeList: ref.read(orderRiverpodProvider).time.toList(),
-                          onTimeListTap: (value, isSelected) {
-                            if(isSelected) {
-                              ref.read(orderRiverpodProvider).time.add(value);
-                            }else {
-                              ref.read(orderRiverpodProvider).time.remove(value);
-                            }
+                      description: DetailDescriptionWidget(
+                        description: data.description,
+                        accomodation: data.accomodation,
+                        addOn: const AddOnWidgetMock(),
+                        datePicker: DatePickerWidget(
+                          onChange: (dateVal) {
+                            _dateController.text = dateVal ?? "";
                           },
-                          reviewWidget: ReviewWidget(),
-                          addOnWidget: AddOnWidgetMock()),
-                      initenaryWidget: DetailIniteraryWidget(
+                        ),
+                        timeList: TimeList(
+                            initialSelectedTimeListData:
+                                orderData.time.toList(),
+                            timeListData: data.timeList24H,
+                            onTimeListTap: (value, isSelected) {
+                              if (isSelected) {
+                                ref
+                                    .watch(orderRiverpodProvider)
+                                    .time
+                                    .add(value);
+                              } else {
+                                orderData.time.remove(value);
+                              }
+                            }),
+                        review: const ReviewWidget(),
+                        buyProduct: PrimaryButton(
+                            onPressed: () => _showModalPopup(),
+                            child: Text(
+                              'Buy Product',
+                              style: whiteTextStyle.copyWith(fontSize: 16),
+                            )),
+                      ),
+                      initenary: DetailIniteraryWidget(
                           initenaryList: data.initenaryList),
                     ),
                   ],
