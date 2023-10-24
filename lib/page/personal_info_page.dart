@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:rinjani_visitor/features/profile/presentation/profile_viewmodel.dart';
 import 'package:rinjani_visitor/theme/theme.dart';
 
-class PersonalInfoPage extends StatelessWidget {
+class PersonalInfoPage extends ConsumerWidget {
   const PersonalInfoPage({Key? key}) : super(key: key);
 
   Widget userInfo(String label, String info) {
@@ -43,21 +45,24 @@ class PersonalInfoPage extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return CupertinoPageScaffold(
         backgroundColor: backgroundColor,
-        navigationBar: CupertinoNavigationBar(
+        navigationBar: const CupertinoNavigationBar(
           middle: Text('Personal Information'),
         ),
         child: SafeArea(
             child: Container(
-                margin: EdgeInsets.all(16),
+                margin: const EdgeInsets.all(16),
                 child: ListView(
                   children: [
-                    userInfo('Username', 'John Doe'),
-                    userInfo('Email', 'John@gmail.com'),
-                    userInfo('Phone number', '0818373939229'),
-                    userInfo('Birth date', '12 - 08 - 23'),
+                    userInfo(
+                        'Username', ref.read(profileViewModelProvider).name),
+                    userInfo('Email', ref.read(profileViewModelProvider).email),
+                    userInfo('Phone number',
+                        ref.read(profileViewModelProvider).phoneNumber),
+                    userInfo('Birth date',
+                        ref.read(profileViewModelProvider).birthDate),
                   ],
                 ))));
   }

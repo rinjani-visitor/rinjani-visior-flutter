@@ -9,7 +9,7 @@ part 'profile_viewmodel.g.dart';
 class ProfileViewModel extends _$ProfileViewModel {
   ProfileModel build() {
     //TODO: need to wait for backend team before define this profile entity
-    return ProfileModel(name: "", email: "");
+    return ProfileModel(name: "", email: "", birthDate: "", phoneNumber: "");
   }
 
   void changeName(String name) {

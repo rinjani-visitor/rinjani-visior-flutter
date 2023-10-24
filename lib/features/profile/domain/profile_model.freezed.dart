@@ -24,6 +24,12 @@ mixin _$ProfileModel {
   set name(String value) => throw _privateConstructorUsedError;
   String get email => throw _privateConstructorUsedError;
   set email(String value) => throw _privateConstructorUsedError;
+  String get phoneNumber => throw _privateConstructorUsedError;
+  set phoneNumber(String value) => throw _privateConstructorUsedError;
+  String get birthDate => throw _privateConstructorUsedError;
+  set birthDate(String value) => throw _privateConstructorUsedError;
+  String? get address => throw _privateConstructorUsedError;
+  set address(String? value) => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -37,7 +43,12 @@ abstract class $ProfileModelCopyWith<$Res> {
           ProfileModel value, $Res Function(ProfileModel) then) =
       _$ProfileModelCopyWithImpl<$Res, ProfileModel>;
   @useResult
-  $Res call({String name, String email});
+  $Res call(
+      {String name,
+      String email,
+      String phoneNumber,
+      String birthDate,
+      String? address});
 }
 
 /// @nodoc
@@ -55,6 +66,9 @@ class _$ProfileModelCopyWithImpl<$Res, $Val extends ProfileModel>
   $Res call({
     Object? name = null,
     Object? email = null,
+    Object? phoneNumber = null,
+    Object? birthDate = null,
+    Object? address = freezed,
   }) {
     return _then(_value.copyWith(
       name: null == name
@@ -65,6 +79,18 @@ class _$ProfileModelCopyWithImpl<$Res, $Val extends ProfileModel>
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
               as String,
+      phoneNumber: null == phoneNumber
+          ? _value.phoneNumber
+          : phoneNumber // ignore: cast_nullable_to_non_nullable
+              as String,
+      birthDate: null == birthDate
+          ? _value.birthDate
+          : birthDate // ignore: cast_nullable_to_non_nullable
+              as String,
+      address: freezed == address
+          ? _value.address
+          : address // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 }
@@ -77,7 +103,12 @@ abstract class _$$ProfileModelImplCopyWith<$Res>
       __$$ProfileModelImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String name, String email});
+  $Res call(
+      {String name,
+      String email,
+      String phoneNumber,
+      String birthDate,
+      String? address});
 }
 
 /// @nodoc
@@ -93,6 +124,9 @@ class __$$ProfileModelImplCopyWithImpl<$Res>
   $Res call({
     Object? name = null,
     Object? email = null,
+    Object? phoneNumber = null,
+    Object? birthDate = null,
+    Object? address = freezed,
   }) {
     return _then(_$ProfileModelImpl(
       name: null == name
@@ -103,6 +137,18 @@ class __$$ProfileModelImplCopyWithImpl<$Res>
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
               as String,
+      phoneNumber: null == phoneNumber
+          ? _value.phoneNumber
+          : phoneNumber // ignore: cast_nullable_to_non_nullable
+              as String,
+      birthDate: null == birthDate
+          ? _value.birthDate
+          : birthDate // ignore: cast_nullable_to_non_nullable
+              as String,
+      address: freezed == address
+          ? _value.address
+          : address // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -110,7 +156,12 @@ class __$$ProfileModelImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$ProfileModelImpl implements _ProfileModel {
-  _$ProfileModelImpl({required this.name, required this.email});
+  _$ProfileModelImpl(
+      {required this.name,
+      required this.email,
+      required this.phoneNumber,
+      required this.birthDate,
+      this.address});
 
   factory _$ProfileModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$ProfileModelImplFromJson(json);
@@ -119,10 +170,16 @@ class _$ProfileModelImpl implements _ProfileModel {
   String name;
   @override
   String email;
+  @override
+  String phoneNumber;
+  @override
+  String birthDate;
+  @override
+  String? address;
 
   @override
   String toString() {
-    return 'ProfileModel(name: $name, email: $email)';
+    return 'ProfileModel(name: $name, email: $email, phoneNumber: $phoneNumber, birthDate: $birthDate, address: $address)';
   }
 
   @JsonKey(ignore: true)
@@ -140,8 +197,12 @@ class _$ProfileModelImpl implements _ProfileModel {
 }
 
 abstract class _ProfileModel implements ProfileModel {
-  factory _ProfileModel({required String name, required String email}) =
-      _$ProfileModelImpl;
+  factory _ProfileModel(
+      {required String name,
+      required String email,
+      required String phoneNumber,
+      required String birthDate,
+      String? address}) = _$ProfileModelImpl;
 
   factory _ProfileModel.fromJson(Map<String, dynamic> json) =
       _$ProfileModelImpl.fromJson;
@@ -152,6 +213,15 @@ abstract class _ProfileModel implements ProfileModel {
   @override
   String get email;
   set email(String value);
+  @override
+  String get phoneNumber;
+  set phoneNumber(String value);
+  @override
+  String get birthDate;
+  set birthDate(String value);
+  @override
+  String? get address;
+  set address(String? value);
   @override
   @JsonKey(ignore: true)
   _$$ProfileModelImplCopyWith<_$ProfileModelImpl> get copyWith =>

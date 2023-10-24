@@ -8,6 +8,9 @@ class ProfileModel with _$ProfileModel {
   factory ProfileModel({
     required String name,
     required String email,
+    required String phoneNumber,
+    required String birthDate,
+    String? address,
   }) = _ProfileModel;
 
   factory ProfileModel.fromJson(Map<String, dynamic> json) =>
