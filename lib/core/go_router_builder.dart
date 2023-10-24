@@ -1,16 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
-import 'package:rinjani_visitor/page/account_page.dart';
-import 'package:rinjani_visitor/page/booking_detail_page.dart';
-import 'package:rinjani_visitor/page/detail_page.dart';
+import 'package:rinjani_visitor/page/main/account_page.dart';
+import 'package:rinjani_visitor/page/booking/booking_detail_page.dart';
+import 'package:rinjani_visitor/page/booking/detail_page.dart';
 import 'package:rinjani_visitor/page/event_detail.dart';
-import 'package:rinjani_visitor/page/event_page.dart';
-import 'package:rinjani_visitor/page/home_page.dart';
-import 'package:rinjani_visitor/page/login_page.dart';
-import 'package:rinjani_visitor/page/register_page.dart';
+import 'package:rinjani_visitor/page/main/event_page.dart';
+import 'package:rinjani_visitor/page/main/home_page.dart';
+import 'package:rinjani_visitor/page/auth/login_page.dart';
+import 'package:rinjani_visitor/page/auth/register_page.dart';
 import 'package:rinjani_visitor/page/search_page.dart';
 import 'package:rinjani_visitor/page/splash_screen.dart';
-import 'package:rinjani_visitor/page/wishlist_page.dart';
+import 'package:rinjani_visitor/page/main/wishlist_page.dart';
 
 part 'go_router_builder.g.dart';
 
@@ -92,7 +92,6 @@ class WishlistRoute extends GoRouteData {
     return const WishlistPage();
   }
 }
-
 
 @immutable
 class AccountRoute extends GoRouteData {
