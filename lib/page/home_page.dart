@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:rinjani_visitor/features/authentication/presentation/auth_riverpod.dart';
+import 'package:rinjani_visitor/features/authentication/presentation/auth_view_model.dart';
 import 'package:rinjani_visitor/theme/theme.dart';
 import 'package:rinjani_visitor/widget/big_card.dart';
 import 'package:rinjani_visitor/widget/category_item.dart';
@@ -167,7 +167,7 @@ class HomePage extends ConsumerWidget {
     double deviceHeight = MediaQuery.of(context).size.height;
     double appBarHeight = deviceHeight * 0.15;
     final username =
-        ref.read(authControllerProvider).asData?.value.username ?? "User";
+        ref.read(authViewModelProvider).asData?.value.username ?? "User";
     return Scaffold(
       backgroundColor: backgroundColor,
       appBar: PreferredSize(

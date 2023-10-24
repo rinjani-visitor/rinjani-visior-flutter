@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:rinjani_visitor/features/profile/presentation/profile_viewmodel.dart';
+import 'package:rinjani_visitor/features/profile/presentation/profile_view_model.dart';
 import 'package:rinjani_visitor/theme/theme.dart';
 
 class PersonalInfoPage extends ConsumerWidget {

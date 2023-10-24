@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:rinjani_visitor/core/extension/validator.dart';
-import 'package:rinjani_visitor/features/authentication/presentation/auth_riverpod.dart';
+import 'package:rinjani_visitor/features/authentication/presentation/auth_view_model.dart';
 import 'package:rinjani_visitor/theme/theme.dart';
 import 'package:rinjani_visitor/widget/input_field.dart';
 import 'package:rinjani_visitor/widget/button/primary_button.dart';
@@ -17,6 +17,9 @@ class LoginPage extends ConsumerStatefulWidget {
 
 class _LoginPageState extends ConsumerState<LoginPage> {
   final _formKey = GlobalKey<FormState>();
+
+  late final _viewModel = ref.read(authViewModelProvider.notifier);
+  late final _state = ref.watch(authViewModelProvider);
 
   bool isLoading = false;
   final emailTxtController = TextEditingController();
@@ -43,15 +46,13 @@ class _LoginPageState extends ConsumerState<LoginPage> {
       final email = emailTxtController.text;
       final pass = passwordTxtController.text;
       debugPrint("$email, $pass");
-      await ref.read(authControllerProvider.notifier).logIn(email, pass);
-      if (ref.read(authControllerProvider).hasError) {
+      await _viewModel.logIn(email, pass);
+      if (_state.hasError) {
         Fluttertoast.showToast(
-            msg:
-                "Error occured: ${ref.read(authControllerProvider).asError?.error.toString()}");
+            msg: "Error occured: ${_state.asError?.error.toString()}");
         return;
       }
-      debugPrint(
-          "LoginPage: result ${ref.read(authControllerProvider).value.toString()}");
+      debugPrint("LoginPage: result ${_state.value.toString()}");
       _toHome();
     }
   }
@@ -79,7 +80,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
             ),
             const Spacer(),
             PrimaryButton(
-                isLoading: ref.watch(authControllerProvider).isLoading,
+                isLoading: _state.isLoading,
                 onPressed: () {
                   _submitForm();
                 },

@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:like_button/like_button.dart';
-import 'package:rinjani_visitor/features/order/presentation/order_riverpod.dart';
+import 'package:rinjani_visitor/features/order/presentation/order_view_model.dart';
 import 'package:rinjani_visitor/features/product/domain/product_model.dart';
 import 'package:rinjani_visitor/theme/theme.dart';
 import 'package:rinjani_visitor/widget/add_on_widget.dart';
@@ -43,15 +43,16 @@ class _DetailPageState extends ConsumerState<DetailPage> {
   // TODO: override later with server data
   final ProductModel data = dataMock;
 
-  late final _dateController =
-      TextEditingController(text: ref.read(orderRiverpodProvider).date);
-  late final _personController = TextEditingController(
-      text: ref.read(orderRiverpodProvider).person.toString());
+  late final _viewModel = ref.read(orderViewModelProvider.notifier);
+  late final _state = ref.watch(orderViewModelProvider);
+
+  late final _dateController = TextEditingController(text: _state.date);
+  late final _personController =
+      TextEditingController(text: _state.person.toString());
 
   void _onSubmit(int personValue) {
-    ref.read(orderRiverpodProvider).person =
-        int.tryParse(_personController.text);
-    ref.read(orderRiverpodProvider.notifier).setDate(_dateController.text);
+    _state.person = int.tryParse(_personController.text);
+    _viewModel.setDate(_dateController.text);
     Navigator.pushNamed(context, "/booking-detail-page");
   }
 
@@ -147,7 +148,7 @@ class _DetailPageState extends ConsumerState<DetailPage> {
 
   @override
   Widget build(BuildContext context) {
-    final orderData = ref.read(orderRiverpodProvider);
+    final orderData = _state;
     return CupertinoPageScaffold(
         navigationBar: const CupertinoNavigationBar(
           middle: Text('Detail Trip'),
@@ -167,14 +168,10 @@ class _DetailPageState extends ConsumerState<DetailPage> {
                         accomodation: data.accomodation,
                         addOn: const AddOnWidgetMock(),
                         datePicker: DatePickerWidget(
-                          initialDate: ref
-                              .read(orderRiverpodProvider.notifier)
-                              .getDate(),
+                          initialDate: _viewModel.getDate(),
                           onChange: (dateVal) {
                             _dateController.text = dateVal ?? "";
-                            ref
-                                .read(orderRiverpodProvider.notifier)
-                                .setDate(dateVal);
+                            _viewModel.setDate(dateVal);
                           },
                         ),
                         timeList: TimeList(
@@ -183,10 +180,7 @@ class _DetailPageState extends ConsumerState<DetailPage> {
                             timeListData: data.timeList24H,
                             onTimeListTap: (value, isSelected) {
                               if (isSelected) {
-                                ref
-                                    .watch(orderRiverpodProvider)
-                                    .time
-                                    .add(value);
+                                _state.time.add(value);
                               } else {
                                 orderData.time.remove(value);
                               }

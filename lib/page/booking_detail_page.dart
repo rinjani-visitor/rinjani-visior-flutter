@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rinjani_visitor/features/order/domain/order_model.dart';
-import 'package:rinjani_visitor/features/order/presentation/order_riverpod.dart';
+import 'package:rinjani_visitor/features/order/presentation/order_view_model.dart';
 import 'package:rinjani_visitor/theme/theme.dart';
 import 'package:rinjani_visitor/widget/button/primary_button.dart';
 import 'package:rinjani_visitor/widget/input_field.dart';
@@ -16,6 +16,9 @@ class BookingDetailPage extends ConsumerStatefulWidget {
 
 class _BookingDetailPageState extends ConsumerState<BookingDetailPage> {
   final _priceRangeController = TextEditingController();
+
+  late final _viewModel = ref.read(orderViewModelProvider.notifier);
+  late final _state = ref.watch(orderViewModelProvider);
 
   Widget imageTitle() {
     return Container(
@@ -61,7 +64,6 @@ class _BookingDetailPageState extends ConsumerState<BookingDetailPage> {
   }
 
   Widget tripDetail() {
-    OrderModel state = ref.watch(orderRiverpodProvider);
     return Container(
       padding: EdgeInsets.all(16),
       color: whiteColor,
@@ -93,7 +95,7 @@ class _BookingDetailPageState extends ConsumerState<BookingDetailPage> {
                     Icons.calendar_month,
                     color: blackColor,
                   ),
-                  title: Text(state.date)),
+                  title: Text(_state.date)),
               Text(
                 'Arrival',
                 style:
@@ -109,9 +111,7 @@ class _BookingDetailPageState extends ConsumerState<BookingDetailPage> {
                     Icons.access_time,
                     color: blackColor,
                   ),
-                  title: Text(ref
-                      .read(orderRiverpodProvider.notifier)
-                      .getTimeInStringFormat())),
+                  title: Text(_viewModel.getTimeInStringFormat())),
               Text(
                 'Person',
                 style:
@@ -127,7 +127,7 @@ class _BookingDetailPageState extends ConsumerState<BookingDetailPage> {
                     Icons.person,
                     color: blackColor,
                   ),
-                  title: Text("${state.person ?? 0} Person")),
+                  title: Text("${_state.person ?? 0} Person")),
             ],
           )
         ],

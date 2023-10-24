@@ -2,24 +2,31 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:rinjani_visitor/features/authentication/presentation/auth_riverpod.dart';
+import 'package:rinjani_visitor/features/authentication/presentation/auth_view_model.dart';
 import 'package:rinjani_visitor/theme/theme.dart';
 
-class UserSettingPage extends ConsumerWidget {
+class UserSettingPage extends ConsumerStatefulWidget {
   const UserSettingPage({Key? key}) : super(key: key);
 
-  void _logOutMethod(WidgetRef ref, void Function() onLoggingOut) async {
-    await ref.read(authControllerProvider.notifier).logOut();
-    if (ref.read(authControllerProvider).hasError) {
-      Fluttertoast.showToast(
-          msg: "${ref.read(authControllerProvider).error?.toString()}");
+  @override
+  ConsumerState<UserSettingPage> createState() => _UserSettingPageState();
+}
+
+class _UserSettingPageState extends ConsumerState<UserSettingPage> {
+  late final _viewModel = ref.read(authViewModelProvider.notifier);
+  late final _state = ref.watch(authViewModelProvider);
+
+  void _logOutMethod(void Function() onLoggingOut) async {
+    await _viewModel.logOut();
+    if (_state.hasError) {
+      Fluttertoast.showToast(msg: "${_state.error?.toString()}");
       return;
     }
     onLoggingOut();
   }
 
   @override
-  Widget build(BuildContext context, ref) {
+  Widget build(BuildContext context) {
     return CupertinoPageScaffold(
         navigationBar: CupertinoNavigationBar(
           middle: Text('Account settings'),
@@ -86,12 +93,9 @@ class UserSettingPage extends ConsumerWidget {
                               ),
                               onPressed: () {
                                 //fungsi logout booking taruh di sini
-                                _logOutMethod(
-                                    ref,
-                                    () => Navigator.pushNamedAndRemoveUntil(
-                                        context,
-                                        '/login-page',
-                                        (route) => false));
+                                _logOutMethod(() =>
+                                    Navigator.pushNamedAndRemoveUntil(context,
+                                        '/login-page', (route) => false));
                               },
                             ),
                           ],

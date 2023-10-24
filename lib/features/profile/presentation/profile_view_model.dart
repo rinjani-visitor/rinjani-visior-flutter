@@ -1,7 +1,7 @@
 import 'package:rinjani_visitor/features/profile/domain/profile_model.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-part 'profile_viewmodel.g.dart';
+part 'profile_view_model.g.dart';
 
 /// this profile viewmodel is used to handle profile data like change name, email, etc
 /// this will be use profile repository for communicate with backend
