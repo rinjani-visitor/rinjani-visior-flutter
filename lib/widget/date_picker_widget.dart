@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:rinjani_visitor/core/utils/internationalization.dart';
 import 'package:rinjani_visitor/theme/theme.dart';
 
 /// Date Picker widget with ISO8601 date format.
@@ -82,7 +83,7 @@ class _DatePickerWidgetState extends State<DatePickerWidget> {
                     width: 16,
                   ),
                   Text(
-                    'Date: ${_selectedDate.day} - ${_selectedDate.month} - ${_selectedDate.year}',
+                    'Date: ${dateFormat.format(widget.initialDate ?? _selectedDate)}',
                     style: blackTextStyle,
                   )
                 ],

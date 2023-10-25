@@ -50,6 +50,12 @@ class _DetailPageState extends ConsumerState<DetailPage> {
   late final _personController =
       TextEditingController(text: _state.person.toString());
 
+  @override
+  void initState() {
+    super.initState();
+    debugPrint(_state.toString());
+  }
+
   void _onSubmit(int personValue) {
     _state.person = int.tryParse(_personController.text);
     _viewModel.setDate(_dateController.text);
@@ -172,7 +178,9 @@ class _DetailPageState extends ConsumerState<DetailPage> {
                           initialDate: _viewModel.getDate(),
                           onChange: (dateVal) {
                             _dateController.text = dateVal ?? "";
-                            _viewModel.setDate(dateVal);
+                            setState(() {
+                              _viewModel.setDate(dateVal);
+                            });
                           },
                         ),
                         timeList: TimeList(

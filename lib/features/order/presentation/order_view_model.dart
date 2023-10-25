@@ -56,8 +56,10 @@ class OrderViewModel extends _$OrderViewModel {
   }
 
   String getTimeInStringFormat() {
-    final joinData = state.time.fold("Not provided", (_, e) => "$e,");
-    return joinData.split(',')[0];
+    final joinData = state.time.join(", ");
+    debugPrint(state.time.toString());
+    debugPrint(joinData);
+    return joinData;
   }
 
   void addAddons(String addOnId) {

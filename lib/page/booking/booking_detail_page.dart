@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:rinjani_visitor/core/utils/internationalization.dart';
 import 'package:rinjani_visitor/features/order/presentation/order_view_model.dart';
 import 'package:rinjani_visitor/theme/theme.dart';
 import 'package:rinjani_visitor/widget/button/primary_button.dart';
@@ -94,7 +95,7 @@ class _BookingDetailPageState extends ConsumerState<BookingDetailPage> {
                     Icons.calendar_month,
                     color: blackColor,
                   ),
-                  title: Text(_state.date)),
+                  title: Text(dateFormat.format(_viewModel.getDate()))),
               Text(
                 'Arrival',
                 style:
