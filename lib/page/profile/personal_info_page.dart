@@ -46,6 +46,7 @@ class PersonalInfoPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final state = ref.read(profileViewModelProvider);
     return CupertinoPageScaffold(
         backgroundColor: backgroundColor,
         navigationBar: const CupertinoNavigationBar(
@@ -57,12 +58,12 @@ class PersonalInfoPage extends ConsumerWidget {
                 child: ListView(
                   children: [
                     userInfo(
-                        'Username', ref.read(profileViewModelProvider).name),
-                    userInfo('Email', ref.read(profileViewModelProvider).email),
+                        'Username', state.name),
+                    userInfo('Email', state.email),
                     userInfo('Phone number',
-                        ref.read(profileViewModelProvider).phoneNumber),
+                        state.phoneNumber),
                     userInfo('Birth date',
-                        ref.read(profileViewModelProvider).birthDate),
+                        state.birthDate),
                   ],
                 ))));
   }

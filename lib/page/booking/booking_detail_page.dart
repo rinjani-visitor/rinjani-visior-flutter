@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:rinjani_visitor/features/order/domain/order_model.dart';
 import 'package:rinjani_visitor/features/order/presentation/order_view_model.dart';
 import 'package:rinjani_visitor/theme/theme.dart';
 import 'package:rinjani_visitor/widget/button/primary_button.dart';
@@ -18,7 +17,7 @@ class _BookingDetailPageState extends ConsumerState<BookingDetailPage> {
   final _priceRangeController = TextEditingController();
 
   late final _viewModel = ref.read(orderViewModelProvider.notifier);
-  late final _state = ref.watch(orderViewModelProvider);
+  late final _state = ref.read(orderViewModelProvider);
 
   Widget imageTitle() {
     return Container(

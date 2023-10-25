@@ -14,12 +14,13 @@ class UserSettingPage extends ConsumerStatefulWidget {
 
 class _UserSettingPageState extends ConsumerState<UserSettingPage> {
   late final _viewModel = ref.read(authViewModelProvider.notifier);
-  late final _state = ref.watch(authViewModelProvider);
+
 
   void _logOutMethod(void Function() onLoggingOut) async {
+    final state = ref.read(authViewModelProvider);
     await _viewModel.logOut();
-    if (_state.hasError) {
-      Fluttertoast.showToast(msg: "${_state.error?.toString()}");
+    if (state.hasError) {
+      Fluttertoast.showToast(msg: "${state.error?.toString()}");
       return;
     }
     onLoggingOut();

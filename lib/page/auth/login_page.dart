@@ -19,7 +19,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
   final _formKey = GlobalKey<FormState>();
 
   late final _viewModel = ref.read(authViewModelProvider.notifier);
-  late final _state = ref.watch(authViewModelProvider);
+  late var _state = ref.read(authViewModelProvider);
 
   bool isLoading = false;
   final emailTxtController = TextEditingController();
@@ -59,6 +59,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    _state = ref.watch(authViewModelProvider);
     return CupertinoPageScaffold(
       resizeToAvoidBottomInset: false,
       child: SafeArea(

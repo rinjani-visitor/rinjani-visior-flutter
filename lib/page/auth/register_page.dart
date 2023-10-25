@@ -24,7 +24,7 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
   final _passwordTxtController = TextEditingController();
 
   late final _viewModel = ref.read(authViewModelProvider.notifier);
-  late final _state = ref.watch(authViewModelProvider);
+  late var _state = ref.read(authViewModelProvider);
 
   @override
   void dispose() {
@@ -57,6 +57,7 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
 
   @override
   Widget build(BuildContext context) {
+    _state = ref.watch(authViewModelProvider);
     return CupertinoPageScaffold(
       resizeToAvoidBottomInset: true,
       backgroundColor: whiteColor,

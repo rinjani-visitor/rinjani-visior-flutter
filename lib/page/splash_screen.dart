@@ -12,7 +12,7 @@ class SplashScreen extends ConsumerStatefulWidget {
 
 class _SplashScreenState extends ConsumerState<SplashScreen> {
   late final _viewModel = ref.read(authViewModelProvider.notifier);
-  late final _state = ref.watch(authViewModelProvider);
+  late var _state = ref.read(authViewModelProvider);
 
   @override
   void initState() {
@@ -31,6 +31,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
+    _state = ref.watch(authViewModelProvider);
     return Scaffold(
       backgroundColor: primaryColor,
       body: Center(

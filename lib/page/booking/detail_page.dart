@@ -44,7 +44,7 @@ class _DetailPageState extends ConsumerState<DetailPage> {
   final ProductModel data = dataMock;
 
   late final _viewModel = ref.read(orderViewModelProvider.notifier);
-  late final _state = ref.watch(orderViewModelProvider);
+  late var _state = ref.read(orderViewModelProvider);
 
   late final _dateController = TextEditingController(text: _state.date);
   late final _personController =
@@ -148,6 +148,7 @@ class _DetailPageState extends ConsumerState<DetailPage> {
 
   @override
   Widget build(BuildContext context) {
+    _state = ref.watch(orderViewModelProvider);
     final orderData = _state;
     return CupertinoPageScaffold(
         navigationBar: const CupertinoNavigationBar(
