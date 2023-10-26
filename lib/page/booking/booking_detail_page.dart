@@ -191,7 +191,7 @@ class _BookingDetailPageState extends ConsumerState<BookingDetailPage> {
                     style: whiteTextStyle.copyWith(fontWeight: medium),
                   )),
               onPressed: () {
-                Navigator.popAndPushNamed(context, '/success-booking-page');
+                Navigator.popAndPushNamed(context, '/success-booking');
               })
         ],
       ),

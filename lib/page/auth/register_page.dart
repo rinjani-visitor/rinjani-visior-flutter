@@ -37,7 +37,7 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
   }
 
   void _toLogin() {
-    Navigator.pushReplacementNamed(context, '/login-page');
+    Navigator.pushReplacementNamed(context, '/login');
   }
 
   void _onFormSubmit() async {

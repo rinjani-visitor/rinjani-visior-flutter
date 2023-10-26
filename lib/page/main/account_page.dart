@@ -47,7 +47,7 @@ class AccountPage extends ConsumerWidget {
             children: [
               CupertinoListTile(
                 onTap: () {
-                  Navigator.pushNamed(context, '/personal-info-page');
+                  Navigator.pushNamed(context, '/personal-info');
                 },
                 padding: EdgeInsets.all(0),
                 leading: Icon(
@@ -66,7 +66,7 @@ class AccountPage extends ConsumerWidget {
               ),
               CupertinoListTile(
                 onTap: () {
-                  Navigator.pushNamed(context, '/user-setting-page');
+                  Navigator.pushNamed(context, '/user-setting');
                 },
                 padding: EdgeInsets.all(0),
                 leading: Icon(

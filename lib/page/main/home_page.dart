@@ -136,7 +136,7 @@ class HomePage extends ConsumerWidget {
   //             const Spacer(),
   //             IconButton(
   //                 onPressed: () {
-  //                   Navigator.pushNamed(context, '/notification-page');
+  //                   Navigator.pushNamed(context, '/notification');
   //                 },
   //                 icon: Icon(
   //                   Icons.notifications,
@@ -150,7 +150,7 @@ class HomePage extends ConsumerWidget {
   //         ),
   //         InkWell(
   //           onTap: () {
-  //             Navigator.pushNamed(context, '/search-page');
+  //             Navigator.pushNamed(context, '/search');
   //           },
   //           child: CupertinoSearchTextField(
   //             backgroundColor: whiteColor,
@@ -190,7 +190,7 @@ class HomePage extends ConsumerWidget {
                         style: whiteTextStyle.copyWith(
                             fontSize: deviceHeight * 0.04, fontWeight: bold),
                       ),
-                      Spacer(),
+                      const Spacer(),
                       IconButton(
                           onPressed: () {},
                           icon: Icon(
@@ -200,17 +200,17 @@ class HomePage extends ConsumerWidget {
                           )),
                     ],
                   ),
-                  Spacer(),
+                  const Spacer(),
                   InkWell(
                     onTap: () {
-                      Navigator.pushNamed(context, '/search-page');
+                      Navigator.pushNamed(context, '/search');
                     },
                     child: CupertinoSearchTextField(
                       backgroundColor: whiteColor,
                       enabled: false,
                     ),
                   ),
-                  Spacer()
+                  const Spacer()
                 ],
               ),
             ),
@@ -221,9 +221,7 @@ class HomePage extends ConsumerWidget {
         physics: const ClampingScrollPhysics(),
         slivers: [
           SliverToBoxAdapter(
-              child: Stack(
-            children: [
-              Column(
+              child: Column(
                 children: [
                   const SizedBox(
                     height: 24,
@@ -241,9 +239,7 @@ class HomePage extends ConsumerWidget {
                     height: 80,
                   )
                 ],
-              )
-            ],
-          )),
+              )),
         ],
       ),
     );

@@ -21,10 +21,10 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
     _viewModel.getToken().then((token) {
       if (token.isNotEmpty) {
         debugPrint("value $token");
-        Navigator.pushReplacementNamed(context, '/home-page');
+        Navigator.pushReplacementNamed(context, '/home');
         return;
       } else {
-        Navigator.pushReplacementNamed(context, '/login-page');
+        Navigator.pushReplacementNamed(context, '/login');
       }
     });
   }

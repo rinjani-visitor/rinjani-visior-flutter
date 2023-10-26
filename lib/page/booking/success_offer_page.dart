@@ -43,7 +43,7 @@ class SuccessOfferPage extends StatelessWidget {
           Spacer(),
           TextButton(
               onPressed: () {
-                Navigator.popAndPushNamed(context, '/home-page');
+                Navigator.popAndPushNamed(context, '/home');
               },
               child: Container(
                 height: 43,

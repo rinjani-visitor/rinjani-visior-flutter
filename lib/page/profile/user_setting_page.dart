@@ -41,7 +41,7 @@ class _UserSettingPageState extends ConsumerState<UserSettingPage> {
             children: [
               CupertinoListTile(
                 onTap: () {
-                  Navigator.pushNamed(context, '/change-pass-page');
+                  Navigator.pushNamed(context, '/change-pass');
                 },
                 backgroundColor: whiteColor,
                 leading: Icon(
@@ -56,7 +56,7 @@ class _UserSettingPageState extends ConsumerState<UserSettingPage> {
               ),
               CupertinoListTile(
                 onTap: () {
-                  Navigator.pushNamed(context, '/change-email-page');
+                  Navigator.pushNamed(context, '/change-email');
                 },
                 backgroundColor: whiteColor,
                 leading: Icon(
@@ -96,7 +96,7 @@ class _UserSettingPageState extends ConsumerState<UserSettingPage> {
                                 //fungsi logout booking taruh di sini
                                 _logOutMethod(() =>
                                     Navigator.pushNamedAndRemoveUntil(context,
-                                        '/login-page', (route) => false));
+                                        '/login', (route) => false));
                               },
                             ),
                           ],

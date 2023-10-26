@@ -38,7 +38,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
   }
 
   void _toHome() {
-    Navigator.pushReplacementNamed(context, '/home-page');
+    Navigator.pushReplacementNamed(context, '/home');
   }
 
   void _submitForm() async {
@@ -139,7 +139,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
           ),
           TextButton(
               onPressed: () {
-                Navigator.pushNamed(context, '/home-page');
+                Navigator.pushNamed(context, '/home');
               },
               child: Text(
                 "Forgot your password?",
@@ -160,7 +160,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
         ),
         TextButton(
             onPressed: () {
-              Navigator.pushNamed(context, '/register-page');
+              Navigator.pushNamed(context, '/register');
             },
             child: Text(
               "Sign Up",

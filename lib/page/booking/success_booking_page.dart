@@ -46,7 +46,7 @@ class SuccessBookingPage extends StatelessWidget {
                       borderRadius: BorderRadius.circular(smallRadius)),
                   child: TextButton(
                       onPressed: () {
-                        Navigator.popAndPushNamed(context, '/home-page');
+                        Navigator.popAndPushNamed(context, '/home');
                       },
                       child: Text(
                         "Home page",

@@ -59,7 +59,7 @@ class _DetailPageState extends ConsumerState<DetailPage> {
   void _onSubmit(int personValue) {
     _state.person = int.tryParse(_personController.text);
     _viewModel.setDate(_dateController.text);
-    Navigator.pushNamed(context, "/booking-detail-page");
+    Navigator.pushNamed(context, "/booking-detail");
   }
 
   void _showModalPopup() {

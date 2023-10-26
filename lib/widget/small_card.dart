@@ -9,7 +9,7 @@ class SmallCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.pushNamed(context, '/detail-page');
+        Navigator.pushNamed(context, '/detail');
       },
       child: Container(
         width: 177,

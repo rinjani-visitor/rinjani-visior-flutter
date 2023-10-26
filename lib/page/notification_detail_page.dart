@@ -177,7 +177,7 @@ class NotificationDetailPage extends StatelessWidget {
                             TextButton(
                                 onPressed: () {
                                   Navigator.popAndPushNamed(
-                                      context, '/success-offer-page');
+                                      context, '/success-offer');
                                 },
                                 child: Container(
                                   height: 43,
@@ -223,7 +223,7 @@ class NotificationDetailPage extends StatelessWidget {
               borderRadius: BorderRadius.circular(smallRadius)),
           child: TextButton(
               onPressed: () {
-                Navigator.pushNamed(context, '/continue-payment-page');
+                Navigator.pushNamed(context, '/continue-payment');
               },
               child: Text(
                 'Continue for payment',

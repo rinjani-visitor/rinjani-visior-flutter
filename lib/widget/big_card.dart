@@ -76,7 +76,7 @@ class BigCard extends StatelessWidget {
     return GestureDetector(
       //function buat ke halaman detail
       onTap: () {
-        Navigator.pushNamed(context, '/detail-page');
+        Navigator.pushNamed(context, '/detail');
       },
       //
       child: Container(
