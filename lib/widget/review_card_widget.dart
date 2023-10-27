@@ -2,7 +2,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:rinjani_visitor/theme/theme.dart';
 
 class ReviewCardWidget extends StatelessWidget {
-  const ReviewCardWidget({Key? key}) : super(key: key);
+  final String name;
+  final String createdTime;
+  final String message;
+  const ReviewCardWidget(
+      {Key? key,
+      required this.name,
+      required this.createdTime,
+      required this.message})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,9 +25,9 @@ class ReviewCardWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Indah Pemandangan Air Terjun Sindang Gila yang memiliki 2 terjunan, satu-satunya yang ada di Pulau Lombok.',
+            message,
             style: blackTextStyle.copyWith(
-              fontSize: 10,
+              fontSize: 12,
             ),
           ),
           const SizedBox(
@@ -29,12 +37,12 @@ class ReviewCardWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Kevin',
+                name,
                 style:
                     blackTextStyle.copyWith(fontSize: 16, fontWeight: semibold),
               ),
               Text(
-                '3 weeks ago',
+                createdTime,
                 style: grayTextStyle.copyWith(fontSize: 10),
               )
             ],
