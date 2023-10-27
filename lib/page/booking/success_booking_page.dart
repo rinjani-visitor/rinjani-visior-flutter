@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rinjani_visitor/theme/theme.dart';
+import 'package:rinjani_visitor/widget/button/primary_button.dart';
 
 class SuccessBookingPage extends StatelessWidget {
   const SuccessBookingPage({Key? key}) : super(key: key);
@@ -17,9 +18,8 @@ class SuccessBookingPage extends StatelessWidget {
         middle: Text('Booking success'),
       ),
       child: SafeArea(
-        child: Container(
-          margin: EdgeInsets.symmetric(horizontal: 16),
-          padding: EdgeInsets.symmetric(vertical: 32),
+        child: Padding(
+          padding: EdgeInsets.symmetric(vertical: 8, horizontal: 12),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -44,14 +44,12 @@ class SuccessBookingPage extends StatelessWidget {
                   decoration: BoxDecoration(
                       color: primaryColor,
                       borderRadius: BorderRadius.circular(smallRadius)),
-                  child: TextButton(
+                  child: PrimaryButton(
                       onPressed: () {
                         Navigator.popAndPushNamed(context, '/home');
                       },
                       child: Text(
                         "Home page",
-                        style: whiteTextStyle.copyWith(
-                            fontSize: 16, fontWeight: semibold),
                       )))
             ],
           ),
