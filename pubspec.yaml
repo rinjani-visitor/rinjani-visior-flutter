@@ -55,6 +55,7 @@ dependencies:
   logger: ^2.0.2+1
   like_button: ^2.0.5
   file_picker: ^6.0.0
+  flutter_image_compress: ^2.1.0
 
 dev_dependencies:
   flutter_test:
@@ -67,12 +68,13 @@ dev_dependencies:
   # rules and activating additional ones.
   flutter_lints: ^2.0.0
   go_router_builder: any
-  build_runner: ^2.4.6
+  build_runner: ^2.4.5
   build_verify: any
   json_serializable: ^6.7.1
-  freezed: ^2.4.1
+  freezed: ^2.4.5
   retrofit_generator: '>=7.0.0 <8.0.0'
   riverpod_generator: ^2.3.3
+  mockito: ^5.4.2
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

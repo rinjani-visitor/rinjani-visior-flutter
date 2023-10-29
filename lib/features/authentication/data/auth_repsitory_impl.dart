@@ -1,7 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:rinjani_visitor/core/exception/exception.dart';
 import 'package:rinjani_visitor/core/services/dio_service.dart';
+import 'package:rinjani_visitor/core/utils/exception_utils.dart';
 import 'package:rinjani_visitor/features/authentication/data/source/local.dart';
 import 'package:rinjani_visitor/features/authentication/data/source/remote.dart';
 import 'package:rinjani_visitor/features/authentication/domain/auth_model.dart';
@@ -9,7 +11,6 @@ import 'package:rinjani_visitor/features/authentication/domain/auth_model.dart';
 import 'package:rinjani_visitor/features/authentication/domain/auth_repository.dart';
 import 'package:rinjani_visitor/features/authentication/domain/data/remote/request/login_request.dart';
 import 'package:rinjani_visitor/features/authentication/domain/data/remote/request/register_request.dart';
-import 'package:rinjani_visitor/features/authentication/domain/data/remote/response/basic_response.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
   final AuthLocalSource localSource;
@@ -26,7 +27,7 @@ class AuthRepositoryImpl implements AuthRepository {
   @override
   Future<void> logout() async {
     await localSource.removeToken();
-    await localSource.setSession(AuthModel());
+    await localSource.setSession(const AuthModel());
   }
 
   @override
@@ -43,7 +44,7 @@ class AuthRepositoryImpl implements AuthRepository {
         country.isEmpty ||
         phone.isEmpty ||
         password.isEmpty) {
-      throw Exception("field must not be empty");
+      throw ExtException("field must not be empty");
     }
 
     try {
@@ -55,18 +56,13 @@ class AuthRepositoryImpl implements AuthRepository {
           country: country,
           password: password,
           phone: phone));
-      debugPrint("Repository: new data from remote: ${response.toString()}");
+      debugPrint("Repository: data from remote: ${response.toString()}");
       return AuthModel(
           userId: response.user?.userId!,
           username: response.user?.username!,
           email: response.user?.email!);
     } catch (e) {
-      if (e is DioException) {
-        debugPrint("DioException, response: ${e.response?.data.toString()}");
-        throw Exception(BasicResponse.fromJson(e.response?.data).message);
-      }
-      rethrow;
-      // return exceptionHandler<AuthModel>(e);
+      throw exceptionHandler(e);
     }
   }
 
@@ -76,9 +72,8 @@ class AuthRepositoryImpl implements AuthRepository {
     debugPrint("${NAME}: Login...");
 
     if (email.isEmpty || password.isEmpty) {
-      final exception = Exception("Email / password should not be null");
+      final exception = ExtException("Email / password should not be null");
       debugPrint("${NAME}: Error: ${exception.toString()}");
-
       throw exception;
     }
 
@@ -95,12 +90,7 @@ class AuthRepositoryImpl implements AuthRepository {
       await localSource.setSession(result);
       return result;
     } catch (e) {
-      if (e is DioException) {
-        debugPrint("DioException, response: ${e.response?.data.toString()}");
-        throw Exception(BasicResponse.fromJson(e.response?.data).message);
-      }
-      debugPrint("Repository: error: ${e.toString()}");
-      rethrow;
+      throw exceptionHandler(e);
     }
   }
 
@@ -111,8 +101,7 @@ class AuthRepositoryImpl implements AuthRepository {
       debugPrint("$NAME : $sessionModel");
       return sessionModel;
     } catch (e) {
-      debugPrint("$NAME : Error - ${e.toString()}");
-      return const AuthModel();
+      throw exceptionHandler(e);
     }
   }
 

@@ -72,7 +72,7 @@ class EventCard extends StatelessWidget {
 
     return GestureDetector(
       onTap: () {
-        Navigator.pushNamed(context, '/event-detail-page');
+        Navigator.pushNamed(context, '/event-detail');
       },
       child: Container(
         padding: EdgeInsets.all(10.0),

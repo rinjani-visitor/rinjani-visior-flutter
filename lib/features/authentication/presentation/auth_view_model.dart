@@ -3,10 +3,10 @@ import 'package:rinjani_visitor/features/authentication/data/auth_repsitory_impl
 import 'package:rinjani_visitor/features/authentication/domain/auth_model.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-part 'auth_riverpod.g.dart';
+part 'auth_view_model.g.dart';
 
 @Riverpod(keepAlive: true)
-class AuthController extends _$AuthController {
+class AuthViewModel extends _$AuthViewModel {
   late final AuthRepositoryImpl repository;
 
   @override

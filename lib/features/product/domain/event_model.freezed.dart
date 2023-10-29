@@ -81,11 +81,11 @@ class _$EventModelCopyWithImpl<$Res, $Val extends EventModel>
 }
 
 /// @nodoc
-abstract class _$$_EventModelCopyWith<$Res>
+abstract class _$$EventModelImplCopyWith<$Res>
     implements $EventModelCopyWith<$Res> {
-  factory _$$_EventModelCopyWith(
-          _$_EventModel value, $Res Function(_$_EventModel) then) =
-      __$$_EventModelCopyWithImpl<$Res>;
+  factory _$$EventModelImplCopyWith(
+          _$EventModelImpl value, $Res Function(_$EventModelImpl) then) =
+      __$$EventModelImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -93,11 +93,11 @@ abstract class _$$_EventModelCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_EventModelCopyWithImpl<$Res>
-    extends _$EventModelCopyWithImpl<$Res, _$_EventModel>
-    implements _$$_EventModelCopyWith<$Res> {
-  __$$_EventModelCopyWithImpl(
-      _$_EventModel _value, $Res Function(_$_EventModel) _then)
+class __$$EventModelImplCopyWithImpl<$Res>
+    extends _$EventModelCopyWithImpl<$Res, _$EventModelImpl>
+    implements _$$EventModelImplCopyWith<$Res> {
+  __$$EventModelImplCopyWithImpl(
+      _$EventModelImpl _value, $Res Function(_$EventModelImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -108,7 +108,7 @@ class __$$_EventModelCopyWithImpl<$Res>
     Object? dateTime = null,
     Object? description = freezed,
   }) {
-    return _then(_$_EventModel(
+    return _then(_$EventModelImpl(
       title: null == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
@@ -131,15 +131,15 @@ class __$$_EventModelCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_EventModel implements _EventModel {
-  const _$_EventModel(
+class _$EventModelImpl implements _EventModel {
+  const _$EventModelImpl(
       {required this.title,
       required this.imgUrl,
       required this.dateTime,
       required this.description});
 
-  factory _$_EventModel.fromJson(Map<String, dynamic> json) =>
-      _$$_EventModelFromJson(json);
+  factory _$EventModelImpl.fromJson(Map<String, dynamic> json) =>
+      _$$EventModelImplFromJson(json);
 
   @override
   final String title;
@@ -159,7 +159,7 @@ class _$_EventModel implements _EventModel {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_EventModel &&
+            other is _$EventModelImpl &&
             (identical(other.title, title) || other.title == title) &&
             (identical(other.imgUrl, imgUrl) || other.imgUrl == imgUrl) &&
             (identical(other.dateTime, dateTime) ||
@@ -176,12 +176,12 @@ class _$_EventModel implements _EventModel {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_EventModelCopyWith<_$_EventModel> get copyWith =>
-      __$$_EventModelCopyWithImpl<_$_EventModel>(this, _$identity);
+  _$$EventModelImplCopyWith<_$EventModelImpl> get copyWith =>
+      __$$EventModelImplCopyWithImpl<_$EventModelImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_EventModelToJson(
+    return _$$EventModelImplToJson(
       this,
     );
   }
@@ -192,10 +192,10 @@ abstract class _EventModel implements EventModel {
       {required final String title,
       required final String imgUrl,
       required final String dateTime,
-      required final String? description}) = _$_EventModel;
+      required final String? description}) = _$EventModelImpl;
 
   factory _EventModel.fromJson(Map<String, dynamic> json) =
-      _$_EventModel.fromJson;
+      _$EventModelImpl.fromJson;
 
   @override
   String get title;
@@ -207,6 +207,6 @@ abstract class _EventModel implements EventModel {
   String? get description;
   @override
   @JsonKey(ignore: true)
-  _$$_EventModelCopyWith<_$_EventModel> get copyWith =>
+  _$$EventModelImplCopyWith<_$EventModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

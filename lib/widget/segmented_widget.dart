@@ -1,61 +1,29 @@
 import 'package:flutter/cupertino.dart';
 import 'package:rinjani_visitor/theme/theme.dart';
-import 'package:rinjani_visitor/widget/button/primary_button.dart';
 import 'package:rinjani_visitor/widget/date_picker_widget.dart';
-import 'package:rinjani_visitor/widget/person_counter_widget.dart';
 import 'package:rinjani_visitor/widget/review_widget.dart';
 import 'package:rinjani_visitor/widget/time_button_widget.dart';
 
 
-class DetailIniteraryWidget extends StatelessWidget {
-  final List<String> initenaryList;
-  const DetailIniteraryWidget({super.key, required this.initenaryList});
-
-  String initenaryDatas() {
-    var string = "";
-    for (final item in initenaryList) {
-      string = string += "$item\n";
-    }
-    return string;
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          'Initenary',
-          style:
-              blackTextStyle.copyWith(fontSize: 20, fontWeight: semibold),
-        ),
-        const SizedBox(
-          height: 8,
-        ),
-        Text(
-          initenaryDatas(),
-          style: TextStyle(fontSize: body1),
-        ),
-      ],
-    );
-  }
-}
 
 class DetailDescriptionWidget extends StatefulWidget {
-  final DatePickerWidget datePickerWidget;
-  final ReviewWidget reviewWidget;
-  final Widget addOnWidget;
-  final String accomodation;
   final String description;
-  final List<String> timeListFormat24H;
+  final String accomodation;
+  final Widget addOn;
+  final DatePickerWidget datePicker;
+  final Widget timeList;
+  final ReviewWidget review;
+  final Widget buyProduct;
+
   const DetailDescriptionWidget({
     super.key,
-    required this.datePickerWidget,
-    required this.addOnWidget,
-    required this.reviewWidget,
     required this.description,
     required this.accomodation,
-    required this.timeListFormat24H,
+    required this.addOn,
+    required this.datePicker,
+    required this.timeList,
+    required this.review,
+    required this.buyProduct,
   });
 
   @override
@@ -65,6 +33,7 @@ class DetailDescriptionWidget extends StatefulWidget {
 
 class _DetailDescriptionWidgetState extends State<DetailDescriptionWidget> {
   int personCount = 0;
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -83,75 +52,37 @@ class _DetailDescriptionWidgetState extends State<DetailDescriptionWidget> {
         ),
         Text(
           'Add On',
-          style:
-              blackTextStyle.copyWith(fontSize: body1, fontWeight: semibold),
+          style: blackTextStyle.copyWith(fontSize: body1, fontWeight: semibold),
         ),
-        widget.addOnWidget,
-
+        widget.addOn,
         const SizedBox(
           height: 16,
         ),
-        widget.datePickerWidget,
-
+        widget.datePicker,
         const SizedBox(
           height: 8,
         ),
-        Container(
-          height: 36,
-          child: ListView.builder(
-            scrollDirection: Axis.horizontal,
-            padding: EdgeInsets.zero,
-            shrinkWrap: true,
-            itemCount: widget.timeListFormat24H.length,
-            physics: ClampingScrollPhysics(),
-            itemBuilder: (context, index) =>
-                Padding(
-                  padding: const EdgeInsets.only(right: 4.0),
-                  child: TimeButtonWidget(time: widget.timeListFormat24H[index]),
-                ),
-          ),
-        ),
-
+        widget.timeList,
         const SizedBox(
           height: 16,
         ),
         Text(
           'Accomodation',
-          style: blackTextStyle.copyWith(
-              fontSize: heading5, fontWeight: semibold),
+          style:
+              blackTextStyle.copyWith(fontSize: heading5, fontWeight: semibold),
         ),
         const SizedBox(
           height: 8,
         ),
         Text(
           widget.accomodation,
-          style: TextStyle(fontSize: 16),
+          style: const TextStyle(fontSize: 16),
         ),
         const SizedBox(
           height: 8,
         ),
-        widget.reviewWidget,
-        PrimaryButton(
-            onPressed: () {
-              showCupertinoModalPopup(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return Container(
-                      width: double.infinity,
-                      height: 300,
-                      decoration: BoxDecoration(
-                          color: whiteColor,
-                          borderRadius: BorderRadius.circular(bigRadius)),
-                      child: PersonCounterWidget(
-                        onSubmit: (value) => personCount = value,
-                      ),
-                    );
-                  });
-            },
-            child: Text(
-              'Buy Product',
-              style: whiteTextStyle.copyWith(fontSize: 16),
-            )),
+        widget.review,
+        widget.buyProduct,
         const SizedBox(
           height: 16,
         ),
@@ -160,13 +91,54 @@ class _DetailDescriptionWidgetState extends State<DetailDescriptionWidget> {
   }
 }
 
+class TimeList extends StatelessWidget {
+  const TimeList({
+    super.key,
+    required this.timeListData,
+    required this.initialSelectedTimeListData,
+    required this.onTimeListTap,
+  });
+
+  final List<String> timeListData;
+  final List<String> initialSelectedTimeListData;
+  final void Function(String value, bool isSelected) onTimeListTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 36,
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        padding: EdgeInsets.zero,
+        shrinkWrap: true,
+        itemCount: timeListData.length,
+        physics: const ClampingScrollPhysics(),
+        itemBuilder: (context, index) => Padding(
+          padding: const EdgeInsets.only(right: 4.0),
+          child: TimeButtonWidget(
+            time: timeListData[index],
+            selected: initialSelectedTimeListData.contains(timeListData[index]),
+            onToggle: (value, isSelected) {
+              onTimeListTap(value, isSelected);
+            },
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+
+// ===== // parent // ===== //
+
 class DetailSegmentedWidget extends StatefulWidget {
-  final Widget descriptionWidget;
-  final Widget initenaryWidget;
+  final Widget description;
+  final Widget initenary;
+
   const DetailSegmentedWidget(
       {Key? key,
-      required this.descriptionWidget,
-      required this.initenaryWidget})
+      required this.description,
+      required this.initenary})
       : super(key: key);
 
   @override
@@ -184,22 +156,59 @@ class _DetailSegmentedWidgetState extends State<DetailSegmentedWidget> {
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-    ConstrainedBox(
-      constraints: BoxConstraints(minWidth: MediaQuery.of(context).size.width),
-      child: CupertinoSlidingSegmentedControl(
-          groupValue: _sliding,
-          children: children,
-          onValueChanged: (value) {
-            setState(() {
-              _sliding = value;
-            });
-          }),
-    ),
-    Padding(padding: EdgeInsets.only(top: 12.0), child: _sliding == 0 ? widget.descriptionWidget : widget.initenaryWidget,)
+      children: [
+        ConstrainedBox(
+          constraints:
+              BoxConstraints(minWidth: MediaQuery.of(context).size.width),
+          child: CupertinoSlidingSegmentedControl(
+              groupValue: _sliding,
+              children: children,
+              onValueChanged: (value) {
+                setState(() {
+                  _sliding = value;
+                });
+              }),
+        ),
+        Padding(
+          padding: EdgeInsets.only(top: 12.0),
+          child:
+              _sliding == 0 ? widget.description : widget.initenary,
+        )
+      ],
+    );
+  }
+}
 
+class DetailIniteraryWidget extends StatelessWidget {
+  final List<String> initenaryList;
 
-    ],
+  const DetailIniteraryWidget({super.key, required this.initenaryList});
+
+  String initenaryDatas() {
+    var string = "";
+    for (final item in initenaryList) {
+      string = string += "$item\n";
+    }
+    return string;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'Initenary',
+          style: blackTextStyle.copyWith(fontSize: 20, fontWeight: semibold),
+        ),
+        const SizedBox(
+          height: 8,
+        ),
+        Text(
+          initenaryDatas(),
+          style: TextStyle(fontSize: body1),
+        ),
+      ],
     );
   }
 }

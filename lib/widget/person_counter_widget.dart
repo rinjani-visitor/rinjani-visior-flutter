@@ -1,102 +1,92 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:rinjani_visitor/page/booking_detail_page.dart';
 import 'package:rinjani_visitor/theme/theme.dart';
 
 class PersonCounterWidget extends StatefulWidget {
-  final void Function(int value) onSubmit;
-  const PersonCounterWidget({Key? key, required this.onSubmit})
+  final TextEditingController controller;
+  final Function(int) onSubmit;
+
+  const PersonCounterWidget(
+      {Key? key, required this.onSubmit, required this.controller})
       : super(key: key);
 
   @override
-  _PersonCounterWidgetState createState() => _PersonCounterWidgetState();
+  State<PersonCounterWidget> createState() => _PersonCounterWidgetState();
 }
 
 class _PersonCounterWidgetState extends State<PersonCounterWidget> {
-  int person = 0;
+  void _increment() {
+    setState(() {
+      widget.controller.text =
+          (int.parse(widget.controller.text) + 1).toString();
+    });
+  }
+
+  void _decrement() {
+    setState(() {
+      widget.controller.text =
+          (int.parse(widget.controller.text) - 1).toString();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    if (widget.controller.text.isEmpty) {
+      widget.controller.text = "1";
+    }
     return Container(
-      width: 294,
-      height: 186,
-      child: Center(
-          child: Column(
+      width: double.infinity,
+      height: 300,
+      decoration: BoxDecoration(
+          color: whiteColor, borderRadius: BorderRadius.circular(bigRadius)),
+      child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const SizedBox(
-            height: 16,
+          const Text(
+            "Select number of persons",
+            style: TextStyle(fontSize: 20),
           ),
-          Text(
-            'For how many person?',
-            style: blackTextStyle.copyWith(fontWeight: bold, fontSize: 20),
-          ),
-          const Spacer(),
+          const SizedBox(height: 20),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              TextButton(
-                style: ButtonStyle(
-                    backgroundColor: MaterialStatePropertyAll(primaryColor)),
-                onPressed: () {
-                  setState(() {
-                    person -= 1;
-                  });
-                },
-                child: Text(
-                  '-',
-                  style:
-                      whiteTextStyle.copyWith(fontSize: 16, fontWeight: bold),
+              Material(
+                child: IconButton(
+                  onPressed: () => _decrement(),
+                  icon: const Icon(Icons.remove),
                 ),
               ),
-              const SizedBox(
-                width: 32,
+              const SizedBox(width: 20),
+              Text(
+                widget.controller.text,
+                style: TextStyle(fontSize: heading5),
               ),
-              Container(
-                width: 48,
-                height: 48,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(smallRadius),
-                    border: Border.all(color: lightGray)),
-                child: Center(child: Text('$person')),
-              ),
-              const SizedBox(
-                width: 32,
-              ),
-              TextButton(
-                style: ButtonStyle(
-                    backgroundColor: MaterialStatePropertyAll(primaryColor)),
-                onPressed: () {
-                  setState(() {
-                    person += 1;
-                  });
-                },
-                child: Text(
-                  '+',
-                  style:
-                      whiteTextStyle.copyWith(fontSize: 16, fontWeight: bold),
+              const SizedBox(width: 20),
+              Material(
+                child: IconButton(
+                  onPressed: () => _increment(),
+                  icon: const Icon(Icons.add),
                 ),
               ),
             ],
           ),
-          const Spacer(),
           TextButton(
               style: ButtonStyle(
                   backgroundColor: MaterialStatePropertyAll(primaryColor)),
               onPressed: () {
-                widget.onSubmit(person);
                 Navigator.pop(context);
+                widget.onSubmit(int.parse(widget.controller.text));
               },
-              child: Container(
+              child: SizedBox(
                   width: 294,
                   child: Center(
                       child: Text(
                     'Continue',
-                    style:
-                        whiteTextStyle.copyWith(fontSize: 16, fontWeight: bold),
+                    style: whiteTextStyle.copyWith(
+                        fontSize: body1, fontWeight: bold),
                   )))),
-          const Spacer(),
         ],
-      )),
+      ),
     );
   }
 }

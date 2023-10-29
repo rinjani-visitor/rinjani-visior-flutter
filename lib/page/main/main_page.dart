@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:rinjani_visitor/page/account_page.dart';
-import 'package:rinjani_visitor/page/event_page.dart';
-import 'package:rinjani_visitor/page/home_page.dart';
-import 'package:rinjani_visitor/page/wishlist_page.dart';
+import 'package:rinjani_visitor/page/main/account_page.dart';
+import 'package:rinjani_visitor/page/main/event_page.dart';
+import 'package:rinjani_visitor/page/main/home_page.dart';
+import 'package:rinjani_visitor/page/main/wishlist_page.dart';
 import 'package:rinjani_visitor/theme/theme.dart';
 
 class MainPage extends StatelessWidget {

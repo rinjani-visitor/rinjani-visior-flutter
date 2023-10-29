@@ -4,22 +4,22 @@ import 'package:flutter/services.dart';
 
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:rinjani_visitor/page/category_explore_page.dart';
-import 'package:rinjani_visitor/page/change_email_page.dart';
-import 'package:rinjani_visitor/page/change_pass_page.dart';
+import 'package:rinjani_visitor/page/booking/booking_detail_page.dart';
+import 'package:rinjani_visitor/page/profile/change_email_page.dart';
+import 'package:rinjani_visitor/page/profile/change_pass_page.dart';
 import 'package:rinjani_visitor/page/continue_payment_page.dart';
-import 'package:rinjani_visitor/page/detail_page.dart';
+import 'package:rinjani_visitor/page/booking/detail_page.dart';
 import 'package:rinjani_visitor/page/event_detail.dart';
-import 'package:rinjani_visitor/page/login_page.dart';
-import 'package:rinjani_visitor/page/main_page.dart';
+import 'package:rinjani_visitor/page/auth/login_page.dart';
+import 'package:rinjani_visitor/page/main/main_page.dart';
 import 'package:rinjani_visitor/page/notification_page.dart';
-import 'package:rinjani_visitor/page/personal_info_page.dart';
-import 'package:rinjani_visitor/page/register_page.dart';
+import 'package:rinjani_visitor/page/profile/personal_info_page.dart';
+import 'package:rinjani_visitor/page/auth/register_page.dart';
 import 'package:rinjani_visitor/page/search_page.dart';
 import 'package:rinjani_visitor/page/splash_screen.dart';
-import 'package:rinjani_visitor/page/success_booking_page.dart';
-import 'package:rinjani_visitor/page/success_offer_page.dart';
-import 'package:rinjani_visitor/page/user_setting_page.dart';
+import 'package:rinjani_visitor/page/booking/success_booking_page.dart';
+import 'package:rinjani_visitor/page/booking/success_offer_page.dart';
+import 'package:rinjani_visitor/page/profile/user_setting_page.dart';
 
 void main() {
   // Force google font to use offline fonts instead of re-downloading again
@@ -45,20 +45,21 @@ class MyApp extends StatelessWidget {
       ),
       routes: {
         '/': (context) => const SplashScreen(),
-        '/login-page': (context) => const LoginPage(),
-        '/register-page': (context) => const RegisterPage(),
-        '/home-page': (context) => const MainPage(),
-        '/search-page': (context) => const SearchPage(),
-        '/event-detail-page': (context) => const EventDetail(),
-        '/detail-page': (context) => DetailPage(),
-        '/notification-page': (context) => const NotificationPage(),
-        '/personal-info-page': (context) => const PersonalInfoPage(),
-        '/user-setting-page': (context) => const UserSettingPage(),
-        '/change-pass-page': (context) => const ChangePassPage(),
-        '/change-email-page': (context) => const ChangeEmailPage(),
-        '/success-booking-page': (context) => const SuccessBookingPage(),
-        '/success-offer-page': (context) => const SuccessOfferPage(),
-        '/continue-payment-page': (context) => const ContinuePaymentPage(),
+        '/login': (context) => const LoginPage(),
+        '/register': (context) => const RegisterPage(),
+        '/home': (context) => const MainPage(),
+        '/search': (context) => const SearchPage(),
+        '/event-detail': (context) => const EventDetail(),
+        '/notification': (context) => const NotificationPage(),
+        '/personal-info': (context) => const PersonalInfoPage(),
+        '/user-setting': (context) => const UserSettingPage(),
+        '/change-pass': (context) => const ChangePassPage(),
+        '/change-email': (context) => const ChangeEmailPage(),
+        '/detail': (context) => const DetailPage(),
+        '/booking-detail': (context) => const BookingDetailPage(),
+        '/success-booking': (context) => const SuccessBookingPage(),
+        '/success-offer': (context) => const SuccessOfferPage(),
+        '/continue-payment': (context) => const ContinuePaymentPage(),
       },
     );
   }

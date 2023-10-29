@@ -37,13 +37,13 @@ class BigCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Row(
+            Row(
               children: [
                 Status(
                   status: StatusColor.available,
                 ),
                 Spacer(),
-                RatingWidget()
+                RatingWidget(rating: rating,)
               ],
             ),
             Spacer(),
@@ -76,7 +76,7 @@ class BigCard extends StatelessWidget {
     return GestureDetector(
       //function buat ke halaman detail
       onTap: () {
-        Navigator.pushNamed(context, '/detail-page');
+        Navigator.pushNamed(context, '/detail');
       },
       //
       child: Container(

@@ -1,15 +1,13 @@
-import 'dart:collection';
-
+import 'package:intl/intl.dart' as intl;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:rinjani_visitor/core/enum/booking_enum.dart';
 import 'package:rinjani_visitor/theme/theme.dart';
 import 'package:rinjani_visitor/widget/cancel_button_widget.dart';
 
-enum ButtonStatus { success, declined, offering, waiting, review }
-
 class NotificationDetailPage extends StatelessWidget {
   //variabel buat atus status
-  final ButtonStatus statusNotif;
+  final BookingStatus statusNotif;
 
   const NotificationDetailPage({Key? key, required this.statusNotif})
       : super(key: key);
@@ -26,17 +24,17 @@ class NotificationDetailPage extends StatelessWidget {
 
   Widget StatusLabel() {
     //fungsi untuk menentukan warna pada widget status berdasarkan enum
-    Color getColor(ButtonStatus statusColor) {
+    Color getColor(BookingStatus statusColor) {
       switch (statusColor) {
-        case ButtonStatus.declined:
+        case BookingStatus.declined:
           return errorRed;
-        case ButtonStatus.offering:
+        case BookingStatus.offering:
           return infoBlue;
-        case ButtonStatus.success:
+        case BookingStatus.success:
           return successGreen;
-        case ButtonStatus.waiting:
+        case BookingStatus.waiting:
           return warningYellow;
-        case ButtonStatus.review:
+        case BookingStatus.review:
           return statusBrown;
         default:
           return infoBlue;
@@ -44,22 +42,10 @@ class NotificationDetailPage extends StatelessWidget {
     }
 
     //fungsi untuk menentukan teks pada status
-    String getStatus(ButtonStatus statusInfo) {
-      switch (statusInfo) {
-        case ButtonStatus.declined:
-          return 'Declined';
-        case ButtonStatus.offering:
-          return 'Offering';
-        case ButtonStatus.success:
-          return 'Success';
-        case ButtonStatus.waiting:
-          return 'Waiting';
-        case ButtonStatus.review:
-          return 'Reviewing';
-
-        default:
-          return 'offering';
-      }
+    String getStatus(BookingStatus statusInfo) {
+      final data = intl.toBeginningOfSentenceCase(statusInfo.toString()) ??
+          statusInfo.toString();
+      return data;
     }
 
     return Container(
@@ -106,29 +92,29 @@ class NotificationDetailPage extends StatelessWidget {
 
   Widget information() {
     //switch buat atur teks nya berdasarkan status
-    Text statusText(ButtonStatus textStatus) {
+    Text statusText(BookingStatus textStatus) {
       switch (textStatus) {
-        case ButtonStatus.declined:
+        case BookingStatus.declined:
           return Text(
             'Your offer has been declined by admin, you can make another offer to admin or make another booking.',
             style: blackTextStyle.copyWith(fontSize: 16, fontWeight: medium),
           );
-        case ButtonStatus.success:
+        case BookingStatus.success:
           return Text(
             'Your payment has been recieved and we will send you the trip detail through email. Thank you.',
             style: blackTextStyle.copyWith(fontSize: 16, fontWeight: medium),
           );
-        case ButtonStatus.waiting:
+        case BookingStatus.waiting:
           return Text(
             'Your offer has been approved by admin and please complete your payment to complete this booking.',
             style: blackTextStyle.copyWith(fontSize: 16, fontWeight: medium),
           );
-        case ButtonStatus.offering:
+        case BookingStatus.offering:
           return Text(
             'Your offer has been sent to the admin, please wait untill admin approve your offer',
             style: blackTextStyle.copyWith(fontSize: 16, fontWeight: medium),
           );
-        case ButtonStatus.review:
+        case BookingStatus.review:
           return Text(
             'Your payment has been sent to the admin, please wait untill admin approve your payment',
             style: blackTextStyle.copyWith(fontSize: 16, fontWeight: medium),
@@ -191,7 +177,7 @@ class NotificationDetailPage extends StatelessWidget {
                             TextButton(
                                 onPressed: () {
                                   Navigator.popAndPushNamed(
-                                      context, '/success-offer-page');
+                                      context, '/success-offer');
                                 },
                                 child: Container(
                                   height: 43,
@@ -237,7 +223,7 @@ class NotificationDetailPage extends StatelessWidget {
               borderRadius: BorderRadius.circular(smallRadius)),
           child: TextButton(
               onPressed: () {
-                Navigator.pushNamed(context, '/continue-payment-page');
+                Navigator.pushNamed(context, '/continue-payment');
               },
               child: Text(
                 'Continue for payment',
@@ -245,10 +231,10 @@ class NotificationDetailPage extends StatelessWidget {
                     whiteTextStyle.copyWith(fontSize: 16, fontWeight: semibold),
               )),
         ),
-        SizedBox(
+        const SizedBox(
           height: 8,
         ),
-        CancelButtonWidget()
+        const CancelButtonWidget()
       ],
     );
   }
@@ -298,17 +284,17 @@ class NotificationDetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     //switch case buat atur button berdasarkan statusnya
-    Widget getButton(ButtonStatus buttonStatus) {
+    Widget getButton(BookingStatus buttonStatus) {
       switch (buttonStatus) {
-        case ButtonStatus.declined:
+        case BookingStatus.declined:
           return declinedBottom(context);
-        case ButtonStatus.offering:
+        case BookingStatus.offering:
           return offeringButton(context);
-        case ButtonStatus.waiting:
+        case BookingStatus.waiting:
           return waitingButton(context);
-        case ButtonStatus.review:
+        case BookingStatus.review:
           return succesAndReviewing();
-        case ButtonStatus.success:
+        case BookingStatus.success:
           return succesAndReviewing();
 
         default:
@@ -336,7 +322,7 @@ class NotificationDetailPage extends StatelessWidget {
                   height: 24,
                 ),
                 information(),
-                Spacer(),
+                const Spacer(),
                 getButton(statusNotif)
               ],
             ),

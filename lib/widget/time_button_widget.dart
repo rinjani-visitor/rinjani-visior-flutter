@@ -3,19 +3,22 @@ import 'package:flutter/material.dart';
 import 'package:rinjani_visitor/theme/theme.dart';
 
 class TimeButtonWidget extends StatefulWidget {
+  final bool selected;
   final String time;
-  const TimeButtonWidget({Key? key, required this.time}) : super(key: key);
+  final void Function(String value, bool isSelected) onToggle;
+  TimeButtonWidget({Key? key, required this.time, required this.onToggle, this.selected = false}) : super(key: key);
 
   @override
   State<TimeButtonWidget> createState() => _TimeButtonWidgetState();
 }
 
 class _TimeButtonWidgetState extends State<TimeButtonWidget> {
-  bool isSelected = false;
+  late bool isSelected = widget.selected;
   void _handleButtonTap() {
     setState(() {
       isSelected = !isSelected;
     });
+    widget.onToggle(widget.time, isSelected);
   }
 
   @override

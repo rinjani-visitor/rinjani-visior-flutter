@@ -1,10 +1,24 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:rinjani_visitor/core/utils/internationalization.dart';
+import 'package:rinjani_visitor/features/order/presentation/order_view_model.dart';
 import 'package:rinjani_visitor/theme/theme.dart';
+import 'package:rinjani_visitor/widget/button/primary_button.dart';
 import 'package:rinjani_visitor/widget/input_field.dart';
 
-class BookingDetailPage extends StatelessWidget {
+class BookingDetailPage extends ConsumerStatefulWidget {
   const BookingDetailPage({Key? key}) : super(key: key);
+
+  @override
+  ConsumerState<BookingDetailPage> createState() => _BookingDetailPageState();
+}
+
+class _BookingDetailPageState extends ConsumerState<BookingDetailPage> {
+  final _priceRangeController = TextEditingController();
+
+  late final _viewModel = ref.read(orderViewModelProvider.notifier);
+  late final _state = ref.read(orderViewModelProvider);
 
   Widget imageTitle() {
     return Container(
@@ -81,7 +95,7 @@ class BookingDetailPage extends StatelessWidget {
                     Icons.calendar_month,
                     color: blackColor,
                   ),
-                  title: Text('20 - 08 - 23')),
+                  title: Text(dateFormat.format(_viewModel.getDate()))),
               Text(
                 'Arrival',
                 style:
@@ -97,7 +111,7 @@ class BookingDetailPage extends StatelessWidget {
                     Icons.access_time,
                     color: blackColor,
                   ),
-                  title: Text('09:00 AM')),
+                  title: Text(_viewModel.getTimeInStringFormat())),
               Text(
                 'Person',
                 style:
@@ -113,7 +127,7 @@ class BookingDetailPage extends StatelessWidget {
                     Icons.person,
                     color: blackColor,
                   ),
-                  title: Text('2 person')),
+                  title: Text("${_state.person ?? 0} Person")),
             ],
           )
         ],
@@ -139,7 +153,7 @@ class BookingDetailPage extends StatelessWidget {
                 color: blackColor,
               ),
               title: Text(
-                '+Rp.200.000',
+                'Rp.200.000',
                 style: greenTextStyle,
               ))
         ],
@@ -149,29 +163,35 @@ class BookingDetailPage extends StatelessWidget {
 
   Widget payment(BuildContext context) {
     return Container(
-      height: 180,
       color: whiteColor,
-      padding: EdgeInsets.all(16),
+      padding: EdgeInsets.symmetric(horizontal: 16),
       child: Column(
         children: [
-          InputField(
+          InputFormField(
+            controller: _priceRangeController,
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return "required";
+              }
+              //TODO: tembahkan validasi berdasarkan harga terendah dan harga tertinggi
+              return null;
+            },
             label: 'Enter your price offer',
             secureText: false,
             placeholder: 'Price should be in range',
+            keyboardType: TextInputType.number,
           ),
-          CupertinoButton(
+          PrimaryButton(
               child: Container(
-                  height: 43,
                   decoration: BoxDecoration(
                       color: primaryColor,
                       borderRadius: BorderRadius.circular(smallRadius)),
-                  child: Center(
-                      child: Text(
+                  child: Text(
                     'Make an offer',
                     style: whiteTextStyle.copyWith(fontWeight: medium),
-                  ))),
+                  )),
               onPressed: () {
-                Navigator.popAndPushNamed(context, '/success-booking-page');
+                Navigator.popAndPushNamed(context, '/success-booking');
               })
         ],
       ),
@@ -182,25 +202,31 @@ class BookingDetailPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
         backgroundColor: backgroundColor,
-        navigationBar: CupertinoNavigationBar(
+        navigationBar: const CupertinoNavigationBar(
           middle: Text('Booking details'),
         ),
         child: SafeArea(
-          child: ListView(
-            children: [
-              imageTitle(),
-              SizedBox(
-                height: 8,
-              ),
-              tripDetail(),
-              SizedBox(
-                height: 8,
-              ),
-              addOn(),
-              SizedBox(
-                height: 8,
-              ),
-              payment(context)
+          child: CustomScrollView(
+            slivers: [
+              SliverToBoxAdapter(
+                child: Column(
+                  children: [
+                    imageTitle(),
+                    const SizedBox(
+                      height: 8,
+                    ),
+                    tripDetail(),
+                    SizedBox(
+                      height: 8,
+                    ),
+                    addOn(),
+                    SizedBox(
+                      height: 8,
+                    ),
+                    payment(context)
+                  ],
+                ),
+              )
             ],
           ),
         ));

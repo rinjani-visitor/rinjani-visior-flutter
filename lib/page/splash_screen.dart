@@ -1,33 +1,37 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:rinjani_visitor/features/authentication/presentation/auth_riverpod.dart';
+import 'package:rinjani_visitor/features/authentication/presentation/auth_view_model.dart';
 import 'package:rinjani_visitor/theme/theme.dart';
 
 class SplashScreen extends ConsumerStatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
 
   @override
-  _SplashScreenState createState() => _SplashScreenState();
+  ConsumerState<SplashScreen> createState() => _SplashScreenState();
 }
 
 class _SplashScreenState extends ConsumerState<SplashScreen> {
+  late final _viewModel = ref.read(authViewModelProvider.notifier);
+  late var _state = ref.read(authViewModelProvider);
+
   @override
   void initState() {
     super.initState();
-    debugPrint("${ref.read(authControllerProvider).asData?.value.toString()}");
-    ref.read(authControllerProvider.notifier).getToken().then((token) {
+    debugPrint("${_state.asData?.value.toString()}");
+    _viewModel.getToken().then((token) {
       if (token.isNotEmpty) {
         debugPrint("value $token");
-        Navigator.pushReplacementNamed(context, '/home-page');
+        Navigator.pushReplacementNamed(context, '/home');
         return;
       } else {
-        Navigator.pushReplacementNamed(context, '/login-page');
+        Navigator.pushReplacementNamed(context, '/login');
       }
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    _state = ref.watch(authViewModelProvider);
     return Scaffold(
       backgroundColor: primaryColor,
       body: Center(

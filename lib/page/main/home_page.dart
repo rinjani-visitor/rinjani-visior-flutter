@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:rinjani_visitor/features/authentication/presentation/auth_riverpod.dart';
+import 'package:rinjani_visitor/features/authentication/presentation/auth_view_model.dart';
 import 'package:rinjani_visitor/theme/theme.dart';
 import 'package:rinjani_visitor/widget/big_card.dart';
 import 'package:rinjani_visitor/widget/category_item.dart';
@@ -64,13 +64,16 @@ class HomePage extends ConsumerWidget {
         const SizedBox(
           height: 10,
         ),
-        const SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: Row(children: [
-            SmallCard(),
-            SmallCard(),
-            SmallCard(),
-          ]),
+        SizedBox(
+          height: 250,
+          child: ListView.builder(
+            scrollDirection: Axis.horizontal,
+            shrinkWrap: true,
+            padding: EdgeInsets.zero,
+            itemCount: 3,
+            itemBuilder: (context, index) {
+            return SmallCard(title: "rinjani Trip", image: AssetImage('assets/rinjani.jpeg'));
+          },),
         )
       ],
     );
@@ -85,7 +88,7 @@ class HomePage extends ConsumerWidget {
           Container(
             margin: const EdgeInsets.symmetric(horizontal: 16),
             child: Text(
-              'Rinjani Trip',
+              'Upcoming Event',
               style:
                   blackTextStyle.copyWith(fontSize: 24, fontWeight: semibold),
             ),
@@ -104,7 +107,7 @@ class HomePage extends ConsumerWidget {
                 padding: EdgeInsets.only(bottom: 8, left: 16, right: 16),
                 child: BigCard(
                     image: AssetImage("assets/rinjani.jpeg"),
-                    title: "Rinjani Trip",
+                    title: "Presean Dance",
                     price: "\$80 - \$90 - Person",
                     status: StatusColor.available,
                     rating: "4.9"),
@@ -116,58 +119,12 @@ class HomePage extends ConsumerWidget {
     );
   }
 
-  // Widget _appBar(BuildContext context) {
-  //   return Container(
-  //     padding: const EdgeInsets.only(top: 48, left: 16, right: 16, bottom: 18),
-  //     decoration: BoxDecoration(
-  //         color: primaryColor,
-  //         borderRadius: BorderRadius.only(
-  //             bottomLeft: Radius.circular(bigRadius),
-  //             bottomRight: Radius.circular(bigRadius))),
-  //     child: Column(
-  //       crossAxisAlignment: CrossAxisAlignment.start,
-  //       children: [
-  //         Row(
-  //           children: [
-  //             Text(
-  //               'Hi, user',
-  //               style: whiteTextStyle.copyWith(fontSize: 34, fontWeight: bold),
-  //             ),
-  //             const Spacer(),
-  //             IconButton(
-  //                 onPressed: () {
-  //                   Navigator.pushNamed(context, '/notification-page');
-  //                 },
-  //                 icon: Icon(
-  //                   Icons.notifications,
-  //                   size: 32.0,
-  //                   color: whiteColor,
-  //                 ))
-  //           ],
-  //         ),
-  //         const SizedBox(
-  //           height: 12,
-  //         ),
-  //         InkWell(
-  //           onTap: () {
-  //             Navigator.pushNamed(context, '/search-page');
-  //           },
-  //           child: CupertinoSearchTextField(
-  //             backgroundColor: whiteColor,
-  //             enabled: false,
-  //           ),
-  //         ),
-  //       ],
-  //     ),
-  //   );
-  // }
-
   @override
   Widget build(BuildContext context, ref) {
     double deviceHeight = MediaQuery.of(context).size.height;
     double appBarHeight = deviceHeight * 0.15;
     final username =
-        ref.read(authControllerProvider).asData?.value.username ?? "User";
+        ref.read(authViewModelProvider).asData?.value.username ?? "User";
     return Scaffold(
       backgroundColor: backgroundColor,
       appBar: PreferredSize(
@@ -190,7 +147,7 @@ class HomePage extends ConsumerWidget {
                         style: whiteTextStyle.copyWith(
                             fontSize: deviceHeight * 0.04, fontWeight: bold),
                       ),
-                      Spacer(),
+                      const Spacer(),
                       IconButton(
                           onPressed: () {},
                           icon: Icon(
@@ -200,17 +157,17 @@ class HomePage extends ConsumerWidget {
                           )),
                     ],
                   ),
-                  Spacer(),
+                  const Spacer(),
                   InkWell(
                     onTap: () {
-                      Navigator.pushNamed(context, '/search-page');
+                      Navigator.pushNamed(context, '/search');
                     },
                     child: CupertinoSearchTextField(
                       backgroundColor: whiteColor,
                       enabled: false,
                     ),
                   ),
-                  Spacer()
+                  const Spacer()
                 ],
               ),
             ),
@@ -221,9 +178,7 @@ class HomePage extends ConsumerWidget {
         physics: const ClampingScrollPhysics(),
         slivers: [
           SliverToBoxAdapter(
-              child: Stack(
-            children: [
-              Column(
+              child: Column(
                 children: [
                   const SizedBox(
                     height: 24,
@@ -241,9 +196,7 @@ class HomePage extends ConsumerWidget {
                     height: 80,
                   )
                 ],
-              )
-            ],
-          )),
+              )),
         ],
       ),
     );

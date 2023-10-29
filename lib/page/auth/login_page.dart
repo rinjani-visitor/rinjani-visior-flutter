@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:rinjani_visitor/core/extension/validator.dart';
-import 'package:rinjani_visitor/features/authentication/presentation/auth_riverpod.dart';
+import 'package:rinjani_visitor/features/authentication/presentation/auth_view_model.dart';
 import 'package:rinjani_visitor/theme/theme.dart';
 import 'package:rinjani_visitor/widget/input_field.dart';
 import 'package:rinjani_visitor/widget/button/primary_button.dart';
@@ -17,6 +17,9 @@ class LoginPage extends ConsumerStatefulWidget {
 
 class _LoginPageState extends ConsumerState<LoginPage> {
   final _formKey = GlobalKey<FormState>();
+
+  late final _viewModel = ref.read(authViewModelProvider.notifier);
+  late var _state = ref.read(authViewModelProvider);
 
   bool isLoading = false;
   final emailTxtController = TextEditingController();
@@ -35,7 +38,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
   }
 
   void _toHome() {
-    Navigator.pushReplacementNamed(context, '/home-page');
+    Navigator.pushReplacementNamed(context, '/home');
   }
 
   void _submitForm() async {
@@ -43,21 +46,20 @@ class _LoginPageState extends ConsumerState<LoginPage> {
       final email = emailTxtController.text;
       final pass = passwordTxtController.text;
       debugPrint("$email, $pass");
-      await ref.read(authControllerProvider.notifier).logIn(email, pass);
-      if (ref.read(authControllerProvider).hasError) {
+      await _viewModel.logIn(email, pass);
+      if (_state.hasError) {
         Fluttertoast.showToast(
-            msg:
-                "Error occured: ${ref.read(authControllerProvider).asError?.error.toString()}");
+            msg: "Error occured: ${_state.asError?.error.toString()}");
         return;
       }
-      debugPrint(
-          "LoginPage: result ${ref.read(authControllerProvider).value.toString()}");
+      debugPrint("LoginPage: result ${_state.value.toString()}");
       _toHome();
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    _state = ref.watch(authViewModelProvider);
     return CupertinoPageScaffold(
       resizeToAvoidBottomInset: false,
       child: SafeArea(
@@ -79,7 +81,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
             ),
             const Spacer(),
             PrimaryButton(
-                isLoading: ref.watch(authControllerProvider).isLoading,
+                isLoading: _state.isLoading,
                 onPressed: () {
                   _submitForm();
                 },
@@ -103,48 +105,56 @@ class _LoginPageState extends ConsumerState<LoginPage> {
   Widget _inputSection() {
     return Form(
       key: _formKey,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: [
-          InputFormField(
-              label: 'Email',
-              secureText: false,
-              placeholder: "your@email.com",
-              validator: (val) {
-                if (val == null || val.isEmpty) {
-                  return "Email required";
+      child: AutofillGroup(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            InputFormField(
+                label: 'Email',
+                secureText: false,
+                placeholder: "your@email.com",
+                keyboardType: TextInputType.emailAddress,
+                textInputAction: TextInputAction.next,
+                autoFillHints: const [AutofillHints.email, AutofillHints.username],
+                validator: (val) {
+                  if (val == null || val.isEmpty) {
+                    return "Email required";
+                  }
+                  if (!val.isEmailValid()) {
+                    return "not valid email";
+                  }
+                  return null;
+                },
+                controller: emailTxtController),
+            InputFormField(
+              controller: passwordTxtController,
+              label: 'Password',
+              secureText: true,
+              keyboardType: TextInputType.text,
+              textInputAction: TextInputAction.done,
+              autoFillHints: const [AutofillHints.password],
+              placeholder: "your password of course",
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return "Password required";
                 }
-                if (!val.isEmailValid()) {
-                  return "not valid email";
+                if (value.length < 8) {
+                  return "password must have 8 characters minimum";
                 }
                 return null;
               },
-              controller: emailTxtController),
-          InputFormField(
-            controller: passwordTxtController,
-            label: 'Password',
-            secureText: true,
-            placeholder: "your password of course",
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return "Password required";
-              }
-              if (value.length < 8) {
-                return "password must have 8 characters minimum";
-              }
-              return null;
-            },
-          ),
-          TextButton(
-              onPressed: () {
-                Navigator.pushNamed(context, '/home-page');
-              },
-              child: Text(
-                "Forgot your password?",
-                style:
-                    blackTextStyle.copyWith(fontSize: 12, fontWeight: semibold),
-              ))
-        ],
+            ),
+            TextButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, '/home');
+                },
+                child: Text(
+                  "Forgot your password?",
+                  style:
+                      blackTextStyle.copyWith(fontSize: 12, fontWeight: semibold),
+                ))
+          ],
+        ),
       ),
     );
   }
@@ -158,7 +168,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
         ),
         TextButton(
             onPressed: () {
-              Navigator.pushNamed(context, '/register-page');
+              Navigator.pushNamed(context, '/register');
             },
             child: Text(
               "Sign Up",

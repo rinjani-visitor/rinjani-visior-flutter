@@ -81,11 +81,11 @@ class _$CommentModelCopyWithImpl<$Res, $Val extends CommentModel>
 }
 
 /// @nodoc
-abstract class _$$_CommentModelCopyWith<$Res>
+abstract class _$$CommentModelImplCopyWith<$Res>
     implements $CommentModelCopyWith<$Res> {
-  factory _$$_CommentModelCopyWith(
-          _$_CommentModel value, $Res Function(_$_CommentModel) then) =
-      __$$_CommentModelCopyWithImpl<$Res>;
+  factory _$$CommentModelImplCopyWith(
+          _$CommentModelImpl value, $Res Function(_$CommentModelImpl) then) =
+      __$$CommentModelImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -93,11 +93,11 @@ abstract class _$$_CommentModelCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_CommentModelCopyWithImpl<$Res>
-    extends _$CommentModelCopyWithImpl<$Res, _$_CommentModel>
-    implements _$$_CommentModelCopyWith<$Res> {
-  __$$_CommentModelCopyWithImpl(
-      _$_CommentModel _value, $Res Function(_$_CommentModel) _then)
+class __$$CommentModelImplCopyWithImpl<$Res>
+    extends _$CommentModelCopyWithImpl<$Res, _$CommentModelImpl>
+    implements _$$CommentModelImplCopyWith<$Res> {
+  __$$CommentModelImplCopyWithImpl(
+      _$CommentModelImpl _value, $Res Function(_$CommentModelImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -108,7 +108,7 @@ class __$$_CommentModelCopyWithImpl<$Res>
     Object? reviewScore = null,
     Object? content = null,
   }) {
-    return _then(_$_CommentModel(
+    return _then(_$CommentModelImpl(
       user: null == user
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
@@ -131,15 +131,15 @@ class __$$_CommentModelCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_CommentModel with DiagnosticableTreeMixin implements _CommentModel {
-  const _$_CommentModel(
+class _$CommentModelImpl with DiagnosticableTreeMixin implements _CommentModel {
+  const _$CommentModelImpl(
       {required this.user,
       required this.commentId,
       required this.reviewScore,
       required this.content});
 
-  factory _$_CommentModel.fromJson(Map<String, dynamic> json) =>
-      _$$_CommentModelFromJson(json);
+  factory _$CommentModelImpl.fromJson(Map<String, dynamic> json) =>
+      _$$CommentModelImplFromJson(json);
 
   @override
   final String user;
@@ -170,7 +170,7 @@ class _$_CommentModel with DiagnosticableTreeMixin implements _CommentModel {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_CommentModel &&
+            other is _$CommentModelImpl &&
             (identical(other.user, user) || other.user == user) &&
             (identical(other.commentId, commentId) ||
                 other.commentId == commentId) &&
@@ -187,12 +187,12 @@ class _$_CommentModel with DiagnosticableTreeMixin implements _CommentModel {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_CommentModelCopyWith<_$_CommentModel> get copyWith =>
-      __$$_CommentModelCopyWithImpl<_$_CommentModel>(this, _$identity);
+  _$$CommentModelImplCopyWith<_$CommentModelImpl> get copyWith =>
+      __$$CommentModelImplCopyWithImpl<_$CommentModelImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_CommentModelToJson(
+    return _$$CommentModelImplToJson(
       this,
     );
   }
@@ -203,10 +203,10 @@ abstract class _CommentModel implements CommentModel {
       {required final String user,
       required final String commentId,
       required final String reviewScore,
-      required final String content}) = _$_CommentModel;
+      required final String content}) = _$CommentModelImpl;
 
   factory _CommentModel.fromJson(Map<String, dynamic> json) =
-      _$_CommentModel.fromJson;
+      _$CommentModelImpl.fromJson;
 
   @override
   String get user;
@@ -218,6 +218,6 @@ abstract class _CommentModel implements CommentModel {
   String get content;
   @override
   @JsonKey(ignore: true)
-  _$$_CommentModelCopyWith<_$_CommentModel> get copyWith =>
+  _$$CommentModelImplCopyWith<_$CommentModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -1,13 +1,9 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:rinjani_visitor/core/constant/country.dart';
-import 'package:rinjani_visitor/core/datastate/local_state.dart';
 import 'package:rinjani_visitor/core/extension/validator.dart';
-import 'package:rinjani_visitor/features/authentication/domain/auth_model.dart';
-import 'package:rinjani_visitor/features/authentication/presentation/auth_riverpod.dart';
+import 'package:rinjani_visitor/features/authentication/presentation/auth_view_model.dart';
 import 'package:rinjani_visitor/theme/theme.dart';
 import 'package:rinjani_visitor/widget/button/primary_button.dart';
 import 'package:rinjani_visitor/widget/form/dropdown_textfield.dart';
@@ -21,37 +17,39 @@ class RegisterPage extends ConsumerStatefulWidget {
 }
 
 class _RegisterPageState extends ConsumerState<RegisterPage> {
-  final usernameTxtController = TextEditingController();
-  final emailTxtController = TextEditingController();
-  final countryTxtController = TextEditingController();
-  final phoneNumberTxtController = TextEditingController();
-  final passwordTxtController = TextEditingController();
+  final _usernameTxtController = TextEditingController();
+  final _emailTxtController = TextEditingController();
+  final _countryTxtController = TextEditingController();
+  final _phoneNumberTxtController = TextEditingController();
+  final _passwordTxtController = TextEditingController();
+
+  late final _viewModel = ref.read(authViewModelProvider.notifier);
+  late var _state = ref.read(authViewModelProvider);
 
   @override
   void dispose() {
-    usernameTxtController.dispose();
-    emailTxtController.dispose();
-    phoneNumberTxtController.dispose();
-    passwordTxtController.dispose();
-    countryTxtController.dispose();
+    _usernameTxtController.dispose();
+    _emailTxtController.dispose();
+    _phoneNumberTxtController.dispose();
+    _passwordTxtController.dispose();
+    _countryTxtController.dispose();
     super.dispose();
   }
 
   void _toLogin() {
-    Navigator.pushReplacementNamed(context, '/login-page');
+    Navigator.pushReplacementNamed(context, '/login');
   }
 
   void _onFormSubmit() async {
-    await ref.read(authControllerProvider.notifier).register(
-        usernameTxtController.text,
-        emailTxtController.text,
-        countryTxtController.text,
-        phoneNumberTxtController.text,
-        passwordTxtController.text,
-        passwordTxtController.text);
-    if (ref.read(authControllerProvider).hasError) {
-      Fluttertoast.showToast(
-          msg: ref.read(authControllerProvider).asError!.error.toString());
+    await _viewModel.register(
+        _usernameTxtController.text,
+        _emailTxtController.text,
+        _countryTxtController.text,
+        _phoneNumberTxtController.text,
+        _passwordTxtController.text,
+        _passwordTxtController.text);
+    if (_state.hasError) {
+      Fluttertoast.showToast(msg: _state.asError!.error.toString());
       return;
     }
     _toLogin();
@@ -59,6 +57,7 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
 
   @override
   Widget build(BuildContext context) {
+    _state = ref.watch(authViewModelProvider);
     return CupertinoPageScaffold(
       resizeToAvoidBottomInset: true,
       backgroundColor: whiteColor,
@@ -99,7 +98,7 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
         children: [
           DropdownTextfield(
             label: "Country",
-            controller: countryTxtController,
+            controller: _countryTxtController,
             placeholder: "Eg: Vatikan",
             items: countryLists,
           ),
@@ -108,7 +107,8 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
           ),
           InputFormField(
             label: 'Username',
-            controller: usernameTxtController,
+            controller: _usernameTxtController,
+            textInputAction: TextInputAction.next,
             validator: (value) {
               if (value == null || value.isEmpty) {
                 return "Username required";
@@ -118,7 +118,9 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
           ),
           InputFormField(
             label: 'Email',
-            controller: emailTxtController,
+            controller: _emailTxtController,
+            textInputAction: TextInputAction.next,
+            autoFillHints: const[AutofillHints.email],
             validator: (value) {
               if (value == null || value.isEmpty) {
                 return "Email required";
@@ -132,8 +134,9 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
           InputFormField(
             label: 'Phone number',
             placeholder: "Same as your Whatsapp",
+            textInputAction: TextInputAction.next,
             keyboardType: TextInputType.phone,
-            controller: phoneNumberTxtController,
+            controller: _phoneNumberTxtController,
             validator: (value) {
               if (value == null || value.isEmpty) {
                 return "Phone number required";
@@ -144,10 +147,14 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
           InputFormField(
             label: 'Password',
             secureText: true,
-            controller: passwordTxtController,
+            textInputAction: TextInputAction.done,
+            controller: _passwordTxtController,
             validator: (value) {
               if (value == null || value.isEmpty) {
-                return "Username required";
+                return "Password required";
+              }
+              if (value.length < 8) {
+                return "Password must have 8 characters minimum";
               }
               return null;
             },
@@ -162,7 +169,7 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
         onPressed: () {
           _onFormSubmit();
         },
-        isLoading: ref.watch(authControllerProvider).isLoading,
+        isLoading: _state.isLoading,
         child: Text(
           'Sign Up',
         ));

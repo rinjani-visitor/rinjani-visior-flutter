@@ -1,26 +1,26 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'auth_riverpod.dart';
+part of 'order_view_model.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$authControllerHash() => r'ece11415209698bc03c1a233f4404485b3ba678a';
+String _$orderViewModelHash() => r'a9a5344aa3ae753f4378ca1377afb46f2d44497b';
 
-/// See also [AuthController].
-@ProviderFor(AuthController)
-final authControllerProvider =
-    AsyncNotifierProvider<AuthController, AuthModel>.internal(
-  AuthController.new,
-  name: r'authControllerProvider',
+/// See also [OrderViewModel].
+@ProviderFor(OrderViewModel)
+final orderViewModelProvider =
+    NotifierProvider<OrderViewModel, OrderModel>.internal(
+  OrderViewModel.new,
+  name: r'orderViewModelProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$authControllerHash,
+      : _$orderViewModelHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$AuthController = AsyncNotifier<AuthModel>;
+typedef _$OrderViewModel = Notifier<OrderModel>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

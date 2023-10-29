@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rinjani_visitor/theme/theme.dart';
+import 'package:rinjani_visitor/widget/button/primary_button.dart';
 
 class SuccessOfferPage extends StatelessWidget {
   const SuccessOfferPage({Key? key}) : super(key: key);
@@ -9,17 +10,18 @@ class SuccessOfferPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
         child: SafeArea(
-            child: Center(
+            child: Padding(
+      padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
       child: Column(
         children: [
           Container(
-            margin: EdgeInsets.only(top: 24),
+            margin: const EdgeInsets.only(top: 24),
             height: 600,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  'Succes to make\nnew offer',
+                  'Offering Success',
                   style: blackTextStyle.copyWith(
                     fontSize: heading3,
                     fontWeight: bold,
@@ -41,21 +43,12 @@ class SuccessOfferPage extends StatelessWidget {
             ),
           ),
           Spacer(),
-          TextButton(
-              onPressed: () {
-                Navigator.popAndPushNamed(context, '/home-page');
-              },
-              child: Container(
-                height: 43,
-                decoration: BoxDecoration(
-                    color: primaryColor,
-                    borderRadius: BorderRadius.circular(smallRadius)),
-                child: Center(
-                    child: Text(
-                  'Return to home page',
-                  style: whiteTextStyle.copyWith(
-                      fontSize: textButton2, fontWeight: semibold),
-                )),
+          PrimaryButton(
+              onPressed: () {},
+              child: Text(
+                'Return to home page',
+                style: whiteTextStyle.copyWith(
+                    fontSize: textButton2, fontWeight: semibold),
               )),
         ],
       ),

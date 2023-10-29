@@ -5,11 +5,14 @@ class InputField extends StatelessWidget {
   final String? label;
   final String? placeholder;
   final String? errorText;
+  final Iterable<String>? autoFillHints;
   final TextInputType? keyboardType;
+  final TextInputAction? textInputAction;
   final TextEditingController? controller;
   final void Function(String value)? onChanged;
   final void Function()? onTap;
   final bool secureText;
+
   const InputField(
       {Key? key,
       this.label,
@@ -18,8 +21,10 @@ class InputField extends StatelessWidget {
       this.controller,
       this.onChanged,
       this.keyboardType,
+      this.autoFillHints,
       this.onTap,
-      this.errorText})
+      this.errorText,
+      this.textInputAction})
       : super(key: key);
 
   @override
@@ -51,6 +56,8 @@ class InputField extends StatelessWidget {
           placeholder: placeholder,
           obscureText: secureText,
           keyboardType: keyboardType,
+          autofillHints: autoFillHints,
+          textInputAction: textInputAction,
           onTap: onTap,
         ),
       ],
@@ -62,15 +69,17 @@ class InputFormField extends FormField<String> {
   InputFormField(
       {super.key,
       String label = "",
+      String initialValue = "",
       bool secureText = false,
       String? placeholder,
       TextEditingController? controller,
-      void Function(String value)? onChanged,
+      TextInputAction? textInputAction,
       TextInputType? keyboardType,
+      Iterable<String>? autoFillHints,
+      void Function(String value)? onChanged,
       void Function()? onTap,
       void Function(String?)? onSaved,
       String? Function(String?)? validator,
-      String initialValue = "",
       AutovalidateMode autovalidateMode = AutovalidateMode.onUserInteraction})
       : super(
             onSaved: onSaved,
@@ -91,6 +100,8 @@ class InputFormField extends FormField<String> {
                       state.didChange(value);
                     },
                     placeholder: placeholder,
+                    autoFillHints: autoFillHints,
+                    textInputAction: textInputAction,
                   ),
                   Text(
                     (state.hasError ? state.errorText : "") ?? "",
