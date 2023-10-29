@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
 
 class RatingWidget extends StatelessWidget {
-  const RatingWidget({Key? key}) : super(key: key);
+  final String? rating;
+  const RatingWidget({Key? key, this.rating}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +17,7 @@ class RatingWidget extends StatelessWidget {
         SizedBox(
           width: 6,
         ),
-        Text('4,98')
+        Text(rating ?? "-,-")
       ],
     );
   }

@@ -64,13 +64,16 @@ class HomePage extends ConsumerWidget {
         const SizedBox(
           height: 10,
         ),
-        const SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: Row(children: [
-            SmallCard(),
-            SmallCard(),
-            SmallCard(),
-          ]),
+        SizedBox(
+          height: 250,
+          child: ListView.builder(
+            scrollDirection: Axis.horizontal,
+            shrinkWrap: true,
+            padding: EdgeInsets.zero,
+            itemCount: 3,
+            itemBuilder: (context, index) {
+            return SmallCard(title: "rinjani Trip", image: AssetImage('assets/rinjani.jpeg'));
+          },),
         )
       ],
     );
@@ -85,7 +88,7 @@ class HomePage extends ConsumerWidget {
           Container(
             margin: const EdgeInsets.symmetric(horizontal: 16),
             child: Text(
-              'Rinjani Trip',
+              'Upcoming Event',
               style:
                   blackTextStyle.copyWith(fontSize: 24, fontWeight: semibold),
             ),
@@ -104,7 +107,7 @@ class HomePage extends ConsumerWidget {
                 padding: EdgeInsets.only(bottom: 8, left: 16, right: 16),
                 child: BigCard(
                     image: AssetImage("assets/rinjani.jpeg"),
-                    title: "Rinjani Trip",
+                    title: "Presean Dance",
                     price: "\$80 - \$90 - Person",
                     status: StatusColor.available,
                     rating: "4.9"),
@@ -115,52 +118,6 @@ class HomePage extends ConsumerWidget {
       ),
     );
   }
-
-  // Widget _appBar(BuildContext context) {
-  //   return Container(
-  //     padding: const EdgeInsets.only(top: 48, left: 16, right: 16, bottom: 18),
-  //     decoration: BoxDecoration(
-  //         color: primaryColor,
-  //         borderRadius: BorderRadius.only(
-  //             bottomLeft: Radius.circular(bigRadius),
-  //             bottomRight: Radius.circular(bigRadius))),
-  //     child: Column(
-  //       crossAxisAlignment: CrossAxisAlignment.start,
-  //       children: [
-  //         Row(
-  //           children: [
-  //             Text(
-  //               'Hi, user',
-  //               style: whiteTextStyle.copyWith(fontSize: 34, fontWeight: bold),
-  //             ),
-  //             const Spacer(),
-  //             IconButton(
-  //                 onPressed: () {
-  //                   Navigator.pushNamed(context, '/notification');
-  //                 },
-  //                 icon: Icon(
-  //                   Icons.notifications,
-  //                   size: 32.0,
-  //                   color: whiteColor,
-  //                 ))
-  //           ],
-  //         ),
-  //         const SizedBox(
-  //           height: 12,
-  //         ),
-  //         InkWell(
-  //           onTap: () {
-  //             Navigator.pushNamed(context, '/search');
-  //           },
-  //           child: CupertinoSearchTextField(
-  //             backgroundColor: whiteColor,
-  //             enabled: false,
-  //           ),
-  //         ),
-  //       ],
-  //     ),
-  //   );
-  // }
 
   @override
   Widget build(BuildContext context, ref) {

@@ -3,7 +3,10 @@ import 'package:rinjani_visitor/theme/theme.dart';
 import 'package:rinjani_visitor/widget/rating_widget.dart';
 
 class SmallCard extends StatelessWidget {
-  const SmallCard({Key? key}) : super(key: key);
+  final String title;
+  final ImageProvider image;
+  final String? rating;
+  const SmallCard({Key? key, required this.title, this.rating, required this.image}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -23,8 +26,8 @@ class SmallCard extends StatelessWidget {
               height: 165,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(smallRadius),
-                image: const DecorationImage(
-                    fit: BoxFit.fill, image: AssetImage('assets/rinjani.jpeg')),
+                image: DecorationImage(
+                    fit: BoxFit.fill, image: image),
               ),
             ),
             const SizedBox(
@@ -43,7 +46,7 @@ class SmallCard extends StatelessWidget {
                   const SizedBox(
                     height: 4,
                   ),
-                  const RatingWidget(),
+                  RatingWidget(rating: rating),
                   const SizedBox(
                     height: 8,
                   ),
