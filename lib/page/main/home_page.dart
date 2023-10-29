@@ -64,16 +64,19 @@ class HomePage extends ConsumerWidget {
         const SizedBox(
           height: 10,
         ),
-        SizedBox(
-          height: 250,
+        ConstrainedBox(
+          constraints: const BoxConstraints(maxHeight: 270),
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
             shrinkWrap: true,
             padding: EdgeInsets.zero,
             itemCount: 3,
             itemBuilder: (context, index) {
-            return SmallCard(title: "rinjani Trip", image: AssetImage('assets/rinjani.jpeg'));
-          },),
+              return SmallCard(
+                  title: "rinjani Trip",
+                  image: AssetImage('assets/rinjani.jpeg'));
+            },
+          ),
         )
       ],
     );
@@ -179,24 +182,24 @@ class HomePage extends ConsumerWidget {
         slivers: [
           SliverToBoxAdapter(
               child: Column(
-                children: [
-                  const SizedBox(
-                    height: 24,
-                  ),
-                  _categoriesWidgets(),
-                  const SizedBox(
-                    height: 24,
-                  ),
-                  _recommendedWidgets(),
-                  const SizedBox(
-                    height: 24,
-                  ),
-                  _rinjaniTripWidgets(),
-                  const SizedBox(
-                    height: 80,
-                  )
-                ],
-              )),
+            children: [
+              const SizedBox(
+                height: 24,
+              ),
+              _categoriesWidgets(),
+              const SizedBox(
+                height: 24,
+              ),
+              _recommendedWidgets(),
+              const SizedBox(
+                height: 24,
+              ),
+              _rinjaniTripWidgets(),
+              const SizedBox(
+                height: 80,
+              )
+            ],
+          )),
         ],
       ),
     );
