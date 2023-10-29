@@ -3,7 +3,9 @@ import 'package:rinjani_visitor/theme/theme.dart';
 import 'package:rinjani_visitor/widget/review_card_widget.dart';
 
 class ReviewWidget extends StatelessWidget {
-  const ReviewWidget({Key? key}) : super(key: key);
+  final List<Widget> reviewChildren;
+  const ReviewWidget({Key? key, required this.reviewChildren})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +24,7 @@ class ReviewWidget extends StatelessWidget {
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: Row(
-              children: [ReviewCardWidget(), ReviewCardWidget()],
+              children: reviewChildren,
             ),
           )
         ],

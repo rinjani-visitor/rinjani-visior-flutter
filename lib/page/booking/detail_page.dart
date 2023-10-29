@@ -10,6 +10,7 @@ import 'package:rinjani_visitor/widget/button/primary_button.dart';
 import 'package:rinjani_visitor/widget/date_picker_widget.dart';
 import 'package:rinjani_visitor/widget/person_counter_widget.dart';
 import 'package:rinjani_visitor/widget/rating_widget.dart';
+import 'package:rinjani_visitor/widget/review_card_widget.dart';
 import 'package:rinjani_visitor/widget/review_widget.dart';
 import 'package:rinjani_visitor/widget/segmented_widget.dart';
 import 'package:rinjani_visitor/widget/status.dart';
@@ -194,7 +195,18 @@ class _DetailPageState extends ConsumerState<DetailPage> {
                                 orderData.time.remove(value);
                               }
                             }),
-                        review: const ReviewWidget(),
+                        review: ReviewWidget(
+                          reviewChildren: [
+                            ReviewCardWidget(
+                                name: "Kevin",
+                                createdTime: " weeks ago",
+                                message: "This place is amazing, I love it"),
+                            ReviewCardWidget(
+                                name: "Kevin",
+                                createdTime: " weeks ago",
+                                message: "This place is amazing, I love it"),
+                          ],
+                        ),
                         buyProduct: PrimaryButton(
                             onPressed: () => _showModalPopup(),
                             child: Text(
