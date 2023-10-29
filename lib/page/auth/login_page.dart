@@ -105,48 +105,56 @@ class _LoginPageState extends ConsumerState<LoginPage> {
   Widget _inputSection() {
     return Form(
       key: _formKey,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: [
-          InputFormField(
-              label: 'Email',
-              secureText: false,
-              placeholder: "your@email.com",
-              validator: (val) {
-                if (val == null || val.isEmpty) {
-                  return "Email required";
+      child: AutofillGroup(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            InputFormField(
+                label: 'Email',
+                secureText: false,
+                placeholder: "your@email.com",
+                keyboardType: TextInputType.emailAddress,
+                textInputAction: TextInputAction.next,
+                autoFillHints: const [AutofillHints.email, AutofillHints.username],
+                validator: (val) {
+                  if (val == null || val.isEmpty) {
+                    return "Email required";
+                  }
+                  if (!val.isEmailValid()) {
+                    return "not valid email";
+                  }
+                  return null;
+                },
+                controller: emailTxtController),
+            InputFormField(
+              controller: passwordTxtController,
+              label: 'Password',
+              secureText: true,
+              keyboardType: TextInputType.text,
+              textInputAction: TextInputAction.done,
+              autoFillHints: const [AutofillHints.password],
+              placeholder: "your password of course",
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return "Password required";
                 }
-                if (!val.isEmailValid()) {
-                  return "not valid email";
+                if (value.length < 8) {
+                  return "password must have 8 characters minimum";
                 }
                 return null;
               },
-              controller: emailTxtController),
-          InputFormField(
-            controller: passwordTxtController,
-            label: 'Password',
-            secureText: true,
-            placeholder: "your password of course",
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return "Password required";
-              }
-              if (value.length < 8) {
-                return "password must have 8 characters minimum";
-              }
-              return null;
-            },
-          ),
-          TextButton(
-              onPressed: () {
-                Navigator.pushNamed(context, '/home');
-              },
-              child: Text(
-                "Forgot your password?",
-                style:
-                    blackTextStyle.copyWith(fontSize: 12, fontWeight: semibold),
-              ))
-        ],
+            ),
+            TextButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, '/home');
+                },
+                child: Text(
+                  "Forgot your password?",
+                  style:
+                      blackTextStyle.copyWith(fontSize: 12, fontWeight: semibold),
+                ))
+          ],
+        ),
       ),
     );
   }

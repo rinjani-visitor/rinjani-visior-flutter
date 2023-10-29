@@ -108,6 +108,7 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
           InputFormField(
             label: 'Username',
             controller: _usernameTxtController,
+            textInputAction: TextInputAction.next,
             validator: (value) {
               if (value == null || value.isEmpty) {
                 return "Username required";
@@ -118,6 +119,8 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
           InputFormField(
             label: 'Email',
             controller: _emailTxtController,
+            textInputAction: TextInputAction.next,
+            autoFillHints: const[AutofillHints.email],
             validator: (value) {
               if (value == null || value.isEmpty) {
                 return "Email required";
@@ -131,6 +134,7 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
           InputFormField(
             label: 'Phone number',
             placeholder: "Same as your Whatsapp",
+            textInputAction: TextInputAction.next,
             keyboardType: TextInputType.phone,
             controller: _phoneNumberTxtController,
             validator: (value) {
@@ -143,6 +147,7 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
           InputFormField(
             label: 'Password',
             secureText: true,
+            textInputAction: TextInputAction.done,
             controller: _passwordTxtController,
             validator: (value) {
               if (value == null || value.isEmpty) {
