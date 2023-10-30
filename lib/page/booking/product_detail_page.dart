@@ -33,14 +33,14 @@ const dataMock = ProductModel(
     reviewCount: 32,
     timeList24H: ["08.00", "12.00", "15.00", "18.00"]);
 
-class DetailPage extends ConsumerStatefulWidget {
-  const DetailPage({Key? key}) : super(key: key);
+class ProductDetailPage extends ConsumerStatefulWidget {
+  const ProductDetailPage({Key? key}) : super(key: key);
 
   @override
-  ConsumerState<DetailPage> createState() => _DetailPageState();
+  ConsumerState<ProductDetailPage> createState() => _DetailPageState();
 }
 
-class _DetailPageState extends ConsumerState<DetailPage> {
+class _DetailPageState extends ConsumerState<ProductDetailPage> {
   // TODO: override later with server data
   final ProductModel data = dataMock;
 

@@ -8,7 +8,7 @@ import 'package:rinjani_visitor/page/booking/booking_detail_page.dart';
 import 'package:rinjani_visitor/page/profile/change_email_page.dart';
 import 'package:rinjani_visitor/page/profile/change_pass_page.dart';
 import 'package:rinjani_visitor/page/continue_payment_page.dart';
-import 'package:rinjani_visitor/page/booking/detail_page.dart';
+import 'package:rinjani_visitor/page/booking/product_detail_page.dart';
 import 'package:rinjani_visitor/page/event_detail.dart';
 import 'package:rinjani_visitor/page/auth/login_page.dart';
 import 'package:rinjani_visitor/page/main/main_page.dart';
@@ -17,8 +17,8 @@ import 'package:rinjani_visitor/page/profile/personal_info_page.dart';
 import 'package:rinjani_visitor/page/auth/register_page.dart';
 import 'package:rinjani_visitor/page/search_page.dart';
 import 'package:rinjani_visitor/page/splash_screen.dart';
-import 'package:rinjani_visitor/page/booking/success_booking_page.dart';
-import 'package:rinjani_visitor/page/booking/success_offer_page.dart';
+import 'package:rinjani_visitor/page/booking/booking_status_page.dart';
+import 'package:rinjani_visitor/page/booking/offer_status_page.dart';
 import 'package:rinjani_visitor/page/profile/user_setting_page.dart';
 
 void main() {
@@ -55,10 +55,10 @@ class MyApp extends StatelessWidget {
         '/user-setting': (context) => const UserSettingPage(),
         '/change-pass': (context) => const ChangePassPage(),
         '/change-email': (context) => const ChangeEmailPage(),
-        '/detail': (context) => const DetailPage(),
+        '/detail': (context) => const ProductDetailPage(),
         '/booking-detail': (context) => const BookingDetailPage(),
-        '/success-booking': (context) => const SuccessBookingPage(),
-        '/success-offer': (context) => const SuccessOfferPage(),
+        '/success-booking': (context) => const BookingStatusPage(),
+        '/success-offer': (context) => const OfferStatusPage(),
         '/continue-payment': (context) => const ContinuePaymentPage(),
       },
     );

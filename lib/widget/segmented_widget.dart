@@ -9,7 +9,9 @@ class DetailDescriptionWidget extends StatefulWidget {
   final String accomodation;
   final Widget addOn;
   final DatePickerWidget datePicker;
-  final Widget timeList;
+
+  /// receive [TimeList] widget
+  final TimeList timeList;
   final ReviewWidget review;
   final Widget buyProduct;
 

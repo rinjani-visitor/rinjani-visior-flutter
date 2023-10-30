@@ -3,12 +3,22 @@ import 'package:flutter/material.dart';
 import 'package:rinjani_visitor/theme/theme.dart';
 import 'package:rinjani_visitor/widget/button/primary_button.dart';
 
-class SuccessBookingPage extends StatelessWidget {
-  const SuccessBookingPage({Key? key}) : super(key: key);
+const bookingStatus = [
+  {
+    "title": "Booking success",
+    "description":
+        "Your booking has been recieved, we will inform you via email or notification later, once the transaction has been accepted",
+    "image": "assets/booking-success.png",
+  },
+  {
+    "title": "Booking failed",
+    "description": "Your booking has been failed, or there is something wrong.",
+    "image": "assets/booking-failed.png",
+  }
+];
 
-  // Widget textHeader(){
-  //   return
-  // }
+class BookingStatusPage extends StatelessWidget {
+  const BookingStatusPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +43,7 @@ class SuccessBookingPage extends StatelessWidget {
                 height: 255,
               ),
               Text(
-                'we will inform you via email or notification later once the transaction has been accepted',
+                'we will inform you via email or notification later, once the transaction has been accepted',
                 style: blackTextStyle.copyWith(
                   fontSize: 16,
                 ),
