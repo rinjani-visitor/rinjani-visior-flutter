@@ -4,8 +4,6 @@ import 'package:rinjani_visitor/widget/date_picker_widget.dart';
 import 'package:rinjani_visitor/widget/review_widget.dart';
 import 'package:rinjani_visitor/widget/time_button_widget.dart';
 
-
-
 class DetailDescriptionWidget extends StatefulWidget {
   final String description;
   final String accomodation;
@@ -105,29 +103,26 @@ class TimeList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 36,
-      child: ListView.builder(
-        scrollDirection: Axis.horizontal,
-        padding: EdgeInsets.zero,
-        shrinkWrap: true,
-        itemCount: timeListData.length,
-        physics: const ClampingScrollPhysics(),
-        itemBuilder: (context, index) => Padding(
-          padding: const EdgeInsets.only(right: 4.0),
-          child: TimeButtonWidget(
-            time: timeListData[index],
-            selected: initialSelectedTimeListData.contains(timeListData[index]),
-            onToggle: (value, isSelected) {
-              onTimeListTap(value, isSelected);
-            },
-          ),
-        ),
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: Row(
+        children: List.generate(timeListData.length, (index) {
+          return Padding(
+            padding: const EdgeInsets.only(right: 4.0),
+            child: TimeButtonWidget(
+              time: timeListData[index],
+              selected:
+                  initialSelectedTimeListData.contains(timeListData[index]),
+              onToggle: (value, isSelected) {
+                onTimeListTap(value, isSelected);
+              },
+            ),
+          );
+        }),
       ),
     );
   }
 }
-
 
 // ===== // parent // ===== //
 
@@ -136,9 +131,7 @@ class DetailSegmentedWidget extends StatefulWidget {
   final Widget initenary;
 
   const DetailSegmentedWidget(
-      {Key? key,
-      required this.description,
-      required this.initenary})
+      {Key? key, required this.description, required this.initenary})
       : super(key: key);
 
   @override
@@ -171,8 +164,7 @@ class _DetailSegmentedWidgetState extends State<DetailSegmentedWidget> {
         ),
         Padding(
           padding: EdgeInsets.only(top: 12.0),
-          child:
-              _sliding == 0 ? widget.description : widget.initenary,
+          child: _sliding == 0 ? widget.description : widget.initenary,
         )
       ],
     );

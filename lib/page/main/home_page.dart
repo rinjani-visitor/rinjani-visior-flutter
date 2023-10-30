@@ -64,18 +64,15 @@ class HomePage extends ConsumerWidget {
         const SizedBox(
           height: 10,
         ),
-        ConstrainedBox(
-          constraints: const BoxConstraints(maxHeight: 270),
-          child: ListView.builder(
-            scrollDirection: Axis.horizontal,
-            shrinkWrap: true,
-            padding: EdgeInsets.zero,
-            itemCount: 3,
-            itemBuilder: (context, index) {
-              return SmallCard(
+        // fixed horizontal list, source: https://gist.github.com/Abushawish/048acfdaf956640ea6fa8b3991dbbd81
+        SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            children: List.generate(3, (index) {
+              return const SmallCard(
                   title: "rinjani Trip",
                   image: AssetImage('assets/rinjani.jpeg'));
-            },
+            }),
           ),
         )
       ],
