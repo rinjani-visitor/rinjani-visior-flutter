@@ -7,7 +7,7 @@ const bookingStatus = [
   {
     "title": "Offering success",
     "description":
-        "Your offering has been requested, please wait for the admin to accept your offer.",
+        "Your offering has been success, please continue to payment selection.",
     "image": "assets/booking-success.png",
   },
   {

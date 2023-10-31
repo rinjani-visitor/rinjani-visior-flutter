@@ -7,7 +7,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rinjani_visitor/page/booking/booking_detail_page.dart';
 import 'package:rinjani_visitor/page/profile/change_email_page.dart';
 import 'package:rinjani_visitor/page/profile/change_pass_page.dart';
-import 'package:rinjani_visitor/page/continue_payment_page.dart';
+import 'package:rinjani_visitor/page/booking/continue_payment_page.dart';
 import 'package:rinjani_visitor/page/booking/product_detail_page.dart';
 import 'package:rinjani_visitor/page/event_detail.dart';
 import 'package:rinjani_visitor/page/auth/login_page.dart';
