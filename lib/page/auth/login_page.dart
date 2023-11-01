@@ -47,6 +47,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
       final pass = passwordTxtController.text;
       debugPrint("$email, $pass");
       await _viewModel.logIn(email, pass);
+      _state = ref.read(authViewModelProvider);
       if (_state.hasError) {
         Fluttertoast.showToast(
             msg: "Error occured: ${_state.asError?.error.toString()}");
@@ -115,7 +116,10 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                 placeholder: "your@email.com",
                 keyboardType: TextInputType.emailAddress,
                 textInputAction: TextInputAction.next,
-                autoFillHints: const [AutofillHints.email, AutofillHints.username],
+                autoFillHints: const [
+                  AutofillHints.email,
+                  AutofillHints.username
+                ],
                 validator: (val) {
                   if (val == null || val.isEmpty) {
                     return "Email required";
@@ -150,8 +154,8 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                 },
                 child: Text(
                   "Forgot your password?",
-                  style:
-                      blackTextStyle.copyWith(fontSize: 12, fontWeight: semibold),
+                  style: blackTextStyle.copyWith(
+                      fontSize: 12, fontWeight: semibold),
                 ))
           ],
         ),
