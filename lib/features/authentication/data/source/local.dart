@@ -46,4 +46,8 @@ class AuthLocalSource {
     await storage.write(key: AuthLocalSource.SESSION_KEY, value: stringJson);
     return;
   }
+
+  Future<void> clearSession() async {
+    await storage.delete(key: SESSION_KEY);
+  }
 }
