@@ -1,0 +1,23 @@
+name: Build APK Release
+on:
+  push:
+    branches:
+      - main
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v1
+        with:
+          flutter-version: '3.13.7'
+      - name: Get packages
+        run: flutter pub get
+      - name: Build APK Release
+        run: flutter build apk --release
+      - name: Upload APK
+        uses: actions/upload-artifact@v2
+        with:
+          name: app-pre-release
+          path: build/app/outputs/flutter-apk/app-release.apk
