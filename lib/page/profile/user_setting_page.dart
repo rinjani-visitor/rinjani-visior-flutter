@@ -15,10 +15,9 @@ class UserSettingPage extends ConsumerStatefulWidget {
 class _UserSettingPageState extends ConsumerState<UserSettingPage> {
   late final _viewModel = ref.read(authViewModelProvider.notifier);
 
-
   void _logOutMethod(void Function() onLoggingOut) async {
-    final state = ref.read(authViewModelProvider);
     await _viewModel.logOut();
+    final state = ref.read(authViewModelProvider);
     if (state.hasError) {
       Fluttertoast.showToast(msg: "${state.error?.toString()}");
       return;
@@ -95,8 +94,8 @@ class _UserSettingPageState extends ConsumerState<UserSettingPage> {
                               onPressed: () {
                                 //fungsi logout booking taruh di sini
                                 _logOutMethod(() =>
-                                    Navigator.pushNamedAndRemoveUntil(context,
-                                        '/login', (route) => false));
+                                    Navigator.pushNamedAndRemoveUntil(
+                                        context, '/login', (route) => false));
                               },
                             ),
                           ],

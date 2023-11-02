@@ -27,7 +27,7 @@ class AuthViewModel extends _$AuthViewModel {
     if (state.hasValue && state.value?.token != null) {
       state = const AsyncValue.loading();
       await repository.logout();
-      state = const AsyncData(AuthModel());
+      state = const AsyncData(null);
       debugPrint("AuthViewModel: ${state.asData.toString()}");
     }
   }
