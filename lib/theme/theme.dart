@@ -36,6 +36,7 @@ Color whiteColor = Color(0xffFCFCFD);
 Color blackColor = Color(0xff101828);
 Color backgroundColor = Color(0xffF2F4F7);
 Color lightGray = Color(0xff98A2B3);
+Color gray = Color(0xffF2F4F7);
 Color mediumGray = Color(0xffF9FAFB);
 Color darkGray = Color(0xff475467);
 Color successGreen = Color(0xff039855);

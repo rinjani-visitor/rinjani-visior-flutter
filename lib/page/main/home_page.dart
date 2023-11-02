@@ -64,16 +64,16 @@ class HomePage extends ConsumerWidget {
         const SizedBox(
           height: 10,
         ),
-        SizedBox(
-          height: 250,
-          child: ListView.builder(
-            scrollDirection: Axis.horizontal,
-            shrinkWrap: true,
-            padding: EdgeInsets.zero,
-            itemCount: 3,
-            itemBuilder: (context, index) {
-            return SmallCard(title: "rinjani Trip", image: AssetImage('assets/rinjani.jpeg'));
-          },),
+        // fixed horizontal list, source: https://gist.github.com/Abushawish/048acfdaf956640ea6fa8b3991dbbd81
+        SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            children: List.generate(3, (index) {
+              return const SmallCard(
+                  title: "rinjani Trip",
+                  image: AssetImage('assets/rinjani.jpeg'));
+            }),
+          ),
         )
       ],
     );
@@ -124,7 +124,7 @@ class HomePage extends ConsumerWidget {
     double deviceHeight = MediaQuery.of(context).size.height;
     double appBarHeight = deviceHeight * 0.15;
     final username =
-        ref.read(authViewModelProvider).asData?.value.username ?? "User";
+        ref.read(authViewModelProvider).asData?.value?.username ?? "User";
     return Scaffold(
       backgroundColor: backgroundColor,
       appBar: PreferredSize(
@@ -179,24 +179,24 @@ class HomePage extends ConsumerWidget {
         slivers: [
           SliverToBoxAdapter(
               child: Column(
-                children: [
-                  const SizedBox(
-                    height: 24,
-                  ),
-                  _categoriesWidgets(),
-                  const SizedBox(
-                    height: 24,
-                  ),
-                  _recommendedWidgets(),
-                  const SizedBox(
-                    height: 24,
-                  ),
-                  _rinjaniTripWidgets(),
-                  const SizedBox(
-                    height: 80,
-                  )
-                ],
-              )),
+            children: [
+              const SizedBox(
+                height: 24,
+              ),
+              _categoriesWidgets(),
+              const SizedBox(
+                height: 24,
+              ),
+              _recommendedWidgets(),
+              const SizedBox(
+                height: 24,
+              ),
+              _rinjaniTripWidgets(),
+              const SizedBox(
+                height: 80,
+              )
+            ],
+          )),
         ],
       ),
     );

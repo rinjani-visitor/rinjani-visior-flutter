@@ -3,19 +3,33 @@ import 'package:flutter/material.dart';
 import 'package:rinjani_visitor/theme/theme.dart';
 import 'package:rinjani_visitor/widget/button/primary_button.dart';
 
-class SuccessBookingPage extends StatelessWidget {
-  const SuccessBookingPage({Key? key}) : super(key: key);
+const bookingStatus = [
+  {
+    "title": "Booking success",
+    "subtitle": "Your booking\nhas been requested",
+    "description":
+        "We will inform you via email or notification later, once the transaction has been accepted",
+    "image": "assets/booking-success.png",
+  },
+  {
+    "title": "Booking failed",
+    "subtitle": "Your booking has been failed to send",
+    "description": "there is something wrong,",
+    "image": "assets/booking-failed.png",
+  }
+];
 
-  // Widget textHeader(){
-  //   return
-  // }
+class BookingStatusPage extends StatelessWidget {
+  BookingStatusPage({Key? key}) : super(key: key);
+
+  final data = bookingStatus[0];
 
   @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
         automaticallyImplyLeading: false,
-        middle: Text('Booking success'),
+        middle: Text(data["title"]??""),
       ),
       child: SafeArea(
         child: Padding(
@@ -24,7 +38,7 @@ class SuccessBookingPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'Your booking\nhas been recieved',
+                data["subtitle"]??"",
                 style: blackTextStyle.copyWith(fontSize: 32, fontWeight: bold),
                 textAlign: TextAlign.center,
               ),
@@ -33,7 +47,7 @@ class SuccessBookingPage extends StatelessWidget {
                 height: 255,
               ),
               Text(
-                'we will inform you via email or notification later once the transaction has been accepted',
+                data["description"]??"",
                 style: blackTextStyle.copyWith(
                   fontSize: 16,
                 ),

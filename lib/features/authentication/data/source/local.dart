@@ -31,14 +31,14 @@ class AuthLocalSource {
     await storage.delete(key: AuthLocalSource.TOKEN_KEY);
   }
 
-  Future<AuthModel> getSession() async {
+  Future<AuthModel?> getSession() async {
     final data = await storage.read(key: AuthLocalSource.SESSION_KEY) ?? "";
     debugPrint("$NAME : current session - $data");
     if (data.isNotEmpty) {
       final result = JsonParser.stringToJson(data);
       return AuthModel.fromJson(result);
     }
-    return const AuthModel();
+    return null;
   }
 
   Future<void> setSession(AuthModel session) async {

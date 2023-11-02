@@ -36,7 +36,7 @@ mixin _$ProductModel {
   int get reviewCount => throw _privateConstructorUsedError;
   List<String> get initenaryList => throw _privateConstructorUsedError;
   List<String> get timeList24H => throw _privateConstructorUsedError;
-  List<String>? get addOnIds => throw _privateConstructorUsedError;
+  List<AddOnModel> get addOn => throw _privateConstructorUsedError;
   List<String>? get reviewIds => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -66,7 +66,7 @@ abstract class $ProductModelCopyWith<$Res> {
       int reviewCount,
       List<String> initenaryList,
       List<String> timeList24H,
-      List<String>? addOnIds,
+      List<AddOnModel> addOn,
       List<String>? reviewIds});
 }
 
@@ -97,7 +97,7 @@ class _$ProductModelCopyWithImpl<$Res, $Val extends ProductModel>
     Object? reviewCount = null,
     Object? initenaryList = null,
     Object? timeList24H = null,
-    Object? addOnIds = freezed,
+    Object? addOn = null,
     Object? reviewIds = freezed,
   }) {
     return _then(_value.copyWith(
@@ -157,10 +157,10 @@ class _$ProductModelCopyWithImpl<$Res, $Val extends ProductModel>
           ? _value.timeList24H
           : timeList24H // ignore: cast_nullable_to_non_nullable
               as List<String>,
-      addOnIds: freezed == addOnIds
-          ? _value.addOnIds
-          : addOnIds // ignore: cast_nullable_to_non_nullable
-              as List<String>?,
+      addOn: null == addOn
+          ? _value.addOn
+          : addOn // ignore: cast_nullable_to_non_nullable
+              as List<AddOnModel>,
       reviewIds: freezed == reviewIds
           ? _value.reviewIds
           : reviewIds // ignore: cast_nullable_to_non_nullable
@@ -192,7 +192,7 @@ abstract class _$$PackageModelImplCopyWith<$Res>
       int reviewCount,
       List<String> initenaryList,
       List<String> timeList24H,
-      List<String>? addOnIds,
+      List<AddOnModel> addOn,
       List<String>? reviewIds});
 }
 
@@ -221,7 +221,7 @@ class __$$PackageModelImplCopyWithImpl<$Res>
     Object? reviewCount = null,
     Object? initenaryList = null,
     Object? timeList24H = null,
-    Object? addOnIds = freezed,
+    Object? addOn = null,
     Object? reviewIds = freezed,
   }) {
     return _then(_$PackageModelImpl(
@@ -281,10 +281,10 @@ class __$$PackageModelImplCopyWithImpl<$Res>
           ? _value._timeList24H
           : timeList24H // ignore: cast_nullable_to_non_nullable
               as List<String>,
-      addOnIds: freezed == addOnIds
-          ? _value._addOnIds
-          : addOnIds // ignore: cast_nullable_to_non_nullable
-              as List<String>?,
+      addOn: null == addOn
+          ? _value._addOn
+          : addOn // ignore: cast_nullable_to_non_nullable
+              as List<AddOnModel>,
       reviewIds: freezed == reviewIds
           ? _value._reviewIds
           : reviewIds // ignore: cast_nullable_to_non_nullable
@@ -311,11 +311,11 @@ class _$PackageModelImpl implements _PackageModel {
       required this.reviewCount,
       required final List<String> initenaryList,
       required final List<String> timeList24H,
-      final List<String>? addOnIds,
+      required final List<AddOnModel> addOn,
       final List<String>? reviewIds})
       : _initenaryList = initenaryList,
         _timeList24H = timeList24H,
-        _addOnIds = addOnIds,
+        _addOn = addOn,
         _reviewIds = reviewIds;
 
   factory _$PackageModelImpl.fromJson(Map<String, dynamic> json) =>
@@ -363,14 +363,12 @@ class _$PackageModelImpl implements _PackageModel {
     return EqualUnmodifiableListView(_timeList24H);
   }
 
-  final List<String>? _addOnIds;
+  final List<AddOnModel> _addOn;
   @override
-  List<String>? get addOnIds {
-    final value = _addOnIds;
-    if (value == null) return null;
-    if (_addOnIds is EqualUnmodifiableListView) return _addOnIds;
+  List<AddOnModel> get addOn {
+    if (_addOn is EqualUnmodifiableListView) return _addOn;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(value);
+    return EqualUnmodifiableListView(_addOn);
   }
 
   final List<String>? _reviewIds;
@@ -385,7 +383,7 @@ class _$PackageModelImpl implements _PackageModel {
 
   @override
   String toString() {
-    return 'ProductModel(packageId: $packageId, title: $title, location: $location, imgUrl: $imgUrl, locationUrl: $locationUrl, avaiabilityStatus: $avaiabilityStatus, rangePricing: $rangePricing, rating: $rating, tripDuration: $tripDuration, description: $description, accomodation: $accomodation, reviewCount: $reviewCount, initenaryList: $initenaryList, timeList24H: $timeList24H, addOnIds: $addOnIds, reviewIds: $reviewIds)';
+    return 'ProductModel(packageId: $packageId, title: $title, location: $location, imgUrl: $imgUrl, locationUrl: $locationUrl, avaiabilityStatus: $avaiabilityStatus, rangePricing: $rangePricing, rating: $rating, tripDuration: $tripDuration, description: $description, accomodation: $accomodation, reviewCount: $reviewCount, initenaryList: $initenaryList, timeList24H: $timeList24H, addOn: $addOn, reviewIds: $reviewIds)';
   }
 
   @override
@@ -418,7 +416,7 @@ class _$PackageModelImpl implements _PackageModel {
                 .equals(other._initenaryList, _initenaryList) &&
             const DeepCollectionEquality()
                 .equals(other._timeList24H, _timeList24H) &&
-            const DeepCollectionEquality().equals(other._addOnIds, _addOnIds) &&
+            const DeepCollectionEquality().equals(other._addOn, _addOn) &&
             const DeepCollectionEquality()
                 .equals(other._reviewIds, _reviewIds));
   }
@@ -441,7 +439,7 @@ class _$PackageModelImpl implements _PackageModel {
       reviewCount,
       const DeepCollectionEquality().hash(_initenaryList),
       const DeepCollectionEquality().hash(_timeList24H),
-      const DeepCollectionEquality().hash(_addOnIds),
+      const DeepCollectionEquality().hash(_addOn),
       const DeepCollectionEquality().hash(_reviewIds));
 
   @JsonKey(ignore: true)
@@ -474,7 +472,7 @@ abstract class _PackageModel implements ProductModel {
       required final int reviewCount,
       required final List<String> initenaryList,
       required final List<String> timeList24H,
-      final List<String>? addOnIds,
+      required final List<AddOnModel> addOn,
       final List<String>? reviewIds}) = _$PackageModelImpl;
 
   factory _PackageModel.fromJson(Map<String, dynamic> json) =
@@ -511,7 +509,7 @@ abstract class _PackageModel implements ProductModel {
   @override
   List<String> get timeList24H;
   @override
-  List<String>? get addOnIds;
+  List<AddOnModel> get addOn;
   @override
   List<String>? get reviewIds;
   @override

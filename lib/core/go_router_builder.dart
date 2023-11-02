@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
 import 'package:rinjani_visitor/page/main/account_page.dart';
 import 'package:rinjani_visitor/page/booking/booking_detail_page.dart';
-import 'package:rinjani_visitor/page/booking/detail_page.dart';
+import 'package:rinjani_visitor/page/booking/product_detail_page.dart';
 import 'package:rinjani_visitor/page/event_detail.dart';
 import 'package:rinjani_visitor/page/main/event_page.dart';
 import 'package:rinjani_visitor/page/main/home_page.dart';
@@ -106,7 +106,7 @@ class AccountRoute extends GoRouteData {
 class ProductDetailRoute extends GoRouteData {
   @override
   Widget build(BuildContext context, GoRouterState state) {
-    return DetailPage();
+    return ProductDetailPage();
   }
 }
 

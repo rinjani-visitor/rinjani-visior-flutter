@@ -1,4 +1,3 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rinjani_visitor/core/exception/exception.dart';
@@ -23,7 +22,6 @@ class AuthRepositoryImpl implements AuthRepository {
   AuthRepositoryImpl({required this.localSource, required this.remoteSource});
 
 //========================//
-
   @override
   Future<void> logout() async {
     await localSource.removeToken();
@@ -90,12 +88,14 @@ class AuthRepositoryImpl implements AuthRepository {
       await localSource.setSession(result);
       return result;
     } catch (e) {
-      throw exceptionHandler(e);
+      final err = exceptionHandler(e);
+      debugPrint("${NAME}: Error: ${err.toString()}");
+      throw err;
     }
   }
 
   @override
-  Future<AuthModel> getSavedSession() async {
+  Future<AuthModel?> getSavedSession() async {
     final sessionModel = await localSource.getSession();
     try {
       debugPrint("$NAME : $sessionModel");

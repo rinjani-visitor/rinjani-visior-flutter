@@ -1,8 +1,10 @@
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:like_button/like_button.dart';
 import 'package:rinjani_visitor/features/order/presentation/order_view_model.dart';
+import 'package:rinjani_visitor/features/product/domain/addon_model.dart';
 import 'package:rinjani_visitor/features/product/domain/product_model.dart';
 import 'package:rinjani_visitor/theme/theme.dart';
 import 'package:rinjani_visitor/widget/add_on_widget.dart';
@@ -26,21 +28,21 @@ const dataMock = ProductModel(
     tripDuration: "2 days, 1 night",
     description: "Basic package",
     accomodation: "self driving, etc is provided by buying this package",
-    addOnIds: [""],
+    addOn: [AddOnModel(name: "Self driving",pricing: "500.000", id: "123456")],
     reviewIds: [""],
     avaiabilityStatus: "avaiable",
     initenaryList: ["08.00 - Wake up"],
     reviewCount: 32,
     timeList24H: ["08.00", "12.00", "15.00", "18.00"]);
 
-class DetailPage extends ConsumerStatefulWidget {
-  const DetailPage({Key? key}) : super(key: key);
+class ProductDetailPage extends ConsumerStatefulWidget {
+  const ProductDetailPage({Key? key}) : super(key: key);
 
   @override
-  ConsumerState<DetailPage> createState() => _DetailPageState();
+  ConsumerState<ProductDetailPage> createState() => _DetailPageState();
 }
 
-class _DetailPageState extends ConsumerState<DetailPage> {
+class _DetailPageState extends ConsumerState<ProductDetailPage> {
   // TODO: override later with server data
   final ProductModel data = dataMock;
 
@@ -174,7 +176,18 @@ class _DetailPageState extends ConsumerState<DetailPage> {
                       description: DetailDescriptionWidget(
                         description: data.description,
                         accomodation: data.accomodation,
-                        addOn: const AddOnWidgetMock(),
+                        addOn: List.generate(data.addOn.length, (index) {
+                          final current = data.addOn[index];
+                          return AddOnWidget(
+                            name: current.name,
+                            price: current.pricing,
+                            value: false,
+                            onChanged: (value) {
+                              final id = current.id;
+                              debugPrint(id);
+                            },
+                          );
+                        }),
                         datePicker: DatePickerWidget(
                           initialDate: _viewModel.getDate(),
                           onChange: (dateVal) {

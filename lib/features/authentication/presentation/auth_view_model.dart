@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:rinjani_visitor/features/authentication/data/auth_repsitory_impl.dart';
+import 'package:rinjani_visitor/features/authentication/data/auth_repository_impl.dart';
 import 'package:rinjani_visitor/features/authentication/domain/auth_model.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -10,7 +10,7 @@ class AuthViewModel extends _$AuthViewModel {
   late final AuthRepositoryImpl repository;
 
   @override
-  FutureOr<AuthModel> build() async {
+  FutureOr<AuthModel?> build() async {
     final repo = ref.read(AuthRepositoryImpl.provider);
     repository = repo;
     return await repository.getSavedSession();
@@ -28,6 +28,7 @@ class AuthViewModel extends _$AuthViewModel {
       state = const AsyncValue.loading();
       await repository.logout();
       state = const AsyncData(AuthModel());
+      debugPrint("AuthViewModel: ${state.asData.toString()}");
     }
   }
 
@@ -47,8 +48,9 @@ class AuthViewModel extends _$AuthViewModel {
 
   Future<String> getToken() async {
     await Future.delayed(const Duration(seconds: 3));
-    debugPrint("current token: ${state.asData?.value.token}");
-    return state.asData?.value.token ?? "";
+    final token = state.asData?.value?.token;
+    debugPrint("current token: $token");
+    return token ?? "";
   }
 
   // Future<AuthModel> getSession() async {

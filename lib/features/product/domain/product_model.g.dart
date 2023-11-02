@@ -26,8 +26,8 @@ _$PackageModelImpl _$$PackageModelImplFromJson(Map<String, dynamic> json) =>
       timeList24H: (json['timeList24H'] as List<dynamic>)
           .map((e) => e as String)
           .toList(),
-      addOnIds: (json['addOnIds'] as List<dynamic>?)
-          ?.map((e) => e as String)
+      addOn: (json['addOn'] as List<dynamic>)
+          .map((e) => AddOnModel.fromJson(e as Map<String, dynamic>))
           .toList(),
       reviewIds: (json['reviewIds'] as List<dynamic>?)
           ?.map((e) => e as String)
@@ -50,6 +50,6 @@ Map<String, dynamic> _$$PackageModelImplToJson(_$PackageModelImpl instance) =>
       'reviewCount': instance.reviewCount,
       'initenaryList': instance.initenaryList,
       'timeList24H': instance.timeList24H,
-      'addOnIds': instance.addOnIds,
+      'addOn': instance.addOn,
       'reviewIds': instance.reviewIds,
     };

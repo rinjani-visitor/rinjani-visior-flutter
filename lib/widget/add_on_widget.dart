@@ -4,8 +4,11 @@ import 'package:flutter/widgets.dart';
 import 'package:rinjani_visitor/theme/theme.dart';
 
 class AddOnWidget extends StatefulWidget {
+  /// Add on name.
   final String name;
+  /// shows the price of addon. not include price unit formatting
   final String price;
+  /// initial value.
   final bool value;
   final void Function(bool? value)? onChanged;
   const AddOnWidget(

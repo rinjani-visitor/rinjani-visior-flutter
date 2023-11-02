@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rinjani_visitor/core/datastate/local_state.dart';
+import 'package:rinjani_visitor/features/product/domain/addon_model.dart';
 import 'package:rinjani_visitor/features/product/domain/product_model.dart';
 import 'package:rinjani_visitor/features/product/domain/product_repository.dart';
 
@@ -43,7 +44,7 @@ class ProductRepositoryImpl implements ProductRespository {
           tripDuration: "2 days, 1 night",
           description: "Basic package",
           accomodation: "accomodation",
-          addOnIds: [""],
+          addOn: [AddOnModel(name: "Driver", pricing:"500.000", id: "123456")],
           reviewIds: [""],
           avaiabilityStatus: "avaiable",
           initenaryList: [""],

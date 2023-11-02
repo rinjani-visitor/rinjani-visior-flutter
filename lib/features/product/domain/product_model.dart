@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:rinjani_visitor/features/product/domain/addon_model.dart';
 
 part 'product_model.g.dart';
 part 'product_model.freezed.dart';
@@ -24,7 +25,7 @@ class ProductModel with _$ProductModel {
     required int reviewCount,
     required List<String> initenaryList,
     required List<String> timeList24H,
-    List<String>? addOnIds,
+    required List<AddOnModel> addOn,
     List<String>? reviewIds,
   }) = _PackageModel;
 

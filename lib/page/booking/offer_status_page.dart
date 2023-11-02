@@ -3,8 +3,23 @@ import 'package:flutter/material.dart';
 import 'package:rinjani_visitor/theme/theme.dart';
 import 'package:rinjani_visitor/widget/button/primary_button.dart';
 
-class SuccessOfferPage extends StatelessWidget {
-  const SuccessOfferPage({Key? key}) : super(key: key);
+const bookingStatus = [
+  {
+    "title": "Offering success",
+    "description":
+        "Your offering has been success, please continue to payment selection.",
+    "image": "assets/booking-success.png",
+  },
+  {
+    "title": "Offering failed ",
+    "description":
+        "Your offering has been failed, or there is something wrong.",
+    "image": "assets/booking-failed.png",
+  }
+];
+
+class OfferStatusPage extends StatelessWidget {
+  const OfferStatusPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

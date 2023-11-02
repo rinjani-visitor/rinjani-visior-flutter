@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:rinjani_visitor/core/exception/exception.dart';
 
 /// utility function for converting various exception into [ExtException] class
@@ -8,6 +9,7 @@ import 'package:rinjani_visitor/core/exception/exception.dart';
 /// create error message at flutter pages / screen using toast or equivalent
 /// without `Exception:` text _shenaigans_.
 ExtException exceptionHandler(Object exception) {
+  debugPrint("Exception Catched: ${exception.toString()}");
   if (exception is DioException) {
     return ExtException(exception.message);
   }
