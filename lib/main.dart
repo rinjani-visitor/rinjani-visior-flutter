@@ -57,7 +57,7 @@ class MyApp extends StatelessWidget {
         '/change-email': (context) => const ChangeEmailPage(),
         '/detail': (context) => const ProductDetailPage(),
         '/booking-detail': (context) => const BookingDetailPage(),
-        '/success-booking': (context) => const BookingStatusPage(),
+        '/success-booking': (context) => BookingStatusPage(),
         '/success-offer': (context) => const OfferStatusPage(),
         '/continue-payment': (context) => const ContinuePaymentPage(),
       },

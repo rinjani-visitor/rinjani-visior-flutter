@@ -7,7 +7,7 @@ import 'package:rinjani_visitor/widget/time_button_widget.dart';
 class DetailDescriptionWidget extends StatefulWidget {
   final String description;
   final String accomodation;
-  final Widget addOn;
+  final List<Widget> addOn;
   final DatePickerWidget datePicker;
 
   /// receive [TimeList] widget
@@ -54,7 +54,9 @@ class _DetailDescriptionWidgetState extends State<DetailDescriptionWidget> {
           'Add On',
           style: blackTextStyle.copyWith(fontSize: body1, fontWeight: semibold),
         ),
-        widget.addOn,
+        Column(
+          children: widget.addOn,
+        ),
         const SizedBox(
           height: 16,
         ),
