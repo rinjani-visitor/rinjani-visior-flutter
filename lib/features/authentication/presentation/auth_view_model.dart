@@ -10,7 +10,7 @@ class AuthViewModel extends _$AuthViewModel {
   late final AuthRepositoryImpl repository;
 
   @override
-  FutureOr<AuthModel> build() async {
+  FutureOr<AuthModel?> build() async {
     final repo = ref.read(AuthRepositoryImpl.provider);
     repository = repo;
     return await repository.getSavedSession();
@@ -48,8 +48,9 @@ class AuthViewModel extends _$AuthViewModel {
 
   Future<String> getToken() async {
     await Future.delayed(const Duration(seconds: 3));
-    debugPrint("current token: ${state.asData?.value.token}");
-    return state.asData?.value.token ?? "";
+    final token = state.asData?.value?.token;
+    debugPrint("current token: $token");
+    return token ?? "";
   }
 
   // Future<AuthModel> getSession() async {

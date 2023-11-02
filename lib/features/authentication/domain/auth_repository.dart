@@ -11,5 +11,5 @@ abstract class AuthRepository {
   Future<AuthModel> logIn({required String email, required String password});
 
   Future<void> logout();
-  Future<AuthModel> getSavedSession();
+  Future<AuthModel?> getSavedSession();
 }

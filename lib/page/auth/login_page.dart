@@ -48,7 +48,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
       debugPrint("$email, $pass");
       await _viewModel.logIn(email, pass);
       _state = ref.read(authViewModelProvider);
-      if (_state.hasError) {
+      if (_state.hasError && _state.hasValue == false) {
         Fluttertoast.showToast(
             msg: "Error occured: ${_state.asError?.error.toString()}");
         return;

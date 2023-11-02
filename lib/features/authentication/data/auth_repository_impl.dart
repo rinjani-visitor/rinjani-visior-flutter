@@ -95,7 +95,7 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Future<AuthModel> getSavedSession() async {
+  Future<AuthModel?> getSavedSession() async {
     final sessionModel = await localSource.getSession();
     try {
       debugPrint("$NAME : $sessionModel");

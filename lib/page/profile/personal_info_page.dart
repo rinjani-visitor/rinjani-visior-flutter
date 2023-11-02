@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:rinjani_visitor/features/profile/presentation/profile_view_model.dart';
+import 'package:rinjani_visitor/features/authentication/presentation/auth_view_model.dart';
 import 'package:rinjani_visitor/theme/theme.dart';
 
 class PersonalInfoPage extends ConsumerWidget {
@@ -18,7 +18,7 @@ class PersonalInfoPage extends ConsumerWidget {
               style:
                   blackTextStyle.copyWith(fontSize: 16, fontWeight: semibold),
             ),
-            SizedBox(
+            const SizedBox(
               height: 8,
             ),
             Container(
@@ -46,7 +46,7 @@ class PersonalInfoPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.read(profileViewModelProvider);
+    final state = ref.watch(authViewModelProvider);
     return CupertinoPageScaffold(
         backgroundColor: backgroundColor,
         navigationBar: const CupertinoNavigationBar(
@@ -58,12 +58,12 @@ class PersonalInfoPage extends ConsumerWidget {
                 child: ListView(
                   children: [
                     userInfo(
-                        'Username', state.name),
-                    userInfo('Email', state.email),
+                        'Username', state.value?.username ?? ""),
+                    userInfo('Email', state.value?.email ?? ""),
                     userInfo('Phone number',
-                        state.phoneNumber),
+                        ""),
                     userInfo('Birth date',
-                        state.birthDate),
+                        ""),
                   ],
                 ))));
   }

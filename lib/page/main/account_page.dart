@@ -15,19 +15,19 @@ class AccountPage extends ConsumerWidget {
           CircularProfileAvatar(
             //code buat akses file di onTap
             onTap: () {},
-
-            child: Image.asset('assets/Google.png'),
             borderColor: mediumGray,
             backgroundColor: lightGray,
-            initialsText: Text('AD'),
+            initialsText: const Text('AD'),
             '',
+
+            child: Image.asset('assets/Google.png'),
           ),
-          SizedBox(
+          const SizedBox(
             height: 8,
           ),
           //username dari user
           Text(
-            'Username',
+            username,
             style: blackTextStyle.copyWith(fontSize: 24, fontWeight: bold),
           )
         ],
@@ -50,12 +50,12 @@ class AccountPage extends ConsumerWidget {
                 onTap: () {
                   Navigator.pushNamed(context, '/personal-info');
                 },
-                padding: EdgeInsets.all(0),
+                padding: const EdgeInsets.all(0),
                 leading: Icon(
                   Icons.person,
                   color: blackColor,
                 ),
-                title: Text('Personal Information'),
+                title: const Text('Personal Information'),
                 trailing: Icon(
                   Icons.chevron_right,
                   color: blackColor,
@@ -69,12 +69,12 @@ class AccountPage extends ConsumerWidget {
                 onTap: () {
                   Navigator.pushNamed(context, '/user-setting');
                 },
-                padding: EdgeInsets.all(0),
+                padding: const EdgeInsets.all(0),
                 leading: Icon(
                   Icons.settings,
                   color: blackColor,
                 ),
-                title: Text('Account settings'),
+                title: const Text('Account settings'),
                 trailing: Icon(
                   Icons.chevron_right,
                   color: blackColor,
@@ -91,7 +91,7 @@ class AccountPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final username =
-        ref.read(authViewModelProvider).asData?.value.username ?? "User";
+        ref.read(authViewModelProvider).asData?.value?.username ?? "User";
     return CupertinoPageScaffold(
         child: CustomScrollView(
       slivers: [
@@ -102,7 +102,7 @@ class AccountPage extends ConsumerWidget {
           child: Container(
             width: double.infinity,
             height: 314,
-            margin: EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+            margin: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
             child: Column(
               children: [userProfile(username), information(context)],
             ),

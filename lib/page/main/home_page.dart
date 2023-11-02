@@ -124,7 +124,7 @@ class HomePage extends ConsumerWidget {
     double deviceHeight = MediaQuery.of(context).size.height;
     double appBarHeight = deviceHeight * 0.15;
     final username =
-        ref.read(authViewModelProvider).asData?.value.username ?? "User";
+        ref.read(authViewModelProvider).asData?.value?.username ?? "User";
     return Scaffold(
       backgroundColor: backgroundColor,
       appBar: PreferredSize(
