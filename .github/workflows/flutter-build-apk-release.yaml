@@ -17,6 +17,6 @@ jobs:
       - name: Build APK Release
         run: flutter build apk --release
       - name: Release APK
-        uses: actions/action-gh-release@v1
+        uses: softprops/action-gh-release@v1
         with:
           files: build/app/outputs/flutter-apk/app-release.apk
