@@ -6,26 +6,30 @@ import 'package:rinjani_visitor/widget/button/primary_button.dart';
 const bookingStatus = [
   {
     "title": "Booking success",
+    "subtitle": "Your booking\nhas been requested",
     "description":
-        "Your booking has been recieved, we will inform you via email or notification later, once the transaction has been accepted",
+        "We will inform you via email or notification later, once the transaction has been accepted",
     "image": "assets/booking-success.png",
   },
   {
     "title": "Booking failed",
-    "description": "Your booking has been failed, or there is something wrong.",
+    "subtitle": "Your booking has been failed to send",
+    "description": "there is something wrong,",
     "image": "assets/booking-failed.png",
   }
 ];
 
 class BookingStatusPage extends StatelessWidget {
-  const BookingStatusPage({Key? key}) : super(key: key);
+  BookingStatusPage({Key? key}) : super(key: key);
+
+  final data = bookingStatus[0];
 
   @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
         automaticallyImplyLeading: false,
-        middle: Text('Booking success'),
+        middle: Text(data["title"]??""),
       ),
       child: SafeArea(
         child: Padding(
@@ -34,7 +38,7 @@ class BookingStatusPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'Your booking\nhas been recieved',
+                data["subtitle"]??"",
                 style: blackTextStyle.copyWith(fontSize: 32, fontWeight: bold),
                 textAlign: TextAlign.center,
               ),
@@ -43,7 +47,7 @@ class BookingStatusPage extends StatelessWidget {
                 height: 255,
               ),
               Text(
-                'we will inform you via email or notification later, once the transaction has been accepted',
+                data["description"]??"",
                 style: blackTextStyle.copyWith(
                   fontSize: 16,
                 ),
