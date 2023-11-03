@@ -1,4 +1,3 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -28,7 +27,7 @@ const dataMock = ProductModel(
     tripDuration: "2 days, 1 night",
     description: "Basic package",
     accomodation: "self driving, etc is provided by buying this package",
-    addOn: [AddOnModel(name: "Self driving",pricing: "500.000", id: "123456")],
+    addOn: [AddOnModel(name: "Self driving", pricing: "500.000", id: "123456")],
     reviewIds: [""],
     avaiabilityStatus: "avaiable",
     initenaryList: ["08.00 - Wake up"],
@@ -163,78 +162,82 @@ class _DetailPageState extends ConsumerState<ProductDetailPage> {
         navigationBar: const CupertinoNavigationBar(
           middle: Text('Detail Trip'),
         ),
-        child: CustomScrollView(
-          slivers: [
-            SliverToBoxAdapter(
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
+        child: SafeArea(
+          child: CustomScrollView(
+            slivers: [
+              SliverToBoxAdapter(
                 child: Column(
                   children: [
                     heroImage(),
-                    header(),
-                    DetailSegmentedWidget(
-                      description: DetailDescriptionWidget(
-                        description: data.description,
-                        accomodation: data.accomodation,
-                        addOn: List.generate(data.addOn.length, (index) {
-                          final current = data.addOn[index];
-                          return AddOnWidget(
-                            name: current.name,
-                            price: current.pricing,
-                            value: false,
-                            onChanged: (value) {
-                              final id = current.id;
-                              debugPrint(id);
+                    Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        child: header()),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                      child: DetailSegmentedWidget(
+                        description: DetailDescriptionWidget(
+                          description: data.description,
+                          accomodation: data.accomodation,
+                          addOn: List.generate(data.addOn.length, (index) {
+                            final current = data.addOn[index];
+                            return AddOnWidget(
+                              name: current.name,
+                              price: current.pricing,
+                              value: false,
+                              onChanged: (value) {
+                                final id = current.id;
+                                debugPrint(id);
+                              },
+                            );
+                          }),
+                          datePicker: DatePickerWidget(
+                            initialDate: _viewModel.getDate(),
+                            onChange: (dateVal) {
+                              _dateController.text = dateVal ?? "";
+                              setState(() {
+                                _viewModel.setDate(dateVal);
+                              });
                             },
-                          );
-                        }),
-                        datePicker: DatePickerWidget(
-                          initialDate: _viewModel.getDate(),
-                          onChange: (dateVal) {
-                            _dateController.text = dateVal ?? "";
-                            setState(() {
-                              _viewModel.setDate(dateVal);
-                            });
-                          },
+                          ),
+                          timeList: TimeList(
+                              initialSelectedTimeListData:
+                                  orderData.time.toList(),
+                              timeListData: data.timeList24H,
+                              onTimeListTap: (value, isSelected) {
+                                if (isSelected) {
+                                  _state.time.add(value);
+                                } else {
+                                  orderData.time.remove(value);
+                                }
+                              }),
+                          review: ReviewWidget(
+                            reviewChildren: [
+                              ReviewCardWidget(
+                                  name: "Kevin",
+                                  createdTime: " weeks ago",
+                                  message: "This place is amazing, I love it"),
+                              ReviewCardWidget(
+                                  name: "Kevin",
+                                  createdTime: " weeks ago",
+                                  message: "This place is amazing, I love it"),
+                            ],
+                          ),
+                          buyProduct: PrimaryButton(
+                              onPressed: () => _showModalPopup(),
+                              child: Text(
+                                'Buy Product',
+                                style: whiteTextStyle.copyWith(fontSize: 16),
+                              )),
                         ),
-                        timeList: TimeList(
-                            initialSelectedTimeListData:
-                                orderData.time.toList(),
-                            timeListData: data.timeList24H,
-                            onTimeListTap: (value, isSelected) {
-                              if (isSelected) {
-                                _state.time.add(value);
-                              } else {
-                                orderData.time.remove(value);
-                              }
-                            }),
-                        review: ReviewWidget(
-                          reviewChildren: [
-                            ReviewCardWidget(
-                                name: "Kevin",
-                                createdTime: " weeks ago",
-                                message: "This place is amazing, I love it"),
-                            ReviewCardWidget(
-                                name: "Kevin",
-                                createdTime: " weeks ago",
-                                message: "This place is amazing, I love it"),
-                          ],
-                        ),
-                        buyProduct: PrimaryButton(
-                            onPressed: () => _showModalPopup(),
-                            child: Text(
-                              'Buy Product',
-                              style: whiteTextStyle.copyWith(fontSize: 16),
-                            )),
+                        initenary: DetailIniteraryWidget(
+                            initenaryList: data.initenaryList),
                       ),
-                      initenary: DetailIniteraryWidget(
-                          initenaryList: data.initenaryList),
                     ),
                   ],
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ));
   }
 }
