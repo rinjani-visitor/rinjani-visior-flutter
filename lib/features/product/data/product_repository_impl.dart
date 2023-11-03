@@ -44,14 +44,31 @@ class ProductRepositoryImpl implements ProductRespository {
           tripDuration: "2 days, 1 night",
           description: "Basic package",
           accomodation: "accomodation",
-          addOn: [AddOnModel(name: "Driver", pricing:"500.000", id: "123456")],
+          addOn: [AddOnModel(name: "Driver", pricing: "500.000", id: "123456")],
+          reviewIds: [""],
+          avaiabilityStatus: "avaiable",
+          initenaryList: [""],
+          reviewCount: 32,
+          timeList24H: ["08.00", "12.00"]),
+      const ProductModel(
+          packageId: "thisispackageid",
+          title: "Rinjani Trip 2",
+          location: "Lombok Utara, Indonesia",
+          locationUrl: "",
+          imgUrl: "",
+          rangePricing: "10\$ - 20\$/person",
+          rating: "4.9",
+          tripDuration: "2 days, 1 night",
+          description: "Basic package",
+          accomodation: "accomodation",
+          addOn: [AddOnModel(name: "Driver", pricing: "500.000", id: "123456")],
           reviewIds: [""],
           avaiabilityStatus: "avaiable",
           initenaryList: [""],
           reviewCount: 32,
           timeList24H: ["08.00", "12.00"])
     ];
-    //TODO: remove this
+    //TODO: remove this when backend is complete
     await Future.delayed(Duration(seconds: 2));
     return dataMock;
   }

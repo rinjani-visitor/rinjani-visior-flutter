@@ -8,16 +8,14 @@ class WishlistPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
       backgroundColor: backgroundColor,
-      child: CustomScrollView(
+      child: const CustomScrollView(
         slivers: [
-          const CupertinoSliverNavigationBar(
+          CupertinoSliverNavigationBar(
             largeTitle: Text('Wishlist'),
           ),
           SliverFillRemaining(
             child: Center(
-              child: Column(
-                children: [Text('no content')],
-              ),
+              child: Text('no content'),
             ),
           )
         ],
