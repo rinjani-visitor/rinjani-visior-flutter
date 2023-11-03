@@ -33,9 +33,8 @@ class _UserSettingPageState extends ConsumerState<UserSettingPage> {
         ),
         backgroundColor: backgroundColor,
         child: SafeArea(
-            child: Container(
-          height: 690,
-          margin: EdgeInsets.only(top: 16),
+            child: Padding(
+          padding: const EdgeInsets.only(top: 16.0),
           child: Column(
             children: [
               CupertinoListTile(
