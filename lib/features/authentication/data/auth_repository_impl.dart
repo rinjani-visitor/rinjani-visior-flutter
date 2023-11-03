@@ -24,7 +24,6 @@ class AuthRepositoryImpl implements AuthRepository {
 //========================//
   @override
   Future<void> logout() async {
-    await localSource.removeToken();
     await localSource.clearSession();
   }
 
@@ -67,8 +66,8 @@ class AuthRepositoryImpl implements AuthRepository {
   @override
   Future<AuthModel> logIn(
       {required String email, required String password}) async {
-    debugPrint("${NAME}: Login...");
 
+    debugPrint("${NAME}: Login...");
     if (email.isEmpty || password.isEmpty) {
       final exception = ExtException("Email / password should not be null");
       debugPrint("${NAME}: Error: ${exception.toString()}");
