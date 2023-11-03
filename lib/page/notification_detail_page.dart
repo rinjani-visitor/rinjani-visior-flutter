@@ -1,7 +1,7 @@
 import 'package:intl/intl.dart' as intl;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:rinjani_visitor/core/enum/booking_enum.dart';
+import 'package:rinjani_visitor/core/enumerate/booking_enum.dart';
 import 'package:rinjani_visitor/theme/theme.dart';
 import 'package:rinjani_visitor/widget/cancel_button_widget.dart';
 

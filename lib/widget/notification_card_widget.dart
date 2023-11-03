@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:rinjani_visitor/core/enum/booking_enum.dart';
+import 'package:rinjani_visitor/core/enumerate/booking_enum.dart';
 import 'package:rinjani_visitor/page/notification_detail_page.dart';
 import 'package:rinjani_visitor/theme/theme.dart';
 
