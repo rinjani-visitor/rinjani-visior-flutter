@@ -1,7 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:rinjani_visitor/features/product/domain/category_enum.dart';
 import 'package:rinjani_visitor/features/product/presentation/view_model/product_view_model.dart';
+import 'package:rinjani_visitor/page/booking/product_detail_page.dart';
+import 'package:rinjani_visitor/page/category_explore_page.dart';
 import 'package:rinjani_visitor/theme/theme.dart';
 import 'package:rinjani_visitor/widget/big_card.dart';
 import 'package:rinjani_visitor/widget/category_item.dart';
@@ -30,24 +33,60 @@ class _HomePageState extends ConsumerState<HomePage> {
           const SizedBox(
             height: 16,
           ),
-          const Row(
+          Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               CategoryItem(
                 label: 'Rinjani',
                 iconName: Icons.landscape,
+                onTap: (label) {
+                  Navigator.push(
+                      context,
+                      CupertinoPageRoute(
+                          builder: (context) => CategoryExplorePage(
+                                title: label,
+                                category: ProductCategory.rinjani,
+                              )));
+                },
               ),
               CategoryItem(
                 label: 'Home Stay',
                 iconName: Icons.hotel,
+                onTap: (label) {
+                  Navigator.push(
+                      context,
+                      CupertinoPageRoute(
+                          builder: (context) => CategoryExplorePage(
+                                title: label,
+                                category: ProductCategory.homeStay,
+                              )));
+                },
               ),
               CategoryItem(
                 label: 'Culture',
                 iconName: Icons.self_improvement,
+                onTap: (label) {
+                  Navigator.push(
+                      context,
+                      CupertinoPageRoute(
+                          builder: (context) => CategoryExplorePage(
+                                title: label,
+                                category: ProductCategory.culture,
+                              )));
+                },
               ),
               CategoryItem(
                 label: 'Landscape',
                 iconName: Icons.hiking,
+                onTap: (label) {
+                  Navigator.push(
+                      context,
+                      CupertinoPageRoute(
+                          builder: (context) => CategoryExplorePage(
+                                title: label,
+                                category: ProductCategory.landscape,
+                              )));
+                },
               ),
             ],
           )
@@ -81,6 +120,14 @@ class _HomePageState extends ConsumerState<HomePage> {
                 children: List.generate(data.length, (index) {
                   final current = data[index];
                   return SmallCard(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            CupertinoPageRoute(
+                                builder: (context) => ProductDetailPage(
+                                      data: current,
+                                    )));
+                      },
                       title: current.title,
                       rating: current.rating,
                       image: AssetImage(current.imgUrl));

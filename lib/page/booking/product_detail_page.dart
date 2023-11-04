@@ -18,7 +18,8 @@ import 'package:rinjani_visitor/widget/segmented_widget.dart';
 import 'package:rinjani_visitor/widget/status.dart';
 
 class ProductDetailPage extends ConsumerStatefulWidget {
-  const ProductDetailPage({Key? key}) : super(key: key);
+  final ProductModel data;
+  const ProductDetailPage({Key? key, required this.data}) : super(key: key);
 
   @override
   ConsumerState<ProductDetailPage> createState() => _DetailPageState();
@@ -26,7 +27,7 @@ class ProductDetailPage extends ConsumerStatefulWidget {
 
 class _DetailPageState extends ConsumerState<ProductDetailPage> {
   // TODO: override later with server data
-  final ProductModel data = mockPackages[0];
+  late final ProductModel data = widget.data;
 
   late final _viewModel = ref.read(orderViewModelProvider.notifier);
   late var _state = ref.read(orderViewModelProvider);
@@ -81,6 +82,7 @@ class _DetailPageState extends ConsumerState<ProductDetailPage> {
             children: [
               Text(
                 data.title,
+                overflow: TextOverflow.ellipsis,
                 style: blackTextStyle.copyWith(fontSize: 24, fontWeight: bold),
               ),
               const Spacer(),
@@ -101,9 +103,13 @@ class _DetailPageState extends ConsumerState<ProductDetailPage> {
               const SizedBox(
                 width: 8,
               ),
-              Text(
-                data.location,
-                style: grayTextStyle.copyWith(fontSize: 16, fontWeight: medium),
+              Flexible(
+                child: Text(
+                  data.location,
+                  overflow: TextOverflow.ellipsis,
+                  style:
+                      grayTextStyle.copyWith(fontSize: 16, fontWeight: medium),
+                ),
               )
             ],
           ),
@@ -164,7 +170,7 @@ class _DetailPageState extends ConsumerState<ProductDetailPage> {
                           addOn: List.generate(data.addOn.length, (index) {
                             final current = data.addOn[index];
                             return Tooltip(
-                              message: current.description,
+                              message: current.description ?? "",
                               child: AddOnWidget(
                                 name: current.name,
                                 price: current.pricing,

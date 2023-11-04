@@ -28,6 +28,7 @@ class SmallCard extends StatelessWidget {
         decoration: BoxDecoration(
             color: whiteColor, borderRadius: BorderRadius.circular(18)),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
               height: 165,
