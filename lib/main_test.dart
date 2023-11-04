@@ -5,7 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rinjani_visitor/core/constant/country.dart';
-import 'package:rinjani_visitor/page/select_payment_page.dart';
+import 'package:rinjani_visitor/page/booking/continue_payment_page.dart';
 import 'package:rinjani_visitor/widget/form/dropdown_textfield.dart';
 
 void main() {
@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
       theme: CupertinoThemeData(
         brightness: Brightness.light,
       ),
-      home: SelectPaymentPage(),
+      home: ContinuePaymentPage(),
     );
   }
 }

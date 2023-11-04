@@ -32,10 +32,13 @@ class InputField extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          '$label',
-          style: blackTextStyle.copyWith(fontSize: 14, fontWeight: semibold),
-        ),
+        label != null
+            ? Text(
+                '$label',
+                style:
+                    blackTextStyle.copyWith(fontSize: 14, fontWeight: semibold),
+              )
+            : const SizedBox(),
         const SizedBox(
           height: 4,
         ),
@@ -68,7 +71,7 @@ class InputField extends StatelessWidget {
 class InputFormField extends FormField<String> {
   InputFormField(
       {super.key,
-      String label = "",
+      String? label,
       String initialValue = "",
       bool secureText = false,
       String? placeholder,
