@@ -9,13 +9,13 @@ class AddOnWidget extends StatefulWidget {
   /// shows the price of addon. not include price unit formatting
   final String price;
   /// initial value.
-  final bool value;
+  final bool selected;
   final void Function(bool? value)? onChanged;
   const AddOnWidget(
       {Key? key,
       required this.name,
       required this.price,
-      required this.value,
+      required this.selected,
       required this.onChanged})
       : super(key: key);
 
@@ -39,7 +39,7 @@ class _AddOnWidgetState extends State<AddOnWidget> {
               const SizedBox(
                 width: 8,
               ),
-              const Text('Driver - Rp.200.000')
+              Text('${widget.name} - ${widget.price}')
             ],
           ),
           const Spacer(),
@@ -52,7 +52,7 @@ class _AddOnWidgetState extends State<AddOnWidget> {
                   widget.onChanged!(value);
                 }
               },
-              value: widget.value,
+              value: widget.selected,
             ),
           )
         ],
@@ -81,7 +81,7 @@ class _AddOnWidgetMockState extends State<AddOnWidgetMock> {
       },
       name: "Driver",
       price: "Rp.200.000",
-      value: val,
+      selected: val,
     );
   }
 }
