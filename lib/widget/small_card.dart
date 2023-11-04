@@ -6,16 +6,23 @@ class SmallCard extends StatelessWidget {
   final String title;
   final ImageProvider image;
   final String? rating;
-  const SmallCard({Key? key, required this.title, this.rating, required this.image}) : super(key: key);
+  final void Function()? onTap;
+
+  const SmallCard(
+      {Key? key,
+      required this.title,
+      this.rating,
+      required this.image,
+      this.onTap})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        Navigator.pushNamed(context, '/detail');
-      },
+      onTap: onTap,
       child: Container(
         width: 177,
+        height: 275,
         margin: const EdgeInsets.only(left: 16),
         padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
         decoration: BoxDecoration(
@@ -26,33 +33,26 @@ class SmallCard extends StatelessWidget {
               height: 165,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(smallRadius),
-                image: DecorationImage(
-                    fit: BoxFit.fill, image: image),
+              ),
+              child: AspectRatio(
+                aspectRatio: 1 / 1,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(9),
+                  child: Image(fit: BoxFit.cover, image: image),
+                ),
               ),
             ),
             const SizedBox(
               height: 8,
             ),
-            Container(
-              width: double.infinity,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Rinjani Trip',
-                    style: blackTextStyle.copyWith(
-                        fontSize: 16, fontWeight: semibold),
-                  ),
-                  const SizedBox(
-                    height: 4,
-                  ),
-                  RatingWidget(rating: rating),
-                  const SizedBox(
-                    height: 8,
-                  ),
-                ],
+            Expanded(
+              child: Text(
+                title,
+                style:
+                    blackTextStyle.copyWith(fontSize: 16, fontWeight: semibold),
               ),
-            )
+            ),
+            RatingWidget(rating: rating)
           ],
         ),
       ),

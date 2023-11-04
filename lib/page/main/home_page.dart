@@ -1,16 +1,22 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:rinjani_visitor/features/authentication/presentation/auth_view_model.dart';
+import 'package:rinjani_visitor/features/product/presentation/product_view_model.dart';
 import 'package:rinjani_visitor/theme/theme.dart';
 import 'package:rinjani_visitor/widget/big_card.dart';
 import 'package:rinjani_visitor/widget/category_item.dart';
 import 'package:rinjani_visitor/widget/small_card.dart';
 import 'package:rinjani_visitor/widget/status.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
-class HomePage extends ConsumerWidget {
+class HomePage extends ConsumerStatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
+  @override
+  ConsumerState<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends ConsumerState<HomePage> {
   Widget _categoriesWidgets() {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -51,6 +57,8 @@ class HomePage extends ConsumerWidget {
   }
 
   Widget _recommendedWidgets() {
+    final _packageData = ref.watch(productViewModelProvider);
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -65,15 +73,42 @@ class HomePage extends ConsumerWidget {
           height: 10,
         ),
         // fixed horizontal list, source: https://gist.github.com/Abushawish/048acfdaf956640ea6fa8b3991dbbd81
-        SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: Row(
-            children: List.generate(3, (index) {
-              return const SmallCard(
-                  title: "rinjani Trip",
-                  image: AssetImage('assets/rinjani.jpeg'));
-            }),
-          ),
+        _packageData.when(
+          data: (data) {
+            return SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+
+                children: List.generate(data.length, (index) {
+                  final current = data[index];
+                  return SmallCard(
+                      title: current.title,
+                      rating: current.rating,
+                      image: AssetImage(current.imgUrl));
+                }),
+              ),
+            );
+          },
+          error: (error, stackTrace) {
+            return Container(
+              child: Text("error $error"),
+            );
+          },
+          loading: () {
+            return SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Skeletonizer(
+                enabled: true,
+                child: Row(
+                  children: List.generate(3, (index) {
+                    return const SmallCard(
+                        title: "Placeholder",
+                        image: AssetImage('assets/rinjani.jpeg'));
+                  }),
+                ),
+              ),
+            );
+          },
         )
       ],
     );
@@ -97,6 +132,7 @@ class HomePage extends ConsumerWidget {
             height: 16,
           ),
           // TODO: update this with new repository structure
+
           ListView.builder(
             physics: const NeverScrollableScrollPhysics(),
             shrinkWrap: true,
@@ -120,11 +156,10 @@ class HomePage extends ConsumerWidget {
   }
 
   @override
-  Widget build(BuildContext context, ref) {
+  Widget build(BuildContext context) {
     double deviceHeight = MediaQuery.of(context).size.height;
     double appBarHeight = deviceHeight * 0.15;
-    final username =
-        ref.read(authViewModelProvider).asData?.value?.username ?? "User";
+    final username = "User";
     return Scaffold(
       backgroundColor: backgroundColor,
       appBar: PreferredSize(
