@@ -17,24 +17,6 @@ import 'package:rinjani_visitor/widget/review_widget.dart';
 import 'package:rinjani_visitor/widget/segmented_widget.dart';
 import 'package:rinjani_visitor/widget/status.dart';
 
-const dataMock = ProductModel(
-    packageId: "thisispackageid",
-    title: "Rinjani Trip",
-    location: "Lombok Utara, Indonesia",
-    locationUrl: "",
-    imgUrl: "",
-    rangePricing: "10\$ - 20\$/person",
-    rating: "4.9",
-    tripDuration: "2 days, 1 night",
-    description: "Basic package",
-    accomodation: "self driving, etc is provided by buying this package",
-    addOn: [AddOnModel(name: "Self driving", pricing: "500.000", id: "123456")],
-    reviewIds: [""],
-    avaiabilityStatus: "avaiable",
-    initenaryList: ["08.00 - Wake up"],
-    reviewCount: 32,
-    timeList24H: ["08.00", "12.00", "15.00", "18.00"]);
-
 class ProductDetailPage extends ConsumerStatefulWidget {
   const ProductDetailPage({Key? key}) : super(key: key);
 

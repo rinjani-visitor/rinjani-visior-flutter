@@ -28,7 +28,8 @@ mixin _$ProductModel {
   String? get avaiabilityStatus => throw _privateConstructorUsedError;
 
   /// example: 80$- 90$ / person
-  String get rangePricing => throw _privateConstructorUsedError;
+  int get priceLow => throw _privateConstructorUsedError;
+  int get priceHigh => throw _privateConstructorUsedError;
   String get rating => throw _privateConstructorUsedError;
   String get tripDuration => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
@@ -58,7 +59,8 @@ abstract class $ProductModelCopyWith<$Res> {
       String imgUrl,
       String? locationUrl,
       String? avaiabilityStatus,
-      String rangePricing,
+      int priceLow,
+      int priceHigh,
       String rating,
       String tripDuration,
       String description,
@@ -89,7 +91,8 @@ class _$ProductModelCopyWithImpl<$Res, $Val extends ProductModel>
     Object? imgUrl = null,
     Object? locationUrl = freezed,
     Object? avaiabilityStatus = freezed,
-    Object? rangePricing = null,
+    Object? priceLow = null,
+    Object? priceHigh = null,
     Object? rating = null,
     Object? tripDuration = null,
     Object? description = null,
@@ -125,10 +128,14 @@ class _$ProductModelCopyWithImpl<$Res, $Val extends ProductModel>
           ? _value.avaiabilityStatus
           : avaiabilityStatus // ignore: cast_nullable_to_non_nullable
               as String?,
-      rangePricing: null == rangePricing
-          ? _value.rangePricing
-          : rangePricing // ignore: cast_nullable_to_non_nullable
-              as String,
+      priceLow: null == priceLow
+          ? _value.priceLow
+          : priceLow // ignore: cast_nullable_to_non_nullable
+              as int,
+      priceHigh: null == priceHigh
+          ? _value.priceHigh
+          : priceHigh // ignore: cast_nullable_to_non_nullable
+              as int,
       rating: null == rating
           ? _value.rating
           : rating // ignore: cast_nullable_to_non_nullable
@@ -184,7 +191,8 @@ abstract class _$$PackageModelImplCopyWith<$Res>
       String imgUrl,
       String? locationUrl,
       String? avaiabilityStatus,
-      String rangePricing,
+      int priceLow,
+      int priceHigh,
       String rating,
       String tripDuration,
       String description,
@@ -213,7 +221,8 @@ class __$$PackageModelImplCopyWithImpl<$Res>
     Object? imgUrl = null,
     Object? locationUrl = freezed,
     Object? avaiabilityStatus = freezed,
-    Object? rangePricing = null,
+    Object? priceLow = null,
+    Object? priceHigh = null,
     Object? rating = null,
     Object? tripDuration = null,
     Object? description = null,
@@ -249,10 +258,14 @@ class __$$PackageModelImplCopyWithImpl<$Res>
           ? _value.avaiabilityStatus
           : avaiabilityStatus // ignore: cast_nullable_to_non_nullable
               as String?,
-      rangePricing: null == rangePricing
-          ? _value.rangePricing
-          : rangePricing // ignore: cast_nullable_to_non_nullable
-              as String,
+      priceLow: null == priceLow
+          ? _value.priceLow
+          : priceLow // ignore: cast_nullable_to_non_nullable
+              as int,
+      priceHigh: null == priceHigh
+          ? _value.priceHigh
+          : priceHigh // ignore: cast_nullable_to_non_nullable
+              as int,
       rating: null == rating
           ? _value.rating
           : rating // ignore: cast_nullable_to_non_nullable
@@ -295,7 +308,7 @@ class __$$PackageModelImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$PackageModelImpl implements _PackageModel {
+class _$PackageModelImpl extends _PackageModel {
   const _$PackageModelImpl(
       {required this.packageId,
       required this.title,
@@ -303,7 +316,8 @@ class _$PackageModelImpl implements _PackageModel {
       required this.imgUrl,
       this.locationUrl,
       this.avaiabilityStatus,
-      required this.rangePricing,
+      required this.priceLow,
+      required this.priceHigh,
       required this.rating,
       required this.tripDuration,
       required this.description,
@@ -316,7 +330,8 @@ class _$PackageModelImpl implements _PackageModel {
       : _initenaryList = initenaryList,
         _timeList24H = timeList24H,
         _addOn = addOn,
-        _reviewIds = reviewIds;
+        _reviewIds = reviewIds,
+        super._();
 
   factory _$PackageModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$PackageModelImplFromJson(json);
@@ -336,7 +351,9 @@ class _$PackageModelImpl implements _PackageModel {
 
   /// example: 80$- 90$ / person
   @override
-  final String rangePricing;
+  final int priceLow;
+  @override
+  final int priceHigh;
   @override
   final String rating;
   @override
@@ -383,7 +400,7 @@ class _$PackageModelImpl implements _PackageModel {
 
   @override
   String toString() {
-    return 'ProductModel(packageId: $packageId, title: $title, location: $location, imgUrl: $imgUrl, locationUrl: $locationUrl, avaiabilityStatus: $avaiabilityStatus, rangePricing: $rangePricing, rating: $rating, tripDuration: $tripDuration, description: $description, accomodation: $accomodation, reviewCount: $reviewCount, initenaryList: $initenaryList, timeList24H: $timeList24H, addOn: $addOn, reviewIds: $reviewIds)';
+    return 'ProductModel(packageId: $packageId, title: $title, location: $location, imgUrl: $imgUrl, locationUrl: $locationUrl, avaiabilityStatus: $avaiabilityStatus, priceLow: $priceLow, priceHigh: $priceHigh, rating: $rating, tripDuration: $tripDuration, description: $description, accomodation: $accomodation, reviewCount: $reviewCount, initenaryList: $initenaryList, timeList24H: $timeList24H, addOn: $addOn, reviewIds: $reviewIds)';
   }
 
   @override
@@ -401,8 +418,10 @@ class _$PackageModelImpl implements _PackageModel {
                 other.locationUrl == locationUrl) &&
             (identical(other.avaiabilityStatus, avaiabilityStatus) ||
                 other.avaiabilityStatus == avaiabilityStatus) &&
-            (identical(other.rangePricing, rangePricing) ||
-                other.rangePricing == rangePricing) &&
+            (identical(other.priceLow, priceLow) ||
+                other.priceLow == priceLow) &&
+            (identical(other.priceHigh, priceHigh) ||
+                other.priceHigh == priceHigh) &&
             (identical(other.rating, rating) || other.rating == rating) &&
             (identical(other.tripDuration, tripDuration) ||
                 other.tripDuration == tripDuration) &&
@@ -431,7 +450,8 @@ class _$PackageModelImpl implements _PackageModel {
       imgUrl,
       locationUrl,
       avaiabilityStatus,
-      rangePricing,
+      priceLow,
+      priceHigh,
       rating,
       tripDuration,
       description,
@@ -456,7 +476,7 @@ class _$PackageModelImpl implements _PackageModel {
   }
 }
 
-abstract class _PackageModel implements ProductModel {
+abstract class _PackageModel extends ProductModel {
   const factory _PackageModel(
       {required final String packageId,
       required final String title,
@@ -464,7 +484,8 @@ abstract class _PackageModel implements ProductModel {
       required final String imgUrl,
       final String? locationUrl,
       final String? avaiabilityStatus,
-      required final String rangePricing,
+      required final int priceLow,
+      required final int priceHigh,
       required final String rating,
       required final String tripDuration,
       required final String description,
@@ -474,6 +495,7 @@ abstract class _PackageModel implements ProductModel {
       required final List<String> timeList24H,
       required final List<AddOnModel> addOn,
       final List<String>? reviewIds}) = _$PackageModelImpl;
+  const _PackageModel._() : super._();
 
   factory _PackageModel.fromJson(Map<String, dynamic> json) =
       _$PackageModelImpl.fromJson;
@@ -493,7 +515,9 @@ abstract class _PackageModel implements ProductModel {
   @override
 
   /// example: 80$- 90$ / person
-  String get rangePricing;
+  int get priceLow;
+  @override
+  int get priceHigh;
   @override
   String get rating;
   @override

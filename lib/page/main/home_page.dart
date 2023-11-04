@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:rinjani_visitor/features/product/presentation/product_view_model.dart';
+import 'package:rinjani_visitor/features/product/presentation/view_model/product_view_model.dart';
 import 'package:rinjani_visitor/theme/theme.dart';
 import 'package:rinjani_visitor/widget/big_card.dart';
 import 'package:rinjani_visitor/widget/category_item.dart';
@@ -78,7 +78,6 @@ class _HomePageState extends ConsumerState<HomePage> {
             return SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: Row(
-
                 children: List.generate(data.length, (index) {
                   final current = data[index];
                   return SmallCard(

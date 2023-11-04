@@ -8,6 +8,8 @@ part 'product_model.freezed.dart';
 /// '80$- 90$ / person'
 @freezed
 class ProductModel with _$ProductModel {
+  get rangePricing => '$priceLow\$ - $priceHigh\$ / person';
+  const ProductModel._();
   const factory ProductModel({
     required String packageId,
     required String title,
@@ -17,7 +19,8 @@ class ProductModel with _$ProductModel {
     String? avaiabilityStatus,
 
     /// example: 80$- 90$ / person
-    required String rangePricing,
+    required int priceLow,
+    required int priceHigh,
     required String rating,
     required String tripDuration,
     required String description,

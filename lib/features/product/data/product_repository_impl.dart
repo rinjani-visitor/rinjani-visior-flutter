@@ -5,7 +5,6 @@ import 'package:rinjani_visitor/features/product/domain/product_model.dart';
 import 'package:rinjani_visitor/features/product/domain/product_repository.dart';
 
 class ProductRepositoryImpl implements ProductRespository {
-
   final DataSourceMock remote;
 
   ProductRepositoryImpl({required this.remote});
@@ -37,7 +36,7 @@ class ProductRepositoryImpl implements ProductRespository {
       int? itemsPerPage = 10,
       String? category,
       String? avaiability}) async {
-    final result = await remote.getProducts();
+    final result = await remote.getProducts(limit: itemsPerPage ?? 10);
 
     //TODO: remove this when backend is complete
     return result;
@@ -45,5 +44,5 @@ class ProductRepositoryImpl implements ProductRespository {
 }
 
 final productRepositoryProvider = Provider((ref) {
- return  ProductRepositoryImpl( remote: DataSourceMock());
+  return ProductRepositoryImpl(remote: DataSourceMock());
 });

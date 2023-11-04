@@ -12,5 +12,6 @@ class ProductViewModel extends _$ProductViewModel {
     final packages = await repo.getPackages();
     return packages;
   }
+
   void sendPayment() {}
 }
