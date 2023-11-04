@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:like_button/like_button.dart';
+import 'package:rinjani_visitor/core/constant/product_package.dart';
 import 'package:rinjani_visitor/features/order/presentation/order_view_model.dart';
 import 'package:rinjani_visitor/features/product/domain/addon_model.dart';
 import 'package:rinjani_visitor/features/product/domain/product_model.dart';
@@ -43,7 +44,7 @@ class ProductDetailPage extends ConsumerStatefulWidget {
 
 class _DetailPageState extends ConsumerState<ProductDetailPage> {
   // TODO: override later with server data
-  final ProductModel data = dataMock;
+  final ProductModel data = mockPackages[0];
 
   late final _viewModel = ref.read(orderViewModelProvider.notifier);
   late var _state = ref.read(orderViewModelProvider);
@@ -180,14 +181,29 @@ class _DetailPageState extends ConsumerState<ProductDetailPage> {
                           accomodation: data.accomodation,
                           addOn: List.generate(data.addOn.length, (index) {
                             final current = data.addOn[index];
-                            return AddOnWidget(
-                              name: current.name,
-                              price: current.pricing,
-                              value: false,
-                              onChanged: (value) {
-                                final id = current.id;
-                                debugPrint(id);
-                              },
+                            return Tooltip(
+                              message: current.description,
+                              child: AddOnWidget(
+                                name: current.name,
+                                price: current.pricing,
+                                selected: _state.addOn
+                                    .map((e) => e.id)
+                                    .contains(current.id),
+                                onChanged: (value) {
+                                  if (_state.addOn
+                                      .map((e) => e.id)
+                                      .contains(current.id)) {
+                                    setState(() {
+                                      _viewModel.removeAddon(current);
+                                    });
+                                    return;
+                                  } else {
+                                    setState(() {
+                                      _viewModel.addAddon(current);
+                                    });
+                                  }
+                                },
+                              ),
                             );
                           }),
                           datePicker: DatePickerWidget(
