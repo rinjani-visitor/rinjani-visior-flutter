@@ -13,8 +13,7 @@ ExtException exceptionHandler(Object exception) {
   if (exception is DioException) {
     var message = "";
     var code = exception.response?.statusCode;
-    message = "${exception.message}";
-
+    message = "${exception.response?.data["message"].toString()}";
     if (exception.type == DioExceptionType.connectionError) {
       if (code != null && code >= 500) {
         message = "${code} Server Error, ${exception.response?.statusMessage}";
