@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:rinjani_visitor/features/order/domain/order_model.dart';
 import 'package:rinjani_visitor/features/product/data/product_repository_impl.dart';
+import 'package:rinjani_visitor/features/product/domain/addon_model.dart';
 import 'package:rinjani_visitor/features/product/domain/product_repository.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -16,7 +17,7 @@ class OrderViewModel extends _$OrderViewModel {
     _productRepository = ref.watch(productRepositoryProvider);
     return OrderModel(
         date: DateTime.timestamp().toIso8601String(),
-        addOnId: <String>{},
+        addOn: <AddOnModel>{},
         person: 0,
         time: <String>{});
   }
@@ -24,7 +25,7 @@ class OrderViewModel extends _$OrderViewModel {
   void reset() {
     state = OrderModel(
         date: DateTime.timestamp().toIso8601String(),
-        addOnId: <String>{},
+        addOn: <AddOnModel>{},
         person: 0,
         time: <String>{});
   }
@@ -62,11 +63,14 @@ class OrderViewModel extends _$OrderViewModel {
     return joinData;
   }
 
-  void addAddons(String addOnId) {
-    state.addOnId.add(addOnId);
+  void addAddon(AddOnModel addOn) {
+    state.addOn.add(addOn);
+    debugPrint("Addon: ${state.addOn.length}");
   }
 
-  void removeAddons(String addOnId) {
-    state.addOnId.remove(addOnId);
+  void removeAddon(AddOnModel addOn) {
+    debugPrint("remove addon");
+    state.addOn.removeWhere((element) => element.name == addOn.name);
+    debugPrint("Addon: ${state.addOn.length}");
   }
 }

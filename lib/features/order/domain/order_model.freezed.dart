@@ -30,8 +30,8 @@ mixin _$OrderModel {
   set date(String value) => throw _privateConstructorUsedError;
   Set<String> get time => throw _privateConstructorUsedError;
   set time(Set<String> value) => throw _privateConstructorUsedError;
-  Set<String> get addOnId => throw _privateConstructorUsedError;
-  set addOnId(Set<String> value) => throw _privateConstructorUsedError;
+  Set<AddOnModel> get addOn => throw _privateConstructorUsedError;
+  set addOn(Set<AddOnModel> value) => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -51,7 +51,7 @@ abstract class $OrderModelCopyWith<$Res> {
       String? proofOfPayment,
       String date,
       Set<String> time,
-      Set<String> addOnId});
+      Set<AddOnModel> addOn});
 }
 
 /// @nodoc
@@ -72,7 +72,7 @@ class _$OrderModelCopyWithImpl<$Res, $Val extends OrderModel>
     Object? proofOfPayment = freezed,
     Object? date = null,
     Object? time = null,
-    Object? addOnId = null,
+    Object? addOn = null,
   }) {
     return _then(_value.copyWith(
       packageId: freezed == packageId
@@ -95,10 +95,10 @@ class _$OrderModelCopyWithImpl<$Res, $Val extends OrderModel>
           ? _value.time
           : time // ignore: cast_nullable_to_non_nullable
               as Set<String>,
-      addOnId: null == addOnId
-          ? _value.addOnId
-          : addOnId // ignore: cast_nullable_to_non_nullable
-              as Set<String>,
+      addOn: null == addOn
+          ? _value.addOn
+          : addOn // ignore: cast_nullable_to_non_nullable
+              as Set<AddOnModel>,
     ) as $Val);
   }
 }
@@ -117,7 +117,7 @@ abstract class _$$OrderModelImplCopyWith<$Res>
       String? proofOfPayment,
       String date,
       Set<String> time,
-      Set<String> addOnId});
+      Set<AddOnModel> addOn});
 }
 
 /// @nodoc
@@ -136,7 +136,7 @@ class __$$OrderModelImplCopyWithImpl<$Res>
     Object? proofOfPayment = freezed,
     Object? date = null,
     Object? time = null,
-    Object? addOnId = null,
+    Object? addOn = null,
   }) {
     return _then(_$OrderModelImpl(
       packageId: freezed == packageId
@@ -159,10 +159,10 @@ class __$$OrderModelImplCopyWithImpl<$Res>
           ? _value.time
           : time // ignore: cast_nullable_to_non_nullable
               as Set<String>,
-      addOnId: null == addOnId
-          ? _value.addOnId
-          : addOnId // ignore: cast_nullable_to_non_nullable
-              as Set<String>,
+      addOn: null == addOn
+          ? _value.addOn
+          : addOn // ignore: cast_nullable_to_non_nullable
+              as Set<AddOnModel>,
     ));
   }
 }
@@ -176,7 +176,7 @@ class _$OrderModelImpl implements _OrderModel {
       this.proofOfPayment,
       required this.date,
       required this.time,
-      required this.addOnId});
+      required this.addOn});
 
   factory _$OrderModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$OrderModelImplFromJson(json);
@@ -192,11 +192,11 @@ class _$OrderModelImpl implements _OrderModel {
   @override
   Set<String> time;
   @override
-  Set<String> addOnId;
+  Set<AddOnModel> addOn;
 
   @override
   String toString() {
-    return 'OrderModel(packageId: $packageId, person: $person, proofOfPayment: $proofOfPayment, date: $date, time: $time, addOnId: $addOnId)';
+    return 'OrderModel(packageId: $packageId, person: $person, proofOfPayment: $proofOfPayment, date: $date, time: $time, addOn: $addOn)';
   }
 
   @JsonKey(ignore: true)
@@ -220,7 +220,7 @@ abstract class _OrderModel implements OrderModel {
       String? proofOfPayment,
       required String date,
       required Set<String> time,
-      required Set<String> addOnId}) = _$OrderModelImpl;
+      required Set<AddOnModel> addOn}) = _$OrderModelImpl;
 
   factory _OrderModel.fromJson(Map<String, dynamic> json) =
       _$OrderModelImpl.fromJson;
@@ -241,8 +241,8 @@ abstract class _OrderModel implements OrderModel {
   Set<String> get time;
   set time(Set<String> value);
   @override
-  Set<String> get addOnId;
-  set addOnId(Set<String> value);
+  Set<AddOnModel> get addOn;
+  set addOn(Set<AddOnModel> value);
   @override
   @JsonKey(ignore: true)
   _$$OrderModelImplCopyWith<_$OrderModelImpl> get copyWith =>

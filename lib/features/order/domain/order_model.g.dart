@@ -13,8 +13,9 @@ _$OrderModelImpl _$$OrderModelImplFromJson(Map<String, dynamic> json) =>
       proofOfPayment: json['proofOfPayment'] as String?,
       date: json['date'] as String,
       time: (json['time'] as List<dynamic>).map((e) => e as String).toSet(),
-      addOnId:
-          (json['addOnId'] as List<dynamic>).map((e) => e as String).toSet(),
+      addOn: (json['addOn'] as List<dynamic>)
+          .map((e) => AddOnModel.fromJson(e as Map<String, dynamic>))
+          .toSet(),
     );
 
 Map<String, dynamic> _$$OrderModelImplToJson(_$OrderModelImpl instance) =>
@@ -24,5 +25,5 @@ Map<String, dynamic> _$$OrderModelImplToJson(_$OrderModelImpl instance) =>
       'proofOfPayment': instance.proofOfPayment,
       'date': instance.date,
       'time': instance.time.toList(),
-      'addOnId': instance.addOnId.toList(),
+      'addOn': instance.addOn.toList(),
     };

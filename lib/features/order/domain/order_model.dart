@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:rinjani_visitor/features/product/domain/addon_model.dart';
 
 part 'order_model.g.dart';
 part 'order_model.freezed.dart';
@@ -11,7 +12,7 @@ class OrderModel with _$OrderModel {
     String? proofOfPayment,
     required String date,
     required Set<String> time,
-    required Set<String> addOnId,
+    required Set<AddOnModel> addOn,
   }) = _OrderModel;
 
   factory OrderModel.fromJson(Map<String, Object?> json) =>
