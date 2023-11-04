@@ -47,10 +47,7 @@ class MyApp extends StatelessWidget {
         GlobalCupertinoLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate
       ],
-      supportedLocales: const[
-        Locale("en"),
-        Locale("id")
-      ],
+      supportedLocales: const [Locale("en"), Locale("id")],
       theme: const CupertinoThemeData(
         brightness: Brightness.light,
       ),
@@ -66,7 +63,6 @@ class MyApp extends StatelessWidget {
         '/user-setting': (context) => const UserSettingPage(),
         '/change-pass': (context) => const ChangePassPage(),
         '/change-email': (context) => const ChangeEmailPage(),
-        '/detail': (context) => const ProductDetailPage(),
         '/booking-detail': (context) => const BookingDetailPage(),
         '/success-booking': (context) => BookingStatusPage(),
         '/success-offer': (context) => const OfferStatusPage(),

@@ -24,6 +24,7 @@ mixin _$ProductModel {
   String get title => throw _privateConstructorUsedError;
   String get location => throw _privateConstructorUsedError;
   String get imgUrl => throw _privateConstructorUsedError;
+  ProductCategory get category => throw _privateConstructorUsedError;
   String? get locationUrl => throw _privateConstructorUsedError;
   String? get avaiabilityStatus => throw _privateConstructorUsedError;
 
@@ -57,6 +58,7 @@ abstract class $ProductModelCopyWith<$Res> {
       String title,
       String location,
       String imgUrl,
+      ProductCategory category,
       String? locationUrl,
       String? avaiabilityStatus,
       int priceLow,
@@ -89,6 +91,7 @@ class _$ProductModelCopyWithImpl<$Res, $Val extends ProductModel>
     Object? title = null,
     Object? location = null,
     Object? imgUrl = null,
+    Object? category = null,
     Object? locationUrl = freezed,
     Object? avaiabilityStatus = freezed,
     Object? priceLow = null,
@@ -120,6 +123,10 @@ class _$ProductModelCopyWithImpl<$Res, $Val extends ProductModel>
           ? _value.imgUrl
           : imgUrl // ignore: cast_nullable_to_non_nullable
               as String,
+      category: null == category
+          ? _value.category
+          : category // ignore: cast_nullable_to_non_nullable
+              as ProductCategory,
       locationUrl: freezed == locationUrl
           ? _value.locationUrl
           : locationUrl // ignore: cast_nullable_to_non_nullable
@@ -189,6 +196,7 @@ abstract class _$$PackageModelImplCopyWith<$Res>
       String title,
       String location,
       String imgUrl,
+      ProductCategory category,
       String? locationUrl,
       String? avaiabilityStatus,
       int priceLow,
@@ -219,6 +227,7 @@ class __$$PackageModelImplCopyWithImpl<$Res>
     Object? title = null,
     Object? location = null,
     Object? imgUrl = null,
+    Object? category = null,
     Object? locationUrl = freezed,
     Object? avaiabilityStatus = freezed,
     Object? priceLow = null,
@@ -250,6 +259,10 @@ class __$$PackageModelImplCopyWithImpl<$Res>
           ? _value.imgUrl
           : imgUrl // ignore: cast_nullable_to_non_nullable
               as String,
+      category: null == category
+          ? _value.category
+          : category // ignore: cast_nullable_to_non_nullable
+              as ProductCategory,
       locationUrl: freezed == locationUrl
           ? _value.locationUrl
           : locationUrl // ignore: cast_nullable_to_non_nullable
@@ -308,12 +321,13 @@ class __$$PackageModelImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$PackageModelImpl extends _PackageModel {
+class _$PackageModelImpl extends _PackageModel with DiagnosticableTreeMixin {
   const _$PackageModelImpl(
       {required this.packageId,
       required this.title,
       required this.location,
       required this.imgUrl,
+      required this.category,
       this.locationUrl,
       this.avaiabilityStatus,
       required this.priceLow,
@@ -344,6 +358,8 @@ class _$PackageModelImpl extends _PackageModel {
   final String location;
   @override
   final String imgUrl;
+  @override
+  final ProductCategory category;
   @override
   final String? locationUrl;
   @override
@@ -399,8 +415,33 @@ class _$PackageModelImpl extends _PackageModel {
   }
 
   @override
-  String toString() {
-    return 'ProductModel(packageId: $packageId, title: $title, location: $location, imgUrl: $imgUrl, locationUrl: $locationUrl, avaiabilityStatus: $avaiabilityStatus, priceLow: $priceLow, priceHigh: $priceHigh, rating: $rating, tripDuration: $tripDuration, description: $description, accomodation: $accomodation, reviewCount: $reviewCount, initenaryList: $initenaryList, timeList24H: $timeList24H, addOn: $addOn, reviewIds: $reviewIds)';
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'ProductModel(packageId: $packageId, title: $title, location: $location, imgUrl: $imgUrl, category: $category, locationUrl: $locationUrl, avaiabilityStatus: $avaiabilityStatus, priceLow: $priceLow, priceHigh: $priceHigh, rating: $rating, tripDuration: $tripDuration, description: $description, accomodation: $accomodation, reviewCount: $reviewCount, initenaryList: $initenaryList, timeList24H: $timeList24H, addOn: $addOn, reviewIds: $reviewIds)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'ProductModel'))
+      ..add(DiagnosticsProperty('packageId', packageId))
+      ..add(DiagnosticsProperty('title', title))
+      ..add(DiagnosticsProperty('location', location))
+      ..add(DiagnosticsProperty('imgUrl', imgUrl))
+      ..add(DiagnosticsProperty('category', category))
+      ..add(DiagnosticsProperty('locationUrl', locationUrl))
+      ..add(DiagnosticsProperty('avaiabilityStatus', avaiabilityStatus))
+      ..add(DiagnosticsProperty('priceLow', priceLow))
+      ..add(DiagnosticsProperty('priceHigh', priceHigh))
+      ..add(DiagnosticsProperty('rating', rating))
+      ..add(DiagnosticsProperty('tripDuration', tripDuration))
+      ..add(DiagnosticsProperty('description', description))
+      ..add(DiagnosticsProperty('accomodation', accomodation))
+      ..add(DiagnosticsProperty('reviewCount', reviewCount))
+      ..add(DiagnosticsProperty('initenaryList', initenaryList))
+      ..add(DiagnosticsProperty('timeList24H', timeList24H))
+      ..add(DiagnosticsProperty('addOn', addOn))
+      ..add(DiagnosticsProperty('reviewIds', reviewIds));
   }
 
   @override
@@ -414,6 +455,8 @@ class _$PackageModelImpl extends _PackageModel {
             (identical(other.location, location) ||
                 other.location == location) &&
             (identical(other.imgUrl, imgUrl) || other.imgUrl == imgUrl) &&
+            (identical(other.category, category) ||
+                other.category == category) &&
             (identical(other.locationUrl, locationUrl) ||
                 other.locationUrl == locationUrl) &&
             (identical(other.avaiabilityStatus, avaiabilityStatus) ||
@@ -448,6 +491,7 @@ class _$PackageModelImpl extends _PackageModel {
       title,
       location,
       imgUrl,
+      category,
       locationUrl,
       avaiabilityStatus,
       priceLow,
@@ -482,6 +526,7 @@ abstract class _PackageModel extends ProductModel {
       required final String title,
       required final String location,
       required final String imgUrl,
+      required final ProductCategory category,
       final String? locationUrl,
       final String? avaiabilityStatus,
       required final int priceLow,
@@ -508,6 +553,8 @@ abstract class _PackageModel extends ProductModel {
   String get location;
   @override
   String get imgUrl;
+  @override
+  ProductCategory get category;
   @override
   String? get locationUrl;
   @override

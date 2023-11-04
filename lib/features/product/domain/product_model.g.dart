@@ -12,6 +12,7 @@ _$PackageModelImpl _$$PackageModelImplFromJson(Map<String, dynamic> json) =>
       title: json['title'] as String,
       location: json['location'] as String,
       imgUrl: json['imgUrl'] as String,
+      category: $enumDecode(_$ProductCategoryEnumMap, json['category']),
       locationUrl: json['locationUrl'] as String?,
       avaiabilityStatus: json['avaiabilityStatus'] as String?,
       priceLow: json['priceLow'] as int,
@@ -41,6 +42,7 @@ Map<String, dynamic> _$$PackageModelImplToJson(_$PackageModelImpl instance) =>
       'title': instance.title,
       'location': instance.location,
       'imgUrl': instance.imgUrl,
+      'category': _$ProductCategoryEnumMap[instance.category]!,
       'locationUrl': instance.locationUrl,
       'avaiabilityStatus': instance.avaiabilityStatus,
       'priceLow': instance.priceLow,
@@ -55,3 +57,10 @@ Map<String, dynamic> _$$PackageModelImplToJson(_$PackageModelImpl instance) =>
       'addOn': instance.addOn,
       'reviewIds': instance.reviewIds,
     };
+
+const _$ProductCategoryEnumMap = {
+  ProductCategory.rinjani: 'rinjani',
+  ProductCategory.homeStay: 'homeStay',
+  ProductCategory.culture: 'culture',
+  ProductCategory.landscape: 'landscape',
+};

@@ -1,5 +1,7 @@
+import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:rinjani_visitor/features/product/domain/addon_model.dart';
+import 'package:rinjani_visitor/features/product/domain/category_enum.dart';
 
 part 'product_model.g.dart';
 part 'product_model.freezed.dart';
@@ -15,6 +17,7 @@ class ProductModel with _$ProductModel {
     required String title,
     required String location,
     required String imgUrl,
+    required ProductCategory category,
     String? locationUrl,
     String? avaiabilityStatus,
 
