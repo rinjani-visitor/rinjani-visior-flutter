@@ -1,9 +1,11 @@
 import 'package:rinjani_visitor/features/product/domain/addon_model.dart';
+import 'package:rinjani_visitor/features/product/domain/category_enum.dart';
 import 'package:rinjani_visitor/features/product/domain/product_model.dart';
 
 final mockPackages = [
   const ProductModel(
       packageId: "1",
+      category: ProductCategory.rinjani,
       title: "Rinjani Trip Deluxe",
       location: "Lombok, Indonesia",
       imgUrl: "assets/rinjani.jpeg",
@@ -31,6 +33,7 @@ final mockPackages = [
       ]),
   const ProductModel(
       packageId: "2",
+      category: ProductCategory.rinjani,
       title: "Rinjani Trip Standard",
       location: "Lombok, Indonesia",
       imgUrl: "assets/rinjani.jpeg",
@@ -58,6 +61,7 @@ final mockPackages = [
       ]),
   const ProductModel(
       packageId: "3",
+      category: ProductCategory.rinjani,
       title: "Rinjani Trip Sharing",
       location: "Lombok, Indonesia",
       imgUrl: "assets/rinjani.jpeg",
@@ -83,13 +87,15 @@ final mockPackages = [
             pricing: "30\$",
             id: "456"),
       ]),
+  //Paket Budaya - Ritual
   const ProductModel(
       packageId: "4",
-      title: 'Maulid Adat Bayan',
+      category: ProductCategory.culture,
+      title: 'Maulid Adat Bayan Tour',
       location: 'Kampung Karang Bajo, Bayan - Lombok Utara',
-      imgUrl: 'assets/rinjani.jpeg',
-      priceLow: 41,
-      priceHigh: 48,
+      imgUrl: 'assets/products/Mulud Adat.JPG',
+      priceLow: 43,
+      priceHigh: 50,
       rating: "4,8",
       tripDuration: '3 Days - 2 Nights',
       description:
@@ -101,9 +107,10 @@ final mockPackages = [
       addOn: [AddOnModel(name: "Driver", pricing: "\$20", id: "339")]),
   const ProductModel(
       packageId: "5",
+      category: ProductCategory.culture,
       title: 'Lebaran Pandeq',
       location: 'Kampung Karang Bajo, Bayan - Lombok Utara',
-      imgUrl: 'assets/rinjani.jpeg',
+      imgUrl: 'assets/products/Lebaran Pandeq.JPG',
       priceLow: 41,
       priceHigh: 48,
       rating: "4,8",
@@ -112,14 +119,21 @@ final mockPackages = [
           'The traditional implementation of Eid al-Adha is also called Eid "Pendeq", Eid Pendeq is held for 2 days, the first day is Sunday, 2 August 2020, called Kayu Aiq day/preparation day, and the second day is Monday, 3 August 2020 which is called Gawe/culmination of the event.',
       accomodation: 'The accomodation includes local guide, foods and beverage, home stay, and traditional dress',
       reviewCount: 12,
-      initenaryList: ['First day - arrive at home stay '],
-      timeList24H: ["16:00"],
-      addOn: [AddOnModel(name: "Driver", pricing: "\$20", id: "339")]),
+      initenaryList: [
+        'First day - arrive at home stay, change your clothes with traditional dress'
+      ],
+      timeList24H: [
+        "16:00"
+      ],
+      addOn: [
+        AddOnModel(name: "Driver", pricing: "\$20", id: "339")
+      ]),
   const ProductModel(
       packageId: "6",
+      category: ProductCategory.culture,
       title: 'Lebaran Tinggi',
       location: 'Kampung Karang Bajo, Bayan - Lombok Utara',
-      imgUrl: 'assets/rinjani.jpeg',
+      imgUrl: 'assets/products/Lebaran Tinggi.JPG',
       priceLow: 41,
       priceHigh: 48,
       rating: "4,8",
@@ -133,6 +147,7 @@ final mockPackages = [
       addOn: [AddOnModel(name: "Driver", pricing: "\$20", id: "339")]),
   const ProductModel(
       packageId: "7",
+      category: ProductCategory.culture,
       title: 'Budidaya Madu Trigona',
       location: 'Kampung Karang Bajo, Bayan - Lombok Utara',
       imgUrl: 'assets/rinjani.jpeg',
@@ -149,7 +164,8 @@ final mockPackages = [
       addOn: [AddOnModel(name: "Driver", pricing: "\$20", id: "339")]),
   const ProductModel(
       packageId: "8",
-      title: 'Pengolahan Kopi',
+      category: ProductCategory.culture,
+      title: 'Coffee Processing Tour',
       location: 'Kampung Karang Bajo, Bayan - Lombok Utara',
       imgUrl: 'assets/rinjani.jpeg',
       priceLow: 41,
@@ -165,6 +181,7 @@ final mockPackages = [
       addOn: [AddOnModel(name: "Driver", pricing: "\$20", id: "339")]),
   const ProductModel(
       packageId: "9",
+      category: ProductCategory.culture,
       title: 'Agricultural Tour',
       location: 'Kampung Karang Bajo, Bayan - Lombok Utara',
       imgUrl: 'assets/rinjani.jpeg',
@@ -181,9 +198,10 @@ final mockPackages = [
       addOn: [AddOnModel(name: "Driver", pricing: "\$20", id: "339")]),
   const ProductModel(
       packageId: "10",
+      category: ProductCategory.culture,
       title: 'Gegerok Tandak',
       location: 'Kampung Karang Bajo, Bayan - Lombok Utara',
-      imgUrl: 'assets/rinjani.jpeg',
+      imgUrl: 'assets/products/Gegerok.JPG',
       priceLow: 41,
       priceHigh: 48,
       rating: "4,8",
@@ -197,6 +215,7 @@ final mockPackages = [
       addOn: [AddOnModel(name: "Driver", pricing: "\$20", id: "339")]),
   const ProductModel(
       packageId: "11",
+      category: ProductCategory.culture,
       title: 'Suling Dewa',
       location: 'Kampung Karang Bajo, Bayan - Lombok Utara',
       imgUrl: 'assets/rinjani.jpeg',
@@ -213,6 +232,7 @@ final mockPackages = [
       addOn: [AddOnModel(name: "Driver", pricing: "\$20", id: "339")]),
   const ProductModel(
       packageId: "12",
+      category: ProductCategory.culture,
       title: 'Genggong',
       location: 'Kampung Karang Bajo, Bayan - Lombok Utara',
       imgUrl: 'assets/rinjani.jpeg',
@@ -229,9 +249,10 @@ final mockPackages = [
       addOn: [AddOnModel(name: "Driver", pricing: "\$20", id: "339")]),
   const ProductModel(
       packageId: "13",
+      category: ProductCategory.culture,
       title: 'Joget Lawas',
       location: 'Kampung Karang Bajo, Bayan - Lombok Utara',
-      imgUrl: 'assets/rinjani.jpeg',
+      imgUrl: 'assets/products/Lawas.JPG',
       priceLow: 41,
       priceHigh: 48,
       rating: "4,8",
@@ -245,6 +266,7 @@ final mockPackages = [
       addOn: [AddOnModel(name: "Driver", pricing: "\$20", id: "339")]),
   const ProductModel(
       packageId: "14",
+      category: ProductCategory.culture,
       title: 'Gendang Beleq',
       location: 'Kampung Karang Bajo, Bayan - Lombok Utara',
       imgUrl: 'assets/rinjani.jpeg',
@@ -261,9 +283,10 @@ final mockPackages = [
       addOn: [AddOnModel(name: "Driver", pricing: "\$20", id: "339")]),
   const ProductModel(
       packageId: "15",
+      category: ProductCategory.culture,
       title: 'Cupak Gurantang',
       location: 'Kampung Karang Bajo, Bayan - Lombok Utara',
-      imgUrl: 'assets/rinjani.jpeg',
+      imgUrl: 'assets/products/Cupak Gurantang.JPG',
       priceLow: 41,
       priceHigh: 48,
       rating: "4,8",
@@ -277,6 +300,7 @@ final mockPackages = [
       addOn: [AddOnModel(name: "Driver", pricing: "\$20", id: "339")]),
   const ProductModel(
       packageId: "16",
+      category: ProductCategory.culture,
       title: 'Dah Dah Pong',
       location: 'Kampung Karang Bajo, Bayan - Lombok Utara',
       imgUrl: 'assets/rinjani.jpeg',
@@ -293,6 +317,7 @@ final mockPackages = [
       addOn: [AddOnModel(name: "Driver", pricing: "\$20", id: "339")]),
   const ProductModel(
       packageId: "17",
+      category: ProductCategory.culture,
       title: 'Cungklik',
       location: 'Kampung Karang Bajo, Bayan - Lombok Utara',
       imgUrl: 'assets/rinjani.jpeg',
@@ -308,7 +333,8 @@ final mockPackages = [
       timeList24H: ["16:00"],
       addOn: [AddOnModel(name: "Driver", pricing: "\$20", id: "339")]),
   const ProductModel(
-      packageId: "17",
+      packageId: "171",
+      category: ProductCategory.culture,
       title: 'Tembang Lontar',
       location: 'Kampung Karang Bajo, Bayan - Lombok Utara',
       imgUrl: 'assets/rinjani.jpeg',
@@ -325,6 +351,7 @@ final mockPackages = [
       addOn: [AddOnModel(name: "Driver", pricing: "\$20", id: "339")]),
   const ProductModel(
       packageId: "18",
+      category: ProductCategory.culture,
       title: 'Ning Ning Se',
       location: 'Kampung Karang Bajo, Bayan - Lombok Utara',
       imgUrl: 'assets/rinjani.jpeg',
@@ -341,6 +368,7 @@ final mockPackages = [
       addOn: [AddOnModel(name: "Driver", pricing: "\$20", id: "339")]),
   const ProductModel(
       packageId: "19",
+      category: ProductCategory.culture,
       title: 'Gem Gem Tanak Garu',
       location: 'Kampung Karang Bajo, Bayan - Lombok Utara',
       imgUrl: 'assets/rinjani.jpeg',
@@ -357,6 +385,7 @@ final mockPackages = [
       addOn: [AddOnModel(name: "Driver", pricing: "\$20", id: "339")]),
   const ProductModel(
       packageId: "20",
+      category: ProductCategory.culture,
       title: 'Cupreng',
       location: 'Kampung Karang Bajo, Bayan - Lombok Utara',
       imgUrl: 'assets/rinjani.jpeg',
@@ -373,6 +402,7 @@ final mockPackages = [
       addOn: [AddOnModel(name: "Driver", pricing: "\$20", id: "339")]),
   const ProductModel(
       packageId: "21",
+      category: ProductCategory.culture,
       title: 'Selodor',
       location: 'Kampung Karang Bajo, Bayan - Lombok Utara',
       imgUrl: 'assets/rinjani.jpeg',
@@ -389,6 +419,7 @@ final mockPackages = [
       addOn: [AddOnModel(name: "Driver", pricing: "\$20", id: "339")]),
   const ProductModel(
       packageId: "22",
+      category: ProductCategory.culture,
       title: 'Anak kayu',
       location: 'Kampung Karang Bajo, Bayan - Lombok Utara',
       imgUrl: 'assets/rinjani.jpeg',
@@ -405,6 +436,7 @@ final mockPackages = [
       addOn: [AddOnModel(name: "Driver", pricing: "\$20", id: "339")]),
   const ProductModel(
       packageId: "23",
+      category: ProductCategory.culture,
       title: 'Benteng',
       location: 'Kampung Karang Bajo, Bayan - Lombok Utara',
       imgUrl: 'assets/rinjani.jpeg',
@@ -421,6 +453,7 @@ final mockPackages = [
       addOn: [AddOnModel(name: "Driver", pricing: "\$20", id: "339")]),
   const ProductModel(
       packageId: "24",
+      category: ProductCategory.culture,
       title: 'Historical Story',
       location: 'Kampung Karang Bajo, Bayan - Lombok Utara',
       imgUrl: 'assets/rinjani.jpeg',
@@ -437,9 +470,10 @@ final mockPackages = [
       addOn: [AddOnModel(name: "Driver", pricing: "\$20", id: "339")]),
   const ProductModel(
       packageId: "25",
-      title: 'Sendang Gila Waterfall and Tiu Kelep',
+      category: ProductCategory.landscape,
+      title: 'Sendang Gila and Tiu Kelep Waterfall',
       location: 'Kampung Karang Bajo, Bayan - Lombok Utara',
-      imgUrl: 'assets/rinjani.jpeg',
+      imgUrl: 'assets/products/Sendang Gila.jpg',
       priceLow: 41,
       priceHigh: 48,
       rating: "4,8",
@@ -453,6 +487,7 @@ final mockPackages = [
       addOn: [AddOnModel(name: "Driver", pricing: "\$20", id: "339")]),
   const ProductModel(
       packageId: "26",
+      category: ProductCategory.landscape,
       title: 'Tiu Teja Waterfall',
       location: 'Kampung Karang Bajo, Bayan - Lombok Utara',
       imgUrl: 'assets/rinjani.jpeg',
@@ -469,6 +504,7 @@ final mockPackages = [
       addOn: [AddOnModel(name: "Driver", pricing: "\$20", id: "339")]),
   const ProductModel(
       packageId: "27",
+      category: ProductCategory.landscape,
       title: 'Tiu Teja Waterfall',
       location: 'Kampung Karang Bajo, Bayan - Lombok Utara',
       imgUrl: 'assets/rinjani.jpeg',
@@ -485,6 +521,7 @@ final mockPackages = [
       addOn: [AddOnModel(name: "Driver", pricing: "\$20", id: "339")]),
   const ProductModel(
       packageId: "28",
+      category: ProductCategory.landscape,
       title: 'Sambik Elen Waterfall',
       location: 'Kampung Karang Bajo, Bayan - Lombok Utara',
       imgUrl: 'assets/rinjani.jpeg',
