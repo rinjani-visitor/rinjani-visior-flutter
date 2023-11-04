@@ -11,6 +11,9 @@ class AddOnModel with _$AddOnModel {
       /// Add on name, will be displayed as add on name
       required String name,
 
+      /// Add on description, will be displayed as tooltip
+      String? description,
+
       /// price value that has been formatted
       ///
       required String pricing,

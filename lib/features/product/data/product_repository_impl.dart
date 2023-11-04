@@ -1,10 +1,15 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rinjani_visitor/core/datastate/local_state.dart';
-import 'package:rinjani_visitor/features/product/domain/addon_model.dart';
+import 'package:rinjani_visitor/features/product/data/source/mock.dart';
 import 'package:rinjani_visitor/features/product/domain/product_model.dart';
 import 'package:rinjani_visitor/features/product/domain/product_repository.dart';
 
 class ProductRepositoryImpl implements ProductRespository {
+
+  final DataSourceMock remote;
+
+  ProductRepositoryImpl({required this.remote});
+
   @override
   Future<LocalState<ProductModel>> bookingPackage(
       {required String packageId,
@@ -21,9 +26,9 @@ class ProductRepositoryImpl implements ProductRespository {
   }
 
   @override
-  Future<ProductModel> getPackageDetail({required String packageId}) {
-    // TODO: implement getPackageDetail
-    throw UnimplementedError();
+  Future<ProductModel> getPackageDetail({required String packageId}) async {
+    final result = await remote.getProduct(packageId);
+    return result;
   }
 
   @override
@@ -32,46 +37,13 @@ class ProductRepositoryImpl implements ProductRespository {
       int? itemsPerPage = 10,
       String? category,
       String? avaiability}) async {
-    final dataMock = [
-      const ProductModel(
-          packageId: "thisispackageid",
-          title: "Rinjani Trip",
-          location: "Lombok Utara, Indonesia",
-          locationUrl: "",
-          imgUrl: "",
-          rangePricing: "10\$ - 20\$/person",
-          rating: "4.9",
-          tripDuration: "2 days, 1 night",
-          description: "Basic package",
-          accomodation: "accomodation",
-          addOn: [AddOnModel(name: "Driver", pricing: "500.000", id: "123456")],
-          reviewIds: [""],
-          avaiabilityStatus: "avaiable",
-          initenaryList: [""],
-          reviewCount: 32,
-          timeList24H: ["08.00", "12.00"]),
-      const ProductModel(
-          packageId: "thisispackageid",
-          title: "Rinjani Trip 2",
-          location: "Lombok Utara, Indonesia",
-          locationUrl: "",
-          imgUrl: "",
-          rangePricing: "10\$ - 20\$/person",
-          rating: "4.9",
-          tripDuration: "2 days, 1 night",
-          description: "Basic package",
-          accomodation: "accomodation",
-          addOn: [AddOnModel(name: "Driver", pricing: "500.000", id: "123456")],
-          reviewIds: [""],
-          avaiabilityStatus: "avaiable",
-          initenaryList: [""],
-          reviewCount: 32,
-          timeList24H: ["08.00", "12.00"])
-    ];
+    final result = await remote.getProducts();
+
     //TODO: remove this when backend is complete
-    await Future.delayed(Duration(seconds: 2));
-    return dataMock;
+    return result;
   }
 }
 
-final productRepositoryProvider = Provider((ref) => ProductRepositoryImpl());
+final productRepositoryProvider = Provider((ref) {
+ return  ProductRepositoryImpl( remote: DataSourceMock());
+});

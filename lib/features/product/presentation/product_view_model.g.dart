@@ -6,12 +6,12 @@ part of 'product_view_model.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$productViewModelHash() => r'34a4086614eb84acb8b96c2bfe021aa8f2583e70';
+String _$productViewModelHash() => r'683e60b25d8d873a150ea6b8482687925b3ee7c3';
 
 /// See also [ProductViewModel].
 @ProviderFor(ProductViewModel)
-final productViewModelProvider =
-    AutoDisposeNotifierProvider<ProductViewModel, Object?>.internal(
+final productViewModelProvider = AutoDisposeAsyncNotifierProvider<
+    ProductViewModel, List<ProductModel>>.internal(
   ProductViewModel.new,
   name: r'productViewModelProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
@@ -21,6 +21,6 @@ final productViewModelProvider =
   allTransitiveDependencies: null,
 );
 
-typedef _$ProductViewModel = AutoDisposeNotifier<Object?>;
+typedef _$ProductViewModel = AutoDisposeAsyncNotifier<List<ProductModel>>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
