@@ -7,9 +7,9 @@ import 'package:rinjani_visitor/features/product/presentation/view_model/search_
 import 'package:rinjani_visitor/page/booking/product_detail_page.dart';
 import 'package:rinjani_visitor/page/category_explore_page.dart';
 import 'package:rinjani_visitor/theme/theme.dart';
-import 'package:rinjani_visitor/widget/big_card.dart';
+import 'package:rinjani_visitor/widget/product/big_card.dart';
 import 'package:rinjani_visitor/widget/category_item.dart';
-import 'package:rinjani_visitor/widget/small_card.dart';
+import 'package:rinjani_visitor/widget/product/small_card.dart';
 import 'package:rinjani_visitor/widget/status.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
@@ -121,7 +121,7 @@ class _HomePageState extends ConsumerState<HomePage> {
               child: Row(
                 children: List.generate(data.length, (index) {
                   final current = data[index];
-                  return SmallCard(
+                  return SmallProductCard(
                       onTap: () {
                         Navigator.push(
                             context,
@@ -149,7 +149,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                 enabled: true,
                 child: Row(
                   children: List.generate(3, (index) {
-                    return const SmallCard(
+                    return const SmallProductCard(
                         title: "Placeholder",
                         image: AssetImage('assets/rinjani.jpeg'));
                   }),
@@ -189,7 +189,7 @@ class _HomePageState extends ConsumerState<HomePage> {
             itemBuilder: (context, index) {
               return const Padding(
                 padding: EdgeInsets.only(bottom: 8, left: 16, right: 16),
-                child: BigCard(
+                child: BigProductCard(
                     image: AssetImage("assets/rinjani.jpeg"),
                     title: "Presean Dance",
                     price: "\$80 - \$90 - Person",

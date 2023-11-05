@@ -6,7 +6,7 @@ import 'package:rinjani_visitor/features/product/presentation/view_model/product
 import 'package:rinjani_visitor/features/product/presentation/view_model/search_view_model.dart';
 import 'package:rinjani_visitor/page/booking/product_detail_page.dart';
 import 'package:rinjani_visitor/theme/theme.dart';
-import 'package:rinjani_visitor/widget/big_card.dart';
+import 'package:rinjani_visitor/widget/product/big_card.dart';
 import 'package:rinjani_visitor/widget/status.dart';
 
 class CategoryExplorePage extends ConsumerStatefulWidget {
@@ -41,7 +41,7 @@ class _CategoryExplorePageState extends ConsumerState<CategoryExplorePage> {
                     final current = _data[index];
                     return Padding(
                       padding: const EdgeInsets.only(bottom: 8.0),
-                      child: BigCard(
+                      child: BigProductCard(
                           image: AssetImage(current.imgUrl),
                           title: current.title,
                           rating: current.rating,

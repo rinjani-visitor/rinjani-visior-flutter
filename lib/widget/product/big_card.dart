@@ -4,14 +4,14 @@ import 'package:rinjani_visitor/theme/theme.dart';
 import 'package:rinjani_visitor/widget/rating_widget.dart';
 import 'package:rinjani_visitor/widget/status.dart';
 
-class BigCard extends StatelessWidget {
+class BigProductCard extends StatelessWidget {
   final ImageProvider image;
   final String title;
   final StatusColor status;
   final String price;
   final String? rating;
   final void Function()? onTap;
-  const BigCard(
+  const BigProductCard(
       {Key? key,
       required this.image,
       required this.title,

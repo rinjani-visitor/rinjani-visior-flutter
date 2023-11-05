@@ -4,7 +4,7 @@ import 'package:rinjani_visitor/features/product/presentation/view_model/search_
 import 'package:rinjani_visitor/page/booking/product_detail_page.dart';
 import 'package:rinjani_visitor/theme/theme.dart';
 import 'package:rinjani_visitor/widget/auto_search.dart';
-import 'package:rinjani_visitor/widget/big_card.dart';
+import 'package:rinjani_visitor/widget/product/big_card.dart';
 import 'package:rinjani_visitor/widget/status.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
@@ -42,7 +42,7 @@ class _SearchPageState extends ConsumerState<SearchPage> {
                       final curr = data[index];
                       return Padding(
                         padding: const EdgeInsets.only(bottom: 8.0),
-                        child: BigCard(
+                        child: BigProductCard(
                             image: AssetImage(curr.imgUrl),
                             title: curr.title,
                             status: StatusColor.available,
@@ -68,7 +68,7 @@ class _SearchPageState extends ConsumerState<SearchPage> {
             loading: () => ListView.builder(
                   itemCount: 10,
                   itemBuilder: (context, index) => const Skeletonizer(
-                      child: BigCard(
+                      child: BigProductCard(
                           image: AssetImage("assets/wise-logo.png"),
                           title: "",
                           status: StatusColor.available,

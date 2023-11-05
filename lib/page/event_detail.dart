@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rinjani_visitor/theme/theme.dart';
-import 'package:rinjani_visitor/widget/big_card.dart';
+import 'package:rinjani_visitor/widget/product/big_card.dart';
 import 'package:rinjani_visitor/widget/status.dart';
 
 class EventDetail extends StatelessWidget {
@@ -118,7 +118,7 @@ class EventDetail extends StatelessWidget {
                 children: [
                   Padding(
                     padding: EdgeInsets.only(top: 8),
-                    child: BigCard(
+                    child: BigProductCard(
                         image: AssetImage("assets/rinjani.jpeg"),
                         title: "Rinjani Trip",
                         price: "\$80 - \$90 - Person",

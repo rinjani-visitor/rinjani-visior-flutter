@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:rinjani_visitor/theme/theme.dart';
 import 'package:rinjani_visitor/widget/rating_widget.dart';
 
-class SmallCard extends StatelessWidget {
+class SmallProductCard extends StatelessWidget {
   final String title;
   final ImageProvider image;
   final String? rating;
   final void Function()? onTap;
 
-  const SmallCard(
+  const SmallProductCard(
       {Key? key,
       required this.title,
       this.rating,

@@ -7,7 +7,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'order_view_model.g.dart';
 
-@Riverpod(keepAlive: true)
+@Riverpod()
 class OrderViewModel extends _$OrderViewModel {
   // ignore: unused_field
   late final ProductRespository _productRepository;

@@ -29,7 +29,7 @@ class BookingStatusPage extends StatelessWidget {
     return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
         automaticallyImplyLeading: false,
-        middle: Text(data["title"]??""),
+        middle: Text(data["title"] ?? ""),
       ),
       child: SafeArea(
         child: Padding(
@@ -38,7 +38,7 @@ class BookingStatusPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                data["subtitle"]??"",
+                data["subtitle"] ?? "",
                 style: blackTextStyle.copyWith(fontSize: 32, fontWeight: bold),
                 textAlign: TextAlign.center,
               ),
@@ -47,7 +47,7 @@ class BookingStatusPage extends StatelessWidget {
                 height: 255,
               ),
               Text(
-                data["description"]??"",
+                data["description"] ?? "",
                 style: blackTextStyle.copyWith(
                   fontSize: 16,
                 ),

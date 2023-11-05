@@ -17,6 +17,7 @@ class BookingDetailPage extends ConsumerStatefulWidget {
 
 class _BookingDetailPageState extends ConsumerState<BookingDetailPage> {
   final _priceRangeController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
 
   late final _viewModel = ref.read(orderViewModelProvider.notifier);
   late final _state = ref.read(orderViewModelProvider);
@@ -182,39 +183,45 @@ class _BookingDetailPageState extends ConsumerState<BookingDetailPage> {
     return Container(
       color: whiteColor,
       padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: Column(
-        children: [
-          InputFormField(
-            controller: _priceRangeController,
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return "This field should not be empty";
-              }
-              if (int.parse(value) < _state.totalPrice - 20) {
-                return "Price you offered is too low";
-              }
-              //TODO: tembahkan validasi berdasarkan harga terendah dan harga tertinggi
-              return null;
-            },
-            label: 'Enter your price offer',
-            secureText: false,
-            placeholder: 'should not be too lower than estimated',
-            inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-            keyboardType: TextInputType.number,
-          ),
-          PrimaryButton(
-              child: Container(
-                  decoration: BoxDecoration(
-                      color: primaryColor,
-                      borderRadius: BorderRadius.circular(smallRadius)),
-                  child: Text(
-                    'Make an offer',
-                    style: whiteTextStyle.copyWith(fontWeight: medium),
-                  )),
-              onPressed: () {
-                Navigator.popAndPushNamed(context, '/success-booking');
-              })
-        ],
+      child: Form(
+        key: _formKey,
+        child: Column(
+          children: [
+            InputFormField(
+              controller: _priceRangeController,
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return "This field should not be empty";
+                }
+                if (int.parse(value) < _state.totalPrice - 20) {
+                  return "Price you offered is too low";
+                }
+                //TODO: tembahkan validasi berdasarkan harga terendah dan harga tertinggi
+                return null;
+              },
+              label: 'Enter your price offer',
+              secureText: false,
+              placeholder: 'should not be too lower than estimated',
+              inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+              keyboardType: TextInputType.number,
+            ),
+            PrimaryButton(
+                child: Container(
+                    decoration: BoxDecoration(
+                        color: primaryColor,
+                        borderRadius: BorderRadius.circular(smallRadius)),
+                    child: Text(
+                      'Make an offer',
+                      style: whiteTextStyle.copyWith(fontWeight: medium),
+                    )),
+                onPressed: () {
+                  if (_formKey.currentState?.validate() == false) {
+                    return;
+                  }
+                  Navigator.popAndPushNamed(context, '/success-booking');
+                })
+          ],
+        ),
       ),
     );
   }

@@ -39,6 +39,7 @@ class _DetailPageState extends ConsumerState<ProductDetailPage> {
   @override
   void initState() {
     super.initState();
+
     debugPrint(_state.toString());
   }
 
