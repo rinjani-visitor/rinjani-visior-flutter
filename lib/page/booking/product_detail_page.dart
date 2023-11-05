@@ -43,7 +43,8 @@ class _DetailPageState extends ConsumerState<ProductDetailPage> {
   }
 
   void _onSubmit(int personValue) {
-    _state.person = int.tryParse(_personController.text);
+    _state.product = data;
+    _state.person = int.parse(_personController.text);
     _viewModel.setDate(_dateController.text);
     Navigator.pushNamed(context, "/booking-detail");
   }
@@ -66,9 +67,9 @@ class _DetailPageState extends ConsumerState<ProductDetailPage> {
     return Container(
       width: double.infinity,
       height: 241,
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
           image: DecorationImage(
-              fit: BoxFit.fill, image: AssetImage('assets/rinjani.jpeg'))),
+              fit: BoxFit.fill, image: AssetImage(data.imgUrl))),
     );
   }
 
@@ -130,7 +131,9 @@ class _DetailPageState extends ConsumerState<ProductDetailPage> {
           const SizedBox(
             height: 8,
           ),
-          const RatingWidget(),
+          RatingWidget(
+            rating: data.rating,
+          ),
           const SizedBox(
             height: 8,
           ),
