@@ -28,7 +28,7 @@ final mockPackages = [
         AddOnModel(
             name: "Replace porter with guide",
             description: "replace your porter with guide. max 4 people",
-            pricing: "35\$",
+            price: 35,
             id: "123"),
       ]),
   const ProductModel(
@@ -56,7 +56,7 @@ final mockPackages = [
         AddOnModel(
             name: "Replace porter with guide",
             description: "replace your porter with guide. max 4 people",
-            pricing: "20\$",
+            price: 20,
             id: "456"),
       ]),
   const ProductModel(
@@ -84,7 +84,7 @@ final mockPackages = [
         AddOnModel(
             name: "Replace porter with guide",
             description: "replace your porter with guide for 6 or more people",
-            pricing: "30\$",
+            price: 30,
             id: "456"),
       ]),
   //Paket Budaya - Ritual
@@ -104,7 +104,7 @@ final mockPackages = [
       reviewCount: 12,
       initenaryList: ['First day - arrive at home stay '],
       timeList24H: ["16:00"],
-      addOn: [AddOnModel(name: "Driver", pricing: "\$20", id: "339")]),
+      addOn: [AddOnModel(name: "Driver", price: 20, id: "339")]),
   const ProductModel(
       packageId: "5",
       category: ProductCategory.culture,
@@ -126,7 +126,7 @@ final mockPackages = [
         "16:00"
       ],
       addOn: [
-        AddOnModel(name: "Driver", pricing: "\$20", id: "339")
+        AddOnModel(name: "Driver", price: 20, id: "339")
       ]),
   const ProductModel(
       packageId: "6",
@@ -144,7 +144,7 @@ final mockPackages = [
       reviewCount: 12,
       initenaryList: ['First day - arrive at home stay '],
       timeList24H: ["16:00"],
-      addOn: [AddOnModel(name: "Driver", pricing: "\$20", id: "339")]),
+      addOn: [AddOnModel(name: "Driver", price: 20, id: "339")]),
   const ProductModel(
       packageId: "7",
       category: ProductCategory.culture,
@@ -161,7 +161,7 @@ final mockPackages = [
       reviewCount: 12,
       initenaryList: ['First day - arrive at home stay '],
       timeList24H: ["16:00"],
-      addOn: [AddOnModel(name: "Driver", pricing: "\$20", id: "339")]),
+      addOn: [AddOnModel(name: "Driver", price: 20, id: "339")]),
   const ProductModel(
       packageId: "8",
       category: ProductCategory.culture,
@@ -178,7 +178,7 @@ final mockPackages = [
       reviewCount: 12,
       initenaryList: ['First day - arrive at home stay '],
       timeList24H: ["16:00"],
-      addOn: [AddOnModel(name: "Driver", pricing: "\$20", id: "339")]),
+      addOn: [AddOnModel(name: "Driver", price: 20, id: "339")]),
   const ProductModel(
       packageId: "9",
       category: ProductCategory.culture,
@@ -195,7 +195,7 @@ final mockPackages = [
       reviewCount: 12,
       initenaryList: ['First day - arrive at home stay '],
       timeList24H: ["16:00"],
-      addOn: [AddOnModel(name: "Driver", pricing: "\$20", id: "339")]),
+      addOn: [AddOnModel(name: "Driver", price: 20, id: "339")]),
   const ProductModel(
       packageId: "10",
       category: ProductCategory.culture,
@@ -212,7 +212,7 @@ final mockPackages = [
       reviewCount: 12,
       initenaryList: ['First day - arrive at home stay '],
       timeList24H: ["16:00"],
-      addOn: [AddOnModel(name: "Driver", pricing: "\$20", id: "339")]),
+      addOn: [AddOnModel(name: "Driver", price: 20, id: "339")]),
   const ProductModel(
       packageId: "11",
       category: ProductCategory.culture,
@@ -229,7 +229,7 @@ final mockPackages = [
       reviewCount: 12,
       initenaryList: ['First day - arrive at home stay '],
       timeList24H: ["16:00"],
-      addOn: [AddOnModel(name: "Driver", pricing: "\$20", id: "339")]),
+      addOn: [AddOnModel(name: "Driver", price: 20, id: "339")]),
   const ProductModel(
       packageId: "12",
       category: ProductCategory.culture,
@@ -246,7 +246,7 @@ final mockPackages = [
       reviewCount: 12,
       initenaryList: ['First day - arrive at home stay '],
       timeList24H: ["16:00"],
-      addOn: [AddOnModel(name: "Driver", pricing: "\$20", id: "339")]),
+      addOn: [AddOnModel(name: "Driver", price: 20, id: "339")]),
   const ProductModel(
       packageId: "13",
       category: ProductCategory.culture,
@@ -263,7 +263,7 @@ final mockPackages = [
       reviewCount: 12,
       initenaryList: ['First day - arrive at home stay '],
       timeList24H: ["16:00"],
-      addOn: [AddOnModel(name: "Driver", pricing: "\$20", id: "339")]),
+      addOn: [AddOnModel(name: "Driver", price: 20, id: "339")]),
   const ProductModel(
       packageId: "14",
       category: ProductCategory.culture,
@@ -280,7 +280,7 @@ final mockPackages = [
       reviewCount: 12,
       initenaryList: ['First day - arrive at home stay '],
       timeList24H: ["16:00"],
-      addOn: [AddOnModel(name: "Driver", pricing: "\$20", id: "339")]),
+      addOn: [AddOnModel(name: "Driver", price: 20, id: "339")]),
   const ProductModel(
       packageId: "15",
       category: ProductCategory.culture,
@@ -297,7 +297,7 @@ final mockPackages = [
       reviewCount: 12,
       initenaryList: ['First day - arrive at home stay '],
       timeList24H: ["16:00"],
-      addOn: [AddOnModel(name: "Driver", pricing: "\$20", id: "339")]),
+      addOn: [AddOnModel(name: "Driver", price: 20, id: "339")]),
   const ProductModel(
       packageId: "16",
       category: ProductCategory.culture,
@@ -314,7 +314,7 @@ final mockPackages = [
       reviewCount: 12,
       initenaryList: ['First day - arrive at home stay '],
       timeList24H: ["16:00"],
-      addOn: [AddOnModel(name: "Driver", pricing: "\$20", id: "339")]),
+      addOn: [AddOnModel(name: "Driver", price: 20, id: "339")]),
   const ProductModel(
       packageId: "17",
       category: ProductCategory.culture,
@@ -331,7 +331,7 @@ final mockPackages = [
       reviewCount: 12,
       initenaryList: ['First day - arrive at home stay '],
       timeList24H: ["16:00"],
-      addOn: [AddOnModel(name: "Driver", pricing: "\$20", id: "339")]),
+      addOn: [AddOnModel(name: "Driver", price: 20, id: "339")]),
   const ProductModel(
       packageId: "171",
       category: ProductCategory.culture,
@@ -348,7 +348,7 @@ final mockPackages = [
       reviewCount: 12,
       initenaryList: ['First day - arrive at home stay '],
       timeList24H: ["16:00"],
-      addOn: [AddOnModel(name: "Driver", pricing: "\$20", id: "339")]),
+      addOn: [AddOnModel(name: "Driver", price: 20, id: "339")]),
   const ProductModel(
       packageId: "18",
       category: ProductCategory.culture,
@@ -365,7 +365,7 @@ final mockPackages = [
       reviewCount: 12,
       initenaryList: ['First day - arrive at home stay '],
       timeList24H: ["16:00"],
-      addOn: [AddOnModel(name: "Driver", pricing: "\$20", id: "339")]),
+      addOn: [AddOnModel(name: "Driver", price: 20, id: "339")]),
   const ProductModel(
       packageId: "19",
       category: ProductCategory.culture,
@@ -382,7 +382,7 @@ final mockPackages = [
       reviewCount: 12,
       initenaryList: ['First day - arrive at home stay '],
       timeList24H: ["16:00"],
-      addOn: [AddOnModel(name: "Driver", pricing: "\$20", id: "339")]),
+      addOn: [AddOnModel(name: "Driver", price: 20, id: "339")]),
   const ProductModel(
       packageId: "20",
       category: ProductCategory.culture,
@@ -399,7 +399,7 @@ final mockPackages = [
       reviewCount: 12,
       initenaryList: ['First day - arrive at home stay '],
       timeList24H: ["16:00"],
-      addOn: [AddOnModel(name: "Driver", pricing: "\$20", id: "339")]),
+      addOn: [AddOnModel(name: "Driver", price: 20, id: "339")]),
   const ProductModel(
       packageId: "21",
       category: ProductCategory.culture,
@@ -416,7 +416,7 @@ final mockPackages = [
       reviewCount: 12,
       initenaryList: ['First day - arrive at home stay '],
       timeList24H: ["16:00"],
-      addOn: [AddOnModel(name: "Driver", pricing: "\$20", id: "339")]),
+      addOn: [AddOnModel(name: "Driver", price: 20, id: "339")]),
   const ProductModel(
       packageId: "22",
       category: ProductCategory.culture,
@@ -433,7 +433,7 @@ final mockPackages = [
       reviewCount: 12,
       initenaryList: ['First day - arrive at home stay '],
       timeList24H: ["16:00"],
-      addOn: [AddOnModel(name: "Driver", pricing: "\$20", id: "339")]),
+      addOn: [AddOnModel(name: "Driver", price: 20, id: "339")]),
   const ProductModel(
       packageId: "23",
       category: ProductCategory.culture,
@@ -450,7 +450,7 @@ final mockPackages = [
       reviewCount: 12,
       initenaryList: ['First day - arrive at home stay '],
       timeList24H: ["16:00"],
-      addOn: [AddOnModel(name: "Driver", pricing: "\$20", id: "339")]),
+      addOn: [AddOnModel(name: "Driver", price: 20, id: "339")]),
   const ProductModel(
       packageId: "24",
       category: ProductCategory.culture,
@@ -467,13 +467,13 @@ final mockPackages = [
       reviewCount: 12,
       initenaryList: ['First day - arrive at home stay '],
       timeList24H: ["16:00"],
-      addOn: [AddOnModel(name: "Driver", pricing: "\$20", id: "339")]),
+      addOn: [AddOnModel(name: "Driver", price: 20, id: "339")]),
   const ProductModel(
       packageId: "25",
       category: ProductCategory.landscape,
       title: 'Sendang Gila and Tiu Kelep Waterfall',
       location: 'Kampung Karang Bajo, Bayan - Lombok Utara',
-      imgUrl: 'assets/products/Sendang Gila.jpg',
+      imgUrl: 'assets/products/Tiu Kelep.jpg',
       priceLow: 41,
       priceHigh: 48,
       rating: "4,8",
@@ -484,7 +484,7 @@ final mockPackages = [
       reviewCount: 12,
       initenaryList: ['First day - arrive at home stay '],
       timeList24H: ["16:00"],
-      addOn: [AddOnModel(name: "Driver", pricing: "\$20", id: "339")]),
+      addOn: [AddOnModel(name: "Driver", price: 20, id: "339")]),
   const ProductModel(
       packageId: "26",
       category: ProductCategory.landscape,
@@ -501,7 +501,7 @@ final mockPackages = [
       reviewCount: 12,
       initenaryList: ['First day - arrive at home stay '],
       timeList24H: ["16:00"],
-      addOn: [AddOnModel(name: "Driver", pricing: "\$20", id: "339")]),
+      addOn: [AddOnModel(name: "Driver", price: 20, id: "339")]),
   const ProductModel(
       packageId: "27",
       category: ProductCategory.landscape,
@@ -518,7 +518,7 @@ final mockPackages = [
       reviewCount: 12,
       initenaryList: ['First day - arrive at home stay '],
       timeList24H: ["16:00"],
-      addOn: [AddOnModel(name: "Driver", pricing: "\$20", id: "339")]),
+      addOn: [AddOnModel(name: "Driver", price: 20, id: "339")]),
   const ProductModel(
       packageId: "28",
       category: ProductCategory.landscape,
@@ -535,5 +535,5 @@ final mockPackages = [
       reviewCount: 12,
       initenaryList: ['First day - arrive at home stay '],
       timeList24H: ["16:00"],
-      addOn: [AddOnModel(name: "Driver", pricing: "\$20", id: "339")]),
+      addOn: [AddOnModel(name: "Driver", price: 20, id: "339")]),
 ];
