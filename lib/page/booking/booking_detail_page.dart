@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rinjani_visitor/core/utils/internationalization.dart';
 import 'package:rinjani_visitor/features/order/presentation/order_view_model.dart';
@@ -24,7 +25,7 @@ class _BookingDetailPageState extends ConsumerState<BookingDetailPage> {
     return Container(
       width: double.infinity,
       height: 157,
-      padding: EdgeInsets.all(16),
+      padding: const EdgeInsets.all(16),
       color: whiteColor,
       child: Row(
         children: [
@@ -34,29 +35,37 @@ class _BookingDetailPageState extends ConsumerState<BookingDetailPage> {
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(smallRadius),
                 image: DecorationImage(
-                    fit: BoxFit.fill,
+                    fit: BoxFit.cover,
                     image: AssetImage('assets/rinjani.jpeg'))),
           ),
-          Spacer(),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                'Rinjani Trip',
-                style: blackTextStyle.copyWith(fontSize: 24, fontWeight: bold),
-              ),
-              Text(
-                'Lombok, Indonesia',
-                style:
-                    blackTextStyle.copyWith(fontSize: 14, fontWeight: medium),
-              ),
-              Text(
-                'Duration: 2 Days 1 night',
-                style:
-                    blackTextStyle.copyWith(fontSize: 14, fontWeight: medium),
-              ),
-            ],
+          const SizedBox(
+            width: 16,
+          ),
+          Flexible(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  _state.product?.title ?? "",
+                  overflow: TextOverflow.ellipsis,
+                  style: blackTextStyle.copyWith(
+                      fontSize: heading5, fontWeight: bold),
+                ),
+                Text(
+                  _state.product?.location ?? "",
+                  overflow: TextOverflow.ellipsis,
+                  style:
+                      blackTextStyle.copyWith(fontSize: 14, fontWeight: medium),
+                ),
+                Text(
+                  'Duration: ${_state.product?.tripDuration}',
+                  overflow: TextOverflow.ellipsis,
+                  style:
+                      blackTextStyle.copyWith(fontSize: 14, fontWeight: medium),
+                ),
+              ],
+            ),
           )
         ],
       ),
@@ -128,6 +137,20 @@ class _BookingDetailPageState extends ConsumerState<BookingDetailPage> {
                     color: blackColor,
                   ),
                   title: Text("${_state.person ?? 0} Person")),
+              Text(
+                'Add On(s)',
+                style:
+                    blackTextStyle.copyWith(fontSize: 16, fontWeight: medium),
+              ),
+              Column(
+                children: List.generate(
+                    _state.addOn.length,
+                    (index) => Text(
+                          _state.addOn.elementAt(index).name,
+                          style: blackTextStyle.copyWith(
+                              fontSize: 16, fontWeight: medium),
+                        )),
+              )
             ],
           )
         ],
@@ -137,25 +160,19 @@ class _BookingDetailPageState extends ConsumerState<BookingDetailPage> {
 
   Widget addOn() {
     return Container(
-      padding: EdgeInsets.all(16),
+      padding: const EdgeInsets.all(16),
       color: whiteColor,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Your add on',
+            'Estimated Price we can offer',
             style: blackTextStyle.copyWith(fontSize: 20),
           ),
-          CupertinoListTile(
-              padding: EdgeInsets.all(0),
-              leading: Icon(
-                Icons.time_to_leave,
-                color: blackColor,
-              ),
-              title: Text(
-                'Rp.200.000',
-                style: greenTextStyle,
-              ))
+          Text(
+            '${_state.totalPrice}\$',
+            style: greenTextStyle,
+          )
         ],
       ),
     );
@@ -164,21 +181,25 @@ class _BookingDetailPageState extends ConsumerState<BookingDetailPage> {
   Widget payment(BuildContext context) {
     return Container(
       color: whiteColor,
-      padding: EdgeInsets.symmetric(horizontal: 16),
+      padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Column(
         children: [
           InputFormField(
             controller: _priceRangeController,
             validator: (value) {
               if (value == null || value.isEmpty) {
-                return "required";
+                return "This field should not be empty";
+              }
+              if (int.parse(value) < _state.totalPrice - 20) {
+                return "Price should not less than the recommended price";
               }
               //TODO: tembahkan validasi berdasarkan harga terendah dan harga tertinggi
               return null;
             },
             label: 'Enter your price offer',
             secureText: false,
-            placeholder: 'Price should be in range',
+            placeholder: 'Price should not less than ${_state.totalPrice}\$',
+            inputFormatters: [FilteringTextInputFormatter.digitsOnly],
             keyboardType: TextInputType.number,
           ),
           PrimaryButton(
@@ -210,6 +231,7 @@ class _BookingDetailPageState extends ConsumerState<BookingDetailPage> {
             slivers: [
               SliverToBoxAdapter(
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     imageTitle(),
                     const SizedBox(

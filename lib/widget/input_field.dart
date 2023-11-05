@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/services.dart';
 import 'package:rinjani_visitor/theme/theme.dart';
 
 class InputField extends StatelessWidget {
@@ -11,6 +12,7 @@ class InputField extends StatelessWidget {
   final TextEditingController? controller;
   final void Function(String value)? onChanged;
   final void Function()? onTap;
+  final List<TextInputFormatter>? inputFormatters;
   final bool secureText;
 
   const InputField(
@@ -24,7 +26,8 @@ class InputField extends StatelessWidget {
       this.autoFillHints,
       this.onTap,
       this.errorText,
-      this.textInputAction})
+      this.textInputAction,
+      this.inputFormatters})
       : super(key: key);
 
   @override
@@ -61,6 +64,7 @@ class InputField extends StatelessWidget {
           keyboardType: keyboardType,
           autofillHints: autoFillHints,
           textInputAction: textInputAction,
+          inputFormatters: inputFormatters,
           onTap: onTap,
         ),
       ],
@@ -76,6 +80,7 @@ class InputFormField extends FormField<String> {
       bool secureText = false,
       String? placeholder,
       TextEditingController? controller,
+      List<TextInputFormatter>? inputFormatters,
       TextInputAction? textInputAction,
       TextInputType? keyboardType,
       Iterable<String>? autoFillHints,
@@ -105,6 +110,7 @@ class InputFormField extends FormField<String> {
                     placeholder: placeholder,
                     autoFillHints: autoFillHints,
                     textInputAction: textInputAction,
+                    inputFormatters: inputFormatters,
                   ),
                   Text(
                     (state.hasError ? state.errorText : "") ?? "",
