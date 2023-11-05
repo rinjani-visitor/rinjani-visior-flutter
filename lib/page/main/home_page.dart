@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rinjani_visitor/features/product/domain/category_enum.dart';
 import 'package:rinjani_visitor/features/product/presentation/view_model/product_view_model.dart';
+import 'package:rinjani_visitor/features/product/presentation/view_model/recommended_product_view_model.dart';
 import 'package:rinjani_visitor/features/product/presentation/view_model/search_view_model.dart';
 import 'package:rinjani_visitor/page/booking/product_detail_page.dart';
 import 'package:rinjani_visitor/page/category_explore_page.dart';
@@ -98,6 +99,7 @@ class _HomePageState extends ConsumerState<HomePage> {
 
   Widget _recommendedWidgets() {
     final _packageData = ref.watch(productViewModelProvider);
+    final recommendedData = ref.watch(recommendedProductViewModelProvider);
     final _searchData = ref.watch(searchViewModelProvider);
 
     return Column(
@@ -114,7 +116,7 @@ class _HomePageState extends ConsumerState<HomePage> {
           height: 10,
         ),
         // fixed horizontal list, source: https://gist.github.com/Abushawish/048acfdaf956640ea6fa8b3991dbbd81
-        _packageData.when(
+        recommendedData.when(
           data: (data) {
             return SingleChildScrollView(
               scrollDirection: Axis.horizontal,
@@ -185,15 +187,18 @@ class _HomePageState extends ConsumerState<HomePage> {
             physics: const NeverScrollableScrollPhysics(),
             shrinkWrap: true,
             padding: EdgeInsets.zero,
-            itemCount: 3,
+            itemCount: 1,
             itemBuilder: (context, index) {
-              return const Padding(
+              return Padding(
                 padding: EdgeInsets.only(bottom: 8, left: 16, right: 16),
                 child: BigProductCard(
-                    image: AssetImage("assets/rinjani.jpeg"),
-                    title: "Presean Dance",
+                    image: AssetImage("assets/event.jpeg"),
+                    title: "Lombok Festival",
                     price: "\$80 - \$90 - Person",
                     status: StatusColor.available,
+                    onTap: () {
+                      Navigator.pushNamed(context, "/event-detail");
+                    },
                     rating: "4.9"),
               );
             },

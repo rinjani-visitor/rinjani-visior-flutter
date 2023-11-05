@@ -144,10 +144,11 @@ class _BookingDetailPageState extends ConsumerState<BookingDetailPage> {
                     blackTextStyle.copyWith(fontSize: 16, fontWeight: medium),
               ),
               Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: List.generate(
                     _state.addOn.length,
                     (index) => Text(
-                          _state.addOn.elementAt(index).name,
+                          "- ${_state.addOn.elementAt(index).name} - ${_state.addOn.elementAt(index).price}\$",
                           style: blackTextStyle.copyWith(
                               fontSize: 16, fontWeight: medium),
                         )),

@@ -58,7 +58,7 @@ class _DetailDescriptionWidgetState extends State<DetailDescriptionWidget> {
             ? Column(
                 children: widget.addOn,
               )
-            : const Text("No Add On"),
+            : const Text("Add On unavailable for this package"),
         const SizedBox(
           height: 16,
         ),
@@ -111,21 +111,23 @@ class TimeList extends StatelessWidget {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
-      child: Row(
-        children: List.generate(timeListData.length, (index) {
-          return Padding(
-            padding: const EdgeInsets.only(right: 4.0),
-            child: TimeButtonWidget(
-              time: timeListData[index],
-              selected:
-                  initialSelectedTimeListData.contains(timeListData[index]),
-              onToggle: (value, isSelected) {
-                onTimeListTap(value, isSelected);
-              },
+      child: timeListData.isEmpty
+          ? Text("time selection is not avaiable for this package")
+          : Row(
+              children: List.generate(timeListData.length, (index) {
+                return Padding(
+                  padding: const EdgeInsets.only(right: 4.0),
+                  child: TimeButtonWidget(
+                    time: timeListData[index],
+                    selected: initialSelectedTimeListData
+                        .contains(timeListData[index]),
+                    onToggle: (value, isSelected) {
+                      onTimeListTap(value, isSelected);
+                    },
+                  ),
+                );
+              }),
             ),
-          );
-        }),
-      ),
     );
   }
 }

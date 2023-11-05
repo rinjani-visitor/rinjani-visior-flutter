@@ -42,7 +42,7 @@ class BigProductCard extends StatelessWidget {
             Row(
               children: [
                 Status(
-                  status: StatusColor.available,
+                  status: status,
                 ),
                 Spacer(),
                 RatingWidget(
