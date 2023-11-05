@@ -10,13 +10,15 @@ class BigCard extends StatelessWidget {
   final StatusColor status;
   final String price;
   final String? rating;
+  final void Function()? onTap;
   const BigCard(
       {Key? key,
       required this.image,
       required this.title,
       required this.status,
       required this.price,
-      this.rating})
+      this.rating,
+      this.onTap})
       : super(key: key);
   Widget _imageContainer() {
     return Container(
@@ -43,12 +45,15 @@ class BigCard extends StatelessWidget {
                   status: StatusColor.available,
                 ),
                 Spacer(),
-                RatingWidget(rating: rating,)
+                RatingWidget(
+                  rating: rating,
+                )
               ],
             ),
             Spacer(),
             Text(
               title,
+              overflow: TextOverflow.ellipsis,
               style:
                   blackTextStyle.copyWith(fontSize: 20, fontWeight: semibold),
             ),
@@ -75,9 +80,7 @@ class BigCard extends StatelessWidget {
 
     return GestureDetector(
       //function buat ke halaman detail
-      onTap: () {
-        Navigator.pushNamed(context, '/detail');
-      },
+      onTap: onTap,
       //
       child: Container(
           width: MediaQuery.of(context).size.width,
