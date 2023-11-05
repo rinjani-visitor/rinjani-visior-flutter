@@ -3,10 +3,10 @@ import 'package:rinjani_visitor/features/product/domain/product_model.dart';
 
 class DataSourceMock {
   Future<List<ProductModel>> getProducts({int limit = 5}) async {
-    final shuffledPackage = mockPackages..shuffle();
+    // final shuffledPackage = mockPackages..shuffle();
     await Future.delayed(Duration(seconds: 3));
 
-    return shuffledPackage.take(limit).toList();
+    return mockPackages.take(limit).toList();
   }
 
   Future<ProductModel> getProduct(String id) async {
