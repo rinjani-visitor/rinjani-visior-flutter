@@ -10,7 +10,7 @@ _$AddOnModelImpl _$$AddOnModelImplFromJson(Map<String, dynamic> json) =>
     _$AddOnModelImpl(
       name: json['name'] as String,
       description: json['description'] as String?,
-      pricing: json['pricing'] as String,
+      price: json['price'] as int,
       id: json['id'] as String,
     );
 
@@ -18,6 +18,6 @@ Map<String, dynamic> _$$AddOnModelImplToJson(_$AddOnModelImpl instance) =>
     <String, dynamic>{
       'name': instance.name,
       'description': instance.description,
-      'pricing': instance.pricing,
+      'price': instance.price,
       'id': instance.id,
     };

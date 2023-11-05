@@ -28,7 +28,7 @@ mixin _$AddOnModel {
 
   /// price value that has been formatted
   ///
-  String get pricing => throw _privateConstructorUsedError;
+  int get price => throw _privateConstructorUsedError;
 
   /// Add on id
   String get id => throw _privateConstructorUsedError;
@@ -45,7 +45,7 @@ abstract class $AddOnModelCopyWith<$Res> {
           AddOnModel value, $Res Function(AddOnModel) then) =
       _$AddOnModelCopyWithImpl<$Res, AddOnModel>;
   @useResult
-  $Res call({String name, String? description, String pricing, String id});
+  $Res call({String name, String? description, int price, String id});
 }
 
 /// @nodoc
@@ -63,7 +63,7 @@ class _$AddOnModelCopyWithImpl<$Res, $Val extends AddOnModel>
   $Res call({
     Object? name = null,
     Object? description = freezed,
-    Object? pricing = null,
+    Object? price = null,
     Object? id = null,
   }) {
     return _then(_value.copyWith(
@@ -75,10 +75,10 @@ class _$AddOnModelCopyWithImpl<$Res, $Val extends AddOnModel>
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String?,
-      pricing: null == pricing
-          ? _value.pricing
-          : pricing // ignore: cast_nullable_to_non_nullable
-              as String,
+      price: null == price
+          ? _value.price
+          : price // ignore: cast_nullable_to_non_nullable
+              as int,
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -95,7 +95,7 @@ abstract class _$$AddOnModelImplCopyWith<$Res>
       __$$AddOnModelImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String name, String? description, String pricing, String id});
+  $Res call({String name, String? description, int price, String id});
 }
 
 /// @nodoc
@@ -111,7 +111,7 @@ class __$$AddOnModelImplCopyWithImpl<$Res>
   $Res call({
     Object? name = null,
     Object? description = freezed,
-    Object? pricing = null,
+    Object? price = null,
     Object? id = null,
   }) {
     return _then(_$AddOnModelImpl(
@@ -123,10 +123,10 @@ class __$$AddOnModelImplCopyWithImpl<$Res>
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String?,
-      pricing: null == pricing
-          ? _value.pricing
-          : pricing // ignore: cast_nullable_to_non_nullable
-              as String,
+      price: null == price
+          ? _value.price
+          : price // ignore: cast_nullable_to_non_nullable
+              as int,
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -137,12 +137,13 @@ class __$$AddOnModelImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$AddOnModelImpl implements _AddOnModel {
+class _$AddOnModelImpl extends _AddOnModel {
   const _$AddOnModelImpl(
       {required this.name,
       this.description,
-      required this.pricing,
-      required this.id});
+      required this.price,
+      required this.id})
+      : super._();
 
   factory _$AddOnModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$AddOnModelImplFromJson(json);
@@ -158,7 +159,7 @@ class _$AddOnModelImpl implements _AddOnModel {
   /// price value that has been formatted
   ///
   @override
-  final String pricing;
+  final int price;
 
   /// Add on id
   @override
@@ -166,7 +167,7 @@ class _$AddOnModelImpl implements _AddOnModel {
 
   @override
   String toString() {
-    return 'AddOnModel(name: $name, description: $description, pricing: $pricing, id: $id)';
+    return 'AddOnModel(name: $name, description: $description, price: $price, id: $id)';
   }
 
   @override
@@ -177,13 +178,13 @@ class _$AddOnModelImpl implements _AddOnModel {
             (identical(other.name, name) || other.name == name) &&
             (identical(other.description, description) ||
                 other.description == description) &&
-            (identical(other.pricing, pricing) || other.pricing == pricing) &&
+            (identical(other.price, price) || other.price == price) &&
             (identical(other.id, id) || other.id == id));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, name, description, pricing, id);
+  int get hashCode => Object.hash(runtimeType, name, description, price, id);
 
   @JsonKey(ignore: true)
   @override
@@ -199,12 +200,13 @@ class _$AddOnModelImpl implements _AddOnModel {
   }
 }
 
-abstract class _AddOnModel implements AddOnModel {
+abstract class _AddOnModel extends AddOnModel {
   const factory _AddOnModel(
       {required final String name,
       final String? description,
-      required final String pricing,
+      required final int price,
       required final String id}) = _$AddOnModelImpl;
+  const _AddOnModel._() : super._();
 
   factory _AddOnModel.fromJson(Map<String, dynamic> json) =
       _$AddOnModelImpl.fromJson;
@@ -221,7 +223,7 @@ abstract class _AddOnModel implements AddOnModel {
 
   /// price value that has been formatted
   ///
-  String get pricing;
+  int get price;
   @override
 
   /// Add on id

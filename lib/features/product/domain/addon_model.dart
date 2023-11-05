@@ -6,6 +6,8 @@ part 'addon_model.g.dart';
 
 @freezed
 class AddOnModel with _$AddOnModel {
+  get pricing => "${price.toString()}\$";
+  const AddOnModel._();
   const factory AddOnModel(
       {
       /// Add on name, will be displayed as add on name
@@ -16,7 +18,7 @@ class AddOnModel with _$AddOnModel {
 
       /// price value that has been formatted
       ///
-      required String pricing,
+      required int price,
 
       /// Add on id
       required String id}) = _AddOnModel;
