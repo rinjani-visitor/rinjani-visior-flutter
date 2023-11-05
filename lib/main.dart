@@ -9,8 +9,7 @@ import 'package:rinjani_visitor/page/booking/booking_detail_page.dart';
 import 'package:rinjani_visitor/page/profile/change_email_page.dart';
 import 'package:rinjani_visitor/page/profile/change_pass_page.dart';
 import 'package:rinjani_visitor/page/booking/continue_payment_page.dart';
-import 'package:rinjani_visitor/page/booking/product_detail_page.dart';
-import 'package:rinjani_visitor/page/event_detail.dart';
+import 'package:rinjani_visitor/page/event_detail_page.dart';
 import 'package:rinjani_visitor/page/auth/login_page.dart';
 import 'package:rinjani_visitor/page/main/main_page.dart';
 import 'package:rinjani_visitor/page/notification_page.dart';
@@ -57,7 +56,7 @@ class MyApp extends StatelessWidget {
         '/register': (context) => const RegisterPage(),
         '/home': (context) => const MainPage(),
         '/search': (context) => const SearchPage(),
-        '/event-detail': (context) => const EventDetail(),
+        '/event-detail': (context) => const EventDetailPage(),
         '/notification': (context) => const NotificationPage(),
         '/personal-info': (context) => const PersonalInfoPage(),
         '/user-setting': (context) => const UserSettingPage(),

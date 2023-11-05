@@ -1,9 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:rinjani_visitor/core/utils/internationalization.dart';
 import 'package:rinjani_visitor/theme/theme.dart';
 
 class EventCard extends StatelessWidget {
-  const EventCard({Key? key}) : super(key: key);
+  final String title;
+  final DateTime date;
+  final void Function()? onTap;
+  const EventCard(
+      {Key? key, required this.title, required this.date, this.onTap})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +29,7 @@ class EventCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Lombok Festival',
+            title,
             style: blackTextStyle.copyWith(fontSize: 24, fontWeight: semibold),
           ),
           SizedBox(
@@ -41,7 +47,7 @@ class EventCard extends StatelessWidget {
                     width: 6,
                   ),
                   Text(
-                    '12 - 08 - 2023',
+                    dateFormat.format(date),
                     style: blackTextStyle.copyWith(fontSize: 14),
                   )
                 ],
@@ -71,9 +77,7 @@ class EventCard extends StatelessWidget {
     }
 
     return GestureDetector(
-      onTap: () {
-        Navigator.pushNamed(context, '/event-detail');
-      },
+      onTap: onTap,
       child: Container(
         padding: EdgeInsets.all(10.0),
         margin: EdgeInsets.only(top: 8, left: 16, right: 16, bottom: 8),

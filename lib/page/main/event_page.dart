@@ -20,10 +20,13 @@ class EventPage extends StatelessWidget {
               SliverToBoxAdapter(
                 child: Column(
                   children: [
-                    EventCard(),
-                    EventCard(),
-                    EventCard(),
-                    EventCard(),
+                    EventCard(
+                      title: "Lombok Festival",
+                      date: DateTime.now(),
+                      onTap: () {
+                        Navigator.pushNamed(context, '/event-detail');
+                      },
+                    ),
                   ],
                 ),
               )

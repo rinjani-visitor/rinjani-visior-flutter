@@ -54,9 +54,11 @@ class _DetailDescriptionWidgetState extends State<DetailDescriptionWidget> {
           'Add On',
           style: blackTextStyle.copyWith(fontSize: body1, fontWeight: semibold),
         ),
-        Column(
-          children: widget.addOn,
-        ),
+        widget.addOn.isNotEmpty
+            ? Column(
+                children: widget.addOn,
+              )
+            : const Text("No Add On"),
         const SizedBox(
           height: 16,
         ),

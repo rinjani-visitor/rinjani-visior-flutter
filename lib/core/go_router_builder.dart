@@ -5,7 +5,7 @@ import 'package:rinjani_visitor/features/product/domain/product_model.dart';
 import 'package:rinjani_visitor/page/main/account_page.dart';
 import 'package:rinjani_visitor/page/booking/booking_detail_page.dart';
 import 'package:rinjani_visitor/page/booking/product_detail_page.dart';
-import 'package:rinjani_visitor/page/event_detail.dart';
+import 'package:rinjani_visitor/page/event_detail_page.dart';
 import 'package:rinjani_visitor/page/main/event_page.dart';
 import 'package:rinjani_visitor/page/main/home_page.dart';
 import 'package:rinjani_visitor/page/auth/login_page.dart';
@@ -83,7 +83,7 @@ class EventDetailRoute extends GoRouteData {
   const EventDetailRoute({required this.id});
   @override
   Widget build(BuildContext context, GoRouterState state) {
-    return const EventDetail();
+    return const EventDetailPage();
   }
 }
 
