@@ -81,10 +81,18 @@ class _DetailPageState extends ConsumerState<ProductDetailPage> {
         children: [
           Row(
             children: [
-              Text(
-                data.title,
-                overflow: TextOverflow.ellipsis,
-                style: blackTextStyle.copyWith(fontSize: 24, fontWeight: bold),
+              Container(
+                constraints: BoxConstraints(
+                    maxWidth: MediaQuery.of(context).size.width * 0.6),
+                child: Tooltip(
+                  message: data.title,
+                  child: Text(
+                    data.title,
+                    overflow: TextOverflow.ellipsis,
+                    style:
+                        blackTextStyle.copyWith(fontSize: 24, fontWeight: bold),
+                  ),
+                ),
               ),
               const Spacer(),
               const Status(

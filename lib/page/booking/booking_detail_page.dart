@@ -167,11 +167,11 @@ class _BookingDetailPageState extends ConsumerState<BookingDetailPage> {
         children: [
           Text(
             'Estimated Price we can offer',
-            style: blackTextStyle.copyWith(fontSize: 20),
+            style: blackTextStyle.copyWith(fontSize: body1),
           ),
           Text(
             '${_state.totalPrice}\$',
-            style: greenTextStyle,
+            style: greenTextStyle.copyWith(fontSize: heading5),
           )
         ],
       ),
@@ -191,14 +191,14 @@ class _BookingDetailPageState extends ConsumerState<BookingDetailPage> {
                 return "This field should not be empty";
               }
               if (int.parse(value) < _state.totalPrice - 20) {
-                return "Price should not less than the recommended price";
+                return "Price you offered is too low";
               }
               //TODO: tembahkan validasi berdasarkan harga terendah dan harga tertinggi
               return null;
             },
             label: 'Enter your price offer',
             secureText: false,
-            placeholder: 'Price should not less than ${_state.totalPrice}\$',
+            placeholder: 'should not be too lower than estimated',
             inputFormatters: [FilteringTextInputFormatter.digitsOnly],
             keyboardType: TextInputType.number,
           ),
