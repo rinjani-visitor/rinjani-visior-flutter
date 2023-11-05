@@ -504,4 +504,21 @@ final mockPackages = [
       initenaryList: ['First day - arrive at home stay '],
       timeList24H: ["16:00"],
       addOn: [AddOnModel(name: "Driver", price: 20, id: "339")]),
+  const ProductModel(
+      packageId: "29",
+      category: ProductCategory.culture,
+      title: 'Perisean',
+      location: 'Kampung Karang Bajo, Bayan - Lombok Utara',
+      imgUrl: 'assets/perisean.jpeg',
+      priceLow: 41,
+      priceHigh: 48,
+      rating: "4,8",
+      tripDuration: '1 Day',
+      description:
+          '“Peresean” is a tradition of fighting between two men from the Sasak tribe in Lombok. They use a rattan stick like a sword, and a shield made of buffalo skin called ende. Fighters are only allowed to attack the opponent\'s back and shoulders.',
+      accomodation: 'The accomodation includes local guide, snack, transport, and mineral water',
+      reviewCount: 12,
+      initenaryList: ['First day - arrive at home stay '],
+      timeList24H: ["16:00"],
+      addOn: [AddOnModel(name: "Driver", price: 20, id: "339")]),
 ];
