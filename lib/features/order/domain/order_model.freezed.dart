@@ -22,8 +22,10 @@ OrderModel _$OrderModelFromJson(Map<String, dynamic> json) {
 mixin _$OrderModel {
   String? get packageId => throw _privateConstructorUsedError;
   set packageId(String? value) => throw _privateConstructorUsedError;
-  int? get person => throw _privateConstructorUsedError;
-  set person(int? value) => throw _privateConstructorUsedError;
+  ProductModel? get product => throw _privateConstructorUsedError;
+  set product(ProductModel? value) => throw _privateConstructorUsedError;
+  int get person => throw _privateConstructorUsedError;
+  set person(int value) => throw _privateConstructorUsedError;
   String? get proofOfPayment => throw _privateConstructorUsedError;
   set proofOfPayment(String? value) => throw _privateConstructorUsedError;
   String get date => throw _privateConstructorUsedError;
@@ -47,11 +49,14 @@ abstract class $OrderModelCopyWith<$Res> {
   @useResult
   $Res call(
       {String? packageId,
-      int? person,
+      ProductModel? product,
+      int person,
       String? proofOfPayment,
       String date,
       Set<String> time,
       Set<AddOnModel> addOn});
+
+  $ProductModelCopyWith<$Res>? get product;
 }
 
 /// @nodoc
@@ -68,7 +73,8 @@ class _$OrderModelCopyWithImpl<$Res, $Val extends OrderModel>
   @override
   $Res call({
     Object? packageId = freezed,
-    Object? person = freezed,
+    Object? product = freezed,
+    Object? person = null,
     Object? proofOfPayment = freezed,
     Object? date = null,
     Object? time = null,
@@ -79,10 +85,14 @@ class _$OrderModelCopyWithImpl<$Res, $Val extends OrderModel>
           ? _value.packageId
           : packageId // ignore: cast_nullable_to_non_nullable
               as String?,
-      person: freezed == person
+      product: freezed == product
+          ? _value.product
+          : product // ignore: cast_nullable_to_non_nullable
+              as ProductModel?,
+      person: null == person
           ? _value.person
           : person // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as int,
       proofOfPayment: freezed == proofOfPayment
           ? _value.proofOfPayment
           : proofOfPayment // ignore: cast_nullable_to_non_nullable
@@ -101,6 +111,18 @@ class _$OrderModelCopyWithImpl<$Res, $Val extends OrderModel>
               as Set<AddOnModel>,
     ) as $Val);
   }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $ProductModelCopyWith<$Res>? get product {
+    if (_value.product == null) {
+      return null;
+    }
+
+    return $ProductModelCopyWith<$Res>(_value.product!, (value) {
+      return _then(_value.copyWith(product: value) as $Val);
+    });
+  }
 }
 
 /// @nodoc
@@ -113,11 +135,15 @@ abstract class _$$OrderModelImplCopyWith<$Res>
   @useResult
   $Res call(
       {String? packageId,
-      int? person,
+      ProductModel? product,
+      int person,
       String? proofOfPayment,
       String date,
       Set<String> time,
       Set<AddOnModel> addOn});
+
+  @override
+  $ProductModelCopyWith<$Res>? get product;
 }
 
 /// @nodoc
@@ -132,7 +158,8 @@ class __$$OrderModelImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? packageId = freezed,
-    Object? person = freezed,
+    Object? product = freezed,
+    Object? person = null,
     Object? proofOfPayment = freezed,
     Object? date = null,
     Object? time = null,
@@ -143,10 +170,14 @@ class __$$OrderModelImplCopyWithImpl<$Res>
           ? _value.packageId
           : packageId // ignore: cast_nullable_to_non_nullable
               as String?,
-      person: freezed == person
+      product: freezed == product
+          ? _value.product
+          : product // ignore: cast_nullable_to_non_nullable
+              as ProductModel?,
+      person: null == person
           ? _value.person
           : person // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as int,
       proofOfPayment: freezed == proofOfPayment
           ? _value.proofOfPayment
           : proofOfPayment // ignore: cast_nullable_to_non_nullable
@@ -169,14 +200,16 @@ class __$$OrderModelImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$OrderModelImpl implements _OrderModel {
+class _$OrderModelImpl extends _OrderModel {
   _$OrderModelImpl(
       {this.packageId,
-      this.person,
+      this.product,
+      this.person = 0,
       this.proofOfPayment,
       required this.date,
       required this.time,
-      required this.addOn});
+      required this.addOn})
+      : super._();
 
   factory _$OrderModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$OrderModelImplFromJson(json);
@@ -184,7 +217,10 @@ class _$OrderModelImpl implements _OrderModel {
   @override
   String? packageId;
   @override
-  int? person;
+  ProductModel? product;
+  @override
+  @JsonKey()
+  int person;
   @override
   String? proofOfPayment;
   @override
@@ -196,7 +232,7 @@ class _$OrderModelImpl implements _OrderModel {
 
   @override
   String toString() {
-    return 'OrderModel(packageId: $packageId, person: $person, proofOfPayment: $proofOfPayment, date: $date, time: $time, addOn: $addOn)';
+    return 'OrderModel(packageId: $packageId, product: $product, person: $person, proofOfPayment: $proofOfPayment, date: $date, time: $time, addOn: $addOn)';
   }
 
   @JsonKey(ignore: true)
@@ -213,14 +249,16 @@ class _$OrderModelImpl implements _OrderModel {
   }
 }
 
-abstract class _OrderModel implements OrderModel {
+abstract class _OrderModel extends OrderModel {
   factory _OrderModel(
       {String? packageId,
-      int? person,
+      ProductModel? product,
+      int person,
       String? proofOfPayment,
       required String date,
       required Set<String> time,
       required Set<AddOnModel> addOn}) = _$OrderModelImpl;
+  _OrderModel._() : super._();
 
   factory _OrderModel.fromJson(Map<String, dynamic> json) =
       _$OrderModelImpl.fromJson;
@@ -229,8 +267,11 @@ abstract class _OrderModel implements OrderModel {
   String? get packageId;
   set packageId(String? value);
   @override
-  int? get person;
-  set person(int? value);
+  ProductModel? get product;
+  set product(ProductModel? value);
+  @override
+  int get person;
+  set person(int value);
   @override
   String? get proofOfPayment;
   set proofOfPayment(String? value);
