@@ -7,9 +7,12 @@ part 'order_model.freezed.dart';
 
 @unfreezed
 class OrderModel with _$OrderModel {
-  int get totalPrice =>
-      (product!.priceLow * person) +
-      addOn.map((e) => e.price).reduce((a, b) => a + b);
+  int get _addOnPricing {
+    if (addOn.isEmpty) return 0;
+    return addOn.map((e) => e.price).reduce((a, b) => a + b);
+  }
+
+  int get totalPrice => (product?.priceLow ?? 1 * person) + _addOnPricing;
   const OrderModel._();
   factory OrderModel({
     String? packageId,
