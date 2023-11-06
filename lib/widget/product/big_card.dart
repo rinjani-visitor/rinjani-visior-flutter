@@ -25,7 +25,7 @@ class BigProductCard extends StatelessWidget {
       width: 108,
       height: 136,
       decoration: BoxDecoration(
-          image: DecorationImage(fit: BoxFit.fill, image: image),
+          image: DecorationImage(fit: BoxFit.cover, image: image),
           borderRadius: BorderRadius.only(
               topLeft: Radius.circular(bigRadius),
               bottomLeft: Radius.circular(bigRadius))),
