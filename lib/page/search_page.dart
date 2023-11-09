@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:rinjani_visitor/features/product/presentation/view_model/search_view_model.dart';
+import 'package:rinjani_visitor/features/product/presentation/view_model/search_riverpod.dart';
 import 'package:rinjani_visitor/page/booking/product_detail_page.dart';
 import 'package:rinjani_visitor/theme/theme.dart';
 import 'package:rinjani_visitor/widget/auto_search.dart';
@@ -18,7 +18,7 @@ class SearchPage extends ConsumerStatefulWidget {
 class _SearchPageState extends ConsumerState<SearchPage> {
   @override
   Widget build(BuildContext context) {
-    final searchData = ref.watch(searchViewModelProvider);
+    final searchData = ref.watch(searchRiverpodProvider);
     return CupertinoPageScaffold(
       backgroundColor: backgroundColor,
       navigationBar: CupertinoNavigationBar(
@@ -26,9 +26,7 @@ class _SearchPageState extends ConsumerState<SearchPage> {
         padding: const EdgeInsetsDirectional.only(bottom: 8),
         middle: AutoSearch(
           onSearch: (searchText) {
-            ref
-                .read(searchViewModelProvider.notifier)
-                .searchPackage(searchText);
+            ref.read(searchRiverpodProvider.notifier).searchPackage(searchText);
           },
         ),
       ),

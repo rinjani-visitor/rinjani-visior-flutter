@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:rinjani_visitor/core/extension/validator.dart';
-import 'package:rinjani_visitor/features/authentication/presentation/auth_view_model.dart';
+import 'package:rinjani_visitor/features/authentication/presentation/auth_riverpod.dart';
 import 'package:rinjani_visitor/theme/theme.dart';
 import 'package:rinjani_visitor/widget/input_field.dart';
 import 'package:rinjani_visitor/widget/button/primary_button.dart';
@@ -18,8 +18,8 @@ class LoginPage extends ConsumerStatefulWidget {
 class _LoginPageState extends ConsumerState<LoginPage> {
   final _formKey = GlobalKey<FormState>();
 
-  late final _viewModel = ref.read(authViewModelProvider.notifier);
-  late var _state = ref.read(authViewModelProvider);
+  late final _viewModel = ref.read(authRiverpodProvider.notifier);
+  late var _state = ref.read(authRiverpodProvider);
 
   bool isLoading = false;
   final emailTxtController = TextEditingController();
@@ -47,7 +47,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
       final pass = passwordTxtController.text;
       debugPrint("$email, $pass");
       await _viewModel.logIn(email, pass);
-      _state = ref.read(authViewModelProvider);
+      _state = ref.read(authRiverpodProvider);
       if (_state.hasError || _state.hasValue == false) {
         Fluttertoast.showToast(
             msg: "Login failed: ${_state.asError?.error.toString()}");
@@ -60,7 +60,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    _state = ref.watch(authViewModelProvider);
+    _state = ref.watch(authRiverpodProvider);
     return CupertinoPageScaffold(
       resizeToAvoidBottomInset: false,
       child: SafeArea(

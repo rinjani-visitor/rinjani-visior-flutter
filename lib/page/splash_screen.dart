@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:rinjani_visitor/features/authentication/presentation/auth_view_model.dart';
+import 'package:rinjani_visitor/features/authentication/presentation/auth_riverpod.dart';
 import 'package:rinjani_visitor/theme/theme.dart';
 
 class SplashScreen extends ConsumerStatefulWidget {
@@ -11,8 +11,8 @@ class SplashScreen extends ConsumerStatefulWidget {
 }
 
 class _SplashScreenState extends ConsumerState<SplashScreen> {
-  late final _viewModel = ref.read(authViewModelProvider.notifier);
-  late var _state = ref.read(authViewModelProvider);
+  late final _viewModel = ref.read(authRiverpodProvider.notifier);
+  late var _state = ref.read(authRiverpodProvider);
 
   @override
   void initState() {
@@ -31,7 +31,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    _state = ref.watch(authViewModelProvider);
+    _state = ref.watch(authRiverpodProvider);
     return Scaffold(
       backgroundColor: primaryColor,
       body: Center(

@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:rinjani_visitor/features/authentication/presentation/auth_view_model.dart';
+import 'package:rinjani_visitor/features/authentication/presentation/auth_riverpod.dart';
 import 'package:rinjani_visitor/theme/theme.dart';
 
 class PersonalInfoPage extends ConsumerWidget {
@@ -46,7 +46,7 @@ class PersonalInfoPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(authViewModelProvider);
+    final state = ref.watch(authRiverpodProvider);
     return CupertinoPageScaffold(
         backgroundColor: backgroundColor,
         navigationBar: const CupertinoNavigationBar(
@@ -57,13 +57,10 @@ class PersonalInfoPage extends ConsumerWidget {
                 margin: const EdgeInsets.all(16),
                 child: ListView(
                   children: [
-                    userInfo(
-                        'Username', state.value?.username ?? ""),
+                    userInfo('Username', state.value?.username ?? ""),
                     userInfo('Email', state.value?.email ?? ""),
-                    userInfo('Phone number',
-                        ""),
-                    userInfo('Birth date',
-                        ""),
+                    userInfo('Phone number', ""),
+                    userInfo('Birth date', ""),
                   ],
                 ))));
   }

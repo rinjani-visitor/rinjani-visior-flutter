@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:rinjani_visitor/features/authentication/presentation/auth_view_model.dart';
+import 'package:rinjani_visitor/features/authentication/presentation/auth_riverpod.dart';
 import 'package:rinjani_visitor/theme/theme.dart';
 
 class UserSettingPage extends ConsumerStatefulWidget {
@@ -13,11 +13,11 @@ class UserSettingPage extends ConsumerStatefulWidget {
 }
 
 class _UserSettingPageState extends ConsumerState<UserSettingPage> {
-  late final _viewModel = ref.read(authViewModelProvider.notifier);
+  late final _viewModel = ref.read(authRiverpodProvider.notifier);
 
   void _logOutMethod(void Function() onLoggingOut) async {
     await _viewModel.logOut();
-    final state = ref.read(authViewModelProvider);
+    final state = ref.read(authRiverpodProvider);
     if (state.hasError) {
       Fluttertoast.showToast(msg: "${state.error?.toString()}");
       return;

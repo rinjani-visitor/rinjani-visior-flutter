@@ -1,9 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:rinjani_visitor/features/product/data/product_repository_impl.dart';
 import 'package:rinjani_visitor/features/product/domain/category_enum.dart';
-import 'package:rinjani_visitor/features/product/presentation/view_model/product_view_model.dart';
-import 'package:rinjani_visitor/features/product/presentation/view_model/search_view_model.dart';
+import 'package:rinjani_visitor/features/product/presentation/view_model/search_riverpod.dart';
 import 'package:rinjani_visitor/page/booking/product_detail_page.dart';
 import 'package:rinjani_visitor/theme/theme.dart';
 import 'package:rinjani_visitor/widget/product/big_card.dart';
@@ -25,7 +23,7 @@ class _CategoryExplorePageState extends ConsumerState<CategoryExplorePage> {
   @override
   Widget build(BuildContext context) {
     final _data = ref
-        .read(searchViewModelProvider.notifier)
+        .read(searchRiverpodProvider.notifier)
         .getProductByCategory(widget.category);
     return CupertinoPageScaffold(
         backgroundColor: backgroundColor,

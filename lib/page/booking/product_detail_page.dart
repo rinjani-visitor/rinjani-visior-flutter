@@ -2,9 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:like_button/like_button.dart';
-import 'package:rinjani_visitor/core/constant/product_package.dart';
-import 'package:rinjani_visitor/features/order/presentation/order_view_model.dart';
-import 'package:rinjani_visitor/features/product/domain/addon_model.dart';
+import 'package:rinjani_visitor/features/order/presentation/order_riverpod.dart';
 import 'package:rinjani_visitor/features/product/domain/product_model.dart';
 import 'package:rinjani_visitor/theme/theme.dart';
 import 'package:rinjani_visitor/widget/add_on_widget.dart';
@@ -29,8 +27,8 @@ class _DetailPageState extends ConsumerState<ProductDetailPage> {
   // TODO: override later with server data
   late final ProductModel data = widget.data;
 
-  late final _viewModel = ref.read(orderViewModelProvider.notifier);
-  late var _state = ref.read(orderViewModelProvider);
+  late final _viewModel = ref.read(orderRiverpodProvider.notifier);
+  late var _state = ref.read(orderRiverpodProvider);
 
   late final _dateController = TextEditingController(text: _state.date);
   late final _personController =
@@ -157,7 +155,7 @@ class _DetailPageState extends ConsumerState<ProductDetailPage> {
 
   @override
   Widget build(BuildContext context) {
-    _state = ref.watch(orderViewModelProvider);
+    _state = ref.watch(orderRiverpodProvider);
     final orderData = _state;
     return CupertinoPageScaffold(
         navigationBar: const CupertinoNavigationBar(

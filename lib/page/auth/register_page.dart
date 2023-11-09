@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:rinjani_visitor/core/constant/country.dart';
 import 'package:rinjani_visitor/core/extension/validator.dart';
-import 'package:rinjani_visitor/features/authentication/presentation/auth_view_model.dart';
+import 'package:rinjani_visitor/features/authentication/presentation/auth_riverpod.dart';
 import 'package:rinjani_visitor/theme/theme.dart';
 import 'package:rinjani_visitor/widget/button/primary_button.dart';
 import 'package:rinjani_visitor/widget/form/dropdown_textfield.dart';
@@ -23,8 +23,8 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
   final _phoneNumberTxtController = TextEditingController();
   final _passwordTxtController = TextEditingController();
 
-  late final _viewModel = ref.read(authViewModelProvider.notifier);
-  late var _state = ref.read(authViewModelProvider);
+  late final _viewModel = ref.read(authRiverpodProvider.notifier);
+  late var _state = ref.read(authRiverpodProvider);
 
   @override
   void dispose() {
@@ -57,7 +57,7 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
 
   @override
   Widget build(BuildContext context) {
-    _state = ref.watch(authViewModelProvider);
+    _state = ref.watch(authRiverpodProvider);
     return CupertinoPageScaffold(
       resizeToAvoidBottomInset: true,
       backgroundColor: whiteColor,
@@ -120,7 +120,7 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
             label: 'Email',
             controller: _emailTxtController,
             textInputAction: TextInputAction.next,
-            autoFillHints: const[AutofillHints.email],
+            autoFillHints: const [AutofillHints.email],
             validator: (value) {
               if (value == null || value.isEmpty) {
                 return "Email required";

@@ -2,10 +2,10 @@ import 'package:rinjani_visitor/features/product/data/product_repository_impl.da
 import 'package:rinjani_visitor/features/product/domain/product_model.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-part 'recommended_product_view_model.g.dart';
+part 'recommended_product_riverpod.g.dart';
 
 @Riverpod()
-class RecommendedProductViewModel extends _$RecommendedProductViewModel {
+class RecommendedProductRiverpod extends _$RecommendedProductRiverpod {
   @override
   FutureOr<List<ProductModel>> build() async {
     final repo = ref.read(productRepositoryProvider);

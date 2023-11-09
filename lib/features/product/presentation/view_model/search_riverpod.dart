@@ -5,10 +5,10 @@ import 'package:rinjani_visitor/features/product/domain/category_enum.dart';
 import 'package:rinjani_visitor/features/product/domain/product_model.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-part 'search_view_model.g.dart';
+part 'search_riverpod.g.dart';
 
 @Riverpod(keepAlive: true)
-class SearchViewModel extends _$SearchViewModel {
+class SearchRiverpod extends _$SearchRiverpod {
   @override
   FutureOr<List<ProductModel>> build() async {
     final data =

@@ -5,10 +5,10 @@ import 'package:rinjani_visitor/features/product/domain/addon_model.dart';
 import 'package:rinjani_visitor/features/product/domain/product_repository.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-part 'order_view_model.g.dart';
+part 'order_riverpod.g.dart';
 
 @Riverpod()
-class OrderViewModel extends _$OrderViewModel {
+class OrderRiverpod extends _$OrderRiverpod {
   // ignore: unused_field
   late final ProductRespository _productRepository;
 

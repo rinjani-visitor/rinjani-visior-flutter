@@ -2,9 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rinjani_visitor/features/product/domain/category_enum.dart';
-import 'package:rinjani_visitor/features/product/presentation/view_model/product_view_model.dart';
-import 'package:rinjani_visitor/features/product/presentation/view_model/recommended_product_view_model.dart';
-import 'package:rinjani_visitor/features/product/presentation/view_model/search_view_model.dart';
+import 'package:rinjani_visitor/features/product/presentation/view_model/product_riverpod.dart';
+import 'package:rinjani_visitor/features/product/presentation/view_model/recommended_product_riverpod.dart';
+import 'package:rinjani_visitor/features/product/presentation/view_model/search_riverpod.dart';
 import 'package:rinjani_visitor/page/booking/product_detail_page.dart';
 import 'package:rinjani_visitor/page/category_explore_page.dart';
 import 'package:rinjani_visitor/theme/theme.dart';
@@ -98,9 +98,9 @@ class _HomePageState extends ConsumerState<HomePage> {
   }
 
   Widget _recommendedWidgets() {
-    final _packageData = ref.watch(productViewModelProvider);
-    final recommendedData = ref.watch(recommendedProductViewModelProvider);
-    final _searchData = ref.watch(searchViewModelProvider);
+    final _packageData = ref.watch(productRiverpodProvider);
+    final recommendedData = ref.watch(recommendedProductRiverpodProvider);
+    final _searchData = ref.watch(searchRiverpodProvider);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
