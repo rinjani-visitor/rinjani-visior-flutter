@@ -46,11 +46,4 @@ class AuthRiverpod extends _$AuthRiverpod {
         password: password));
     debugPrint("value ${state.asData?.value.toString()}");
   }
-
-  Future<String> getToken() async {
-    await Future.delayed(const Duration(seconds: 3));
-    final token = state.asData?.value?.token;
-    debugPrint("current token: $token");
-    return token ?? "";
-  }
 }

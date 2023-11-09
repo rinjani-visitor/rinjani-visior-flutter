@@ -11,27 +11,32 @@ class SplashScreen extends ConsumerStatefulWidget {
 }
 
 class _SplashScreenState extends ConsumerState<SplashScreen> {
-  late final _viewModel = ref.read(authRiverpodProvider.notifier);
   late var _state = ref.read(authRiverpodProvider);
+
+  Future<void> syncToken() async {
+    final token = _state.asData?.value?.token;
+    if (token != null && token.isNotEmpty) {
+      debugPrint("value $token");
+      Navigator.pushReplacementNamed(context, '/home');
+      return;
+    }
+    Navigator.pushReplacementNamed(context, '/login');
+  }
 
   @override
   void initState() {
     super.initState();
     debugPrint("${_state.asData?.value.toString()}");
-    _viewModel.getToken().then((token) {
-      if (token.isNotEmpty) {
-        debugPrint("value $token");
-        Navigator.pushReplacementNamed(context, '/home');
-        return;
-      } else {
-        Navigator.pushReplacementNamed(context, '/login');
-      }
-    });
   }
 
   @override
   Widget build(BuildContext context) {
     _state = ref.watch(authRiverpodProvider);
+    if (_state is AsyncData) {
+      WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+        syncToken();
+      });
+    }
     return Scaffold(
       backgroundColor: primaryColor,
       body: Center(
