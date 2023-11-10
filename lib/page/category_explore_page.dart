@@ -6,6 +6,7 @@ import 'package:rinjani_visitor/page/booking/product_detail_page.dart';
 import 'package:rinjani_visitor/theme/theme.dart';
 import 'package:rinjani_visitor/widget/product/big_card.dart';
 import 'package:rinjani_visitor/widget/status.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
 class CategoryExplorePage extends ConsumerStatefulWidget {
   final String title;
@@ -21,9 +22,7 @@ class CategoryExplorePage extends ConsumerStatefulWidget {
 class _CategoryExplorePageState extends ConsumerState<CategoryExplorePage> {
   @override
   Widget build(BuildContext context) {
-    final data = ref
-        .read(searchRiverpodProvider.notifier)
-        .getProductByCategory(widget.category);
+    final state = ref.watch(searchRiverpodProvider);
     return CupertinoPageScaffold(
         backgroundColor: backgroundColor,
         navigationBar: CupertinoNavigationBar(
@@ -31,31 +30,60 @@ class _CategoryExplorePageState extends ConsumerState<CategoryExplorePage> {
         ),
         child: Padding(
           padding: const EdgeInsets.all(8.0),
-          child: data.isNotEmpty
-              ? ListView.builder(
-                  itemCount: data.length,
+          child: state.when(
+            data: (data) {
+              final filteredData = data
+                  .where((element) => element.category == widget.category)
+                  .toList();
+              return filteredData.isNotEmpty
+                  ? ListView.builder(
+                      itemCount: filteredData.length,
+                      itemBuilder: (context, index) {
+                        final current = filteredData[index];
+                        return Padding(
+                          padding: const EdgeInsets.only(bottom: 8.0),
+                          child: BigProductCard(
+                              image: AssetImage(current.imgUrl),
+                              title: current.title,
+                              rating: current.rating,
+                              status: StatusColor.available,
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    CupertinoPageRoute(
+                                        builder: (context) => ProductDetailPage(
+                                              data: current,
+                                            )));
+                              },
+                              price: current.rangePricing),
+                        );
+                      },
+                    )
+                  : const Center(child: Text('Sorry, product not avaiable'));
+            },
+            error: (error, stackTrace) {
+              return Center(
+                child: Text(error.toString()),
+              );
+            },
+            loading: () {
+              return Skeletonizer(
+                child: ListView.builder(
+                  itemCount: 8,
                   itemBuilder: (context, index) {
-                    final current = data[index];
-                    return Padding(
-                      padding: const EdgeInsets.only(bottom: 8.0),
+                    return const Padding(
+                      padding: EdgeInsets.only(bottom: 8.0),
                       child: BigProductCard(
-                          image: AssetImage(current.imgUrl),
-                          title: current.title,
-                          rating: current.rating,
+                          image: AssetImage("assets/logo.png"),
+                          title: " ",
                           status: StatusColor.available,
-                          onTap: () {
-                            Navigator.push(
-                                context,
-                                CupertinoPageRoute(
-                                    builder: (context) => ProductDetailPage(
-                                          data: current,
-                                        )));
-                          },
-                          price: current.rangePricing),
+                          price: "23123"),
                     );
                   },
-                )
-              : const Center(child: Text('Sorry, product not avaiable')),
+                ),
+              );
+            },
+          ),
         ));
   }
 }
