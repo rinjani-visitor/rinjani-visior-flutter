@@ -26,6 +26,94 @@ class ProductDetailPage extends ConsumerStatefulWidget {
 class _DetailPageState extends ConsumerState<ProductDetailPage> {
   // TODO: override later with server data
   late final ProductModel data = widget.data;
+  late final List<KVContentWidget> descriptionData = [
+    KVContentWidget(
+        title: "Description",
+        content: Text(
+          data.description,
+          style: blackTextStyle.copyWith(
+            fontSize: body2,
+          ),
+        )),
+    KVContentWidget(
+        title: "AddOn",
+        content: data.addOn.isNotEmpty
+            ? Column(
+                children: List.generate(data.addOn.length, (index) {
+                  final current = data.addOn[index];
+                  return Tooltip(
+                    message: current.description ?? "",
+                    child: AddOnWidget(
+                      name: current.name,
+                      price: current.pricing,
+                      selected:
+                          _state.addOn.map((e) => e.id).contains(current.id),
+                      onChanged: (value) {
+                        if (_state.addOn
+                            .map((e) => e.id)
+                            .contains(current.id)) {
+                          setState(() {
+                            _viewModel.removeAddon(current);
+                          });
+                          return;
+                        } else {
+                          setState(() {
+                            _viewModel.addAddon(current);
+                          });
+                        }
+                      },
+                    ),
+                  );
+                }),
+              )
+            : const Text("Add On unavailable for this package")),
+    KVContentWidget(
+      title: "Date and Time",
+      content: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          DatePickerWidget(
+            initialDate: _viewModel.getDate(),
+            onChange: (dateVal) {
+              _dateController.text = dateVal ?? "";
+              setState(() {
+                _viewModel.setDate(dateVal);
+              });
+            },
+          ),
+          const SizedBox(
+            height: 8,
+          ),
+          TimeList(
+              selectedTimeListData: _state.time.toList(),
+              timeListData: data.timeList24H,
+              onTimeListTap: (value, isSelected) {
+                if (isSelected) {
+                  _state.time.add(value);
+                } else {
+                  _state.time.remove(value);
+                }
+              }),
+        ],
+      ),
+    ),
+    KVContentWidget(
+        title: "Accomodation",
+        content: Text(
+          data.accomodation,
+          style: const TextStyle(fontSize: 16),
+        )),
+    const KVContentWidget(title: "Reviews", content: ReviewWidgetMock()),
+    KVContentWidget(
+      title: "Buy Product",
+      content: PrimaryButton(
+          onPressed: () => _showModalPopup(),
+          child: Text(
+            'Buy Product',
+            style: whiteTextStyle.copyWith(fontSize: 16),
+          )),
+    )
+  ];
 
   late final _viewModel = ref.read(orderRiverpodProvider.notifier);
   late var _state = ref.read(orderRiverpodProvider);
@@ -174,74 +262,8 @@ class _DetailPageState extends ConsumerState<ProductDetailPage> {
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 16.0),
                       child: DetailSegmentedWidget(
-                        description: DetailDescriptionWidget(
-                          description: data.description,
-                          accomodation: data.accomodation,
-                          addOn: List.generate(data.addOn.length, (index) {
-                            final current = data.addOn[index];
-                            return Tooltip(
-                              message: current.description ?? "",
-                              child: AddOnWidget(
-                                name: current.name,
-                                price: current.pricing,
-                                selected: _state.addOn
-                                    .map((e) => e.id)
-                                    .contains(current.id),
-                                onChanged: (value) {
-                                  if (_state.addOn
-                                      .map((e) => e.id)
-                                      .contains(current.id)) {
-                                    setState(() {
-                                      _viewModel.removeAddon(current);
-                                    });
-                                    return;
-                                  } else {
-                                    setState(() {
-                                      _viewModel.addAddon(current);
-                                    });
-                                  }
-                                },
-                              ),
-                            );
-                          }),
-                          datePicker: DatePickerWidget(
-                            initialDate: _viewModel.getDate(),
-                            onChange: (dateVal) {
-                              _dateController.text = dateVal ?? "";
-                              setState(() {
-                                _viewModel.setDate(dateVal);
-                              });
-                            },
-                          ),
-                          timeList: TimeList(
-                              initialSelectedTimeListData:
-                                  orderData.time.toList(),
-                              timeListData: data.timeList24H,
-                              onTimeListTap: (value, isSelected) {
-                                if (isSelected) {
-                                  _state.time.add(value);
-                                } else {
-                                  orderData.time.remove(value);
-                                }
-                              }),
-                          review: ReviewWidget(
-                            reviewChildren: [
-                              ReviewCardWidget(
-                                  name: "Kevin",
-                                  createdTime: " weeks ago",
-                                  message: "This place is amazing, I love it"),
-                              ReviewCardWidget(
-                                  name: "Kevin",
-                                  createdTime: " weeks ago",
-                                  message: "This place is amazing, I love it"),
-                            ],
-                          ),
-                          buyProduct: PrimaryButton(
-                              onPressed: () => _showModalPopup(),
-                              child: Text(
-                                'Buy Product',
-                                style: whiteTextStyle.copyWith(fontSize: 16),
-                              )),
+                        description: KVDetailDescriptionWidget(
+                          kvChildren: descriptionData,
                         ),
                         initenary: DetailIniteraryWidget(
                             initenaryList: data.initenaryList),
