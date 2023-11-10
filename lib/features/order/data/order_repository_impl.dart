@@ -31,7 +31,7 @@ class OrderRepositoryImpl implements OrderRepository {
     try {
       final compressedImg =
           await reduceImageByteSize(proofOfPayment, targetSizeInKB: 5000);
-      final partImg = MultipartFile.fromBytes(compressedImg.readAsBytesSync(),
+      final _ = MultipartFile.fromBytes(compressedImg.readAsBytesSync(),
           contentType: MediaType('image', proofOfPayment.path.split('.').last),
           filename: "proof_of_payment.jpg");
       //TODO: send data to remote

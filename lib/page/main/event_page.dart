@@ -3,7 +3,7 @@ import 'package:rinjani_visitor/theme/theme.dart';
 import 'package:rinjani_visitor/widget/event_card.dart';
 
 class EventPage extends StatelessWidget {
-  const EventPage({Key? key}) : super(key: key);
+  const EventPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +12,7 @@ class EventPage extends StatelessWidget {
         child: SafeArea(
           child: CustomScrollView(
             primary: false,
-            scrollBehavior: CupertinoScrollBehavior(),
+            scrollBehavior: const CupertinoScrollBehavior(),
             slivers: [
               const CupertinoSliverNavigationBar(
                 largeTitle: Text("Events"),

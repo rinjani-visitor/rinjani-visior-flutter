@@ -12,7 +12,7 @@ List<String> suggestons = [
 
 class AutoSearch extends StatelessWidget {
   final void Function(String searchText)? onSearch;
-  const AutoSearch({Key? key, this.onSearch}) : super(key: key);
+  const AutoSearch({super.key, this.onSearch});
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +34,7 @@ class AutoSearch extends StatelessWidget {
         }
       },
       onSelected: (String selection) {
-        print('You just selected $selection');
+        debugPrint('You just selected $selection');
       },
       fieldViewBuilder: (BuildContext context,
           TextEditingController textEditingController,

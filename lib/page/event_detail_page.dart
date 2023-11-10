@@ -21,7 +21,7 @@ final mockdata = EventModel(
     ]);
 
 class EventDetailPage extends StatefulWidget {
-  const EventDetailPage({Key? key}) : super(key: key);
+  const EventDetailPage({super.key});
 
   @override
   State<EventDetailPage> createState() => _EventDetailPageState();
@@ -58,7 +58,7 @@ class _EventDetailPageState extends State<EventDetailPage> {
   Widget eventHeader() {
     return Container(
       width: double.infinity,
-      padding: EdgeInsets.all(16),
+      padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(color: whiteColor),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -67,7 +67,7 @@ class _EventDetailPageState extends State<EventDetailPage> {
             data.name,
             style: blackTextStyle.copyWith(fontSize: 24, fontWeight: semibold),
           ),
-          SizedBox(
+          const SizedBox(
             height: 8,
           ),
           Row(
@@ -78,7 +78,7 @@ class _EventDetailPageState extends State<EventDetailPage> {
                     Icons.calendar_month,
                     color: lightGray,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 8,
                   ),
                   Text(
@@ -89,7 +89,7 @@ class _EventDetailPageState extends State<EventDetailPage> {
                   )
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 width: 16,
               ),
               Row(
@@ -98,7 +98,7 @@ class _EventDetailPageState extends State<EventDetailPage> {
                     Icons.access_time,
                     color: lightGray,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 8,
                   ),
                   Text(
@@ -111,7 +111,7 @@ class _EventDetailPageState extends State<EventDetailPage> {
               ),
             ],
           ),
-          SizedBox(
+          const SizedBox(
             height: 8,
           ),
           Text(
@@ -167,7 +167,7 @@ class _EventDetailPageState extends State<EventDetailPage> {
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
         backgroundColor: backgroundColor,
-        navigationBar: CupertinoNavigationBar(
+        navigationBar: const CupertinoNavigationBar(
           middle: Text('Event detail'),
         ),
         child: ListView(

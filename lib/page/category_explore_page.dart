@@ -11,8 +11,7 @@ class CategoryExplorePage extends ConsumerStatefulWidget {
   final String title;
   final ProductCategory category;
   const CategoryExplorePage(
-      {Key? key, required this.title, required this.category})
-      : super(key: key);
+      {super.key, required this.title, required this.category});
 
   @override
   ConsumerState<CategoryExplorePage> createState() =>
@@ -22,21 +21,21 @@ class CategoryExplorePage extends ConsumerStatefulWidget {
 class _CategoryExplorePageState extends ConsumerState<CategoryExplorePage> {
   @override
   Widget build(BuildContext context) {
-    final _data = ref
+    final data = ref
         .read(searchRiverpodProvider.notifier)
         .getProductByCategory(widget.category);
     return CupertinoPageScaffold(
         backgroundColor: backgroundColor,
         navigationBar: CupertinoNavigationBar(
-          middle: Text('${widget.title}'),
+          middle: Text(widget.title),
         ),
         child: Padding(
           padding: const EdgeInsets.all(8.0),
-          child: _data.isNotEmpty
+          child: data.isNotEmpty
               ? ListView.builder(
-                  itemCount: _data.length,
+                  itemCount: data.length,
                   itemBuilder: (context, index) {
-                    final current = _data[index];
+                    final current = data[index];
                     return Padding(
                       padding: const EdgeInsets.only(bottom: 8.0),
                       child: BigProductCard(

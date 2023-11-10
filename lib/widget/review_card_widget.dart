@@ -6,11 +6,10 @@ class ReviewCardWidget extends StatelessWidget {
   final String createdTime;
   final String message;
   const ReviewCardWidget(
-      {Key? key,
+      {super.key,
       required this.name,
       required this.createdTime,
-      required this.message})
-      : super(key: key);
+      required this.message});
 
   @override
   Widget build(BuildContext context) {

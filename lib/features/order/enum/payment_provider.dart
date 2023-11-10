@@ -1,4 +1,5 @@
-/// enum for payment provider, this is used to choose payment method.
+// ignore_for_file: constant_identifier_names
+
 enum PaymentProvider {
   Wise,
   Paypal,

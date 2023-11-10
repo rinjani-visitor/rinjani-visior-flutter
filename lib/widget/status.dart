@@ -15,14 +15,10 @@ enum StatusColor {
 
 class Status extends StatelessWidget {
   final StatusColor status;
-  const Status({
-    Key? key,
-    required this.status
-  }) : super(key: key);
+  const Status({super.key, required this.status});
 
   @override
   Widget build(BuildContext context) {
-
     //fungsi untuk menentukan warna pada widget status berdasarkan enum
     Color getColor(StatusColor statusColor) {
       switch (statusColor) {
@@ -64,14 +60,13 @@ class Status extends StatelessWidget {
     }
 
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(smallRadius),
 
           //ubah warna status berdasarkan kondisinya
           color: getColor(status)),
       child: Text(
-
         //ubah teks pada status berdasarkan kondisinya
         getStatus(status),
         style: whiteTextStyle.copyWith(fontSize: 12, fontWeight: regular),

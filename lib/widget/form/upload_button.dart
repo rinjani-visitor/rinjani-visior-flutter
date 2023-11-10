@@ -8,8 +8,7 @@ class UploadButton extends StatelessWidget {
   final void Function()? onPressed;
   final File? file;
 
-  const UploadButton({Key? key, required this.onPressed, this.file})
-      : super(key: key);
+  const UploadButton({super.key, required this.onPressed, this.file});
 
   @override
   Widget build(BuildContext context) {
@@ -25,13 +24,14 @@ class UploadButton extends StatelessWidget {
                 borderRadius: BorderRadius.circular(8)),
             child: DottedBorder(
                 borderType: BorderType.RRect,
-                radius: Radius.circular(4),
+                radius: const Radius.circular(4),
                 color: lightGray,
                 child: Center(
                     child: file != null
                         ? Text(
                             "File Selected : ${file!.path.split(Platform.pathSeparator).last} ")
-                        : Text('Click to Upload Payment (JPEG, JPG, PNG)')))),
+                        : const Text(
+                            'Click to Upload Payment (JPEG, JPG, PNG)')))),
       ),
     );
   }

@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:rinjani_visitor/page/category_explore_page.dart';
 import 'package:rinjani_visitor/theme/theme.dart';
 
 class CategoryItem extends StatelessWidget {
@@ -8,8 +6,7 @@ class CategoryItem extends StatelessWidget {
   final IconData iconName;
   final void Function(String label)? onTap;
   const CategoryItem(
-      {Key? key, required this.label, required this.iconName, this.onTap})
-      : super(key: key);
+      {super.key, required this.label, required this.iconName, this.onTap});
 
   @override
   Widget build(BuildContext context) {

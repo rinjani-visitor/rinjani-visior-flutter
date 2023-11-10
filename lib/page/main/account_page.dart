@@ -6,7 +6,7 @@ import 'package:rinjani_visitor/features/authentication/presentation/auth_riverp
 import 'package:rinjani_visitor/theme/theme.dart';
 
 class AccountPage extends ConsumerWidget {
-  const AccountPage({Key? key}) : super(key: key);
+  const AccountPage({super.key});
 
   Widget userProfile(String username) {
     return Flexible(

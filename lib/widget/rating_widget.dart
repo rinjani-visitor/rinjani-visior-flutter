@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 
 class RatingWidget extends StatelessWidget {
   final String? rating;
-  const RatingWidget({Key? key, this.rating}) : super(key: key);
+  const RatingWidget({super.key, this.rating});
 
   @override
   Widget build(BuildContext context) {
@@ -11,10 +11,10 @@ class RatingWidget extends StatelessWidget {
         Container(
           width: 24,
           height: 24,
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
               image: DecorationImage(image: AssetImage('assets/star.png'))),
         ),
-        SizedBox(
+        const SizedBox(
           width: 6,
         ),
         Text(rating ?? "-,-")

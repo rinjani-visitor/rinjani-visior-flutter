@@ -2,9 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rinjani_visitor/features/product/domain/category_enum.dart';
-import 'package:rinjani_visitor/features/product/presentation/view_model/product_riverpod.dart';
 import 'package:rinjani_visitor/features/product/presentation/view_model/recommended_product_riverpod.dart';
-import 'package:rinjani_visitor/features/product/presentation/view_model/search_riverpod.dart';
 import 'package:rinjani_visitor/page/booking/product_detail_page.dart';
 import 'package:rinjani_visitor/page/category_explore_page.dart';
 import 'package:rinjani_visitor/theme/theme.dart';
@@ -15,7 +13,7 @@ import 'package:rinjani_visitor/widget/status.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 class HomePage extends ConsumerStatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+  const HomePage({super.key});
 
   @override
   ConsumerState<HomePage> createState() => _HomePageState();
@@ -98,9 +96,7 @@ class _HomePageState extends ConsumerState<HomePage> {
   }
 
   Widget _recommendedWidgets() {
-    final _packageData = ref.watch(productRiverpodProvider);
     final recommendedData = ref.watch(recommendedProductRiverpodProvider);
-    final _searchData = ref.watch(searchRiverpodProvider);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -140,9 +136,7 @@ class _HomePageState extends ConsumerState<HomePage> {
             );
           },
           error: (error, stackTrace) {
-            return Container(
-              child: Text("error $error"),
-            );
+            return Text("error $error");
           },
           loading: () {
             return SingleChildScrollView(
@@ -190,9 +184,9 @@ class _HomePageState extends ConsumerState<HomePage> {
             itemCount: 1,
             itemBuilder: (context, index) {
               return Padding(
-                padding: EdgeInsets.only(bottom: 8, left: 16, right: 16),
+                padding: const EdgeInsets.only(bottom: 8, left: 16, right: 16),
                 child: BigProductCard(
-                    image: AssetImage("assets/event.jpeg"),
+                    image: const AssetImage("assets/event.jpeg"),
                     title: "Lombok Festival",
                     price: "\$80 - \$90 - Person",
                     status: StatusColor.available,
@@ -212,7 +206,7 @@ class _HomePageState extends ConsumerState<HomePage> {
   Widget build(BuildContext context) {
     double deviceHeight = MediaQuery.of(context).size.height;
     double appBarHeight = deviceHeight * 0.15;
-    final username = "User";
+    const username = "User";
     return Scaffold(
       backgroundColor: backgroundColor,
       appBar: PreferredSize(

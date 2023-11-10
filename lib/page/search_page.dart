@@ -9,7 +9,7 @@ import 'package:rinjani_visitor/widget/status.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 class SearchPage extends ConsumerStatefulWidget {
-  const SearchPage({Key? key}) : super(key: key);
+  const SearchPage({super.key});
 
   @override
   ConsumerState<SearchPage> createState() => _SearchPageState();
@@ -33,7 +33,7 @@ class _SearchPageState extends ConsumerState<SearchPage> {
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
         child: searchData.when(
-            data: (data) => data.length > 0
+            data: (data) => data.isNotEmpty
                 ? ListView.builder(
                     itemCount: data.length,
                     itemBuilder: (context, index) {

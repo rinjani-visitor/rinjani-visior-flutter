@@ -1,3 +1,5 @@
+// ignore_for_file: constant_identifier_names
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rinjani_visitor/core/exception/exception.dart';
@@ -34,7 +36,7 @@ class AuthRepositoryImpl implements AuthRepository {
       required String country,
       required String phone,
       required String password}) async {
-    debugPrint("${NAME}: Register...");
+    debugPrint("$NAME: Register...");
 
     if (username.isEmpty ||
         email.isEmpty ||
@@ -66,11 +68,10 @@ class AuthRepositoryImpl implements AuthRepository {
   @override
   Future<AuthModel> logIn(
       {required String email, required String password}) async {
-
-    debugPrint("${NAME}: Login...");
+    debugPrint("$NAME: Login...");
     if (email.isEmpty || password.isEmpty) {
       final exception = ExtException("Email / password should not be null");
-      debugPrint("${NAME}: Error: ${exception.toString()}");
+      debugPrint("$NAME: Error: ${exception.toString()}");
       throw exception;
     }
 
@@ -88,7 +89,7 @@ class AuthRepositoryImpl implements AuthRepository {
       return result;
     } catch (e) {
       final err = exceptionHandler(e);
-      debugPrint("${NAME}: Error: ${err.toString()}");
+      debugPrint("$NAME: Error: ${err.toString()}");
       throw err;
     }
   }

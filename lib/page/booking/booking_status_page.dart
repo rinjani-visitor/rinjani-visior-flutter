@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:rinjani_visitor/theme/theme.dart';
 import 'package:rinjani_visitor/widget/button/primary_button.dart';
 
@@ -20,7 +19,7 @@ const bookingStatus = [
 ];
 
 class BookingStatusPage extends StatelessWidget {
-  BookingStatusPage({Key? key}) : super(key: key);
+  BookingStatusPage({super.key});
 
   final data = bookingStatus[0];
 
@@ -33,7 +32,7 @@ class BookingStatusPage extends StatelessWidget {
       ),
       child: SafeArea(
         child: Padding(
-          padding: EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+          padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -62,7 +61,7 @@ class BookingStatusPage extends StatelessWidget {
                       onPressed: () {
                         Navigator.popAndPushNamed(context, '/home');
                       },
-                      child: Text(
+                      child: const Text(
                         "Home page",
                       )))
             ],

@@ -9,7 +9,7 @@ import 'package:rinjani_visitor/widget/button/primary_button.dart';
 import 'package:rinjani_visitor/widget/input_field.dart';
 
 class BookingDetailPage extends ConsumerStatefulWidget {
-  const BookingDetailPage({Key? key}) : super(key: key);
+  const BookingDetailPage({super.key});
 
   @override
   ConsumerState<BookingDetailPage> createState() => _BookingDetailPageState();
@@ -35,7 +35,7 @@ class _BookingDetailPageState extends ConsumerState<BookingDetailPage> {
             height: 125,
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(smallRadius),
-                image: DecorationImage(
+                image: const DecorationImage(
                     fit: BoxFit.cover,
                     image: AssetImage('assets/rinjani.jpeg'))),
           ),
@@ -75,7 +75,7 @@ class _BookingDetailPageState extends ConsumerState<BookingDetailPage> {
 
   Widget tripDetail() {
     return Container(
-      padding: EdgeInsets.all(16),
+      padding: const EdgeInsets.all(16),
       color: whiteColor,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -84,7 +84,7 @@ class _BookingDetailPageState extends ConsumerState<BookingDetailPage> {
             'Trip detail',
             style: blackTextStyle.copyWith(fontSize: 20, fontWeight: semibold),
           ),
-          SizedBox(
+          const SizedBox(
             height: 8,
           ),
           Column(
@@ -95,12 +95,12 @@ class _BookingDetailPageState extends ConsumerState<BookingDetailPage> {
                 style:
                     blackTextStyle.copyWith(fontSize: 16, fontWeight: medium),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 4,
               ),
               CupertinoListTile(
                   leadingToTitle: 4,
-                  padding: EdgeInsets.all(0),
+                  padding: const EdgeInsets.all(0),
                   leading: Icon(
                     Icons.calendar_month,
                     color: blackColor,
@@ -111,12 +111,12 @@ class _BookingDetailPageState extends ConsumerState<BookingDetailPage> {
                 style:
                     blackTextStyle.copyWith(fontSize: 16, fontWeight: medium),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 4,
               ),
               CupertinoListTile(
                   leadingToTitle: 4,
-                  padding: EdgeInsets.all(0),
+                  padding: const EdgeInsets.all(0),
                   leading: Icon(
                     Icons.access_time,
                     color: blackColor,
@@ -127,17 +127,17 @@ class _BookingDetailPageState extends ConsumerState<BookingDetailPage> {
                 style:
                     blackTextStyle.copyWith(fontSize: 16, fontWeight: medium),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 4,
               ),
               CupertinoListTile(
                   leadingToTitle: 4,
-                  padding: EdgeInsets.all(0),
+                  padding: const EdgeInsets.all(0),
                   leading: Icon(
                     Icons.person,
                     color: blackColor,
                   ),
-                  title: Text("${_state.person ?? 0} Person")),
+                  title: Text("${_state.person} Person")),
               Text(
                 'Add On(s)',
                 style:
@@ -246,11 +246,11 @@ class _BookingDetailPageState extends ConsumerState<BookingDetailPage> {
                       height: 8,
                     ),
                     tripDetail(),
-                    SizedBox(
+                    const SizedBox(
                       height: 8,
                     ),
                     addOn(),
-                    SizedBox(
+                    const SizedBox(
                       height: 8,
                     ),
                     payment(context)

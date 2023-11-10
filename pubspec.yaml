@@ -67,6 +67,7 @@ dependencies:
   flutter_image_compress: ^2.1.0
   dotted_border: ^2.1.0
   skeletonizer: ^0.8.0
+  http_parser: ^4.0.2
 
 dev_dependencies:
   flutter_test:

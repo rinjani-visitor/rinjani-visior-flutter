@@ -12,7 +12,7 @@ import 'package:rinjani_visitor/widget/input_field.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class ContinuePaymentPage extends ConsumerStatefulWidget {
-  const ContinuePaymentPage({Key? key}) : super(key: key);
+  const ContinuePaymentPage({super.key});
 
   @override
   ConsumerState<ContinuePaymentPage> createState() =>
@@ -23,10 +23,10 @@ class _ContinuePaymentPageState extends ConsumerState<ContinuePaymentPage> {
   File? _imageFile;
   void _openFile() async {
     if (await Permission.photos.request().isGranted) {
-      final _picker = ImagePicker();
-      final _pickedImage = await _picker.pickImage(source: ImageSource.gallery);
-      if (_pickedImage == null) return;
-      _imageFile = File(_pickedImage.path);
+      final picker = ImagePicker();
+      final pickedImage = await picker.pickImage(source: ImageSource.gallery);
+      if (pickedImage == null) return;
+      _imageFile = File(pickedImage.path);
       return;
     }
     Fluttertoast.showToast(
@@ -37,7 +37,7 @@ class _ContinuePaymentPageState extends ConsumerState<ContinuePaymentPage> {
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
         backgroundColor: backgroundColor,
-        navigationBar: CupertinoNavigationBar(
+        navigationBar: const CupertinoNavigationBar(
           middle: Text('Payment'),
           automaticallyImplyLeading: false,
         ),
@@ -62,8 +62,8 @@ class _ContinuePaymentPageState extends ConsumerState<ContinuePaymentPage> {
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(8),
                               border: Border.all(color: lightGray)),
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
+                          child: const Padding(
+                            padding: EdgeInsets.all(8.0),
                             child: Image(
                                 image: AssetImage('assets/wise-logo.png')),
                           )),
@@ -130,7 +130,8 @@ class _ContinuePaymentPageState extends ConsumerState<ContinuePaymentPage> {
                   const SizedBox(
                     height: 32,
                   ),
-                  PrimaryButton(child: Text("Send Payments"), onPressed: () {})
+                  PrimaryButton(
+                      child: const Text("Send Payments"), onPressed: () {})
                 ],
               ),
             ),

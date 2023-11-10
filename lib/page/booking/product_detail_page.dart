@@ -10,14 +10,13 @@ import 'package:rinjani_visitor/widget/button/primary_button.dart';
 import 'package:rinjani_visitor/widget/date_picker_widget.dart';
 import 'package:rinjani_visitor/widget/person_counter_widget.dart';
 import 'package:rinjani_visitor/widget/rating_widget.dart';
-import 'package:rinjani_visitor/widget/review_card_widget.dart';
 import 'package:rinjani_visitor/widget/review_widget.dart';
 import 'package:rinjani_visitor/widget/segmented_widget.dart';
 import 'package:rinjani_visitor/widget/status.dart';
 
 class ProductDetailPage extends ConsumerStatefulWidget {
   final ProductModel data;
-  const ProductDetailPage({Key? key, required this.data}) : super(key: key);
+  const ProductDetailPage({super.key, required this.data});
 
   @override
   ConsumerState<ProductDetailPage> createState() => _DetailPageState();
@@ -244,7 +243,6 @@ class _DetailPageState extends ConsumerState<ProductDetailPage> {
   @override
   Widget build(BuildContext context) {
     _state = ref.watch(orderRiverpodProvider);
-    final orderData = _state;
     return CupertinoPageScaffold(
         navigationBar: const CupertinoNavigationBar(
           middle: Text('Detail Trip'),

@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rinjani_visitor/theme/theme.dart';
 
@@ -7,8 +6,7 @@ class PersonCounterWidget extends StatefulWidget {
   final Function(int) onSubmit;
 
   const PersonCounterWidget(
-      {Key? key, required this.onSubmit, required this.controller})
-      : super(key: key);
+      {super.key, required this.onSubmit, required this.controller});
 
   @override
   State<PersonCounterWidget> createState() => _PersonCounterWidgetState();

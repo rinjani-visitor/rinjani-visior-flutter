@@ -6,7 +6,7 @@ import 'package:rinjani_visitor/features/authentication/presentation/auth_riverp
 import 'package:rinjani_visitor/theme/theme.dart';
 
 class UserSettingPage extends ConsumerStatefulWidget {
-  const UserSettingPage({Key? key}) : super(key: key);
+  const UserSettingPage({super.key});
 
   @override
   ConsumerState<UserSettingPage> createState() => _UserSettingPageState();
@@ -28,7 +28,7 @@ class _UserSettingPageState extends ConsumerState<UserSettingPage> {
   @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
-        navigationBar: CupertinoNavigationBar(
+        navigationBar: const CupertinoNavigationBar(
           middle: Text('Account settings'),
         ),
         backgroundColor: backgroundColor,
@@ -46,7 +46,7 @@ class _UserSettingPageState extends ConsumerState<UserSettingPage> {
                   Icons.lock,
                   color: blackColor,
                 ),
-                title: Text('Change password'),
+                title: const Text('Change password'),
                 trailing: Icon(
                   Icons.chevron_right,
                   color: blackColor,
@@ -61,7 +61,7 @@ class _UserSettingPageState extends ConsumerState<UserSettingPage> {
                   Icons.mail,
                   color: blackColor,
                 ),
-                title: Text('Change Email'),
+                title: const Text('Change Email'),
                 trailing: Icon(
                   Icons.chevron_right,
                   color: blackColor,

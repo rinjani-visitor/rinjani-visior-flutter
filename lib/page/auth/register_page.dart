@@ -10,7 +10,7 @@ import 'package:rinjani_visitor/widget/form/dropdown_textfield.dart';
 import 'package:rinjani_visitor/widget/input_field.dart';
 
 class RegisterPage extends ConsumerStatefulWidget {
-  const RegisterPage({Key? key}) : super(key: key);
+  const RegisterPage({super.key});
 
   @override
   ConsumerState<RegisterPage> createState() => _RegisterPageState();
@@ -84,7 +84,7 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
 
   Widget header() {
     return Container(
-      margin: EdgeInsets.only(top: 24, bottom: 32),
+      margin: const EdgeInsets.only(top: 24, bottom: 32),
       child: Text(
         "Let's start your\njourney with us",
         style: blackTextStyle.copyWith(fontSize: 32, fontWeight: bold),
@@ -102,7 +102,7 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
             placeholder: "Eg: Vatikan",
             items: countryLists,
           ),
-          SizedBox(
+          const SizedBox(
             height: 12,
           ),
           InputFormField(
@@ -170,7 +170,7 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
           _onFormSubmit();
         },
         isLoading: _state.isLoading,
-        child: Text(
+        child: const Text(
           'Sign Up',
         ));
   }

@@ -66,7 +66,7 @@ class _DropdownTextfieldState extends State<DropdownTextfield> {
                 _tooltipController.show();
               }
               debugPrint(
-                  "current text: ${value}, controller text ${widget.controller.text}");
+                  "current text: $value, controller text ${widget.controller.text}");
               _updateFilteredList();
             },
             onTap: () => setState(() {

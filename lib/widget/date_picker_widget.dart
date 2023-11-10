@@ -10,10 +10,10 @@ class DatePickerWidget extends StatefulWidget {
   final DateTime? initialDate;
   final void Function(String? dateVal) onChange;
   const DatePickerWidget({
-    Key? key,
+    super.key,
     this.initialDate,
     required this.onChange,
-  }) : super(key: key);
+  });
 
   @override
   State<DatePickerWidget> createState() => _DatePickerWidgetState();
@@ -62,9 +62,9 @@ class _DatePickerWidgetState extends State<DatePickerWidget> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         CupertinoButton(
-            padding: EdgeInsets.all(0),
+            padding: const EdgeInsets.all(0),
             child: ConstrainedBox(
-              constraints: BoxConstraints.expand(height: 32),
+              constraints: const BoxConstraints.expand(height: 32),
               child: Row(
                 children: [
                   Container(
@@ -78,7 +78,7 @@ class _DatePickerWidgetState extends State<DatePickerWidget> {
                       color: blackColor,
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 16,
                   ),
                   Text(

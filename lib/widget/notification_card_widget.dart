@@ -9,16 +9,16 @@ class NotificationCardWidget extends StatelessWidget {
   final BookingStatus status;
   final String subtitle;
   const NotificationCardWidget({
-    Key? key,
+    super.key,
     required this.title,
     required this.subtitle,
     required this.status,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(top: 8),
+      margin: const EdgeInsets.only(top: 8),
       child: CupertinoListTile(
         onTap: () {
           Navigator.push(
@@ -28,12 +28,12 @@ class NotificationCardWidget extends StatelessWidget {
                         statusNotif: status,
                       )));
         },
-        padding: EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+        padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
         title: Text(
-          '$title',
+          title,
           style: blackTextStyle.copyWith(fontSize: 16, fontWeight: semibold),
         ),
-        subtitle: Text('$subtitle'),
+        subtitle: Text(subtitle),
         backgroundColor: whiteColor,
         trailing: Icon(
           Icons.chevron_right,

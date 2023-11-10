@@ -1,23 +1,23 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:rinjani_visitor/theme/theme.dart';
 
 class AddOnWidget extends StatefulWidget {
   /// Add on name.
   final String name;
+
   /// shows the price of addon. not include price unit formatting
   final String price;
+
   /// initial value.
   final bool selected;
   final void Function(bool? value)? onChanged;
   const AddOnWidget(
-      {Key? key,
+      {super.key,
       required this.name,
       required this.price,
       required this.selected,
-      required this.onChanged})
-      : super(key: key);
+      required this.onChanged});
 
   @override
   State<AddOnWidget> createState() => _AddOnWidgetState();
@@ -77,7 +77,7 @@ class _AddOnWidgetMockState extends State<AddOnWidgetMock> {
         setState(() {
           val = !val;
         });
-        debugPrint("State: ${p0}");
+        debugPrint("State: $p0");
       },
       name: "Driver",
       price: "Rp.200.000",

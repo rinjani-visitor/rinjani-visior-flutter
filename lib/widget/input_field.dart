@@ -16,7 +16,7 @@ class InputField extends StatelessWidget {
   final bool secureText;
 
   const InputField(
-      {Key? key,
+      {super.key,
       this.label,
       this.secureText = false,
       this.placeholder,
@@ -27,8 +27,7 @@ class InputField extends StatelessWidget {
       this.onTap,
       this.errorText,
       this.textInputAction,
-      this.inputFormatters})
-      : super(key: key);
+      this.inputFormatters});
 
   @override
   Widget build(BuildContext context) {
@@ -76,7 +75,7 @@ class InputFormField extends FormField<String> {
   InputFormField(
       {super.key,
       String? label,
-      String initialValue = "",
+      String super.initialValue = "",
       bool secureText = false,
       String? placeholder,
       TextEditingController? controller,
@@ -86,37 +85,33 @@ class InputFormField extends FormField<String> {
       Iterable<String>? autoFillHints,
       void Function(String value)? onChanged,
       void Function()? onTap,
-      void Function(String?)? onSaved,
-      String? Function(String?)? validator,
-      AutovalidateMode autovalidateMode = AutovalidateMode.onUserInteraction})
-      : super(
-            onSaved: onSaved,
-            validator: validator,
-            initialValue: initialValue,
-            autovalidateMode: autovalidateMode,
-            builder: (FormFieldState<String> state) {
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  InputField(
-                    controller: controller,
-                    keyboardType: keyboardType,
-                    label: label,
-                    secureText: secureText,
-                    onTap: onTap,
-                    onChanged: (value) {
-                      state.didChange(value);
-                    },
-                    placeholder: placeholder,
-                    autoFillHints: autoFillHints,
-                    textInputAction: textInputAction,
-                    inputFormatters: inputFormatters,
-                  ),
-                  Text(
-                    (state.hasError ? state.errorText : "") ?? "",
-                    style: redTextStyle.copyWith(fontSize: body3),
-                  )
-                ],
-              );
-            });
+      super.onSaved,
+      super.validator,
+      AutovalidateMode super.autovalidateMode =
+          AutovalidateMode.onUserInteraction})
+      : super(builder: (FormFieldState<String> state) {
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              InputField(
+                controller: controller,
+                keyboardType: keyboardType,
+                label: label,
+                secureText: secureText,
+                onTap: onTap,
+                onChanged: (value) {
+                  state.didChange(value);
+                },
+                placeholder: placeholder,
+                autoFillHints: autoFillHints,
+                textInputAction: textInputAction,
+                inputFormatters: inputFormatters,
+              ),
+              Text(
+                (state.hasError ? state.errorText : "") ?? "",
+                style: redTextStyle.copyWith(fontSize: body3),
+              )
+            ],
+          );
+        });
 }

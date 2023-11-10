@@ -12,14 +12,13 @@ class BigProductCard extends StatelessWidget {
   final String? rating;
   final void Function()? onTap;
   const BigProductCard(
-      {Key? key,
+      {super.key,
       required this.image,
       required this.title,
       required this.status,
       required this.price,
       this.rating,
-      this.onTap})
-      : super(key: key);
+      this.onTap});
   Widget _imageContainer() {
     return Container(
       width: 108,
@@ -44,20 +43,20 @@ class BigProductCard extends StatelessWidget {
                 Status(
                   status: status,
                 ),
-                Spacer(),
+                const Spacer(),
                 RatingWidget(
                   rating: rating,
                 )
               ],
             ),
-            Spacer(),
+            const Spacer(),
             Text(
               title,
               overflow: TextOverflow.ellipsis,
               style:
                   blackTextStyle.copyWith(fontSize: 20, fontWeight: semibold),
             ),
-            Spacer(),
+            const Spacer(),
             Row(
               children: [
                 Text(
@@ -65,7 +64,7 @@ class BigProductCard extends StatelessWidget {
                   style:
                       blackTextStyle.copyWith(fontWeight: medium, fontSize: 14),
                 ),
-                Spacer(),
+                const Spacer(),
               ],
             )
           ],

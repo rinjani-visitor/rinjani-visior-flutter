@@ -9,7 +9,7 @@ import 'package:rinjani_visitor/widget/input_field.dart';
 import 'package:rinjani_visitor/widget/button/primary_button.dart';
 
 class LoginPage extends ConsumerStatefulWidget {
-  const LoginPage({Key? key}) : super(key: key);
+  const LoginPage({super.key});
 
   @override
   ConsumerState<LoginPage> createState() => _LoginPageState();

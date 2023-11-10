@@ -1,7 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:rinjani_visitor/theme/theme.dart';
-import 'package:rinjani_visitor/widget/date_picker_widget.dart';
-import 'package:rinjani_visitor/widget/review_widget.dart';
 import 'package:rinjani_visitor/widget/time_button_widget.dart';
 
 class KVContentWidget extends StatelessWidget {
@@ -89,11 +87,10 @@ class DetailSegmentedWidget extends StatefulWidget {
   final Widget initenary;
 
   const DetailSegmentedWidget(
-      {Key? key, required this.description, required this.initenary})
-      : super(key: key);
+      {super.key, required this.description, required this.initenary});
 
   @override
-  _DetailSegmentedWidgetState createState() => _DetailSegmentedWidgetState();
+  State<DetailSegmentedWidget> createState() => _DetailSegmentedWidgetState();
 }
 
 class _DetailSegmentedWidgetState extends State<DetailSegmentedWidget> {
@@ -121,7 +118,7 @@ class _DetailSegmentedWidgetState extends State<DetailSegmentedWidget> {
               }),
         ),
         Padding(
-          padding: EdgeInsets.only(top: 12.0),
+          padding: const EdgeInsets.only(top: 12.0),
           child: _sliding == 0 ? widget.description : widget.initenary,
         )
       ],

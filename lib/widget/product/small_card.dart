@@ -9,12 +9,11 @@ class SmallProductCard extends StatelessWidget {
   final void Function()? onTap;
 
   const SmallProductCard(
-      {Key? key,
+      {super.key,
       required this.title,
       this.rating,
       required this.image,
-      this.onTap})
-      : super(key: key);
+      this.onTap});
 
   @override
   Widget build(BuildContext context) {

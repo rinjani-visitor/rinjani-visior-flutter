@@ -11,10 +11,10 @@ class AccomodationWidget extends StatelessWidget {
         'Accomodation',
         style: blackTextStyle.copyWith(fontSize: 20, fontWeight: semibold),
       ),
-      SizedBox(
+      const SizedBox(
         height: 8,
       ),
-      Text(
+      const Text(
         '1. Food\n'
         '2. Drink\n'
         '3. Snack\n',

@@ -4,7 +4,7 @@ import 'package:rinjani_visitor/features/authentication/presentation/auth_riverp
 import 'package:rinjani_visitor/theme/theme.dart';
 
 class PersonalInfoPage extends ConsumerWidget {
-  const PersonalInfoPage({Key? key}) : super(key: key);
+  const PersonalInfoPage({super.key});
 
   Widget userInfo(String label, String info) {
     return Column(
@@ -14,7 +14,7 @@ class PersonalInfoPage extends ConsumerWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              '$label',
+              label,
               style:
                   blackTextStyle.copyWith(fontSize: 16, fontWeight: semibold),
             ),
@@ -23,8 +23,8 @@ class PersonalInfoPage extends ConsumerWidget {
             ),
             Container(
                 width: double.infinity,
-                padding: EdgeInsets.all(8),
-                margin: EdgeInsets.only(bottom: 8),
+                padding: const EdgeInsets.all(8),
+                margin: const EdgeInsets.only(bottom: 8),
                 height: 43,
                 decoration: BoxDecoration(
                     color: whiteColor,
@@ -34,7 +34,7 @@ class PersonalInfoPage extends ConsumerWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      '$info',
+                      info,
                     ),
                   ],
                 ))

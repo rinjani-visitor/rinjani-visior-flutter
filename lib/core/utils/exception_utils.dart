@@ -16,7 +16,7 @@ ExtException exceptionHandler(Object exception) {
     message = "${exception.response?.data["message"].toString()}";
     if (exception.type == DioExceptionType.connectionError) {
       if (code != null && code >= 500) {
-        message = "${code} Server Error, ${exception.response?.statusMessage}";
+        message = "$code Server Error, ${exception.response?.statusMessage}";
       }
       message = "Connection Error, Device is Offline";
     }
