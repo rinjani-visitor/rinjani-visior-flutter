@@ -9,8 +9,11 @@ import 'package:rinjani_visitor/theme/theme.dart';
 class DatePickerWidget extends StatefulWidget {
   final DateTime? initialDate;
   final void Function(String? dateVal) onChange;
-  const DatePickerWidget({Key? key, this.initialDate, required this.onChange})
-      : super(key: key);
+  const DatePickerWidget({
+    Key? key,
+    this.initialDate,
+    required this.onChange,
+  }) : super(key: key);
 
   @override
   State<DatePickerWidget> createState() => _DatePickerWidgetState();
@@ -20,7 +23,7 @@ class _DatePickerWidgetState extends State<DatePickerWidget> {
   final DateTime _nowDate = DateTime.now();
   late final DateTime _minimumDate =
       DateTime(_nowDate.year, _nowDate.month, _nowDate.day);
-  late DateTime _selectedDate =
+  late DateTime _selectedDate = widget.initialDate ??
       DateTime(_nowDate.year, _nowDate.month, _nowDate.day + 1);
 
   @override
@@ -58,10 +61,6 @@ class _DatePickerWidgetState extends State<DatePickerWidget> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'Select time and Date',
-          style: blackTextStyle.copyWith(fontSize: 16, fontWeight: semibold),
-        ),
         CupertinoButton(
             padding: EdgeInsets.all(0),
             child: ConstrainedBox(
@@ -83,7 +82,7 @@ class _DatePickerWidgetState extends State<DatePickerWidget> {
                     width: 16,
                   ),
                   Text(
-                    'Date: ${dateFormat.format(widget.initialDate ?? _selectedDate)}',
+                    'Date: ${dateFormat.format(_selectedDate)}',
                     style: blackTextStyle,
                   )
                 ],
@@ -91,7 +90,7 @@ class _DatePickerWidgetState extends State<DatePickerWidget> {
             ),
             onPressed: () {
               _showDialog(CupertinoDatePicker(
-                  initialDateTime: widget.initialDate,
+                  initialDateTime: _selectedDate,
                   mode: CupertinoDatePickerMode.date,
                   minimumDate: _minimumDate,
                   minimumYear: _minimumDate.year,
@@ -102,6 +101,7 @@ class _DatePickerWidgetState extends State<DatePickerWidget> {
                     setState(() {
                       _selectedDate = newTime;
                     });
+                    debugPrint("date: ${widget.initialDate}");
                     widget.onChange(newTime.toIso8601String());
                   }));
             })
