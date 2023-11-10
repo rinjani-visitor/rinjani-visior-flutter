@@ -155,7 +155,7 @@ class _DetailPageState extends ConsumerState<ProductDetailPage> {
       height: 241,
       decoration: BoxDecoration(
           image: DecorationImage(
-              fit: BoxFit.fill, image: AssetImage(data.imgUrl))),
+              fit: BoxFit.cover, image: AssetImage(data.imgUrl))),
     );
   }
 
