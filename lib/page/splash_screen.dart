@@ -4,7 +4,7 @@ import 'package:rinjani_visitor/features/authentication/presentation/auth_riverp
 import 'package:rinjani_visitor/theme/theme.dart';
 
 class SplashScreen extends ConsumerStatefulWidget {
-  const SplashScreen({Key? key}) : super(key: key);
+  const SplashScreen({super.key});
 
   @override
   ConsumerState<SplashScreen> createState() => _SplashScreenState();
