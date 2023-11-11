@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rinjani_visitor/core/utils/internationalization.dart';
 import 'package:rinjani_visitor/features/order/presentation/order_riverpod.dart';
-import 'package:rinjani_visitor/theme/theme.dart';
+import 'package:rinjani_visitor/core/theme/theme.dart';
 import 'package:rinjani_visitor/widget/button/primary_button.dart';
 import 'package:rinjani_visitor/widget/input_field.dart';
 

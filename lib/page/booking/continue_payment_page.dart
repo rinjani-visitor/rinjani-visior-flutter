@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:rinjani_visitor/theme/theme.dart';
+import 'package:rinjani_visitor/core/theme/theme.dart';
 import 'package:rinjani_visitor/widget/button/primary_button.dart';
 import 'package:rinjani_visitor/widget/form/upload_button.dart';
 import 'package:rinjani_visitor/widget/input_field.dart';

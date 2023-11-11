@@ -5,7 +5,7 @@ import 'package:rinjani_visitor/features/product/domain/category_enum.dart';
 import 'package:rinjani_visitor/features/product/presentation/view_model/recommended_product_riverpod.dart';
 import 'package:rinjani_visitor/page/booking/product_detail_page.dart';
 import 'package:rinjani_visitor/page/category_explore_page.dart';
-import 'package:rinjani_visitor/theme/theme.dart';
+import 'package:rinjani_visitor/core/theme/theme.dart';
 import 'package:rinjani_visitor/widget/product/big_card.dart';
 import 'package:rinjani_visitor/widget/category_item.dart';
 import 'package:rinjani_visitor/widget/product/small_card.dart';

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rinjani_visitor/theme/theme.dart';
+import 'package:rinjani_visitor/core/theme/theme.dart';
 
 class CategoryItem extends StatelessWidget {
   final String label;

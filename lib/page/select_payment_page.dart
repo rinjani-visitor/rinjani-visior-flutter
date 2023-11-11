@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:rinjani_visitor/theme/theme.dart';
+import 'package:rinjani_visitor/core/theme/theme.dart';
 
 final paymentMethod = [
   {"name": "Pay with Wise (USD)", "imgSrc": "assets/wise-logo.png"},

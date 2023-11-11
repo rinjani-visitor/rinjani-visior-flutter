@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:rinjani_visitor/theme/theme.dart';
+import 'package:rinjani_visitor/core/theme/theme.dart';
 
 class AccomodationWidget extends StatelessWidget {
   const AccomodationWidget({super.key});

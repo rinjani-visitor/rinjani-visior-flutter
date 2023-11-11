@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rinjani_visitor/core/utils/internationalization.dart';
-import 'package:rinjani_visitor/theme/theme.dart';
+import 'package:rinjani_visitor/core/theme/theme.dart';
 
 class EventCard extends StatelessWidget {
   final String title;

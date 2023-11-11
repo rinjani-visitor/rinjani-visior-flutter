@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rinjani_visitor/core/enumerate/booking_enum.dart';
 import 'package:rinjani_visitor/page/notification_detail_page.dart';
-import 'package:rinjani_visitor/theme/theme.dart';
+import 'package:rinjani_visitor/core/theme/theme.dart';
 
 class NotificationCardWidget extends StatelessWidget {
   final String title;
