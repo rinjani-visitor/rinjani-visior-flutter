@@ -1,5 +1,4 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:rinjani_visitor/core/datastate/local_state.dart';
 import 'package:rinjani_visitor/features/product/data/source/mock.dart';
 import 'package:rinjani_visitor/features/product/domain/product_model.dart';
 import 'package:rinjani_visitor/features/product/domain/product_repository.dart';
@@ -10,7 +9,7 @@ class ProductRepositoryImpl implements ProductRespository {
   ProductRepositoryImpl({required this.remote});
 
   @override
-  Future<LocalState<ProductModel>> bookingPackage(
+  Future<ProductModel> bookingPackage(
       {required String packageId,
       List<String>? addOns,
       String? paymentMethod}) {

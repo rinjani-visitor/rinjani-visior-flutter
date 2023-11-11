@@ -1,6 +1,5 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:rinjani_visitor/core/datastate/local_state.dart';
 import 'package:rinjani_visitor/features/setting/data/setting_repository_impl.dart';
 import 'package:rinjani_visitor/features/setting/domain/setting_enum.dart';
 import 'package:rinjani_visitor/features/setting/domain/setting_model.dart';
@@ -17,10 +16,7 @@ class SettingRiverpod extends ChangeNotifier {
 
   void getSettings() async {
     final data = await repository.getSettings();
-    if (data is LocalResult) {
-      setting = data;
-    }
-    setting = SettingModel(languageCode: LangCode.enUS, currency: Currency.USD);
+    setting = data;
   }
 
   void changeLanguage(LangCode code) {
