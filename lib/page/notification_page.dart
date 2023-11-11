@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:rinjani_visitor/core/enumerate/booking_enum.dart';
+import 'package:rinjani_visitor/core/enums/booking_enum.dart';
 import 'package:rinjani_visitor/core/theme/theme.dart';
 import 'package:rinjani_visitor/widget/notification_card_widget.dart';
 
