@@ -1,12 +1,12 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:rinjani_visitor/page/category_explore_page.dart';
-import 'package:rinjani_visitor/theme/theme.dart';
+import 'package:rinjani_visitor/core/presentation/theme/theme.dart';
 
 class CategoryItem extends StatelessWidget {
   final String label;
   final IconData iconName;
-  const CategoryItem({Key? key, required this.label, required this.iconName}) : super(key: key);
+  final void Function(String label)? onTap;
+  const CategoryItem(
+      {super.key, required this.label, required this.iconName, this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -21,19 +21,13 @@ class CategoryItem extends StatelessWidget {
                 color: mediumGray,
                 border: Border.all(color: lightGray)),
             child: IconButton(
-              onPressed: () {
-                Navigator.push(
-                    context,
-                    CupertinoPageRoute(
-                        builder: (context) =>
-                            CategoryExplorePage(title: '$label')));
-              },
-              icon:  Icon(iconName),
+              onPressed: () => onTap != null ? onTap!(label) : null,
+              icon: Icon(iconName),
               iconSize: 32,
               color: primaryColor,
             )),
         Text(
-          '$label',
+          label,
           style: blackTextStyle.copyWith(fontSize: 16, fontWeight: semibold),
         )
       ],

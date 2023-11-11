@@ -1,16 +1,15 @@
 import 'package:intl/intl.dart' as intl;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:rinjani_visitor/core/enum/booking_enum.dart';
-import 'package:rinjani_visitor/theme/theme.dart';
+import 'package:rinjani_visitor/core/enums/booking_enum.dart';
+import 'package:rinjani_visitor/core/presentation/theme/theme.dart';
 import 'package:rinjani_visitor/widget/cancel_button_widget.dart';
 
 class NotificationDetailPage extends StatelessWidget {
   //variabel buat atus status
   final BookingStatus statusNotif;
 
-  const NotificationDetailPage({Key? key, required this.statusNotif})
-      : super(key: key);
+  const NotificationDetailPage({super.key, required this.statusNotif});
 
   Widget imageContainer() {
     return Container(
@@ -22,7 +21,7 @@ class NotificationDetailPage extends StatelessWidget {
     );
   }
 
-  Widget StatusLabel() {
+  Widget statusLabel() {
     //fungsi untuk menentukan warna pada widget status berdasarkan enum
     Color getColor(BookingStatus statusColor) {
       switch (statusColor) {
@@ -49,7 +48,7 @@ class NotificationDetailPage extends StatelessWidget {
     }
 
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(smallRadius),
 
@@ -85,7 +84,7 @@ class NotificationDetailPage extends StatelessWidget {
           ],
         ),
         const Spacer(),
-        StatusLabel()
+        statusLabel()
       ],
     );
   }
@@ -120,7 +119,7 @@ class NotificationDetailPage extends StatelessWidget {
             style: blackTextStyle.copyWith(fontSize: 16, fontWeight: medium),
           );
         default:
-          return Text('');
+          return const Text('');
       }
     }
 
@@ -144,7 +143,7 @@ class NotificationDetailPage extends StatelessWidget {
                     context: context,
                     builder: (BuildContext context) {
                       return Container(
-                        padding: EdgeInsets.all(24),
+                        padding: const EdgeInsets.all(24),
                         width: double.infinity,
                         height: 300,
                         decoration: BoxDecoration(
@@ -160,7 +159,7 @@ class NotificationDetailPage extends StatelessWidget {
                               style: blackTextStyle.copyWith(
                                   fontSize: heading5, fontWeight: semibold),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 24,
                             ),
                             CupertinoTextField(
@@ -168,10 +167,10 @@ class NotificationDetailPage extends StatelessWidget {
                                   borderRadius:
                                       BorderRadius.circular(smallRadius),
                                   border: Border.all(color: lightGray)),
-                              padding: EdgeInsets.all(16),
+                              padding: const EdgeInsets.all(16),
                               placeholder: 'input price here',
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 16,
                             ),
                             TextButton(
@@ -193,7 +192,7 @@ class NotificationDetailPage extends StatelessWidget {
                                         fontWeight: semibold),
                                   )),
                                 )),
-                            Spacer()
+                            const Spacer()
                           ],
                         ),
                       );
@@ -205,10 +204,10 @@ class NotificationDetailPage extends StatelessWidget {
                     whiteTextStyle.copyWith(fontSize: 16, fontWeight: semibold),
               )),
         ),
-        SizedBox(
+        const SizedBox(
           height: 8,
         ),
-        CancelButtonWidget()
+        const CancelButtonWidget()
       ],
     );
   }

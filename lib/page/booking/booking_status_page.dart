@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:rinjani_visitor/theme/theme.dart';
+import 'package:rinjani_visitor/core/presentation/theme/theme.dart';
 import 'package:rinjani_visitor/widget/button/primary_button.dart';
 
 const bookingStatus = [
@@ -20,7 +19,7 @@ const bookingStatus = [
 ];
 
 class BookingStatusPage extends StatelessWidget {
-  BookingStatusPage({Key? key}) : super(key: key);
+  BookingStatusPage({super.key});
 
   final data = bookingStatus[0];
 
@@ -29,16 +28,16 @@ class BookingStatusPage extends StatelessWidget {
     return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
         automaticallyImplyLeading: false,
-        middle: Text(data["title"]??""),
+        middle: Text(data["title"] ?? ""),
       ),
       child: SafeArea(
         child: Padding(
-          padding: EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+          padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                data["subtitle"]??"",
+                data["subtitle"] ?? "",
                 style: blackTextStyle.copyWith(fontSize: 32, fontWeight: bold),
                 textAlign: TextAlign.center,
               ),
@@ -47,7 +46,7 @@ class BookingStatusPage extends StatelessWidget {
                 height: 255,
               ),
               Text(
-                data["description"]??"",
+                data["description"] ?? "",
                 style: blackTextStyle.copyWith(
                   fontSize: 16,
                 ),
@@ -62,7 +61,7 @@ class BookingStatusPage extends StatelessWidget {
                       onPressed: () {
                         Navigator.popAndPushNamed(context, '/home');
                       },
-                      child: Text(
+                      child: const Text(
                         "Home page",
                       )))
             ],

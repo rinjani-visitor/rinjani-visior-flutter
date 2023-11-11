@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:rinjani_visitor/theme/theme.dart';
+import 'package:rinjani_visitor/core/presentation/theme/theme.dart';
 
 class WishlistPage extends StatelessWidget {
   const WishlistPage({Key? key}) : super(key: key);
@@ -8,16 +8,14 @@ class WishlistPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
       backgroundColor: backgroundColor,
-      child: CustomScrollView(
+      child: const CustomScrollView(
         slivers: [
-          const CupertinoSliverNavigationBar(
+          CupertinoSliverNavigationBar(
             largeTitle: Text('Wishlist'),
           ),
           SliverFillRemaining(
             child: Center(
-              child: Column(
-                children: [Text('no content')],
-              ),
+              child: Text('no content'),
             ),
           )
         ],

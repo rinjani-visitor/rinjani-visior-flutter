@@ -1,11 +1,35 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:rinjani_visitor/theme/theme.dart';
-import 'package:rinjani_visitor/widget/big_card.dart';
+import 'package:rinjani_visitor/core/constant/product_package.dart';
+import 'package:rinjani_visitor/core/presentation/utils/internationalization.dart';
+import 'package:rinjani_visitor/features/event/domain/event_model.dart';
+import 'package:rinjani_visitor/page/booking/product_detail_page.dart';
+import 'package:rinjani_visitor/core/presentation/theme/theme.dart';
+import 'package:rinjani_visitor/widget/product/big_card.dart';
 import 'package:rinjani_visitor/widget/status.dart';
 
-class EventDetail extends StatelessWidget {
-  const EventDetail({Key? key}) : super(key: key);
+// mock data about lombok festival
+final mockdata = EventModel(
+    name: "Lombok Festival",
+    imgUrl: "assets/rinjani.jpeg",
+    date: DateTime.now(),
+    description: "",
+    products: [
+      mockPackages[0],
+      mockPackages[1],
+      mockPackages[2],
+    ]);
+
+class EventDetailPage extends StatefulWidget {
+  const EventDetailPage({super.key});
+
+  @override
+  State<EventDetailPage> createState() => _EventDetailPageState();
+}
+
+class _EventDetailPageState extends State<EventDetailPage> {
+  final data = mockdata;
+
   Widget imageContainer() {
     return Container(
       width: double.infinity,
@@ -34,16 +58,16 @@ class EventDetail extends StatelessWidget {
   Widget eventHeader() {
     return Container(
       width: double.infinity,
-      padding: EdgeInsets.all(16),
+      padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(color: whiteColor),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Lombok Festival',
+            data.name,
             style: blackTextStyle.copyWith(fontSize: 24, fontWeight: semibold),
           ),
-          SizedBox(
+          const SizedBox(
             height: 8,
           ),
           Row(
@@ -54,18 +78,18 @@ class EventDetail extends StatelessWidget {
                     Icons.calendar_month,
                     color: lightGray,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 8,
                   ),
                   Text(
-                    '10 - 8 - 2023',
+                    dateFormat.format(data.date),
                     style: grayTextStyle.copyWith(
                       fontSize: 16,
                     ),
                   )
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 width: 16,
               ),
               Row(
@@ -74,11 +98,11 @@ class EventDetail extends StatelessWidget {
                     Icons.access_time,
                     color: lightGray,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 8,
                   ),
                   Text(
-                    '10 - 8 - 2023',
+                    timeFormat.format(data.date),
                     style: grayTextStyle.copyWith(
                       fontSize: 16,
                     ),
@@ -87,7 +111,7 @@ class EventDetail extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(
+          const SizedBox(
             height: 8,
           ),
           Text(
@@ -112,20 +136,25 @@ class EventDetail extends StatelessWidget {
           ListView.builder(
             physics: const NeverScrollableScrollPhysics(),
             shrinkWrap: true,
-            itemCount: 3,
+            itemCount: data.products.length,
             itemBuilder: (context, index) {
-              return const Column(
-                children: [
-                  Padding(
-                    padding: EdgeInsets.only(top: 8),
-                    child: BigCard(
-                        image: AssetImage("assets/rinjani.jpeg"),
-                        title: "Rinjani Trip",
-                        price: "\$80 - \$90 - Person",
-                        status: StatusColor.available,
-                        rating: "4.9"),
-                  ),
-                ],
+              final current = data.products[index];
+              return Padding(
+                padding: const EdgeInsets.only(top: 8),
+                child: BigProductCard(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          CupertinoPageRoute(
+                              builder: (context) => ProductDetailPage(
+                                    data: data.products[index],
+                                  )));
+                    },
+                    image: AssetImage(current.imgUrl),
+                    title: current.title,
+                    price: current.rangePricing,
+                    status: StatusColor.available,
+                    rating: current.rating),
               );
             },
           )
@@ -138,7 +167,7 @@ class EventDetail extends StatelessWidget {
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
         backgroundColor: backgroundColor,
-        navigationBar: CupertinoNavigationBar(
+        navigationBar: const CupertinoNavigationBar(
           middle: Text('Event detail'),
         ),
         child: ListView(

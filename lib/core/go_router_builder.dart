@@ -1,9 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
+import 'package:rinjani_visitor/core/constant/product_package.dart';
+import 'package:rinjani_visitor/features/product/domain/product_model.dart';
 import 'package:rinjani_visitor/page/main/account_page.dart';
 import 'package:rinjani_visitor/page/booking/booking_detail_page.dart';
 import 'package:rinjani_visitor/page/booking/product_detail_page.dart';
-import 'package:rinjani_visitor/page/event_detail.dart';
+import 'package:rinjani_visitor/page/event_detail_page.dart';
 import 'package:rinjani_visitor/page/main/event_page.dart';
 import 'package:rinjani_visitor/page/main/home_page.dart';
 import 'package:rinjani_visitor/page/auth/login_page.dart';
@@ -81,7 +83,7 @@ class EventDetailRoute extends GoRouteData {
   const EventDetailRoute({required this.id});
   @override
   Widget build(BuildContext context, GoRouterState state) {
-    return const EventDetail();
+    return const EventDetailPage();
   }
 }
 
@@ -104,9 +106,14 @@ class AccountRoute extends GoRouteData {
 // Poducts
 @immutable
 class ProductDetailRoute extends GoRouteData {
+  final ProductModel data = mockPackages[0];
+
+  // const ProductDetailRoute(this.data);
   @override
   Widget build(BuildContext context, GoRouterState state) {
-    return ProductDetailPage();
+    return ProductDetailPage(
+      data: data,
+    );
   }
 }
 

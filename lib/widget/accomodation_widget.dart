@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:rinjani_visitor/theme/theme.dart';
+import 'package:rinjani_visitor/core/presentation/theme/theme.dart';
 
 class AccomodationWidget extends StatelessWidget {
   const AccomodationWidget({super.key});
@@ -11,10 +11,10 @@ class AccomodationWidget extends StatelessWidget {
         'Accomodation',
         style: blackTextStyle.copyWith(fontSize: 20, fontWeight: semibold),
       ),
-      SizedBox(
+      const SizedBox(
         height: 8,
       ),
-      Text(
+      const Text(
         '1. Food\n'
         '2. Drink\n'
         '3. Snack\n',

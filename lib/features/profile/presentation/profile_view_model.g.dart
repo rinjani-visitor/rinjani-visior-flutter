@@ -6,7 +6,7 @@ part of 'profile_view_model.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$profileViewModelHash() => r'af55e2a87e27fefe044ca298fa63acc7eb79a7ec';
+String _$profileViewModelHash() => r'63c65e86b618f5b1f531c4bc5fd268ae8339249c';
 
 /// this profile viewmodel is used to handle profile data like change name, email, etc
 /// this will be use profile repository for communicate with backend

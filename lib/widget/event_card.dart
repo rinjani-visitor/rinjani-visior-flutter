@@ -1,9 +1,13 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:rinjani_visitor/theme/theme.dart';
+import 'package:rinjani_visitor/core/presentation/utils/internationalization.dart';
+import 'package:rinjani_visitor/core/presentation/theme/theme.dart';
 
 class EventCard extends StatelessWidget {
-  const EventCard({Key? key}) : super(key: key);
+  final String title;
+  final DateTime date;
+  final void Function()? onTap;
+  const EventCard(
+      {super.key, required this.title, required this.date, this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +16,7 @@ class EventCard extends StatelessWidget {
         width: double.infinity,
         height: 181,
         decoration: BoxDecoration(
-            image: DecorationImage(
+            image: const DecorationImage(
                 fit: BoxFit.fill, image: AssetImage('assets/event.jpeg')),
             borderRadius: BorderRadius.circular(8)),
       );
@@ -23,10 +27,10 @@ class EventCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Lombok Festival',
+            title,
             style: blackTextStyle.copyWith(fontSize: 24, fontWeight: semibold),
           ),
-          SizedBox(
+          const SizedBox(
             height: 8,
           ),
           Row(
@@ -37,16 +41,16 @@ class EventCard extends StatelessWidget {
                     Icons.calendar_month,
                     color: lightGray,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 6,
                   ),
                   Text(
-                    '12 - 08 - 2023',
+                    dateFormat.format(date),
                     style: blackTextStyle.copyWith(fontSize: 14),
                   )
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 width: 16,
               ),
               Row(
@@ -55,7 +59,7 @@ class EventCard extends StatelessWidget {
                     Icons.access_time,
                     color: lightGray,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 6,
                   ),
                   Text(
@@ -71,19 +75,17 @@ class EventCard extends StatelessWidget {
     }
 
     return GestureDetector(
-      onTap: () {
-        Navigator.pushNamed(context, '/event-detail');
-      },
+      onTap: onTap,
       child: Container(
-        padding: EdgeInsets.all(10.0),
-        margin: EdgeInsets.only(top: 8, left: 16, right: 16, bottom: 8),
+        padding: const EdgeInsets.all(10.0),
+        margin: const EdgeInsets.only(top: 8, left: 16, right: 16, bottom: 8),
         decoration: BoxDecoration(
             color: whiteColor, borderRadius: BorderRadius.circular(18)),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             imageContainer(),
-            SizedBox(
+            const SizedBox(
               height: 16,
             ),
             information()

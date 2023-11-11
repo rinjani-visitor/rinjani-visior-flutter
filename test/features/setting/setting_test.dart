@@ -30,11 +30,11 @@ void main() {
   test(
       "settings repository should return error if data in storage is not provided / invalid",
       () async {
-    var result = null;
+    Exception? result;
     SharedPreferences.setMockInitialValues({"setting_data": ''});
     final container = ProviderContainer();
     try {
-      final data = await container.read(repository).getSettings();
+      await container.read(repository).getSettings();
     } on Exception catch (e) {
       result = e;
     }

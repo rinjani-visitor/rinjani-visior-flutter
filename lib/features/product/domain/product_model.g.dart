@@ -12,9 +12,11 @@ _$PackageModelImpl _$$PackageModelImplFromJson(Map<String, dynamic> json) =>
       title: json['title'] as String,
       location: json['location'] as String,
       imgUrl: json['imgUrl'] as String,
+      category: $enumDecode(_$ProductCategoryEnumMap, json['category']),
       locationUrl: json['locationUrl'] as String?,
       avaiabilityStatus: json['avaiabilityStatus'] as String?,
-      rangePricing: json['rangePricing'] as String,
+      priceLow: json['priceLow'] as int,
+      priceHigh: json['priceHigh'] as int,
       rating: json['rating'] as String,
       tripDuration: json['tripDuration'] as String,
       description: json['description'] as String,
@@ -40,9 +42,11 @@ Map<String, dynamic> _$$PackageModelImplToJson(_$PackageModelImpl instance) =>
       'title': instance.title,
       'location': instance.location,
       'imgUrl': instance.imgUrl,
+      'category': _$ProductCategoryEnumMap[instance.category]!,
       'locationUrl': instance.locationUrl,
       'avaiabilityStatus': instance.avaiabilityStatus,
-      'rangePricing': instance.rangePricing,
+      'priceLow': instance.priceLow,
+      'priceHigh': instance.priceHigh,
       'rating': instance.rating,
       'tripDuration': instance.tripDuration,
       'description': instance.description,
@@ -53,3 +57,10 @@ Map<String, dynamic> _$$PackageModelImplToJson(_$PackageModelImpl instance) =>
       'addOn': instance.addOn,
       'reviewIds': instance.reviewIds,
     };
+
+const _$ProductCategoryEnumMap = {
+  ProductCategory.rinjani: 'rinjani',
+  ProductCategory.homeStay: 'homeStay',
+  ProductCategory.culture: 'culture',
+  ProductCategory.landscape: 'landscape',
+};

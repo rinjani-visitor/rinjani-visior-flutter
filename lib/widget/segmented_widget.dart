@@ -1,94 +1,44 @@
 import 'package:flutter/cupertino.dart';
-import 'package:rinjani_visitor/theme/theme.dart';
-import 'package:rinjani_visitor/widget/date_picker_widget.dart';
-import 'package:rinjani_visitor/widget/review_widget.dart';
+import 'package:rinjani_visitor/core/presentation/theme/theme.dart';
 import 'package:rinjani_visitor/widget/time_button_widget.dart';
 
-class DetailDescriptionWidget extends StatefulWidget {
-  final String description;
-  final String accomodation;
-  final List<Widget> addOn;
-  final DatePickerWidget datePicker;
-
-  /// receive [TimeList] widget
-  final TimeList timeList;
-  final ReviewWidget review;
-  final Widget buyProduct;
-
-  const DetailDescriptionWidget({
-    super.key,
-    required this.description,
-    required this.accomodation,
-    required this.addOn,
-    required this.datePicker,
-    required this.timeList,
-    required this.review,
-    required this.buyProduct,
-  });
+class KVContentWidget extends StatelessWidget {
+  final String title;
+  final Widget content;
+  const KVContentWidget(
+      {super.key, required this.title, required this.content});
 
   @override
-  State<DetailDescriptionWidget> createState() =>
-      _DetailDescriptionWidgetState();
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          title,
+          style: blackTextStyle.copyWith(
+              fontSize: textButton1, fontWeight: semibold),
+        ),
+        content
+      ],
+    );
+  }
 }
 
-class _DetailDescriptionWidgetState extends State<DetailDescriptionWidget> {
-  int personCount = 0;
+class KVDetailDescriptionWidget extends StatelessWidget {
+  final List<KVContentWidget> kvChildren;
+  const KVDetailDescriptionWidget({super.key, required this.kvChildren});
 
   @override
   Widget build(BuildContext context) {
     return Column(
       mainAxisSize: MainAxisSize.min,
-      //header here
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          widget.description,
-          style: blackTextStyle.copyWith(
-            fontSize: body2,
-          ),
-        ),
-        const SizedBox(
-          height: 16,
-        ),
-        Text(
-          'Add On',
-          style: blackTextStyle.copyWith(fontSize: body1, fontWeight: semibold),
-        ),
-        Column(
-          children: widget.addOn,
-        ),
-        const SizedBox(
-          height: 16,
-        ),
-        widget.datePicker,
-        const SizedBox(
-          height: 8,
-        ),
-        widget.timeList,
-        const SizedBox(
-          height: 16,
-        ),
-        Text(
-          'Accomodation',
-          style:
-              blackTextStyle.copyWith(fontSize: heading5, fontWeight: semibold),
-        ),
-        const SizedBox(
-          height: 8,
-        ),
-        Text(
-          widget.accomodation,
-          style: const TextStyle(fontSize: 16),
-        ),
-        const SizedBox(
-          height: 8,
-        ),
-        widget.review,
-        widget.buyProduct,
-        const SizedBox(
-          height: 16,
-        ),
-      ],
+      children: List.generate(
+          kvChildren.length,
+          (index) => Padding(
+                padding: const EdgeInsets.only(bottom: 16.0),
+                child: kvChildren[index],
+              )),
     );
   }
 }
@@ -97,33 +47,35 @@ class TimeList extends StatelessWidget {
   const TimeList({
     super.key,
     required this.timeListData,
-    required this.initialSelectedTimeListData,
+    required this.selectedTimeListData,
     required this.onTimeListTap,
   });
 
   final List<String> timeListData;
-  final List<String> initialSelectedTimeListData;
+  final List<String> selectedTimeListData;
   final void Function(String value, bool isSelected) onTimeListTap;
 
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
-      child: Row(
-        children: List.generate(timeListData.length, (index) {
-          return Padding(
-            padding: const EdgeInsets.only(right: 4.0),
-            child: TimeButtonWidget(
-              time: timeListData[index],
-              selected:
-                  initialSelectedTimeListData.contains(timeListData[index]),
-              onToggle: (value, isSelected) {
-                onTimeListTap(value, isSelected);
-              },
+      child: timeListData.isEmpty
+          ? const Text("time selection is not avaiable for this package")
+          : Row(
+              children: List.generate(timeListData.length, (index) {
+                return Padding(
+                  padding: const EdgeInsets.only(right: 4.0),
+                  child: TimeButtonWidget(
+                    time: timeListData[index],
+                    selected:
+                        selectedTimeListData.contains(timeListData[index]),
+                    onToggle: (value, isSelected) {
+                      onTimeListTap(value, isSelected);
+                    },
+                  ),
+                );
+              }),
             ),
-          );
-        }),
-      ),
     );
   }
 }
@@ -135,11 +87,10 @@ class DetailSegmentedWidget extends StatefulWidget {
   final Widget initenary;
 
   const DetailSegmentedWidget(
-      {Key? key, required this.description, required this.initenary})
-      : super(key: key);
+      {super.key, required this.description, required this.initenary});
 
   @override
-  _DetailSegmentedWidgetState createState() => _DetailSegmentedWidgetState();
+  State<DetailSegmentedWidget> createState() => _DetailSegmentedWidgetState();
 }
 
 class _DetailSegmentedWidgetState extends State<DetailSegmentedWidget> {
@@ -167,7 +118,7 @@ class _DetailSegmentedWidgetState extends State<DetailSegmentedWidget> {
               }),
         ),
         Padding(
-          padding: EdgeInsets.only(top: 12.0),
+          padding: const EdgeInsets.only(top: 12.0),
           child: _sliding == 0 ? widget.description : widget.initenary,
         )
       ],

@@ -4,10 +4,10 @@ import 'package:rinjani_visitor/page/main/account_page.dart';
 import 'package:rinjani_visitor/page/main/event_page.dart';
 import 'package:rinjani_visitor/page/main/home_page.dart';
 import 'package:rinjani_visitor/page/main/wishlist_page.dart';
-import 'package:rinjani_visitor/theme/theme.dart';
+import 'package:rinjani_visitor/core/presentation/theme/theme.dart';
 
 class MainPage extends StatelessWidget {
-  const MainPage({Key? key}) : super(key: key);
+  const MainPage({super.key});
 
   @override
   Widget build(BuildContext context) {

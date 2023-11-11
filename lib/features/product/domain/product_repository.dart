@@ -1,4 +1,3 @@
-import 'package:rinjani_visitor/core/datastate/local_state.dart';
 import 'package:rinjani_visitor/features/product/domain/product_model.dart';
 
 abstract class ProductRespository {
@@ -17,6 +16,6 @@ abstract class ProductRespository {
   Future<void> cancelPackage({required String packageId});
 
   ///  purchase / booking current package
-  Future<LocalState<ProductModel>> bookingPackage(
+  Future<ProductModel> bookingPackage(
       {required String packageId, List<String>? addOns, String? paymentMethod});
 }

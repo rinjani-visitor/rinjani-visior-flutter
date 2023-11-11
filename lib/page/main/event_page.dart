@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
-import 'package:rinjani_visitor/theme/theme.dart';
+import 'package:rinjani_visitor/core/presentation/theme/theme.dart';
 import 'package:rinjani_visitor/widget/event_card.dart';
 
 class EventPage extends StatelessWidget {
-  const EventPage({Key? key}) : super(key: key);
+  const EventPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +12,7 @@ class EventPage extends StatelessWidget {
         child: SafeArea(
           child: CustomScrollView(
             primary: false,
-            scrollBehavior: CupertinoScrollBehavior(),
+            scrollBehavior: const CupertinoScrollBehavior(),
             slivers: [
               const CupertinoSliverNavigationBar(
                 largeTitle: Text("Events"),
@@ -20,10 +20,13 @@ class EventPage extends StatelessWidget {
               SliverToBoxAdapter(
                 child: Column(
                   children: [
-                    EventCard(),
-                    EventCard(),
-                    EventCard(),
-                    EventCard(),
+                    EventCard(
+                      title: "Lombok Festival",
+                      date: DateTime.now(),
+                      onTap: () {
+                        Navigator.pushNamed(context, '/event-detail');
+                      },
+                    ),
                   ],
                 ),
               )

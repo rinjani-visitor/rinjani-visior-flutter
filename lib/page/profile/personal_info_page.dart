@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:rinjani_visitor/features/authentication/presentation/auth_view_model.dart';
-import 'package:rinjani_visitor/theme/theme.dart';
+import 'package:rinjani_visitor/features/authentication/presentation/auth_riverpod.dart';
+import 'package:rinjani_visitor/core/presentation/theme/theme.dart';
 
 class PersonalInfoPage extends ConsumerWidget {
-  const PersonalInfoPage({Key? key}) : super(key: key);
+  const PersonalInfoPage({super.key});
 
   Widget userInfo(String label, String info) {
     return Column(
@@ -14,7 +14,7 @@ class PersonalInfoPage extends ConsumerWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              '$label',
+              label,
               style:
                   blackTextStyle.copyWith(fontSize: 16, fontWeight: semibold),
             ),
@@ -23,8 +23,8 @@ class PersonalInfoPage extends ConsumerWidget {
             ),
             Container(
                 width: double.infinity,
-                padding: EdgeInsets.all(8),
-                margin: EdgeInsets.only(bottom: 8),
+                padding: const EdgeInsets.all(8),
+                margin: const EdgeInsets.only(bottom: 8),
                 height: 43,
                 decoration: BoxDecoration(
                     color: whiteColor,
@@ -34,7 +34,7 @@ class PersonalInfoPage extends ConsumerWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      '$info',
+                      info,
                     ),
                   ],
                 ))
@@ -46,7 +46,7 @@ class PersonalInfoPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(authViewModelProvider);
+    final state = ref.watch(authRiverpodProvider);
     return CupertinoPageScaffold(
         backgroundColor: backgroundColor,
         navigationBar: const CupertinoNavigationBar(
@@ -57,13 +57,10 @@ class PersonalInfoPage extends ConsumerWidget {
                 margin: const EdgeInsets.all(16),
                 child: ListView(
                   children: [
-                    userInfo(
-                        'Username', state.value?.username ?? ""),
+                    userInfo('Username', state.value?.username ?? ""),
                     userInfo('Email', state.value?.email ?? ""),
-                    userInfo('Phone number',
-                        ""),
-                    userInfo('Birth date',
-                        ""),
+                    userInfo('Phone number', ""),
+                    userInfo('Birth date', ""),
                   ],
                 ))));
   }

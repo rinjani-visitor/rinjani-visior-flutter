@@ -1,5 +1,7 @@
+import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:rinjani_visitor/features/product/domain/addon_model.dart';
+import 'package:rinjani_visitor/features/product/domain/category_enum.dart';
 
 part 'product_model.g.dart';
 part 'product_model.freezed.dart';
@@ -8,16 +10,20 @@ part 'product_model.freezed.dart';
 /// '80$- 90$ / person'
 @freezed
 class ProductModel with _$ProductModel {
+  get rangePricing => '$priceLow\$ - $priceHigh\$ / person';
+  const ProductModel._();
   const factory ProductModel({
     required String packageId,
     required String title,
     required String location,
     required String imgUrl,
+    required ProductCategory category,
     String? locationUrl,
     String? avaiabilityStatus,
 
     /// example: 80$- 90$ / person
-    required String rangePricing,
+    required int priceLow,
+    required int priceHigh,
     required String rating,
     required String tripDuration,
     required String description,

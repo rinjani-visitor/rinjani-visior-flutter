@@ -1,12 +1,15 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:rinjani_visitor/theme/theme.dart';
+import 'package:rinjani_visitor/core/presentation/theme/theme.dart';
 
 class TimeButtonWidget extends StatefulWidget {
   final bool selected;
   final String time;
   final void Function(String value, bool isSelected) onToggle;
-  TimeButtonWidget({Key? key, required this.time, required this.onToggle, this.selected = false}) : super(key: key);
+  const TimeButtonWidget(
+      {super.key,
+      required this.time,
+      required this.onToggle,
+      this.selected = false});
 
   @override
   State<TimeButtonWidget> createState() => _TimeButtonWidgetState();
@@ -36,7 +39,7 @@ class _TimeButtonWidgetState extends State<TimeButtonWidget> {
               borderRadius: BorderRadius.circular(smallRadius)),
           child: Center(
               child: Text(
-            '${widget.time}',
+            widget.time,
             style: isSelected
                 ? whiteTextStyle.copyWith(fontWeight: medium, fontSize: 16)
                 : blackTextStyle.copyWith(fontWeight: medium, fontSize: 16),

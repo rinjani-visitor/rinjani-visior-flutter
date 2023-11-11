@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:rinjani_visitor/theme/theme.dart';
+import 'package:rinjani_visitor/core/presentation/theme/theme.dart';
 import 'package:rinjani_visitor/widget/button/primary_button.dart';
 
 const bookingStatus = [
@@ -19,14 +18,14 @@ const bookingStatus = [
 ];
 
 class OfferStatusPage extends StatelessWidget {
-  const OfferStatusPage({Key? key}) : super(key: key);
+  const OfferStatusPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
         child: SafeArea(
             child: Padding(
-      padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
       child: Column(
         children: [
           Container(
@@ -57,7 +56,7 @@ class OfferStatusPage extends StatelessWidget {
               ],
             ),
           ),
-          Spacer(),
+          const Spacer(),
           PrimaryButton(
               onPressed: () {},
               child: Text(

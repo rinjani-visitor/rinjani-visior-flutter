@@ -1,16 +1,15 @@
 import 'package:flutter/cupertino.dart';
-import 'package:rinjani_visitor/theme/theme.dart';
+import 'package:rinjani_visitor/core/presentation/theme/theme.dart';
 
 class ReviewCardWidget extends StatelessWidget {
   final String name;
   final String createdTime;
   final String message;
   const ReviewCardWidget(
-      {Key? key,
+      {super.key,
       required this.name,
       required this.createdTime,
-      required this.message})
-      : super(key: key);
+      required this.message});
 
   @override
   Widget build(BuildContext context) {

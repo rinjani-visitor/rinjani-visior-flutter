@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:rinjani_visitor/core/constant/product_package.dart';
 
 List<String> suggestons = [
   "USA",
@@ -10,17 +11,19 @@ List<String> suggestons = [
 ];
 
 class AutoSearch extends StatelessWidget {
-  const AutoSearch({Key? key}) : super(key: key);
+  final void Function(String searchText)? onSearch;
+  const AutoSearch({super.key, this.onSearch});
 
   @override
   Widget build(BuildContext context) {
+    final suggestionData = mockPackages.map((e) => e.title).toList();
     return RawAutocomplete(
       optionsBuilder: (TextEditingValue textEditingValue) {
         if (textEditingValue.text == '') {
           return const Iterable<String>.empty();
         } else {
           List<String> matches = <String>[];
-          matches.addAll(suggestons);
+          matches.addAll(suggestionData);
 
           matches.retainWhere((s) {
             return s
@@ -31,7 +34,7 @@ class AutoSearch extends StatelessWidget {
         }
       },
       onSelected: (String selection) {
-        print('You just selected $selection');
+        debugPrint('You just selected $selection');
       },
       fieldViewBuilder: (BuildContext context,
           TextEditingController textEditingController,
@@ -41,7 +44,7 @@ class AutoSearch extends StatelessWidget {
           // decoration: InputDecoration(border: OutlineInputBorder()),
           controller: textEditingController,
           focusNode: focusNode,
-          onSubmitted: (String value) {},
+          onSubmitted: onSearch,
         );
       },
       optionsViewBuilder: (BuildContext context,

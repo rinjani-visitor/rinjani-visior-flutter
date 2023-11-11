@@ -1,29 +1,30 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:rinjani_visitor/theme/theme.dart';
+import 'package:rinjani_visitor/core/presentation/theme/theme.dart';
 import 'package:rinjani_visitor/widget/rating_widget.dart';
 import 'package:rinjani_visitor/widget/status.dart';
 
-class BigCard extends StatelessWidget {
+class BigProductCard extends StatelessWidget {
   final ImageProvider image;
   final String title;
   final StatusColor status;
   final String price;
   final String? rating;
-  const BigCard(
-      {Key? key,
+  final void Function()? onTap;
+  const BigProductCard(
+      {super.key,
       required this.image,
       required this.title,
       required this.status,
       required this.price,
-      this.rating})
-      : super(key: key);
+      this.rating,
+      this.onTap});
   Widget _imageContainer() {
     return Container(
       width: 108,
       height: 136,
       decoration: BoxDecoration(
-          image: DecorationImage(fit: BoxFit.fill, image: image),
+          image: DecorationImage(fit: BoxFit.cover, image: image),
           borderRadius: BorderRadius.only(
               topLeft: Radius.circular(bigRadius),
               bottomLeft: Radius.circular(bigRadius))),
@@ -40,19 +41,22 @@ class BigCard extends StatelessWidget {
             Row(
               children: [
                 Status(
-                  status: StatusColor.available,
+                  status: status,
                 ),
-                Spacer(),
-                RatingWidget(rating: rating,)
+                const Spacer(),
+                RatingWidget(
+                  rating: rating,
+                )
               ],
             ),
-            Spacer(),
+            const Spacer(),
             Text(
               title,
+              overflow: TextOverflow.ellipsis,
               style:
                   blackTextStyle.copyWith(fontSize: 20, fontWeight: semibold),
             ),
-            Spacer(),
+            const Spacer(),
             Row(
               children: [
                 Text(
@@ -60,7 +64,7 @@ class BigCard extends StatelessWidget {
                   style:
                       blackTextStyle.copyWith(fontWeight: medium, fontSize: 14),
                 ),
-                Spacer(),
+                const Spacer(),
               ],
             )
           ],
@@ -75,9 +79,7 @@ class BigCard extends StatelessWidget {
 
     return GestureDetector(
       //function buat ke halaman detail
-      onTap: () {
-        Navigator.pushNamed(context, '/detail');
-      },
+      onTap: onTap,
       //
       child: Container(
           width: MediaQuery.of(context).size.width,

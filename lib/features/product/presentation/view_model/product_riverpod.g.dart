@@ -1,26 +1,26 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'order_view_model.dart';
+part of 'product_riverpod.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$orderViewModelHash() => r'1d777f16260511d48e339cad65d26f65cf96c557';
+String _$productRiverpodHash() => r'9429eceeb7c379d0cbd595901f837c05e3be69d1';
 
-/// See also [OrderViewModel].
-@ProviderFor(OrderViewModel)
-final orderViewModelProvider =
-    NotifierProvider<OrderViewModel, OrderModel>.internal(
-  OrderViewModel.new,
-  name: r'orderViewModelProvider',
+/// See also [ProductRiverpod].
+@ProviderFor(ProductRiverpod)
+final productRiverpodProvider = AutoDisposeAsyncNotifierProvider<
+    ProductRiverpod, List<ProductModel>>.internal(
+  ProductRiverpod.new,
+  name: r'productRiverpodProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$orderViewModelHash,
+      : _$productRiverpodHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$OrderViewModel = Notifier<OrderModel>;
+typedef _$ProductRiverpod = AutoDisposeAsyncNotifier<List<ProductModel>>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

@@ -1,13 +1,12 @@
 import 'package:file_picker/file_picker.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:rinjani_visitor/theme/theme.dart';
+import 'package:rinjani_visitor/core/presentation/theme/theme.dart';
 
 class FilePickerWidget extends StatefulWidget {
-  const FilePickerWidget({Key? key}) : super(key: key);
+  const FilePickerWidget({super.key});
 
   @override
-  _FilePickerWidgetState createState() => _FilePickerWidgetState();
+  State<FilePickerWidget> createState() => _FilePickerWidgetState();
 }
 
 class _FilePickerWidgetState extends State<FilePickerWidget> {
@@ -17,8 +16,8 @@ class _FilePickerWidgetState extends State<FilePickerWidget> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('file name here'),
-        Container(
+        const Text('file name here'),
+        SizedBox(
           width: double.infinity,
           child: ElevatedButton(
               style: ElevatedButton.styleFrom(backgroundColor: primaryColor),
@@ -28,15 +27,15 @@ class _FilePickerWidgetState extends State<FilePickerWidget> {
                     type: FileType.custom,
                     allowedExtensions: ['jpg', 'png', 'pdf']);
                 if (result == null) {
-                  print("No file selected");
+                  debugPrint("No file selected");
                 } else {
                   setState(() {});
                   for (var element in result!.files) {
-                    print(element.name);
+                    debugPrint(element.name);
                   }
                 }
               },
-              child: Text('Upload your payment')),
+              child: const Text('Upload your payment')),
         ),
       ],
     );

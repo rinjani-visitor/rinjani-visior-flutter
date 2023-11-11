@@ -1,120 +1,141 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:rinjani_visitor/theme/theme.dart';
-import 'package:rinjani_visitor/widget/file_picker_widget.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:rinjani_visitor/core/presentation/theme/theme.dart';
+import 'package:rinjani_visitor/widget/button/primary_button.dart';
+import 'package:rinjani_visitor/widget/form/upload_button.dart';
+import 'package:rinjani_visitor/widget/input_field.dart';
+import 'package:permission_handler/permission_handler.dart';
 
-class ContinuePaymentPage extends StatelessWidget {
-  const ContinuePaymentPage({Key? key}) : super(key: key);
+class ContinuePaymentPage extends ConsumerStatefulWidget {
+  const ContinuePaymentPage({super.key});
 
-  Widget header() {
-    return Center(
-      child: Column(
-        children: [
-          Text(
-            "Please complete your payment",
-            style: blackTextStyle.copyWith(fontSize: 20, fontWeight: semibold),
-          ),
-          SizedBox(
-            height: 16,
-          ),
-          Row(
-            children: [
-              Image.asset(
-                'assets/wise-logo.png',
-                width: 196,
-              ),
-              Spacer(),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Amount to pay',
-                    style: blackTextStyle.copyWith(fontSize: 16),
-                  ),
-                  Text(
-                    'Rp.400.000',
-                    style:
-                        blackTextStyle.copyWith(fontSize: 16, fontWeight: bold),
-                  )
-                ],
-              )
-            ],
-          ),
-          SizedBox(
-            height: 24,
-          ),
-          Row(
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('No Rekening'),
-                  Text(
-                    '028393928339238',
-                    style: blackTextStyle.copyWith(fontWeight: bold),
-                  )
-                ],
-              ),
-              Spacer(),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('A/N'),
-                  Text(
-                    'Rinjani Visitor',
-                    style: blackTextStyle.copyWith(fontWeight: bold),
-                  )
-                ],
-              ),
-            ],
-          )
-        ],
-      ),
-    );
-  }
+  @override
+  ConsumerState<ContinuePaymentPage> createState() =>
+      _ContinuePaymentPageState();
+}
 
-  Widget body() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Upload proof of transfer',
-              style:
-                  blackTextStyle.copyWith(fontSize: 16, fontWeight: semibold),
-            ),
-            SizedBox(
-              height: 16,
-            ),
-            FilePickerWidget()
-          ],
-        ),
-      ],
-    );
+class _ContinuePaymentPageState extends ConsumerState<ContinuePaymentPage> {
+  File? _imageFile;
+  void _openFile() async {
+    if (await Permission.photos.request().isGranted) {
+      final picker = ImagePicker();
+      final pickedImage = await picker.pickImage(source: ImageSource.gallery);
+      if (pickedImage == null) return;
+      _imageFile = File(pickedImage.path);
+      return;
+    }
+    Fluttertoast.showToast(
+        msg: 'Photo permission denied, please accept my humbly request');
   }
 
   @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
         backgroundColor: backgroundColor,
-        navigationBar: CupertinoNavigationBar(
-          middle: Text('Complete your payment'),
+        navigationBar: const CupertinoNavigationBar(
+          middle: Text('Payment'),
           automaticallyImplyLeading: false,
         ),
         child: SafeArea(
-          child: Container(
-              margin: EdgeInsets.only(top: 24, left: 16, right: 16),
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  header(),
-                  SizedBox(
-                    height: 64,
+                  const SizedBox(
+                    height: 16,
                   ),
-                  body()
+                  Row(
+                    children: [
+                      Container(
+                          constraints: const BoxConstraints.expand(
+                            height: 96,
+                            width: 96,
+                          ),
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(8),
+                              border: Border.all(color: lightGray)),
+                          child: const Padding(
+                            padding: EdgeInsets.all(8.0),
+                            child: Image(
+                                image: AssetImage('assets/wise-logo.png')),
+                          )),
+                      const SizedBox(
+                        width: 12,
+                      ),
+                      Expanded(
+                          child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Name",
+                            style: blackTextStyle,
+                          ),
+                          Text(
+                            "put name here",
+                            style: blackTextStyle.copyWith(
+                                fontWeight: FontWeight.bold),
+                          ),
+                          Text(
+                            "Account Number",
+                            style: blackTextStyle,
+                          ),
+                          Text(
+                            "123456789",
+                            style: blackTextStyle.copyWith(
+                                fontWeight: FontWeight.bold),
+                          )
+                        ],
+                      ))
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 32,
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Your full name",
+                        style: blackTextStyle.copyWith(fontSize: subtitle1),
+                      ),
+                      InputFormField(),
+                      Text(
+                        "Your registration",
+                        style: blackTextStyle.copyWith(fontSize: subtitle1),
+                      ),
+                      InputFormField(),
+                      Text(
+                        "Upload your payment proof",
+                        style: blackTextStyle.copyWith(fontSize: subtitle1),
+                      ),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      UploadButton(
+                        onPressed: () {
+                          _openFile();
+                        },
+                        file: _imageFile,
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 32,
+                  ),
+                  PrimaryButton(
+                      child: const Text("Send Payments"), onPressed: () {})
                 ],
-              )),
+              ),
+            ),
+          ),
         ));
   }
 }

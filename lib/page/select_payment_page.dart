@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:rinjani_visitor/theme/theme.dart';
+import 'package:rinjani_visitor/core/presentation/theme/theme.dart';
 
 final paymentMethod = [
   {"name": "Pay with Wise (USD)", "imgSrc": "assets/wise-logo.png"},
@@ -17,13 +17,13 @@ class _SelectPaymentPageState extends State<SelectPaymentPage> {
   @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
-      navigationBar: CupertinoNavigationBar(
+      navigationBar: const CupertinoNavigationBar(
         middle: Text("Select Payment"),
       ),
       child: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16.0),
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -38,8 +38,8 @@ class _SelectPaymentPageState extends State<SelectPaymentPage> {
                 const SizedBox(
                   height: 16,
                 ),
-                Text("TAX: 5%"),
-                Text("Subtotal: \$60"),
+                const Text("TAX: 5%"),
+                const Text("Subtotal: \$60"),
                 Text(
                   "Total: \$63",
                   style: blackTextStyle.copyWith(fontWeight: FontWeight.bold),
@@ -65,14 +65,14 @@ class _SelectPaymentPageState extends State<SelectPaymentPage> {
                       padding: const EdgeInsets.symmetric(vertical: 2.0),
                       child: GestureDetector(
                         onTap: () {
-                          print("tapped");
+                          debugPrint("tapped");
                         },
                         child: Container(
                           decoration: BoxDecoration(
                               color: gray,
                               borderRadius: BorderRadius.circular(8.0)),
                           child: Padding(
-                            padding: EdgeInsets.all(8.0),
+                            padding: const EdgeInsets.all(8.0),
                             child: Row(
                               children: [
                                 Container(

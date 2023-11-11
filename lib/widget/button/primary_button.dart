@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rinjani_visitor/theme/theme.dart';
+import 'package:rinjani_visitor/core/presentation/theme/theme.dart';
 
 class PrimaryButton extends StatelessWidget {
   final bool isLoading;

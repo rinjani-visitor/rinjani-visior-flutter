@@ -11,7 +11,16 @@ import 'package:rinjani_visitor/core/exception/exception.dart';
 ExtException exceptionHandler(Object exception) {
   debugPrint("Exception Catched: ${exception.toString()}");
   if (exception is DioException) {
-    return ExtException(exception.message);
+    var message = "";
+    var code = exception.response?.statusCode;
+    message = "${exception.response?.data["message"].toString()}";
+    if (exception.type == DioExceptionType.connectionError) {
+      if (code != null && code >= 500) {
+        message = "$code Server Error, ${exception.response?.statusMessage}";
+      }
+      message = "Connection Error, Device is Offline";
+    }
+    return ExtException(message);
   }
   return ExtException(exception.toString());
 }
