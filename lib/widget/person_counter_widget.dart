@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rinjani_visitor/core/theme/theme.dart';
+import 'package:rinjani_visitor/core/presentation/theme/theme.dart';
 
 class PersonCounterWidget extends StatefulWidget {
   final TextEditingController controller;
