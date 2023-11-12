@@ -231,7 +231,9 @@ class _HomePageState extends ConsumerState<HomePage> {
                       ),
                       const Spacer(),
                       IconButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.pushNamed(context, '/notification');
+                          },
                           icon: Icon(
                             Icons.notifications,
                             color: whiteColor,

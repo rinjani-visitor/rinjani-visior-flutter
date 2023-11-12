@@ -59,7 +59,10 @@ class BookingStatusPage extends StatelessWidget {
                       borderRadius: BorderRadius.circular(smallRadius)),
                   child: PrimaryButton(
                       onPressed: () {
-                        Navigator.popAndPushNamed(context, '/home');
+                        Navigator.popUntil(
+                          context,
+                          (route) => route.settings.name == "/home",
+                        );
                       },
                       child: const Text(
                         "Home page",
