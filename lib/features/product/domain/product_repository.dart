@@ -6,6 +6,7 @@ abstract class ProductRespository {
       {int pages = 1,
       int? itemsPerPage = 10,
       String? category,
+      String query = "",
       String? avaiability});
 
   /// get package detail, with addons avaiable, etc.

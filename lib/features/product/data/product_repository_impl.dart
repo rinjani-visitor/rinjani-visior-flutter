@@ -34,9 +34,9 @@ class ProductRepositoryImpl implements ProductRespository {
       {int pages = 1,
       int? itemsPerPage = 10,
       String? category,
+      String query = "",
       String? avaiability}) async {
-    final result = await remote.getProducts(limit: itemsPerPage ?? 10);
-
+    final result = await remote.getProducts(limit: itemsPerPage ?? 10, query: query);
     //TODO: remove this when backend is complete
     return result;
   }
