@@ -43,7 +43,7 @@ class AuthRepositoryImpl implements AuthRepository {
         country.isEmpty ||
         phone.isEmpty ||
         password.isEmpty) {
-      throw ExtException("field must not be empty");
+      throw ExtException( message: "field must not be empty");
     }
 
     try {
@@ -70,7 +70,7 @@ class AuthRepositoryImpl implements AuthRepository {
       {required String email, required String password}) async {
     debugPrint("$NAME: Login...");
     if (email.isEmpty || password.isEmpty) {
-      final exception = ExtException("Email / password should not be null");
+      final exception = ExtException(message: "Email / password should not be null");
       debugPrint("$NAME: Error: ${exception.toString()}");
       throw exception;
     }

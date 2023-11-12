@@ -20,7 +20,7 @@ ExtException exceptionHandler(Object exception) {
       }
       message = "Connection Error, Device is Offline";
     }
-    return ExtException(message);
+    return ExtException(message: message, code: code);
   }
-  return ExtException(exception.toString());
+  return ExtException(message: exception.toString());
 }
