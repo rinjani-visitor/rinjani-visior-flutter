@@ -183,6 +183,7 @@ class _DetailPageState extends ConsumerState<ProductDetailPage> {
               const Spacer(),
               const Status(
                 status: StatusColor.available,
+                text: "Available",
               )
             ],
           ),

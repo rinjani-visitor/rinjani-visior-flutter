@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:rinjani_visitor/core/presentation/theme/theme.dart';
 
 //enum untuk menentukan status dari widget agar sesuai warna dan teksnya
@@ -15,7 +16,8 @@ enum StatusColor {
 
 class Status extends StatelessWidget {
   final StatusColor status;
-  const Status({super.key, required this.status});
+  final String text;
+  const Status({super.key, required this.status, required this.text});
 
   @override
   Widget build(BuildContext context) {
@@ -35,27 +37,7 @@ class Status extends StatelessWidget {
         case StatusColor.available:
           return infoBlue;
         default:
-          return infoBlue;
-      }
-    }
-
-    //fungsi untuk menentukan teks pada status
-    String getStatus(StatusColor statusInfo) {
-      switch (statusInfo) {
-        case StatusColor.error:
-          return 'Declined';
-        case StatusColor.offering:
-          return 'Offering';
-        case StatusColor.success:
-          return 'Success';
-        case StatusColor.waiting:
-          return 'Waiting for payment';
-        case StatusColor.review:
-          return 'Reviewing';
-        case StatusColor.available:
-          return 'Available';
-        default:
-          return 'offering';
+          return Colors.transparent;
       }
     }
 
@@ -63,12 +45,11 @@ class Status extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(smallRadius),
-
           //ubah warna status berdasarkan kondisinya
           color: getColor(status)),
       child: Text(
         //ubah teks pada status berdasarkan kondisinya
-        getStatus(status),
+        toBeginningOfSentenceCase(text) ?? "",
         style: whiteTextStyle.copyWith(fontSize: 12, fontWeight: regular),
       ),
     );

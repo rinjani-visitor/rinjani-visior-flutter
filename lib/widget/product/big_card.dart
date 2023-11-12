@@ -42,6 +42,7 @@ class BigProductCard extends StatelessWidget {
               children: [
                 Status(
                   status: status,
+                  text: status.name,
                 ),
                 const Spacer(),
                 RatingWidget(
