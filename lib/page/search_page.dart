@@ -66,6 +66,7 @@ class _SearchPageState extends ConsumerState<SearchPage> {
             loading: () => ListView.builder(
                   itemCount: 10,
                   itemBuilder: (context, index) => const Skeletonizer(
+                    ignoreContainers: true,
                       child: BigProductCard(
                           image: AssetImage("assets/wise-logo.png"),
                           title: "",

@@ -68,6 +68,7 @@ class _CategoryExplorePageState extends ConsumerState<CategoryExplorePage> {
             },
             loading: () {
               return Skeletonizer(
+                ignoreContainers: true,
                 child: ListView.builder(
                   itemCount: 8,
                   itemBuilder: (context, index) {
