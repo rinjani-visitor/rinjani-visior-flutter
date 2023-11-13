@@ -20,7 +20,7 @@ class SearchRiverpod extends _$SearchRiverpod {
   }
 
   FutureOr<void> searchPackage(String name) async {
-    debugPrint("Search Data: ${name}");
+    debugPrint("Search Data: $name");
     state  = const AsyncLoading();
 
     state = await AsyncValue.guard(
