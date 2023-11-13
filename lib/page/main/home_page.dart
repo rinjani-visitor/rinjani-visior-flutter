@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:rinjani_visitor/features/authentication/presentation/auth_riverpod.dart';
 import 'package:rinjani_visitor/features/product/domain/category_enum.dart';
 import 'package:rinjani_visitor/features/product/presentation/view_model/recommended_product_riverpod.dart';
 import 'package:rinjani_visitor/page/booking/product_detail_page.dart';
@@ -11,6 +12,7 @@ import 'package:rinjani_visitor/widget/category_item.dart';
 import 'package:rinjani_visitor/widget/product/small_card.dart';
 import 'package:rinjani_visitor/widget/status.dart';
 import 'package:skeletonizer/skeletonizer.dart';
+import 'package:badges/badges.dart' as badges;
 
 class HomePage extends ConsumerStatefulWidget {
   const HomePage({super.key});
@@ -205,8 +207,8 @@ class _HomePageState extends ConsumerState<HomePage> {
   @override
   Widget build(BuildContext context) {
     double deviceHeight = MediaQuery.of(context).size.height;
-    double appBarHeight = deviceHeight * 0.15;
-    const username = "User";
+    double appBarHeight = deviceHeight * 0.17;
+    final username = ref.watch(authRiverpodProvider).value?.username ?? "User";
     return Scaffold(
       backgroundColor: backgroundColor,
       appBar: PreferredSize(
@@ -219,40 +221,45 @@ class _HomePageState extends ConsumerState<HomePage> {
                     bottomLeft: Radius.circular(bigRadius),
                     bottomRight: Radius.circular(bigRadius))),
             child: SafeArea(
-              child: Column(
-                children: [
-                  // Spacer(),
-                  Row(
-                    children: [
-                      Text(
-                        'Hi, $username',
-                        style: whiteTextStyle.copyWith(
-                            fontSize: deviceHeight * 0.04, fontWeight: bold),
-                      ),
-                      const Spacer(),
-                      IconButton(
-                          onPressed: () {
-                            Navigator.pushNamed(context, '/notification');
-                          },
-                          icon: Icon(
-                            Icons.notifications,
-                            color: whiteColor,
-                            size: deviceHeight * 0.04,
-                          )),
-                    ],
-                  ),
-                  const Spacer(),
-                  InkWell(
-                    onTap: () {
-                      Navigator.pushNamed(context, '/search');
-                    },
-                    child: CupertinoSearchTextField(
-                      backgroundColor: whiteColor,
-                      enabled: false,
+              child: Padding(
+                padding: const EdgeInsets.only(top: 8.0),
+                child: Column(
+                  children: [
+                    // Spacer(),
+                    Row(
+                      children: [
+                        Text(
+                          'Hi, $username',
+                          style: whiteTextStyle.copyWith(
+                              fontSize: deviceHeight * 0.04, fontWeight: bold),
+                        ),
+                        const Spacer(),
+                        IconButton(
+                            onPressed: () {
+                              Navigator.pushNamed(context, '/notification');
+                            },
+                            icon: badges.Badge(
+                              child: Icon(
+                                Icons.notifications,
+                                color: whiteColor,
+                                size: deviceHeight * 0.04,
+                              ),
+                            )),
+                      ],
                     ),
-                  ),
-                  const Spacer()
-                ],
+                    const Spacer(),
+                    InkWell(
+                      onTap: () {
+                        Navigator.pushNamed(context, '/search');
+                      },
+                      child: CupertinoSearchTextField(
+                        backgroundColor: whiteColor,
+                        enabled: false,
+                      ),
+                    ),
+                    const Spacer()
+                  ],
+                ),
               ),
             ),
           )),
