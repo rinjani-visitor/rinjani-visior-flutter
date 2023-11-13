@@ -1,16 +1,15 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:rinjani_visitor/core/presentation/theme/theme.dart';
 
 //enum untuk menentukan status dari widget agar sesuai warna dan teksnya
 enum StatusColor {
   error,
-  offering,
   success,
   waiting,
   review,
-  available
+  available,
+  init,
   // Add more colors as needed
 }
 
@@ -26,18 +25,16 @@ class Status extends StatelessWidget {
       switch (statusColor) {
         case StatusColor.error:
           return errorRed;
-        case StatusColor.offering:
+        case StatusColor.waiting:
           return infoBlue;
         case StatusColor.success:
           return successGreen;
-        case StatusColor.waiting:
-          return warningYellow;
         case StatusColor.review:
           return statusBrown;
         case StatusColor.available:
           return infoBlue;
         default:
-          return Colors.transparent;
+          return CupertinoColors.white;
       }
     }
 
