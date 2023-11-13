@@ -40,11 +40,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CupertinoApp(
+      debugShowCheckedModeBanner: false,
       title: "Rinjani Visitor",
       localizationsDelegates: const [
         GlobalCupertinoLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate
+        GlobalWidgetsLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate
       ],
       supportedLocales: const [Locale("en"), Locale("id")],
       theme: const CupertinoThemeData(
@@ -56,16 +57,16 @@ class MyApp extends StatelessWidget {
         '/register': (context) => const RegisterPage(),
         '/home': (context) => const MainPage(),
         '/search': (context) => const SearchPage(),
-        '/event-detail': (context) => const EventDetailPage(),
+        '/event/detail': (context) => const EventDetailPage(),
         '/notification': (context) => const NotificationPage(),
-        '/personal-info': (context) => const PersonalInfoPage(),
-        '/user-setting': (context) => const UserSettingPage(),
-        '/change-pass': (context) => const ChangePassPage(),
-        '/change-email': (context) => const ChangeEmailPage(),
-        '/booking-detail': (context) => const BookingDetailPage(),
-        '/success-booking': (context) => BookingStatusPage(),
-        '/success-offer': (context) => const OfferStatusPage(),
-        '/continue-payment': (context) => const ContinuePaymentPage(),
+        '/settings': (context) => const UserSettingPage(),
+        '/personal': (context) => const PersonalInfoPage(),
+        '/personal/pass': (context) => const ChangePassPage(),
+        '/personal/email': (context) => const ChangeEmailPage(),
+        '/booking/detail': (context) => const BookingDetailPage(),
+        '/booking/status': (context) => BookingStatusPage(),
+        '/booking/offer': (context) => const OfferStatusPage(),
+        '/booking/payment': (context) => const ContinuePaymentPage(),
       },
     );
   }
