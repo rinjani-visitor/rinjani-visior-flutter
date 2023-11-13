@@ -26,7 +26,7 @@ mixin _$NotificationModel {
   String get orderBookingNo => throw _privateConstructorUsedError;
   String get orderDate => throw _privateConstructorUsedError;
   bool get viewed => throw _privateConstructorUsedError;
-  NotificationStatus? get status => throw _privateConstructorUsedError;
+  StatusColor? get status => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -47,7 +47,7 @@ abstract class $NotificationModelCopyWith<$Res> {
       String orderBookingNo,
       String orderDate,
       bool viewed,
-      NotificationStatus? status});
+      StatusColor? status});
 }
 
 /// @nodoc
@@ -99,7 +99,7 @@ class _$NotificationModelCopyWithImpl<$Res, $Val extends NotificationModel>
       status: freezed == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
-              as NotificationStatus?,
+              as StatusColor?,
     ) as $Val);
   }
 }
@@ -119,7 +119,7 @@ abstract class _$$NotificationModelImplCopyWith<$Res>
       String orderBookingNo,
       String orderDate,
       bool viewed,
-      NotificationStatus? status});
+      StatusColor? status});
 }
 
 /// @nodoc
@@ -169,7 +169,7 @@ class __$$NotificationModelImplCopyWithImpl<$Res>
       status: freezed == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
-              as NotificationStatus?,
+              as StatusColor?,
     ));
   }
 }
@@ -203,7 +203,7 @@ class _$NotificationModelImpl extends _NotificationModel {
   @override
   final bool viewed;
   @override
-  final NotificationStatus? status;
+  final StatusColor? status;
 
   @override
   String toString() {
@@ -255,7 +255,7 @@ abstract class _NotificationModel extends NotificationModel {
       required final String orderBookingNo,
       required final String orderDate,
       required final bool viewed,
-      final NotificationStatus? status}) = _$NotificationModelImpl;
+      final StatusColor? status}) = _$NotificationModelImpl;
   const _NotificationModel._() : super._();
 
   factory _NotificationModel.fromJson(Map<String, dynamic> json) =
@@ -274,7 +274,7 @@ abstract class _NotificationModel extends NotificationModel {
   @override
   bool get viewed;
   @override
-  NotificationStatus? get status;
+  StatusColor? get status;
   @override
   @JsonKey(ignore: true)
   _$$NotificationModelImplCopyWith<_$NotificationModelImpl> get copyWith =>

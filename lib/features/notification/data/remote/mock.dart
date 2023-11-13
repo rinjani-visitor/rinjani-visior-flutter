@@ -1,5 +1,5 @@
-import 'package:rinjani_visitor/features/notification/domain/notification_enum.dart';
 import 'package:rinjani_visitor/features/notification/domain/notification_model.dart';
+import 'package:rinjani_visitor/widget/status.dart';
 
 class NotificationMock {
   Future<List<NotificationModel>> getNotification(
@@ -14,7 +14,7 @@ class NotificationMock {
               viewed: false,
               orderBookingNo: "XCV-5578-$index",
               orderDate: DateTime.now().toString(),
-              status: NotificationStatus.available,
+              status: StatusColor.waiting,
             ));
   }
 }

@@ -15,7 +15,7 @@ _$NotificationModelImpl _$$NotificationModelImplFromJson(
       orderBookingNo: json['orderBookingNo'] as String,
       orderDate: json['orderDate'] as String,
       viewed: json['viewed'] as bool,
-      status: $enumDecodeNullable(_$NotificationStatusEnumMap, json['status']),
+      status: $enumDecodeNullable(_$StatusColorEnumMap, json['status']),
     );
 
 Map<String, dynamic> _$$NotificationModelImplToJson(
@@ -27,14 +27,14 @@ Map<String, dynamic> _$$NotificationModelImplToJson(
       'orderBookingNo': instance.orderBookingNo,
       'orderDate': instance.orderDate,
       'viewed': instance.viewed,
-      'status': _$NotificationStatusEnumMap[instance.status],
+      'status': _$StatusColorEnumMap[instance.status],
     };
 
-const _$NotificationStatusEnumMap = {
-  NotificationStatus.error: 'error',
-  NotificationStatus.offering: 'offering',
-  NotificationStatus.success: 'success',
-  NotificationStatus.waiting: 'waiting',
-  NotificationStatus.review: 'review',
-  NotificationStatus.available: 'available',
+const _$StatusColorEnumMap = {
+  StatusColor.error: 'error',
+  StatusColor.success: 'success',
+  StatusColor.waiting: 'waiting',
+  StatusColor.review: 'review',
+  StatusColor.available: 'available',
+  StatusColor.init: 'init',
 };

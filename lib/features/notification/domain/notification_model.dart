@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:rinjani_visitor/core/presentation/utils/internationalization.dart';
-import 'package:rinjani_visitor/features/notification/domain/notification_enum.dart';
+import 'package:rinjani_visitor/widget/status.dart';
 
 part 'notification_model.freezed.dart';
 part 'notification_model.g.dart';
@@ -16,7 +16,7 @@ class NotificationModel with _$NotificationModel {
       required String orderBookingNo,
       required String orderDate,
       required bool viewed,
-      NotificationStatus? status}) = _NotificationModel;
+      StatusColor? status}) = _NotificationModel;
 
   factory NotificationModel.fromJson(Map<String, Object> json) =>
       _$NotificationModelFromJson(json);
