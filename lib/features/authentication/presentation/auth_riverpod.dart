@@ -14,7 +14,7 @@ class AuthRiverpod extends _$AuthRiverpod {
 
   @override
   FutureOr<AuthModel?> build() async {
-    repository = ref.read(AuthRepositoryImpl.provider);
+    repository = ref.read(authRepositoryProvider);
     return await repository.getSavedSession();
   }
 

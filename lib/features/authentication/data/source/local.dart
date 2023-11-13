@@ -7,8 +7,6 @@ import 'package:rinjani_visitor/features/secure_storage/presentation/secure_stor
 
 class AuthLocalSource {
   // ignore: constant_identifier_names
-  static const TOKEN_KEY = "token_key";
-  // ignore: constant_identifier_names
   static const SESSION_KEY = "session_key";
   // ignore: constant_identifier_names
   static const NAME = "AuthLocalStorage";

@@ -13,17 +13,16 @@ import 'package:rinjani_visitor/features/authentication/domain/auth_repository.d
 import 'package:rinjani_visitor/features/authentication/domain/data/remote/request/login_request.dart';
 import 'package:rinjani_visitor/features/authentication/domain/data/remote/request/register_request.dart';
 
+final authRepositoryProvider = Provider((ref) => AuthRepositoryImpl(
+    localSource: ref.read(AuthLocalSource.provider),
+    remoteSource: AuthRemoteSource(ref.read(dioServiceProvider))));
+
 class AuthRepositoryImpl implements AuthRepository {
   final AuthLocalSource localSource;
   final AuthRemoteSource remoteSource;
 
-  static final provider = Provider((ref) => AuthRepositoryImpl(
-      localSource: ref.read(AuthLocalSource.provider),
-      remoteSource: AuthRemoteSource(ref.read(dioServiceProvider))));
-
   AuthRepositoryImpl({required this.localSource, required this.remoteSource});
 
-//========================//
   @override
   Future<AuthModel?> logout() async {
     await localSource.clearSession();
@@ -44,7 +43,7 @@ class AuthRepositoryImpl implements AuthRepository {
         country.isEmpty ||
         phone.isEmpty ||
         password.isEmpty) {
-      throw ExtException( message: "field must not be empty");
+      throw ExtException(message: "field must not be empty");
     }
 
     try {
@@ -71,7 +70,8 @@ class AuthRepositoryImpl implements AuthRepository {
       {required String email, required String password}) async {
     debugPrint("$NAME: Login...");
     if (email.isEmpty || password.isEmpty) {
-      final exception = ExtException(message: "Email / password should not be null");
+      final exception =
+          ExtException(message: "Email / password should not be null");
       debugPrint("$NAME: Error: ${exception.toString()}");
       throw exception;
     }
