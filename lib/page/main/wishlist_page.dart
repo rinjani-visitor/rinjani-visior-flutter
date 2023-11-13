@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:rinjani_visitor/core/presentation/theme/theme.dart';
 
 class WishlistPage extends StatelessWidget {
-  const WishlistPage({Key? key}) : super(key: key);
+  const WishlistPage({super.key});
 
   @override
   Widget build(BuildContext context) {
