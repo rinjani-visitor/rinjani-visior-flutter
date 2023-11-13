@@ -20,11 +20,12 @@ NotificationModel _$NotificationModelFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$NotificationModel {
-  String get notificationId => throw _privateConstructorUsedError;
+  String get id => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
   String get orderBookingNo => throw _privateConstructorUsedError;
   String get orderDate => throw _privateConstructorUsedError;
+  bool get viewed => throw _privateConstructorUsedError;
   NotificationStatus? get status => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -40,11 +41,12 @@ abstract class $NotificationModelCopyWith<$Res> {
       _$NotificationModelCopyWithImpl<$Res, NotificationModel>;
   @useResult
   $Res call(
-      {String notificationId,
+      {String id,
       String title,
       String description,
       String orderBookingNo,
       String orderDate,
+      bool viewed,
       NotificationStatus? status});
 }
 
@@ -61,17 +63,18 @@ class _$NotificationModelCopyWithImpl<$Res, $Val extends NotificationModel>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? notificationId = null,
+    Object? id = null,
     Object? title = null,
     Object? description = null,
     Object? orderBookingNo = null,
     Object? orderDate = null,
+    Object? viewed = null,
     Object? status = freezed,
   }) {
     return _then(_value.copyWith(
-      notificationId: null == notificationId
-          ? _value.notificationId
-          : notificationId // ignore: cast_nullable_to_non_nullable
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
               as String,
       title: null == title
           ? _value.title
@@ -89,6 +92,10 @@ class _$NotificationModelCopyWithImpl<$Res, $Val extends NotificationModel>
           ? _value.orderDate
           : orderDate // ignore: cast_nullable_to_non_nullable
               as String,
+      viewed: null == viewed
+          ? _value.viewed
+          : viewed // ignore: cast_nullable_to_non_nullable
+              as bool,
       status: freezed == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
@@ -106,11 +113,12 @@ abstract class _$$NotificationModelImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String notificationId,
+      {String id,
       String title,
       String description,
       String orderBookingNo,
       String orderDate,
+      bool viewed,
       NotificationStatus? status});
 }
 
@@ -125,17 +133,18 @@ class __$$NotificationModelImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? notificationId = null,
+    Object? id = null,
     Object? title = null,
     Object? description = null,
     Object? orderBookingNo = null,
     Object? orderDate = null,
+    Object? viewed = null,
     Object? status = freezed,
   }) {
     return _then(_$NotificationModelImpl(
-      notificationId: null == notificationId
-          ? _value.notificationId
-          : notificationId // ignore: cast_nullable_to_non_nullable
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
               as String,
       title: null == title
           ? _value.title
@@ -153,6 +162,10 @@ class __$$NotificationModelImplCopyWithImpl<$Res>
           ? _value.orderDate
           : orderDate // ignore: cast_nullable_to_non_nullable
               as String,
+      viewed: null == viewed
+          ? _value.viewed
+          : viewed // ignore: cast_nullable_to_non_nullable
+              as bool,
       status: freezed == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
@@ -163,20 +176,22 @@ class __$$NotificationModelImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$NotificationModelImpl implements _NotificationModel {
+class _$NotificationModelImpl extends _NotificationModel {
   const _$NotificationModelImpl(
-      {required this.notificationId,
+      {required this.id,
       required this.title,
       required this.description,
       required this.orderBookingNo,
       required this.orderDate,
-      this.status});
+      required this.viewed,
+      this.status})
+      : super._();
 
   factory _$NotificationModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$NotificationModelImplFromJson(json);
 
   @override
-  final String notificationId;
+  final String id;
   @override
   final String title;
   @override
@@ -186,11 +201,13 @@ class _$NotificationModelImpl implements _NotificationModel {
   @override
   final String orderDate;
   @override
+  final bool viewed;
+  @override
   final NotificationStatus? status;
 
   @override
   String toString() {
-    return 'NotificationModel(notificationId: $notificationId, title: $title, description: $description, orderBookingNo: $orderBookingNo, orderDate: $orderDate, status: $status)';
+    return 'NotificationModel(id: $id, title: $title, description: $description, orderBookingNo: $orderBookingNo, orderDate: $orderDate, viewed: $viewed, status: $status)';
   }
 
   @override
@@ -198,8 +215,7 @@ class _$NotificationModelImpl implements _NotificationModel {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$NotificationModelImpl &&
-            (identical(other.notificationId, notificationId) ||
-                other.notificationId == notificationId) &&
+            (identical(other.id, id) || other.id == id) &&
             (identical(other.title, title) || other.title == title) &&
             (identical(other.description, description) ||
                 other.description == description) &&
@@ -207,13 +223,14 @@ class _$NotificationModelImpl implements _NotificationModel {
                 other.orderBookingNo == orderBookingNo) &&
             (identical(other.orderDate, orderDate) ||
                 other.orderDate == orderDate) &&
+            (identical(other.viewed, viewed) || other.viewed == viewed) &&
             (identical(other.status, status) || other.status == status));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, notificationId, title,
-      description, orderBookingNo, orderDate, status);
+  int get hashCode => Object.hash(runtimeType, id, title, description,
+      orderBookingNo, orderDate, viewed, status);
 
   @JsonKey(ignore: true)
   @override
@@ -230,20 +247,22 @@ class _$NotificationModelImpl implements _NotificationModel {
   }
 }
 
-abstract class _NotificationModel implements NotificationModel {
+abstract class _NotificationModel extends NotificationModel {
   const factory _NotificationModel(
-      {required final String notificationId,
+      {required final String id,
       required final String title,
       required final String description,
       required final String orderBookingNo,
       required final String orderDate,
+      required final bool viewed,
       final NotificationStatus? status}) = _$NotificationModelImpl;
+  const _NotificationModel._() : super._();
 
   factory _NotificationModel.fromJson(Map<String, dynamic> json) =
       _$NotificationModelImpl.fromJson;
 
   @override
-  String get notificationId;
+  String get id;
   @override
   String get title;
   @override
@@ -252,6 +271,8 @@ abstract class _NotificationModel implements NotificationModel {
   String get orderBookingNo;
   @override
   String get orderDate;
+  @override
+  bool get viewed;
   @override
   NotificationStatus? get status;
   @override

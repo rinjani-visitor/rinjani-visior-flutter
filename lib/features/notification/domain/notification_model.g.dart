@@ -9,22 +9,24 @@ part of 'notification_model.dart';
 _$NotificationModelImpl _$$NotificationModelImplFromJson(
         Map<String, dynamic> json) =>
     _$NotificationModelImpl(
-      notificationId: json['notificationId'] as String,
+      id: json['id'] as String,
       title: json['title'] as String,
       description: json['description'] as String,
       orderBookingNo: json['orderBookingNo'] as String,
       orderDate: json['orderDate'] as String,
+      viewed: json['viewed'] as bool,
       status: $enumDecodeNullable(_$NotificationStatusEnumMap, json['status']),
     );
 
 Map<String, dynamic> _$$NotificationModelImplToJson(
         _$NotificationModelImpl instance) =>
     <String, dynamic>{
-      'notificationId': instance.notificationId,
+      'id': instance.id,
       'title': instance.title,
       'description': instance.description,
       'orderBookingNo': instance.orderBookingNo,
       'orderDate': instance.orderDate,
+      'viewed': instance.viewed,
       'status': _$NotificationStatusEnumMap[instance.status],
     };
 
