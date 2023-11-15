@@ -31,7 +31,7 @@ class UploadButton extends StatelessWidget {
                         ? Text(
                             "File Selected : ${file!.path.split(Platform.pathSeparator).last} ")
                         : const Text(
-                            'Click to Upload Payment (JPEG, JPG, PNG)')))),
+                            'Click to Upload (JPEG, JPG, PNG)')))),
       ),
     );
   }

@@ -19,14 +19,58 @@ class ContinuePaymentPage extends ConsumerStatefulWidget {
       _ContinuePaymentPageState();
 }
 
-class _ContinuePaymentPageState extends ConsumerState<ContinuePaymentPage> {
-  File? _imageFile;
-  void _openFile() async {
+class _ContinuePaymentPageState extends ConsumerState<ContinuePaymentPage>
+    with WidgetsBindingObserver {
+  File? selectedImage;
+
+  // === functions === //
+
+  void _showFileSelection() async {
+    showCupertinoModalPopup(
+      context: context,
+      builder: (context) => CupertinoActionSheet(
+        cancelButton: CupertinoActionSheetAction(
+            onPressed: () => Navigator.pop(context),
+            child: const Text("Cancel")),
+        actions: [
+          CupertinoActionSheetAction(
+              onPressed: () {}, child: const Text("Open Camera")),
+          CupertinoActionSheetAction(
+              onPressed: () {
+                Navigator.pop(context);
+                _openImagePicker();
+              },
+              child: const Text("Open Gallery")),
+          selectedImage != null
+              ? CupertinoActionSheetAction(
+                  isDestructiveAction: true,
+                  onPressed: () {
+                    Navigator.pop(context);
+                    _removeFile();
+                  },
+                  child: const Text("Delete"))
+              : Container()
+        ],
+      ),
+    );
+  }
+
+  void _removeFile() async {
+    // create fake await
+    await Future.delayed(const Duration(milliseconds: 500));
+    setState(() {
+      selectedImage = null;
+    });
+  }
+
+  void _openImagePicker() async {
     if (await Permission.photos.request().isGranted) {
       final picker = ImagePicker();
       final pickedImage = await picker.pickImage(source: ImageSource.gallery);
       if (pickedImage == null) return;
-      _imageFile = File(pickedImage.path);
+      setState(() {
+        selectedImage = File(pickedImage.path);
+      });
       return;
     }
     Fluttertoast.showToast(
@@ -121,9 +165,9 @@ class _ContinuePaymentPageState extends ConsumerState<ContinuePaymentPage> {
                       ),
                       UploadButton(
                         onPressed: () {
-                          _openFile();
+                          _showFileSelection();
                         },
-                        file: _imageFile,
+                        file: selectedImage,
                       ),
                     ],
                   ),
