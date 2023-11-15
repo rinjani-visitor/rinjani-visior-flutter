@@ -12,6 +12,7 @@ void main() {
   // Force google font to use offline fonts instead of re-downloading again
   GoogleFonts.config.allowRuntimeFetching = false;
 
+  WidgetsFlutterBinding.ensureInitialized();
   // setup license fonts
   LicenseRegistry.addLicense(() async* {
     final license = await rootBundle.loadString('google_fonts/OFL.txt');

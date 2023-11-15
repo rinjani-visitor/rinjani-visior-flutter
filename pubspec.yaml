@@ -68,6 +68,7 @@ dependencies:
   skeletonizer: ^0.8.0
   http_parser: ^4.0.2
   badges: ^3.1.2
+  camera: ^0.10.5+5
 
 dev_dependencies:
   flutter_test:
