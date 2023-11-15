@@ -1,15 +1,11 @@
-import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:rinjani_visitor/core/presentation/theme/theme.dart';
+import 'package:rinjani_visitor/features/camera/presentation/provider/camera_provider.dart';
 import 'package:rinjani_visitor/widget/button/primary_button.dart';
 import 'package:rinjani_visitor/widget/form/upload_button.dart';
 import 'package:rinjani_visitor/widget/input_field.dart';
-import 'package:permission_handler/permission_handler.dart';
 
 class ContinuePaymentPage extends ConsumerStatefulWidget {
   const ContinuePaymentPage({super.key});
@@ -19,13 +15,13 @@ class ContinuePaymentPage extends ConsumerStatefulWidget {
       _ContinuePaymentPageState();
 }
 
-class _ContinuePaymentPageState extends ConsumerState<ContinuePaymentPage>
-    with WidgetsBindingObserver {
-  File? selectedImage;
+class _ContinuePaymentPageState extends ConsumerState<ContinuePaymentPage> {
+  // File? selectedImage;
 
   // === functions === //
 
   void _showFileSelection() async {
+    final camNotifier = ref.read(cameraProvider.notifier);
     showCupertinoModalPopup(
       context: context,
       builder: (context) => CupertinoActionSheet(
@@ -34,19 +30,22 @@ class _ContinuePaymentPageState extends ConsumerState<ContinuePaymentPage>
             child: const Text("Cancel")),
         actions: [
           CupertinoActionSheetAction(
-              onPressed: () {}, child: const Text("Open Camera")),
+              onPressed: () {
+                Navigator.pop(context);
+                camNotifier.openCamera();
+              }, child: const Text("Open Camera")),
           CupertinoActionSheetAction(
               onPressed: () {
                 Navigator.pop(context);
-                _openImagePicker();
+                camNotifier.openImagePicker();
               },
               child: const Text("Open Gallery")),
-          selectedImage != null
+          ref.watch(cameraProvider) != null
               ? CupertinoActionSheetAction(
                   isDestructiveAction: true,
                   onPressed: () {
                     Navigator.pop(context);
-                    _removeFile();
+                    camNotifier.discardCurrentFile();
                   },
                   child: const Text("Delete"))
               : Container()
@@ -55,30 +54,9 @@ class _ContinuePaymentPageState extends ConsumerState<ContinuePaymentPage>
     );
   }
 
-  void _removeFile() async {
-    // create fake await
-    await Future.delayed(const Duration(milliseconds: 500));
-    setState(() {
-      selectedImage = null;
-    });
-  }
-
-  void _openImagePicker() async {
-    if (await Permission.photos.request().isGranted) {
-      final picker = ImagePicker();
-      final pickedImage = await picker.pickImage(source: ImageSource.gallery);
-      if (pickedImage == null) return;
-      setState(() {
-        selectedImage = File(pickedImage.path);
-      });
-      return;
-    }
-    Fluttertoast.showToast(
-        msg: 'Photo permission denied, please accept my humbly request');
-  }
-
   @override
   Widget build(BuildContext context) {
+    final fileImage = ref.watch(cameraProvider);
     return CupertinoPageScaffold(
         backgroundColor: backgroundColor,
         navigationBar: const CupertinoNavigationBar(
@@ -167,7 +145,7 @@ class _ContinuePaymentPageState extends ConsumerState<ContinuePaymentPage>
                         onPressed: () {
                           _showFileSelection();
                         },
-                        file: selectedImage,
+                        file: fileImage,
                       ),
                     ],
                   ),
