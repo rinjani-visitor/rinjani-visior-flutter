@@ -12,13 +12,33 @@ ExtException exceptionHandler(Object exception) {
   debugPrint("Exception Catched: ${exception.toString()}");
   var message = "";
   if (exception is DioException) {
+    DioExceptionType? type = exception.type;
+    switch (type) {
+      case DioExceptionType.connectionTimeout:
+        message = "Connection Timeout";
+        break;
+      case DioExceptionType.receiveTimeout:
+        message = "Receive Timeout";
+        break;
+      case DioExceptionType.sendTimeout:
+        message = "Send Timeout";
+        break;
+      case DioExceptionType.connectionError:
+        message = "Connection Error, Device is Offline";
+        break;
+      case DioExceptionType.badResponse:
+        message =
+            "Bad response, ${exception.response?.data["message"].toString()}";
+        break;
+      case DioExceptionType.cancel:
+        message = "Request Cancelled";
+        break;
+      default:
+        message = "${exception.response?.data["message"].toString()}";
+    }
     var code = exception.response?.statusCode;
-    message = "${exception.response?.data["message"].toString()}";
-    if (exception.type == DioExceptionType.connectionError) {
-      if (code != null && code >= 500) {
-        message = "$code Server Error, ${exception.response?.statusMessage}";
-      }
-      message = "Connection Error, Device is Offline";
+    if (code != null && code >= 500) {
+      message = "$code Server Error, ${exception.response?.statusMessage}";
     }
     return ExtException(message: message, code: code);
   }
