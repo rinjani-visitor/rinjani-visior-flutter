@@ -1,4 +1,3 @@
-import 'package:circular_profile_avatar/circular_profile_avatar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -9,29 +8,25 @@ class AccountPage extends ConsumerWidget {
   const AccountPage({super.key});
 
   Widget header(String username) {
-    return Flexible(
-      child: Column(
-        children: [
-          CircularProfileAvatar(
-            //code buat akses file di onTap
-            onTap: () {},
-            borderColor: mediumGray,
-            backgroundColor: lightGray,
-            initialsText: const Text('AD'),
-            '',
-
-            child: Image.asset('assets/Google.png'),
-          ),
-          const SizedBox(
-            height: 8,
-          ),
-          //username dari user
-          Text(
-            username,
-            style: blackTextStyle.copyWith(fontSize: 24, fontWeight: bold),
-          )
-        ],
-      ),
+    return Column(
+      children: [
+        const SizedBox(
+          height: 16,
+        ),
+        CircleAvatar(
+          backgroundColor: lightGray,
+          radius: 80,
+          backgroundImage: const AssetImage('assets/booking-success.png'),
+        ),
+        const SizedBox(
+          height: 8,
+        ),
+        //username dari user
+        Text(
+          username,
+          style: blackTextStyle.copyWith(fontSize: 24, fontWeight: bold),
+        )
+      ],
     );
   }
 
