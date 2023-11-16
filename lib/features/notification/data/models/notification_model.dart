@@ -1,5 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:rinjani_visitor/core/presentation/utils/internationalization.dart';
+import 'package:rinjani_visitor/features/notification/domain/entity/notification.dart';
 import 'package:rinjani_visitor/widget/status.dart';
 
 part 'notification_model.freezed.dart';
@@ -20,4 +21,6 @@ class NotificationModel with _$NotificationModel {
 
   factory NotificationModel.fromJson(Map<String, Object> json) =>
       _$NotificationModelFromJson(json);
+
+  NotificationEntity toEntity() => NotificationEntity(id: id, title: title, description: description, orderBookingNo: orderBookingNo, orderDate: orderDate, viewed: viewed);
 }

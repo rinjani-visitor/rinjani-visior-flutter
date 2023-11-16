@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:rinjani_visitor/features/authentication/data/auth_repository_impl.dart';
-import 'package:rinjani_visitor/features/authentication/domain/auth_model.dart';
-import 'package:rinjani_visitor/features/authentication/domain/auth_repository.dart';
+import 'package:rinjani_visitor/features/authentication/domain/repo/auth_repository.dart';
+import 'package:rinjani_visitor/features/authentication/domain/entity/auth_entity.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'auth_riverpod.g.dart';
@@ -13,7 +13,7 @@ class AuthRiverpod extends _$AuthRiverpod {
   late final AuthRepository repository;
 
   @override
-  FutureOr<AuthModel?> build() async {
+  FutureOr<Auth?> build() async {
     repository = ref.read(authRepositoryProvider);
     return await repository.getSavedSession();
   }

@@ -6,12 +6,12 @@ part of 'auth_riverpod.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$authRiverpodHash() => r'68145f215a152ea66eda195d38568ac9260384ab';
+String _$authRiverpodHash() => r'feab655648b5672fdb9fb693e035ee007f9cfbf2';
 
 /// See also [AuthRiverpod].
 @ProviderFor(AuthRiverpod)
 final authRiverpodProvider =
-    AsyncNotifierProvider<AuthRiverpod, AuthModel?>.internal(
+    AsyncNotifierProvider<AuthRiverpod, Auth?>.internal(
   AuthRiverpod.new,
   name: r'authRiverpodProvider',
   debugGetCreateSourceHash:
@@ -20,6 +20,6 @@ final authRiverpodProvider =
   allTransitiveDependencies: null,
 );
 
-typedef _$AuthRiverpod = AsyncNotifier<AuthModel?>;
+typedef _$AuthRiverpod = AsyncNotifier<Auth?>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

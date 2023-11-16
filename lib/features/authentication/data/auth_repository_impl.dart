@@ -7,11 +7,12 @@ import 'package:rinjani_visitor/core/presentation/services/dio_service.dart';
 import 'package:rinjani_visitor/core/presentation/utils/exception_utils.dart';
 import 'package:rinjani_visitor/features/authentication/data/source/local.dart';
 import 'package:rinjani_visitor/features/authentication/data/source/remote.dart';
-import 'package:rinjani_visitor/features/authentication/domain/auth_model.dart';
+import 'package:rinjani_visitor/features/authentication/data/models/auth_model.dart';
 
-import 'package:rinjani_visitor/features/authentication/domain/auth_repository.dart';
-import 'package:rinjani_visitor/features/authentication/domain/data/remote/request/login_request.dart';
-import 'package:rinjani_visitor/features/authentication/domain/data/remote/request/register_request.dart';
+import 'package:rinjani_visitor/features/authentication/domain/repo/auth_repository.dart';
+import 'package:rinjani_visitor/features/authentication/data/models/request/login_request.dart';
+import 'package:rinjani_visitor/features/authentication/data/models/request/register_request.dart';
+import 'package:rinjani_visitor/features/authentication/domain/entity/auth_entity.dart';
 
 final authRepositoryProvider = Provider((ref) => AuthRepositoryImpl(
     localSource: ref.read(AuthLocalSource.provider),
@@ -24,13 +25,13 @@ class AuthRepositoryImpl implements AuthRepository {
   AuthRepositoryImpl({required this.localSource, required this.remoteSource});
 
   @override
-  Future<AuthModel?> logout() async {
+  Future<Auth?> logout() async {
     await localSource.clearSession();
     return null;
   }
 
   @override
-  Future<AuthModel> register(
+  Future<Auth> register(
       {required String username,
       required String email,
       required String country,
@@ -56,7 +57,7 @@ class AuthRepositoryImpl implements AuthRepository {
           password: password,
           phone: phone));
       debugPrint("Repository: data from remote: ${response.toString()}");
-      return AuthModel(
+      return Auth(
           userId: response.user?.userId!,
           username: response.user?.username!,
           email: response.user?.email!);
@@ -66,7 +67,7 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Future<AuthModel> logIn(
+  Future<Auth> logIn(
       {required String email, required String password}) async {
     debugPrint("$NAME: Login...");
     if (email.isEmpty || password.isEmpty) {
@@ -87,7 +88,7 @@ class AuthRepositoryImpl implements AuthRepository {
           username: loginResult.username,
           token: loginResult.token);
       await localSource.setSession(result);
-      return result;
+      return result.toEntity();
     } catch (e) {
       final err = exceptionHandler(e);
       debugPrint("$NAME: Error: ${err.toString()}");
@@ -96,11 +97,11 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Future<AuthModel?> getSavedSession() async {
+  Future<Auth?> getSavedSession() async {
     final sessionModel = await localSource.getSession();
     try {
       debugPrint("$NAME : $sessionModel");
-      return sessionModel;
+      return sessionModel?.toEntity();
     } catch (e) {
       throw exceptionHandler(e);
     }

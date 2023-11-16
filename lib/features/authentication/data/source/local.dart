@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:rinjani_visitor/core/presentation/utils/json_utils.dart';
-import 'package:rinjani_visitor/features/authentication/domain/auth_model.dart';
+import 'package:rinjani_visitor/features/authentication/data/models/auth_model.dart';
 import 'package:rinjani_visitor/features/secure_storage/presentation/secure_storage_riverpod.dart';
 
 class AuthLocalSource {

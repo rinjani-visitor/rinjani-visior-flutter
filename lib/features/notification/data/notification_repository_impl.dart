@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rinjani_visitor/features/notification/data/remote/mock.dart';
-import 'package:rinjani_visitor/features/notification/domain/notification_model.dart';
+import 'package:rinjani_visitor/features/notification/domain/entity/notification.dart';
 import 'package:rinjani_visitor/features/notification/domain/notificaton_repository.dart';
 
 final notificationRepositoryProvider = Provider((ref) =>
@@ -13,15 +13,16 @@ class NotificationRepositoryImpl implements NotificationRepository {
       : _notificationRemote = notificationRemote;
 
   @override
-  Future<NotificationModel> getNotification() {
+  Future<NotificationEntity> getNotification() {
     // TODO: implement getNotification
     throw UnimplementedError();
   }
 
   @override
-  Future<List<NotificationModel>> getNotifications() async {
+  Future<List<NotificationEntity>> getNotifications() async {
     final notifications = await _notificationRemote.getNotification();
-    return notifications;
+    final entity = notifications.map((e) => e.toEntity()).toList();
+    return entity;
   }
 
   @override

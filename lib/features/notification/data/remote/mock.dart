@@ -1,4 +1,4 @@
-import 'package:rinjani_visitor/features/notification/domain/notification_model.dart';
+import 'package:rinjani_visitor/features/notification/data/models/notification_model.dart';
 import 'package:rinjani_visitor/widget/status.dart';
 
 class NotificationMock {

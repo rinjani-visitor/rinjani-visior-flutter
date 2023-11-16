@@ -1,4 +1,4 @@
-import 'package:rinjani_visitor/features/comment_review/domain/comment_model.dart';
+import 'package:rinjani_visitor/features/comment_review/data/models/comment_model.dart';
 
 abstract class ReviewRepository {
   Future<void> createReview({CommentModel newReview});
