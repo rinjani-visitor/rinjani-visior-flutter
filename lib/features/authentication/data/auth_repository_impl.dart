@@ -2,8 +2,8 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:rinjani_visitor/core/exception/exception.dart';
 import 'package:rinjani_visitor/core/presentation/services/dio_service.dart';
-import 'package:rinjani_visitor/core/presentation/utils/exception_utils.dart';
 import 'package:rinjani_visitor/features/authentication/data/source/local.dart';
 import 'package:rinjani_visitor/features/authentication/data/source/remote.dart';
 import 'package:rinjani_visitor/features/authentication/data/models/request/login_request.dart';
@@ -49,7 +49,7 @@ class AuthRepositoryImpl implements AuthRepository {
       if (response.user == null) return Auth();
       return response.user!.toEntity();
     } catch (e) {
-      throw exceptionHandler(e);
+      throw ExtException.fromDioException(e);
     }
   }
 
@@ -66,7 +66,7 @@ class AuthRepositoryImpl implements AuthRepository {
       return result;
     } on Exception catch (e) {
       debugPrint("$NAME: RawError: ${e.toString()}");
-      final err = exceptionHandler(e);
+      final err = ExtException.fromDioException(e);
       debugPrint("$NAME: Error: ${err.toString()}");
       throw err;
     }
@@ -79,7 +79,7 @@ class AuthRepositoryImpl implements AuthRepository {
       debugPrint("$NAME : $sessionModel");
       return Auth(token: sessionModel);
     } catch (e) {
-      throw exceptionHandler(e);
+      throw ExtException.fromDioException(e);
     }
   }
 
