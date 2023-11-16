@@ -219,7 +219,7 @@ class _BookingDetailPageState extends ConsumerState<BookingDetailPage> {
                   if (_formKey.currentState?.validate() == false) {
                     return;
                   }
-                  Navigator.popAndPushNamed(context, '/success-booking');
+                  Navigator.popAndPushNamed(context, '/booking/status');
                 })
           ],
         ),

@@ -39,7 +39,7 @@ class _UserSettingPageState extends ConsumerState<UserSettingPage> {
             children: [
               CupertinoListTile(
                 onTap: () {
-                  Navigator.pushNamed(context, '/change-pass');
+                  Navigator.pushNamed(context, '/personal/pass');
                 },
                 backgroundColor: whiteColor,
                 leading: Icon(
@@ -54,7 +54,7 @@ class _UserSettingPageState extends ConsumerState<UserSettingPage> {
               ),
               CupertinoListTile(
                 onTap: () {
-                  Navigator.pushNamed(context, '/change-email');
+                  Navigator.pushNamed(context, '/personal/pass');
                 },
                 backgroundColor: whiteColor,
                 leading: Icon(

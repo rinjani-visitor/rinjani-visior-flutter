@@ -193,7 +193,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                     price: "\$80 - \$90 - Person",
                     status: StatusColor.available,
                     onTap: () {
-                      Navigator.pushNamed(context, "/event-detail");
+                      Navigator.pushNamed(context, "/event/detail");
                     },
                     rating: "4.9"),
               );

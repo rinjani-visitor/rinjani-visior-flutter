@@ -24,7 +24,7 @@ class EventPage extends StatelessWidget {
                       title: "Lombok Festival",
                       date: DateTime.now(),
                       onTap: () {
-                        Navigator.pushNamed(context, '/event-detail');
+                        Navigator.pushNamed(context, '/event/detail');
                       },
                     ),
                   ],
