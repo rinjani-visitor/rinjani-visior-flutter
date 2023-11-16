@@ -7,12 +7,12 @@ part of 'notification_riverpod.dart';
 // **************************************************************************
 
 String _$notificationRiverpodHash() =>
-    r'c44d9eae92792da3e133873d67641a507d634e6e';
+    r'4305f4ba63103cb081d52f46a42cbca7243e92d9';
 
 /// See also [NotificationRiverpod].
 @ProviderFor(NotificationRiverpod)
 final notificationRiverpodProvider = AsyncNotifierProvider<NotificationRiverpod,
-    List<NotificationModel>>.internal(
+    List<NotificationEntity>>.internal(
   NotificationRiverpod.new,
   name: r'notificationRiverpodProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
@@ -22,6 +22,6 @@ final notificationRiverpodProvider = AsyncNotifierProvider<NotificationRiverpod,
   allTransitiveDependencies: null,
 );
 
-typedef _$NotificationRiverpod = AsyncNotifier<List<NotificationModel>>;
+typedef _$NotificationRiverpod = AsyncNotifier<List<NotificationEntity>>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
