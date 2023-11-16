@@ -31,7 +31,7 @@ ExtException exceptionHandler(Object exception) {
             "Bad response, ${exception.response?.data["message"].toString()}";
         break;
       case DioExceptionType.cancel:
-        message = "Request Cancelled";
+        message += "${exception.message}";
         break;
       default:
         message = "${exception.response?.data["message"].toString()}";

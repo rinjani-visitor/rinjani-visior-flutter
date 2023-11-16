@@ -30,7 +30,7 @@ class AuthRiverpod extends _$AuthRiverpod {
       state = const AsyncLoading();
       debugPrint("$NAME : Logout emitted");
       state = await AsyncValue.guard(() async => await repository.logout());
-      debugPrint("AuthModel: ${state.asData.toString()}");
+      debugPrint("AuthEntity: ${state.asData.toString()}");
     }
   }
 
