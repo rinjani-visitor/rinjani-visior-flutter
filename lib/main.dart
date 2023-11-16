@@ -6,20 +6,20 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rinjani_visitor/page/booking/booking_detail_page.dart';
-import 'package:rinjani_visitor/page/profile/change_email_page.dart';
-import 'package:rinjani_visitor/page/profile/change_pass_page.dart';
+import 'package:rinjani_visitor/page/account/settings/change_email_page.dart';
+import 'package:rinjani_visitor/page/account/settings/change_pass_page.dart';
 import 'package:rinjani_visitor/page/booking/continue_payment_page.dart';
 import 'package:rinjani_visitor/page/event_detail_page.dart';
 import 'package:rinjani_visitor/page/auth/login_page.dart';
 import 'package:rinjani_visitor/page/main/main_page.dart';
 import 'package:rinjani_visitor/page/notification_page.dart';
-import 'package:rinjani_visitor/page/profile/personal_info_page.dart';
+import 'package:rinjani_visitor/page/account/personal_info_page.dart';
 import 'package:rinjani_visitor/page/auth/register_page.dart';
 import 'package:rinjani_visitor/page/search_page.dart';
 import 'package:rinjani_visitor/page/splash_screen.dart';
 import 'package:rinjani_visitor/page/booking/booking_status_page.dart';
 import 'package:rinjani_visitor/page/booking/offer_status_page.dart';
-import 'package:rinjani_visitor/page/profile/account_settings_page.dart';
+import 'package:rinjani_visitor/page/account/account_settings_page.dart';
 
 void main() {
   // Force google font to use offline fonts instead of re-downloading again
