@@ -5,5 +5,5 @@ AndroidOptions _getAndroidOptions() => const AndroidOptions(
       encryptedSharedPreferences: true,
     );
 
-final secureStorageProvider =
+final secureStorageService =
     Provider((ref) => FlutterSecureStorage(aOptions: _getAndroidOptions()));
