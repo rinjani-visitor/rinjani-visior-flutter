@@ -48,10 +48,8 @@ class AuthRepositoryImpl implements AuthRepository {
           password: password,
           phone: phone));
       debugPrint("Repository: data from remote: ${response.toString()}");
-      return Auth(
-          userId: response.user?.userId!,
-          username: response.user?.username!,
-          email: response.user?.email!);
+      if (response.user == null) return Auth();
+      return response.user!.toEntity();
     } catch (e) {
       throw exceptionHandler(e);
     }
@@ -65,14 +63,11 @@ class AuthRepositoryImpl implements AuthRepository {
           .logIn(LoginRequest(password: password, email: email));
       debugPrint("Repository: new data from remote: ${response.toString()}");
       final loginResult = response.loginResult!;
-      final result = AuthModel(
-          userId: loginResult.userId,
-          email: loginResult.email,
-          username: loginResult.username,
-          token: loginResult.token);
-      await localSource.setSession(result);
-      return result.toEntity();
-    } catch (e) {
+      final result = loginResult.toEntity();
+      await localSource.setSession(result.token);
+      return result;
+    } on Exception catch (e) {
+      debugPrint("$NAME: RawError: ${e.toString()}");
       final err = exceptionHandler(e);
       debugPrint("$NAME: Error: ${err.toString()}");
       throw err;
@@ -84,7 +79,7 @@ class AuthRepositoryImpl implements AuthRepository {
     final sessionModel = await localSource.getSession();
     try {
       debugPrint("$NAME : $sessionModel");
-      return sessionModel?.toEntity();
+      return Auth(token: sessionModel);
     } catch (e) {
       throw exceptionHandler(e);
     }

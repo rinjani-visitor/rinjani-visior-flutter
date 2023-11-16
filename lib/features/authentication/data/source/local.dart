@@ -17,20 +17,18 @@ class AuthLocalSource {
   static final provider = Provider(
       (ref) => AuthLocalSource(storage: ref.read(secureStorageProvider)));
 
-  Future<AuthModel?> getSession() async {
+  Future<String?> getSession() async {
     final data = await storage.read(key: SESSION_KEY) ?? "";
     debugPrint("$NAME : current session - $data");
     if (data.isNotEmpty) {
-      final result = JsonParser.stringToJson(data);
-      return AuthModel.fromJson(result);
+      return data;
     }
     return null;
   }
 
-  Future<void> setSession(AuthModel session) async {
-    final stringJson = JsonParser.jsonToString(session.toJson());
-    await storage.write(key: SESSION_KEY, value: stringJson);
-    return;
+  Future<void> setSession(String? token) async {
+    if (token == null) return;
+    await storage.write(key: SESSION_KEY, value: token);
   }
 
   Future<void> clearSession() async {

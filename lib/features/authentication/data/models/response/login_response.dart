@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:rinjani_visitor/features/authentication/domain/entity/auth.dart';
 
 part 'login_response.g.dart';
 
@@ -32,4 +33,6 @@ class LoginResponseBody {
       _$LoginResponseBodyFromJson(json);
 
   Map<String, dynamic> toJson() => _$LoginResponseBodyToJson(this);
+  Auth toEntity() =>
+      Auth(userId: userId, email: email, username: username, token: token);
 }
