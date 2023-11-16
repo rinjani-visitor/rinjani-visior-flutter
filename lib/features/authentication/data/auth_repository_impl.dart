@@ -12,7 +12,7 @@ import 'package:rinjani_visitor/features/authentication/domain/repo/auth_reposit
 import 'package:rinjani_visitor/features/authentication/domain/entity/auth.dart';
 
 final authRepositoryProvider = Provider((ref) => AuthRepositoryImpl(
-    localSource: ref.read(AuthLocalSource.provider),
+    localSource: ref.read(authLocalSourceProvider),
     remoteSource: AuthRemoteSource(ref.read(dioServiceProvider))));
 
 class AuthRepositoryImpl implements AuthRepository {

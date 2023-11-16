@@ -1,7 +1,10 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:rinjani_visitor/features/secure_storage/presentation/secure_storage_riverpod.dart';
+import 'package:rinjani_visitor/core/presentation/services/secure_storage_service.dart';
+
+final authLocalSourceProvider =
+    Provider((ref) => AuthLocalSource(storage: ref.read(secureStorageService)));
 
 class AuthLocalSource {
   // ignore: constant_identifier_names
@@ -11,9 +14,6 @@ class AuthLocalSource {
   final FlutterSecureStorage storage;
 
   AuthLocalSource({required this.storage});
-
-  static final provider = Provider(
-      (ref) => AuthLocalSource(storage: ref.read(secureStorageProvider)));
 
   Future<String?> getSession() async {
     final data = await storage.read(key: SESSION_KEY) ?? "";
