@@ -10,8 +10,8 @@ import 'package:rinjani_visitor/core/exception/exception.dart';
 /// without `Exception:` text _shenaigans_.
 ExtException exceptionHandler(Object exception) {
   debugPrint("Exception Catched: ${exception.toString()}");
+  var message = "";
   if (exception is DioException) {
-    var message = "";
     var code = exception.response?.statusCode;
     message = "${exception.response?.data["message"].toString()}";
     if (exception.type == DioExceptionType.connectionError) {

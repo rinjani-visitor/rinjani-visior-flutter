@@ -34,5 +34,6 @@ class CameraService extends StateNotifier<File?> {
 }
 
 /// provide list of avaiable camera that ready to use
-final cameraProvider = AutoDisposeStateNotifierProvider<CameraService, File?>(
-    (ref) => CameraService());
+final cameraServiceProvider =
+    AutoDisposeStateNotifierProvider<CameraService, File?>(
+        (ref) => CameraService());
