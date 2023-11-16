@@ -7,7 +7,7 @@ import 'package:rinjani_visitor/features/notification/presentation/notification_
 import 'package:rinjani_visitor/widget/notification_card_widget.dart';
 import 'package:rinjani_visitor/widget/status.dart';
 
-const List<Map<String, dynamic>> dataMock = [
+const List<Map<String, dynamic>> _dataMock = [
   {
     'title': '✅ Your order has been approved',
     'subtitle':
@@ -37,7 +37,7 @@ class NotificationPage extends ConsumerStatefulWidget {
 
 class _NotificationPageState extends ConsumerState<NotificationPage> {
   //TODO: change this when backend is finished
-  final data = dataMock;
+  final data = _dataMock;
 
   @override
   Widget build(BuildContext context) {

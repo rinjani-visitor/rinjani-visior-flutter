@@ -46,7 +46,7 @@ class Status extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(smallRadius),
+          borderRadius: BorderRadius.circular(xsmallRadius),
           //ubah warna status berdasarkan kondisinya
           color: getColor(status)),
       child: Text(
