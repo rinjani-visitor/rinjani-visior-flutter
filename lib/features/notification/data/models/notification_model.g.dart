@@ -33,7 +33,7 @@ Map<String, dynamic> _$$NotificationModelImplToJson(
 const _$StatusColorEnumMap = {
   StatusColor.error: 'error',
   StatusColor.success: 'success',
-  StatusColor.waiting: 'waiting',
+  StatusColor.loading: 'waiting',
   StatusColor.review: 'review',
   StatusColor.available: 'available',
   StatusColor.init: 'init',

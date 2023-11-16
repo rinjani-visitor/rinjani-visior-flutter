@@ -8,11 +8,10 @@ import 'package:rinjani_visitor/core/presentation/utils/exception_utils.dart';
 import 'package:rinjani_visitor/features/authentication/data/source/local.dart';
 import 'package:rinjani_visitor/features/authentication/data/source/remote.dart';
 import 'package:rinjani_visitor/features/authentication/data/models/auth_model.dart';
-
-import 'package:rinjani_visitor/features/authentication/domain/repo/auth_repository.dart';
 import 'package:rinjani_visitor/features/authentication/data/models/request/login_request.dart';
 import 'package:rinjani_visitor/features/authentication/data/models/request/register_request.dart';
-import 'package:rinjani_visitor/features/authentication/domain/entity/auth_entity.dart';
+import 'package:rinjani_visitor/features/authentication/domain/repo/auth_repository.dart';
+import 'package:rinjani_visitor/features/authentication/domain/entity/auth.dart';
 
 final authRepositoryProvider = Provider((ref) => AuthRepositoryImpl(
     localSource: ref.read(AuthLocalSource.provider),
@@ -39,17 +38,9 @@ class AuthRepositoryImpl implements AuthRepository {
       required String password}) async {
     debugPrint("$NAME: Register...");
 
-    if (username.isEmpty ||
-        email.isEmpty ||
-        country.isEmpty ||
-        phone.isEmpty ||
-        password.isEmpty) {
-      throw ExtException(message: "field must not be empty");
-    }
-
     try {
       debugPrint(
-          "values: email - $email, country - $country, phone - $phone, password - $password");
+          "values: email - $email, country - $country, phone - $phone, password - ${password.isNotEmpty}");
       final response = await remoteSource.register(RegisterRequest(
           username: username,
           email: email,
@@ -67,16 +58,8 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Future<Auth> logIn(
-      {required String email, required String password}) async {
+  Future<Auth> logIn({required String email, required String password}) async {
     debugPrint("$NAME: Login...");
-    if (email.isEmpty || password.isEmpty) {
-      final exception =
-          ExtException(message: "Email / password should not be null");
-      debugPrint("$NAME: Error: ${exception.toString()}");
-      throw exception;
-    }
-
     try {
       final response = await remoteSource
           .logIn(LoginRequest(password: password, email: email));

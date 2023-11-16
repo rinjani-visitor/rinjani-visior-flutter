@@ -1,4 +1,4 @@
-import 'package:rinjani_visitor/features/authentication/domain/entity/auth_entity.dart';
+import 'package:rinjani_visitor/features/authentication/domain/entity/auth.dart';
 
 abstract class AuthRepository {
   Future<Auth> register(
