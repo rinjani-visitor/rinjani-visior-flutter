@@ -60,23 +60,22 @@ class _DetailPageState extends ConsumerState<ProductDetailPage> {
         });
   }
 
-  // Page Part
-  Widget heroImage() {
-    return Container(
-      width: double.infinity,
-      height: 241,
-      decoration: BoxDecoration(
-          image: DecorationImage(
-              fit: BoxFit.cover, image: AssetImage(data.imgUrl))),
-    );
-  }
-
   Widget header() {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 16.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          Container(
+            width: double.infinity,
+            height: 241,
+            decoration: BoxDecoration(
+                image: DecorationImage(
+                    fit: BoxFit.cover, image: AssetImage(data.imgUrl))),
+          ),
+          const SizedBox(
+            height: 16,
+          ),
           Row(
             children: [
               Container(
@@ -166,10 +165,7 @@ class _DetailPageState extends ConsumerState<ProductDetailPage> {
               SliverToBoxAdapter(
                 child: Column(
                   children: [
-                    heroImage(),
-                    Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16),
-                        child: header()),
+                    header(),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 16.0),
                       child: DetailSegmentedWidget(

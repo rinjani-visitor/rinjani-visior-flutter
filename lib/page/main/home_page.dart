@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rinjani_visitor/features/authentication/presentation/auth_riverpod.dart';
 import 'package:rinjani_visitor/features/product/domain/category_enum.dart';
 import 'package:rinjani_visitor/features/product/presentation/view_model/recommended_product_riverpod.dart';
-import 'package:rinjani_visitor/page/booking/product_detail_page.dart';
+import 'package:rinjani_visitor/page/product/product_detail_page.dart';
 import 'package:rinjani_visitor/page/category_explore_page.dart';
 import 'package:rinjani_visitor/core/presentation/theme/theme.dart';
 import 'package:rinjani_visitor/widget/product/big_card.dart';

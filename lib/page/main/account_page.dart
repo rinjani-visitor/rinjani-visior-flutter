@@ -8,7 +8,7 @@ import 'package:rinjani_visitor/core/presentation/theme/theme.dart';
 class AccountPage extends ConsumerWidget {
   const AccountPage({super.key});
 
-  Widget userProfile(String username) {
+  Widget header(String username) {
     return Flexible(
       child: Column(
         children: [
@@ -35,59 +35,6 @@ class AccountPage extends ConsumerWidget {
     );
   }
 
-  Widget information(BuildContext context) {
-    return Flexible(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            'Information',
-            style: blackTextStyle.copyWith(fontSize: 20, fontWeight: bold),
-          ),
-          Column(
-            children: [
-              CupertinoListTile(
-                onTap: () {
-                  Navigator.pushNamed(context, '/personal');
-                },
-                padding: const EdgeInsets.all(0),
-                leading: Icon(
-                  Icons.person,
-                  color: blackColor,
-                ),
-                title: const Text('Personal Information'),
-                trailing: Icon(
-                  Icons.chevron_right,
-                  color: blackColor,
-                  size: 32,
-                ),
-              ),
-              Divider(
-                color: blackColor,
-              ),
-              CupertinoListTile(
-                onTap: () {
-                  Navigator.pushNamed(context, '/settings');
-                },
-                padding: const EdgeInsets.all(0),
-                leading: Icon(
-                  Icons.settings,
-                  color: blackColor,
-                ),
-                title: const Text('Account settings'),
-                trailing: Icon(
-                  Icons.chevron_right,
-                  color: blackColor,
-                  size: 32,
-                ),
-              ),
-            ],
-          )
-        ],
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final username =
@@ -96,15 +43,71 @@ class AccountPage extends ConsumerWidget {
         child: CustomScrollView(
       slivers: [
         const CupertinoSliverNavigationBar(
-          largeTitle: Text('Profile'),
+          largeTitle: Text('Account'),
         ),
         SliverToBoxAdapter(
-          child: Container(
-            width: double.infinity,
-            height: 314,
-            margin: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+          child: header(username),
+        ),
+        SliverToBoxAdapter(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 16),
             child: Column(
-              children: [userProfile(username), information(context)],
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Text(
+                  'Information',
+                  style: blackTextStyle.copyWith(
+                      fontSize: heading4, fontWeight: bold),
+                ),
+                CupertinoListTile(
+                  onTap: () {
+                    Navigator.pushNamed(context, '/personal');
+                  },
+                  padding: const EdgeInsets.all(0),
+                  leading: Icon(
+                    Icons.person,
+                    color: blackColor,
+                  ),
+                  title: const Text('Personal Information'),
+                  trailing: Icon(
+                    Icons.chevron_right,
+                    color: blackColor,
+                    size: 32,
+                  ),
+                ),
+                CupertinoListTile(
+                  onTap: () {
+                    Navigator.pushNamed(context, '/settings');
+                  },
+                  padding: const EdgeInsets.all(0),
+                  leading: Icon(
+                    Icons.settings,
+                    color: blackColor,
+                  ),
+                  title: const Text('Account settings'),
+                  trailing: Icon(
+                    Icons.chevron_right,
+                    color: blackColor,
+                    size: 32,
+                  ),
+                ),
+                CupertinoListTile(
+                  onTap: () {
+                    Navigator.pushNamed(context, '/settings');
+                  },
+                  padding: const EdgeInsets.all(0),
+                  leading: Icon(
+                    Icons.history,
+                    color: blackColor,
+                  ),
+                  title: const Text('Booking History'),
+                  trailing: Icon(
+                    Icons.chevron_right,
+                    color: blackColor,
+                    size: 32,
+                  ),
+                )
+              ],
             ),
           ),
         )

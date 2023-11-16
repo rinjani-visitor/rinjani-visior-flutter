@@ -19,7 +19,7 @@ import 'package:rinjani_visitor/page/search_page.dart';
 import 'package:rinjani_visitor/page/splash_screen.dart';
 import 'package:rinjani_visitor/page/booking/booking_status_page.dart';
 import 'package:rinjani_visitor/page/booking/offer_status_page.dart';
-import 'package:rinjani_visitor/page/profile/user_setting_page.dart';
+import 'package:rinjani_visitor/page/profile/account_settings_page.dart';
 
 void main() {
   // Force google font to use offline fonts instead of re-downloading again

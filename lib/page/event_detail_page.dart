@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:rinjani_visitor/core/constant/product_package.dart';
 import 'package:rinjani_visitor/core/presentation/utils/internationalization.dart';
 import 'package:rinjani_visitor/features/event/domain/event_model.dart';
-import 'package:rinjani_visitor/page/booking/product_detail_page.dart';
+import 'package:rinjani_visitor/page/product/product_detail_page.dart';
 import 'package:rinjani_visitor/core/presentation/theme/theme.dart';
 import 'package:rinjani_visitor/widget/product/big_card.dart';
 import 'package:rinjani_visitor/widget/status.dart';
