@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rinjani_visitor/core/presentation/theme/theme.dart';
-import 'package:rinjani_visitor/features/camera/presentation/provider/camera_provider.dart';
+import 'package:rinjani_visitor/core/presentation/services/camera_service.dart';
 import 'package:rinjani_visitor/widget/button/primary_button.dart';
 import 'package:rinjani_visitor/widget/form/upload_button.dart';
 import 'package:rinjani_visitor/widget/input_field.dart';
@@ -21,7 +21,7 @@ class _ContinuePaymentPageState extends ConsumerState<ContinuePaymentPage> {
   // === functions === //
 
   void _showFileSelection() async {
-    final camNotifier = ref.read(cameraProvider.notifier);
+    final camNotifier = ref.read(cameraServiceProvider.notifier);
     showCupertinoModalPopup(
       context: context,
       builder: (context) => CupertinoActionSheet(
@@ -33,14 +33,15 @@ class _ContinuePaymentPageState extends ConsumerState<ContinuePaymentPage> {
               onPressed: () {
                 Navigator.pop(context);
                 camNotifier.openCamera();
-              }, child: const Text("Open Camera")),
+              },
+              child: const Text("Open Camera")),
           CupertinoActionSheetAction(
               onPressed: () {
                 Navigator.pop(context);
                 camNotifier.openImagePicker();
               },
               child: const Text("Open Gallery")),
-          ref.watch(cameraProvider) != null
+          ref.watch(cameraServiceProvider) != null
               ? CupertinoActionSheetAction(
                   isDestructiveAction: true,
                   onPressed: () {
@@ -56,7 +57,7 @@ class _ContinuePaymentPageState extends ConsumerState<ContinuePaymentPage> {
 
   @override
   Widget build(BuildContext context) {
-    final fileImage = ref.watch(cameraProvider);
+    final fileImage = ref.watch(cameraServiceProvider);
     return CupertinoPageScaffold(
         backgroundColor: backgroundColor,
         navigationBar: const CupertinoNavigationBar(

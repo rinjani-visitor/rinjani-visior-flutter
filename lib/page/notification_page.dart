@@ -65,7 +65,7 @@ class _NotificationPageState extends ConsumerState<NotificationPage> {
                         data: current,
                         title: current.title,
                         subtitle: current.description,
-                        status: current.status ?? StatusColor.waiting,
+                        status: current.status ?? StatusColor.loading,
                       );
                     },
                   );
@@ -78,10 +78,11 @@ class _NotificationPageState extends ConsumerState<NotificationPage> {
                 loading: () {
                   return ListView.builder(
                     itemCount: 10,
-                    itemBuilder: (context, index) => const NotificationCardWidget(
-                        title: "",
-                        subtitle: "",
-                        status: StatusColor.waiting),
+                    itemBuilder: (context, index) =>
+                        const NotificationCardWidget(
+                            title: "",
+                            subtitle: "",
+                            status: StatusColor.loading),
                   );
                 },
               )),

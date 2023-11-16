@@ -14,7 +14,7 @@ class NotificationMock {
               viewed: false,
               orderBookingNo: "XCV-5578-$index",
               orderDate: DateTime.now().toString(),
-              status: StatusColor.waiting,
+              status: StatusColor.loading,
             ));
   }
 }

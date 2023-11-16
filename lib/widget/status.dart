@@ -4,9 +4,14 @@ import 'package:rinjani_visitor/core/presentation/theme/theme.dart';
 
 //enum untuk menentukan status dari widget agar sesuai warna dan teksnya
 enum StatusColor {
+  ///Error status, when data is not available or something went wrong
   error,
+
+  /// Success status color, when data is available
   success,
-  waiting,
+
+  ///When product is on review stage, or when data is being uploaded
+  loading,
   review,
   available,
   init,
@@ -25,7 +30,7 @@ class Status extends StatelessWidget {
       switch (statusColor) {
         case StatusColor.error:
           return errorRed;
-        case StatusColor.waiting:
+        case StatusColor.loading:
           return infoBlue;
         case StatusColor.success:
           return successGreen;
