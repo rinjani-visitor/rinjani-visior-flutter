@@ -206,49 +206,44 @@ class _HomePageState extends ConsumerState<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    double deviceHeight = MediaQuery.of(context).size.height;
-    double appBarHeight = deviceHeight * 0.17;
     final username = ref.watch(authRiverpodProvider).value?.username ?? "User";
-    return Scaffold(
+    return CupertinoPageScaffold(
       backgroundColor: backgroundColor,
-      appBar: PreferredSize(
-          preferredSize: Size.fromHeight(appBarHeight),
-          child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            decoration: BoxDecoration(
-                color: primaryColor,
-                borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(bigRadius),
-                    bottomRight: Radius.circular(bigRadius))),
-            child: SafeArea(
-              child: Padding(
-                padding: const EdgeInsets.only(top: 8.0),
+      child: NestedScrollView(
+        headerSliverBuilder: (context, innerBoxIsScrolled) => [
+          SliverToBoxAdapter(
+            child: Container(
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                  color: primaryColor,
+                  borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(bigRadius),
+                      bottomRight: Radius.circular(bigRadius))),
+              child: SafeArea(
+                bottom: false,
                 child: Column(
                   children: [
-                    // Spacer(),
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
                           'Hi, $username',
                           style: whiteTextStyle.copyWith(
-                              fontSize: deviceHeight * 0.04, fontWeight: bold),
+                              fontSize: heading3, fontWeight: bold),
                         ),
-                        const Spacer(),
-                        IconButton(
+                        CupertinoButton(
                             onPressed: () {
                               Navigator.pushNamed(context, '/notification');
                             },
-                            icon: badges.Badge(
+                            child: badges.Badge(
                               child: Icon(
                                 Icons.notifications,
                                 color: whiteColor,
-                                size: deviceHeight * 0.04,
                               ),
                             )),
                       ],
                     ),
-                    const Spacer(),
-                    InkWell(
+                    GestureDetector(
                       onTap: () {
                         Navigator.pushNamed(context, '/search');
                       },
@@ -257,19 +252,14 @@ class _HomePageState extends ConsumerState<HomePage> {
                         enabled: false,
                       ),
                     ),
-                    const Spacer()
                   ],
                 ),
               ),
             ),
-          )),
-      body: CustomScrollView(
-        scrollBehavior: const CupertinoScrollBehavior(),
-        primary: false,
-        physics: const ClampingScrollPhysics(),
-        slivers: [
-          SliverToBoxAdapter(
-              child: Column(
+          )
+        ],
+        body: SingleChildScrollView(
+          child: Column(
             children: [
               const SizedBox(
                 height: 24,
@@ -287,8 +277,8 @@ class _HomePageState extends ConsumerState<HomePage> {
                 height: 80,
               )
             ],
-          )),
-        ],
+          ),
+        ),
       ),
     );
   }
