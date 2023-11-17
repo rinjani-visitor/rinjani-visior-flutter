@@ -88,7 +88,7 @@ class AccountPage extends ConsumerWidget {
                 ),
                 CupertinoListTile(
                   onTap: () {
-                    Navigator.pushNamed(context, '/settings');
+                    Navigator.pushNamed(context, '/booking/history');
                   },
                   padding: const EdgeInsets.all(0),
                   leading: Icon(
