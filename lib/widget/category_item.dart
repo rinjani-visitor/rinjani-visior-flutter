@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:rinjani_visitor/core/presentation/theme/theme.dart';
 
 class CategoryItem extends StatelessWidget {
@@ -20,11 +20,13 @@ class CategoryItem extends StatelessWidget {
                 shape: BoxShape.circle,
                 color: mediumGray,
                 border: Border.all(color: lightGray)),
-            child: IconButton(
-              onPressed: () => onTap != null ? onTap!(label) : null,
-              icon: Icon(iconName),
-              iconSize: 32,
-              color: primaryColor,
+            child: GestureDetector(
+              onTap: () => onTap != null ? onTap!(label) : null,
+              child: Icon(
+                iconName,
+                color: primaryColor,
+                size: 16,
+              ),
             )),
         Text(
           label,
