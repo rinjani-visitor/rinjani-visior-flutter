@@ -25,7 +25,7 @@ class CategoryItem extends StatelessWidget {
               child: Icon(
                 iconName,
                 color: primaryColor,
-                size: 16,
+                size: 32,
               ),
             )),
         Text(
