@@ -5,7 +5,11 @@ import 'package:badges/badges.dart' as badges;
 
 class SliverHomeAppbarDelegate extends SliverPersistentHeaderDelegate {
   final String title;
-  SliverHomeAppbarDelegate({required this.title});
+  final Widget? leading;
+  SliverHomeAppbarDelegate({
+    required this.title,
+    this.leading,
+  });
   @override
   Widget build(
       BuildContext context, double shrinkOffset, bool overlapsContent) {
@@ -28,16 +32,7 @@ class SliverHomeAppbarDelegate extends SliverPersistentHeaderDelegate {
                   style: whiteTextStyle.copyWith(
                       fontSize: heading3, fontWeight: bold),
                 ),
-                CupertinoButton(
-                    onPressed: () {
-                      Navigator.pushNamed(context, '/notification');
-                    },
-                    child: badges.Badge(
-                      child: Icon(
-                        Icons.notifications,
-                        color: whiteColor,
-                      ),
-                    )),
+                leading ?? const SizedBox(),
               ],
             ),
             const Spacer(),
