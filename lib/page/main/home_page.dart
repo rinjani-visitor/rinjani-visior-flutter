@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:rinjani_visitor/widget/home/delegate/sliver_homeappbar_delegate.dart';
 import 'package:rinjani_visitor/features/authentication/presentation/auth_riverpod.dart';
 import 'package:rinjani_visitor/features/product/domain/category_enum.dart';
 import 'package:rinjani_visitor/features/product/presentation/view_model/recommended_product_riverpod.dart';
@@ -211,72 +212,36 @@ class _HomePageState extends ConsumerState<HomePage> {
       backgroundColor: backgroundColor,
       child: NestedScrollView(
         headerSliverBuilder: (context, innerBoxIsScrolled) => [
-          SliverToBoxAdapter(
-            child: Container(
-              padding: const EdgeInsets.all(16),
-              decoration: BoxDecoration(
-                  color: primaryColor,
-                  borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(bigRadius),
-                      bottomRight: Radius.circular(bigRadius))),
-              child: SafeArea(
-                bottom: false,
-                child: Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'Hi, $username',
-                          style: whiteTextStyle.copyWith(
-                              fontSize: heading3, fontWeight: bold),
-                        ),
-                        CupertinoButton(
-                            onPressed: () {
-                              Navigator.pushNamed(context, '/notification');
-                            },
-                            child: badges.Badge(
-                              child: Icon(
-                                Icons.notifications,
-                                color: whiteColor,
-                              ),
-                            )),
-                      ],
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.pushNamed(context, '/search');
-                      },
-                      child: CupertinoSearchTextField(
-                        backgroundColor: whiteColor,
-                        enabled: false,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          )
+          SliverPersistentHeader(
+            floating: true,
+            pinned: true,
+            delegate: SliverHomeAppbarDelegate(title: username),
+          ),
         ],
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-              const SizedBox(
-                height: 24,
-              ),
-              _categoriesWidgets(),
-              const SizedBox(
-                height: 24,
-              ),
-              _recommendedWidgets(),
-              const SizedBox(
-                height: 24,
-              ),
-              _rinjaniTripWidgets(),
-              const SizedBox(
-                height: 80,
-              )
-            ],
+        body: RefreshIndicator.adaptive(
+          onRefresh: () async {
+            await Future.delayed(const Duration(seconds: 2));
+          },
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                const SizedBox(
+                  height: 24,
+                ),
+                _categoriesWidgets(),
+                const SizedBox(
+                  height: 24,
+                ),
+                _recommendedWidgets(),
+                const SizedBox(
+                  height: 24,
+                ),
+                _rinjaniTripWidgets(),
+                const SizedBox(
+                  height: 80,
+                )
+              ],
+            ),
           ),
         ),
       ),
