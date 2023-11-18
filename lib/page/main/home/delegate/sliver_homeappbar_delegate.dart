@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rinjani_visitor/core/presentation/theme/theme.dart';
-import 'package:badges/badges.dart' as badges;
 
 class SliverHomeAppbarDelegate extends SliverPersistentHeaderDelegate {
   final String title;

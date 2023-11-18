@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:like_button/like_button.dart';
 import 'package:rinjani_visitor/features/order/presentation/order_riverpod.dart';
-import 'package:rinjani_visitor/features/product/domain/product_model.dart';
+import 'package:rinjani_visitor/features/product/domain/entity/product.dart';
 import 'package:rinjani_visitor/core/presentation/theme/theme.dart';
 import 'package:rinjani_visitor/widget/add_on_widget.dart';
 import 'package:rinjani_visitor/widget/button/primary_button.dart';
@@ -15,7 +15,8 @@ import 'package:rinjani_visitor/widget/segmented_widget.dart';
 import 'package:rinjani_visitor/widget/status.dart';
 
 class ProductDetailPage extends ConsumerStatefulWidget {
-  final ProductModel data;
+  final ProductEntity data;
+
   const ProductDetailPage({super.key, required this.data});
 
   @override
@@ -24,7 +25,7 @@ class ProductDetailPage extends ConsumerStatefulWidget {
 
 class _DetailPageState extends ConsumerState<ProductDetailPage> {
   // TODO: override later with server data
-  late final ProductModel data = widget.data;
+  late final ProductEntity data = widget.data;
 
   late final _viewModel = ref.read(orderRiverpodProvider.notifier);
   late var _state = ref.read(orderRiverpodProvider);
@@ -76,77 +77,85 @@ class _DetailPageState extends ConsumerState<ProductDetailPage> {
           const SizedBox(
             height: 16,
           ),
-          Row(
-            children: [
-              Container(
-                constraints: BoxConstraints(
-                    maxWidth: MediaQuery.of(context).size.width * 0.6),
-                child: Tooltip(
-                  message: data.title,
-                  child: Text(
-                    data.title,
-                    overflow: TextOverflow.ellipsis,
-                    style:
-                        blackTextStyle.copyWith(fontSize: 24, fontWeight: bold),
-                  ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Row(
+                  children: [
+                    Container(
+                      constraints: BoxConstraints(
+                          maxWidth: MediaQuery.of(context).size.width * 0.6),
+                      child: Tooltip(
+                        message: data.title,
+                        child: Text(
+                          data.title,
+                          overflow: TextOverflow.ellipsis,
+                          style: blackTextStyle.copyWith(
+                              fontSize: 24, fontWeight: bold),
+                        ),
+                      ),
+                    ),
+                    const Spacer(),
+                    const Status(
+                      status: StatusColor.available,
+                      text: "Available",
+                    )
+                  ],
                 ),
-              ),
-              const Spacer(),
-              const Status(
-                status: StatusColor.available,
-                text: "Available",
-              )
-            ],
-          ),
-          const SizedBox(
-            height: 8,
-          ),
-          Row(
-            children: [
-              Icon(
-                Icons.location_pin,
-                color: lightGray,
-              ),
-              const SizedBox(
-                width: 8,
-              ),
-              Flexible(
-                child: Text(
-                  data.location,
-                  overflow: TextOverflow.ellipsis,
-                  style:
-                      grayTextStyle.copyWith(fontSize: 16, fontWeight: medium),
+                const SizedBox(
+                  height: 8,
                 ),
-              )
-            ],
-          ),
-          const SizedBox(
-            height: 8,
-          ),
-          Row(
-            children: [
-              Text(
-                data.rangePricing,
-                style:
-                    blackTextStyle.copyWith(fontSize: 16, fontWeight: semibold),
-              ),
-              const Spacer(),
-              const LikeButton()
-            ],
-          ),
-          const SizedBox(
-            height: 8,
-          ),
-          RatingWidget(
-            rating: data.rating,
-          ),
-          const SizedBox(
-            height: 8,
-          ),
-          Text(
-            'Trip duration: ${data.tripDuration}',
-            style: blackTextStyle.copyWith(fontSize: 16),
-          ),
+                Row(
+                  children: [
+                    Icon(
+                      Icons.location_pin,
+                      color: lightGray,
+                    ),
+                    const SizedBox(
+                      width: 8,
+                    ),
+                    Flexible(
+                      child: Text(
+                        data.location,
+                        overflow: TextOverflow.ellipsis,
+                        style: grayTextStyle.copyWith(
+                            fontSize: 16, fontWeight: medium),
+                      ),
+                    )
+                  ],
+                ),
+                const SizedBox(
+                  height: 8,
+                ),
+                Row(
+                  children: [
+                    Text(
+                      data.rangePricing,
+                      style: blackTextStyle.copyWith(
+                          fontSize: 16, fontWeight: semibold),
+                    ),
+                    const Spacer(),
+                    const LikeButton()
+                  ],
+                ),
+                const SizedBox(
+                  height: 8,
+                ),
+                RatingWidget(
+                  rating: data.rating,
+                ),
+                const SizedBox(
+                  height: 8,
+                ),
+                Text(
+                  'Trip duration: ${data.tripDuration}',
+                  style: blackTextStyle.copyWith(fontSize: 16),
+                ),
+              ],
+            ),
+          )
         ],
       ),
     );
