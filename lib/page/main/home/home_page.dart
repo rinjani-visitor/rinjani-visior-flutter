@@ -1,12 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:rinjani_visitor/page/main/home/delegate/sliver_homeappbar_delegate.dart';
+import 'package:rinjani_visitor/page/main/home/widget/sliver_homeappbar_delegate.dart';
 import 'package:rinjani_visitor/features/authentication/presentation/auth_riverpod.dart';
 import 'package:rinjani_visitor/features/product/domain/category_enum.dart';
 import 'package:rinjani_visitor/features/product/presentation/view_model/recommended_product.dart';
 import 'package:rinjani_visitor/page/product/product_detail_page.dart';
-import 'package:rinjani_visitor/page/category_explore_page.dart';
+import 'package:rinjani_visitor/page/main/home/category/category_explore_page.dart';
 import 'package:rinjani_visitor/core/presentation/theme/theme.dart';
 import 'package:rinjani_visitor/widget/product/big_card.dart';
 import 'package:rinjani_visitor/widget/category_item.dart';

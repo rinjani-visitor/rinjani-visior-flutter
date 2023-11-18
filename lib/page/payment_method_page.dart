@@ -6,14 +6,14 @@ final paymentMethod = [
   {"name": "Pay with Bank NTB (IDR)", "imgSrc": "assets/wise-logo.png"},
 ];
 
-class SelectPaymentPage extends StatefulWidget {
-  const SelectPaymentPage({super.key});
+class PaymentMethodPage extends StatefulWidget {
+  const PaymentMethodPage({super.key});
 
   @override
-  State<SelectPaymentPage> createState() => _SelectPaymentPageState();
+  State<PaymentMethodPage> createState() => _PaymentMethodPageState();
 }
 
-class _SelectPaymentPageState extends State<SelectPaymentPage> {
+class _PaymentMethodPageState extends State<PaymentMethodPage> {
   @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(

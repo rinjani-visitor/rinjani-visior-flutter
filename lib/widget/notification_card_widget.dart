@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rinjani_visitor/features/notification/domain/entity/notification.dart';
-import 'package:rinjani_visitor/page/notification_detail_page.dart';
+import 'package:rinjani_visitor/page/main/home/notification/notification_detail_page.dart';
 import 'package:rinjani_visitor/core/presentation/theme/theme.dart';
 import 'package:rinjani_visitor/widget/status.dart';
 
