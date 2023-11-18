@@ -1,14 +1,16 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rinjani_visitor/features/order/domain/entity/order.dart';
 import 'package:rinjani_visitor/features/product/data/product_repository_impl.dart';
 import 'package:rinjani_visitor/features/product/domain/entity/addon.dart';
 import 'package:rinjani_visitor/features/product/domain/product_repository.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-part 'order_riverpod.g.dart';
+final orderRiverpodProvider =
+    AutoDisposeNotifierProviderImpl<OrderRiverpod, OrderEntity>(
+        () => OrderRiverpod());
 
-@Riverpod()
-class OrderRiverpod extends _$OrderRiverpod {
+class OrderRiverpod extends AutoDisposeNotifier<OrderEntity> {
   // ignore: unused_field
   late final ProductRespository _productRepository;
 

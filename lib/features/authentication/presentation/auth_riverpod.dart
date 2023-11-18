@@ -4,10 +4,11 @@ import 'package:rinjani_visitor/features/authentication/domain/repo/auth_reposit
 import 'package:rinjani_visitor/features/authentication/domain/entity/auth.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-part 'auth_riverpod.g.dart';
 
-@Riverpod(keepAlive: true)
-class AuthRiverpod extends _$AuthRiverpod {
+final authRiverpodProvider =
+    AsyncNotifierProviderImpl<AuthRiverpod, Auth?>(() => AuthRiverpod());
+
+class AuthRiverpod extends AsyncNotifier<Auth?> {
   // ignore: constant_identifier_names
   static const NAME = "AuthRiverpod";
   late final AuthRepository repository;
