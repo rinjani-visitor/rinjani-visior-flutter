@@ -1,20 +1,20 @@
 import 'package:rinjani_visitor/features/product/data/product_repository_impl.dart';
 import 'package:rinjani_visitor/features/product/domain/category_enum.dart';
-import 'package:rinjani_visitor/features/product/domain/product_model.dart';
+import 'package:rinjani_visitor/features/product/domain/entity/product.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-part 'product_riverpod.g.dart';
 
-@riverpod
-class ProductRiverpod extends _$ProductRiverpod {
+final productRiverpodProvider = AsyncNotifierProviderImpl<ProductRiverpod, List<ProductEntity>>(() => ProductRiverpod());
+
+class ProductRiverpod extends AsyncNotifier<List<ProductEntity>> {
   @override
-  FutureOr<List<ProductModel>> build() async {
+  FutureOr<List<ProductEntity>> build() async {
     final repo = ref.read(productRepositoryProvider);
     final packages = await repo.getPackages();
     return packages;
   }
 
-  List<ProductModel> getProductByCategory(ProductCategory category) {
+  List<ProductEntity> getProductByCategory(ProductCategory category) {
     final products = state.asData!.value;
     return products.where((element) => element.category == category).toList();
   }

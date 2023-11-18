@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rinjani_visitor/features/product/data/source/mock.dart';
-import 'package:rinjani_visitor/features/product/domain/product_model.dart';
+import 'package:rinjani_visitor/features/product/domain/entity/product.dart';
 import 'package:rinjani_visitor/features/product/domain/product_repository.dart';
 
 class ProductRepositoryImpl implements ProductRespository {
@@ -9,7 +9,7 @@ class ProductRepositoryImpl implements ProductRespository {
   ProductRepositoryImpl({required this.remote});
 
   @override
-  Future<ProductModel> bookingPackage(
+  Future<ProductEntity> bookingPackage(
       {required String packageId,
       List<String>? addOns,
       String? paymentMethod}) {
@@ -24,13 +24,13 @@ class ProductRepositoryImpl implements ProductRespository {
   }
 
   @override
-  Future<ProductModel> getPackageDetail({required String packageId}) async {
+  Future<ProductEntity> getPackageDetail({required String packageId}) async {
     final result = await remote.getProduct(packageId);
     return result;
   }
 
   @override
-  Future<List<ProductModel>> getPackages(
+  Future<List<ProductEntity>> getPackages(
       {int pages = 1,
       int? itemsPerPage = 10,
       String? category,

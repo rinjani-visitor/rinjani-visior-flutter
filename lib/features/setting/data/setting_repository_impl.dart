@@ -1,4 +1,3 @@
-import 'dart:convert';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rinjani_visitor/features/setting/data/source/local.dart';
@@ -23,9 +22,7 @@ class SettingRepositoryImpt implements SettingRepository {
       return SettingModel(languageCode: LangCode.enUS, currency: Currency.USD);
     }
     try {
-      final jsonData = jsonDecode(stringData);
-      final data = SettingModel.fromJson(jsonData);
-      return data;
+      return SettingModel(languageCode: LangCode.enUK, currency: Currency.IDR);
     } on Exception catch (_) {
       rethrow;
     }
@@ -33,12 +30,8 @@ class SettingRepositoryImpt implements SettingRepository {
 
   @override
   Future<SettingModel> updateSettings(SettingModel settings) async {
-    final settingsData = settings.toJson().toString();
-    final stringData = await source.updateSettingPreference(settingsData);
     try {
-      final jsonData = jsonDecode(stringData);
-      final data = SettingModel.fromJson(jsonData);
-      return data;
+      return SettingModel(languageCode: LangCode.enUK, currency: Currency.IDR);
     } on Exception catch (_) {
       rethrow;
     }

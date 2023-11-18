@@ -1,4 +1,4 @@
-import 'package:rinjani_visitor/features/payment/domain/payment_model.dart';
+import 'package:rinjani_visitor/features/payment/domain/entity/payment.dart';
 
 abstract class PaymentRepository {
   Future<List<PaymentModel>> getPaymentMethods();

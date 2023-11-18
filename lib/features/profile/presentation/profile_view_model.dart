@@ -8,9 +8,9 @@ part 'profile_view_model.g.dart';
 @Riverpod()
 class ProfileViewModel extends _$ProfileViewModel {
   @override
-  ProfileModel build() {
+  ProfileEntity build() {
     //TODO: need to wait for backend team before define this profile entity
-    return ProfileModel(name: "", email: "", birthDate: "", phoneNumber: "");
+    return ProfileEntity(name: "", email: "", birthDate: "", phoneNumber: "");
   }
 
   void changeName(String name) {

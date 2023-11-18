@@ -1,15 +1,16 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:rinjani_visitor/features/product/domain/product_model.dart';
+import 'package:rinjani_visitor/features/product/domain/entity/product.dart';
 
-part 'event_model.freezed.dart';
+class EventModel {
+  final String name;
+  final String imgUrl;
+  final DateTime date;
+  final String description;
+  final List<ProductEntity> products;
 
-@freezed
-abstract class EventModel with _$EventModel {
-  const factory EventModel({
-    required String name,
-    required String imgUrl,
-    required DateTime date,
-    required String description,
-    required List<ProductModel> products,
-  }) = _EventModel;
+  EventModel(
+      {required this.name,
+      required this.imgUrl,
+      required this.date,
+      required this.description,
+      required this.products});
 }
