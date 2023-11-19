@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:rinjani_visitor/core/presentation/theme/theme.dart';
 
 class SliverHomeAppbarDelegate extends SliverPersistentHeaderDelegate {
@@ -51,10 +50,10 @@ class SliverHomeAppbarDelegate extends SliverPersistentHeaderDelegate {
   }
 
   @override
-  double get maxExtent => 180;
+  double get maxExtent => 200;
 
   @override
-  double get minExtent => 150;
+  double get minExtent => 175;
 
   @override
   bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) {

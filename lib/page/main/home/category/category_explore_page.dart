@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rinjani_visitor/features/product/domain/category_enum.dart';
+import 'package:rinjani_visitor/features/product/domain/entity/product.dart';
 import 'package:rinjani_visitor/features/product/presentation/view_model/search.dart';
 import 'package:rinjani_visitor/page/product/product_detail_page.dart';
 import 'package:rinjani_visitor/core/presentation/theme/theme.dart';
@@ -20,6 +21,15 @@ class CategoryExplorePage extends ConsumerStatefulWidget {
 }
 
 class _CategoryExplorePageState extends ConsumerState<CategoryExplorePage> {
+  void _pushToDetail(ProductEntity entity) {
+    Navigator.push(
+        context,
+        CupertinoPageRoute(
+            builder: (context) => ProductDetailPage(
+                  data: entity,
+                )));
+  }
+
   @override
   Widget build(BuildContext context) {
     final state = ref.watch(searchRiverpodProvider);
@@ -47,14 +57,7 @@ class _CategoryExplorePageState extends ConsumerState<CategoryExplorePage> {
                               title: current.title,
                               rating: current.rating,
                               status: StatusColor.available,
-                              onTap: () {
-                                Navigator.push(
-                                    context,
-                                    CupertinoPageRoute(
-                                        builder: (context) => ProductDetailPage(
-                                              data: current,
-                                            )));
-                              },
+                              onTap: () => _pushToDetail(current),
                               price: current.rangePricing),
                         );
                       },
