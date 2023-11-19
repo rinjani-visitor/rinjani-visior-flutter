@@ -167,7 +167,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
     return Row(
       children: [
         Text(
-          "Doesn't have an account?",
+          "Don't have an account?",
           style: blackTextStyle.copyWith(fontSize: 12, fontWeight: medium),
         ),
         TextButton(
