@@ -40,8 +40,6 @@ class MainPage extends StatelessWidget {
             ]),
         tabBuilder: (context, index) {
           switch (index) {
-            case 0:
-              return const HomePage();
             case 1:
               return const EventPage();
             case 2:
