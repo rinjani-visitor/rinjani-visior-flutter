@@ -64,6 +64,7 @@ class _PaymentMethodPageState extends State<PaymentMethodPage> {
                     return Padding(
                       padding: const EdgeInsets.symmetric(vertical: 2.0),
                       child: GestureDetector(
+                        behavior: HitTestBehavior.opaque,
                         onTap: () {
                           debugPrint("tapped");
                         },

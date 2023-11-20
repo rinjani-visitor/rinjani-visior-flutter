@@ -9,13 +9,14 @@ class CategoryItem extends StatelessWidget {
       {super.key, required this.label, required this.iconName, this.onTap});
 
   void _onTapHandler() {
-    if(onTap == null) return;
+    if (onTap == null) return;
     onTap!(label);
   }
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
+      behavior: HitTestBehavior.opaque,
       onTap: _onTapHandler,
       child: Column(
         children: [
@@ -24,14 +25,14 @@ class CategoryItem extends StatelessWidget {
             width: 60,
             height: 60,
             decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: mediumGray,
-                  border: Border.all(color: lightGray)),
+                shape: BoxShape.circle,
+                color: mediumGray,
+                border: Border.all(color: lightGray)),
             child: Icon(
-                iconName,
-                color: primaryColor,
-                size: 32,
-              ),
+              iconName,
+              color: primaryColor,
+              size: 32,
+            ),
           ),
           Text(
             label,

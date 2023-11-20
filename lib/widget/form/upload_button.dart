@@ -16,6 +16,7 @@ class UploadButton extends StatelessWidget {
       width: double.infinity,
       height: 150,
       child: GestureDetector(
+        behavior: HitTestBehavior.opaque,
         onTap: onPressed,
         child: Container(
             padding: const EdgeInsets.all(8.0),
@@ -30,8 +31,7 @@ class UploadButton extends StatelessWidget {
                     child: file != null
                         ? Text(
                             "File Selected : ${file!.path.split(Platform.pathSeparator).last} ")
-                        : const Text(
-                            'Click to Upload (JPEG, JPG, PNG)')))),
+                        : const Text('Click to Upload (JPEG, JPG, PNG)')))),
       ),
     );
   }

@@ -1,14 +1,6 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
+// import 'package:flutter/material.dart';
 import 'package:rinjani_visitor/core/constant/product_package.dart';
-
-List<String> suggestons = [
-  "USA",
-  "UK",
-  "Uganda",
-  "Uruguay",
-  "United Arab Emirates"
-];
 
 class AutoSearch extends StatelessWidget {
   final void Function(String searchText)? onSearch;
@@ -49,22 +41,21 @@ class AutoSearch extends StatelessWidget {
       },
       optionsViewBuilder: (BuildContext context,
           void Function(String) onSelected, Iterable<String> options) {
-        return Material(
-            child: SizedBox(
-                height: 200,
-                child: SingleChildScrollView(
-                    child: Column(
-                  // crossAxisAlignment: CrossAxisAlignment.start,
-                  children: options.map((opt) {
-                    return InkWell(
-                        onTap: () {
-                          onSelected(opt);
-                        },
-                        child: CupertinoListTile(
-                          title: Text(opt),
-                        ));
-                  }).toList(),
-                ))));
+        return SizedBox(
+            height: 200,
+            child: SingleChildScrollView(
+                child: Column(
+              // crossAxisAlignment: CrossAxisAlignment.start,
+              children: options.map((opt) {
+                return GestureDetector(
+                    onTap: () {
+                      onSelected(opt);
+                    },
+                    child: CupertinoListTile(
+                      title: Text(opt),
+                    ));
+              }).toList(),
+            )));
       },
     );
   }

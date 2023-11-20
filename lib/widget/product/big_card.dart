@@ -79,6 +79,7 @@ class BigProductCard extends StatelessWidget {
     //widget buat informasi yang ada di card
 
     return GestureDetector(
+      behavior: HitTestBehavior.opaque,
       //function buat ke halaman detail
       onTap: onTap,
       //

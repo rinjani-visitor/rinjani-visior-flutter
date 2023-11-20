@@ -35,7 +35,9 @@ class SliverHomeAppbarDelegate extends SliverPersistentHeaderDelegate {
             ),
             const Spacer(),
             GestureDetector(
+              behavior: HitTestBehavior.opaque,
               onTap: () {
+                debugPrint('Search');
                 Navigator.pushNamed(context, '/search');
               },
               child: CupertinoSearchTextField(
