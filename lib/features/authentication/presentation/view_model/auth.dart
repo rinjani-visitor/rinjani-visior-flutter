@@ -1,11 +1,13 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rinjani_visitor/features/authentication/data/auth_repository_impl.dart';
 import 'package:rinjani_visitor/features/authentication/domain/repo/auth_repository.dart';
 import 'package:rinjani_visitor/features/authentication/domain/entity/auth.dart';
-import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 final authViewModelProvider =
-    AsyncNotifierProviderImpl<AuthViewModel, Auth?>(() => AuthViewModel());
+    AsyncNotifierProvider<AuthViewModel, Auth?>(() => AuthViewModel());
 
 class AuthViewModel extends AsyncNotifier<Auth?> {
   // ignore: constant_identifier_names

@@ -1,9 +1,12 @@
+import 'dart:async';
+
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rinjani_visitor/features/notification/data/notification_repository_impl.dart';
 import 'package:rinjani_visitor/features/notification/domain/entity/notification.dart';
-import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 final notificationViewModelProvider =
-    AsyncNotifierProviderImpl(() => NotificationViewModel());
+    AsyncNotifierProvider<NotificationViewModel, List<NotificationEntity>>(
+        () => NotificationViewModel());
 
 class NotificationViewModel extends AsyncNotifier<List<NotificationEntity>> {
   @override

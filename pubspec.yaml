@@ -55,7 +55,6 @@ dependencies:
   flutter_svg: ^2.0.7
 
   # bussiness related
-  riverpod_annotation: ^2.2.0
   json_annotation: ^4.8.1
   freezed_annotation: ^2.4.1
   circular_profile_avatar: ^2.0.5
@@ -81,7 +80,6 @@ dev_dependencies:
   json_serializable: ^6.7.1
   freezed: ^2.4.5
   retrofit_generator: ^8.0.3
-  riverpod_generator: ^2.3.3
   mockito: ^5.4.2
 
 # For information on the generic Dart part of this file, see the
