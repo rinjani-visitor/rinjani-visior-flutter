@@ -1,15 +1,11 @@
-import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:rinjani_visitor/core/presentation/theme/theme.dart';
+import 'package:rinjani_visitor/core/presentation/services/camera_service.dart';
 import 'package:rinjani_visitor/widget/button/primary_button.dart';
 import 'package:rinjani_visitor/widget/form/upload_button.dart';
 import 'package:rinjani_visitor/widget/input_field.dart';
-import 'package:permission_handler/permission_handler.dart';
 
 class ContinuePaymentPage extends ConsumerStatefulWidget {
   const ContinuePaymentPage({super.key});
@@ -20,21 +16,48 @@ class ContinuePaymentPage extends ConsumerStatefulWidget {
 }
 
 class _ContinuePaymentPageState extends ConsumerState<ContinuePaymentPage> {
-  File? _imageFile;
-  void _openFile() async {
-    if (await Permission.photos.request().isGranted) {
-      final picker = ImagePicker();
-      final pickedImage = await picker.pickImage(source: ImageSource.gallery);
-      if (pickedImage == null) return;
-      _imageFile = File(pickedImage.path);
-      return;
-    }
-    Fluttertoast.showToast(
-        msg: 'Photo permission denied, please accept my humbly request');
+  // File? selectedImage;
+
+  // === functions === //
+
+  void _showFileSelection() async {
+    final camNotifier = ref.read(cameraServiceProvider.notifier);
+    showCupertinoModalPopup(
+      context: context,
+      builder: (context) => CupertinoActionSheet(
+        cancelButton: CupertinoActionSheetAction(
+            onPressed: () => Navigator.pop(context),
+            child: const Text("Cancel")),
+        actions: [
+          CupertinoActionSheetAction(
+              onPressed: () {
+                Navigator.pop(context);
+                camNotifier.openCamera();
+              },
+              child: const Text("Open Camera")),
+          CupertinoActionSheetAction(
+              onPressed: () {
+                Navigator.pop(context);
+                camNotifier.openImagePicker();
+              },
+              child: const Text("Open Gallery")),
+          ref.watch(cameraServiceProvider) != null
+              ? CupertinoActionSheetAction(
+                  isDestructiveAction: true,
+                  onPressed: () {
+                    Navigator.pop(context);
+                    camNotifier.discardCurrentFile();
+                  },
+                  child: const Text("Delete"))
+              : Container()
+        ],
+      ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
+    final fileImage = ref.watch(cameraServiceProvider);
     return CupertinoPageScaffold(
         backgroundColor: backgroundColor,
         navigationBar: const CupertinoNavigationBar(
@@ -121,9 +144,9 @@ class _ContinuePaymentPageState extends ConsumerState<ContinuePaymentPage> {
                       ),
                       UploadButton(
                         onPressed: () {
-                          _openFile();
+                          _showFileSelection();
                         },
-                        file: _imageFile,
+                        file: fileImage,
                       ),
                     ],
                   ),

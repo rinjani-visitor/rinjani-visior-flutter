@@ -2,26 +2,26 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:http_parser/http_parser.dart';
-import 'package:rinjani_visitor/core/presentation/utils/exception_utils.dart';
+import 'package:rinjani_visitor/core/exception/exception.dart';
 import 'package:rinjani_visitor/core/presentation/utils/image_parser.dart';
-import 'package:rinjani_visitor/features/order/domain/order_model.dart';
+import 'package:rinjani_visitor/features/order/domain/entity/order.dart';
 import 'package:rinjani_visitor/features/order/domain/order_repository.dart';
 
 class OrderRepositoryImpl implements OrderRepository {
   @override
-  Future<void> cancelOrder(OrderModel order) {
+  Future<void> cancelOrder(OrderEntity order) {
     // TODO: implement cancelOrder
     throw UnimplementedError();
   }
 
   @override
-  Future<void> choosePaymentMethod(OrderModel order) {
+  Future<void> choosePaymentMethod(OrderEntity order) {
     // TODO: implement choosePaymentMethod
     throw UnimplementedError();
   }
 
   @override
-  Future<void> sendOrder(OrderModel order) {
+  Future<void> sendOrder(OrderEntity order) {
     // TODO: implement sendOrder
     throw UnimplementedError();
   }
@@ -36,7 +36,7 @@ class OrderRepositoryImpl implements OrderRepository {
           filename: "proof_of_payment.jpg");
       //TODO: send data to remote
     } on Exception catch (e) {
-      exceptionHandler(e);
+      throw ExtException.fromDioException(e);
     }
   }
 }

@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:rinjani_visitor/core/presentation/theme/theme.dart';
 
 class CategoryItem extends StatelessWidget {
@@ -8,11 +8,19 @@ class CategoryItem extends StatelessWidget {
   const CategoryItem(
       {super.key, required this.label, required this.iconName, this.onTap});
 
+  void _onTapHandler() {
+    if (onTap == null) return;
+    onTap!(label);
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
+    return GestureDetector(
+      behavior: HitTestBehavior.opaque,
+      onTap: _onTapHandler,
+      child: Column(
+        children: [
+          Container(
             margin: const EdgeInsets.only(bottom: 6),
             width: 60,
             height: 60,
@@ -20,17 +28,18 @@ class CategoryItem extends StatelessWidget {
                 shape: BoxShape.circle,
                 color: mediumGray,
                 border: Border.all(color: lightGray)),
-            child: IconButton(
-              onPressed: () => onTap != null ? onTap!(label) : null,
-              icon: Icon(iconName),
-              iconSize: 32,
+            child: Icon(
+              iconName,
               color: primaryColor,
-            )),
-        Text(
-          label,
-          style: blackTextStyle.copyWith(fontSize: 16, fontWeight: semibold),
-        )
-      ],
+              size: 32,
+            ),
+          ),
+          Text(
+            label,
+            style: blackTextStyle.copyWith(fontSize: 16, fontWeight: semibold),
+          )
+        ],
+      ),
     );
   }
 }

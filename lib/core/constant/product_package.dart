@@ -1,9 +1,9 @@
-import 'package:rinjani_visitor/features/product/domain/addon_model.dart';
+import 'package:rinjani_visitor/features/product/domain/entity/addon.dart';
 import 'package:rinjani_visitor/features/product/domain/category_enum.dart';
-import 'package:rinjani_visitor/features/product/domain/product_model.dart';
+import 'package:rinjani_visitor/features/product/domain/entity/product.dart';
 
 final mockPackages = [
-  const ProductModel(
+  ProductEntity(
       packageId: "1",
       category: ProductCategory.rinjani,
       title: "Rinjani Trip Deluxe",
@@ -25,13 +25,13 @@ final mockPackages = [
         "16.00"
       ],
       addOn: [
-        AddOnModel(
+        AddOnEntity(
             name: "Replace porter with guide",
             description: "replace your porter with guide. max 4 people",
             price: 35,
             id: "123"),
       ]),
-  const ProductModel(
+   ProductEntity(
       packageId: "2",
       category: ProductCategory.rinjani,
       title: "Rinjani Trip Standard",
@@ -53,13 +53,13 @@ final mockPackages = [
         "16.00"
       ],
       addOn: [
-        AddOnModel(
+        AddOnEntity(
             name: "Replace porter with guide",
             description: "replace your porter with guide. max 4 people",
             price: 20,
             id: "456"),
       ]),
-  const ProductModel(
+   ProductEntity(
       packageId: "3",
       category: ProductCategory.rinjani,
       title: "Rinjani Trip Sharing",
@@ -81,14 +81,14 @@ final mockPackages = [
         "16.00"
       ],
       addOn: [
-        AddOnModel(
+        AddOnEntity(
             name: "Replace porter with guide",
             description: "replace your porter with guide for 6 or more people",
             price: 30,
             id: "456"),
       ]),
   //Paket Budaya - Ritual
-  const ProductModel(
+   ProductEntity(
       packageId: "4",
       category: ProductCategory.culture,
       title: 'Maulid Adat Bayan Tour',
@@ -104,8 +104,8 @@ final mockPackages = [
       reviewCount: 12,
       initenaryList: ['First day - arrive at home stay '],
       timeList24H: ["16:00"],
-      addOn: [AddOnModel(name: "Driver", price: 20, id: "339")]),
-  const ProductModel(
+      addOn: [AddOnEntity(name: "Driver", price: 20, id: "339")]),
+    ProductEntity(
       packageId: "5",
       category: ProductCategory.culture,
       title: 'Lebaran Pandeq',
@@ -126,9 +126,9 @@ final mockPackages = [
         "16:00"
       ],
       addOn: [
-        AddOnModel(name: "Driver", price: 20, id: "339")
+        AddOnEntity(name: "Driver", price: 20, id: "339")
       ]),
-  const ProductModel(
+    ProductEntity(
       packageId: "6",
       category: ProductCategory.culture,
       title: 'Lebaran Tinggi',
@@ -144,8 +144,8 @@ final mockPackages = [
       reviewCount: 12,
       initenaryList: ['First day - arrive at home stay '],
       timeList24H: ["16:00"],
-      addOn: [AddOnModel(name: "Driver", price: 20, id: "339")]),
-  const ProductModel(
+      addOn: [AddOnEntity(name: "Driver", price: 20, id: "339")]),
+    ProductEntity(
       packageId: "7",
       category: ProductCategory.culture,
       title: 'Budidaya Madu Trigona',
@@ -161,8 +161,8 @@ final mockPackages = [
       reviewCount: 12,
       initenaryList: ['First day - arrive at home stay '],
       timeList24H: ["16:00"],
-      addOn: [AddOnModel(name: "Driver", price: 20, id: "339")]),
-  const ProductModel(
+      addOn: [AddOnEntity(name: "Driver", price: 20, id: "339")]),
+    ProductEntity(
       packageId: "8",
       category: ProductCategory.culture,
       title: 'Coffee Processing Tour',
@@ -178,8 +178,8 @@ final mockPackages = [
       reviewCount: 12,
       initenaryList: ['First day - arrive at home stay '],
       timeList24H: ["16:00"],
-      addOn: [AddOnModel(name: "Driver", price: 20, id: "339")]),
-  const ProductModel(
+      addOn: [AddOnEntity(name: "Driver", price: 20, id: "339")]),
+    ProductEntity(
       packageId: "9",
       category: ProductCategory.culture,
       title: 'Agricultural Tour',
@@ -195,8 +195,8 @@ final mockPackages = [
       reviewCount: 12,
       initenaryList: ['First day - arrive at home stay '],
       timeList24H: ["16:00"],
-      addOn: [AddOnModel(name: "Driver", price: 20, id: "339")]),
-  const ProductModel(
+      addOn: [AddOnEntity(name: "Driver", price: 20, id: "339")]),
+    ProductEntity(
       packageId: "10",
       category: ProductCategory.culture,
       title: 'Gegerok Tandak',
@@ -213,7 +213,7 @@ final mockPackages = [
       initenaryList: ['First day - arrive at home stay '],
       timeList24H: ["16:00"],
       addOn: []),
-  const ProductModel(
+    ProductEntity(
       packageId: "11",
       category: ProductCategory.culture,
       title: 'Suling Dewa',
@@ -230,7 +230,7 @@ final mockPackages = [
       initenaryList: ['First day - arrive at home stay '],
       timeList24H: ["16:00"],
       addOn: []),
-  const ProductModel(
+    ProductEntity(
       packageId: "12",
       category: ProductCategory.culture,
       title: 'Genggong',
@@ -247,7 +247,7 @@ final mockPackages = [
       initenaryList: ['First day - arrive at home stay '],
       timeList24H: ["16:00"],
       addOn: []),
-  const ProductModel(
+    ProductEntity(
       packageId: "13",
       category: ProductCategory.culture,
       title: 'Joget Lawas',
@@ -264,7 +264,7 @@ final mockPackages = [
       initenaryList: ['First day - arrive at home stay '],
       timeList24H: ["16:00"],
       addOn: []),
-  const ProductModel(
+    ProductEntity(
       packageId: "14",
       category: ProductCategory.culture,
       title: 'Gendang Beleq',
@@ -281,7 +281,7 @@ final mockPackages = [
       initenaryList: ['First day - arrive at home stay '],
       timeList24H: ["16:00"],
       addOn: []),
-  const ProductModel(
+    ProductEntity(
       packageId: "15",
       category: ProductCategory.culture,
       title: 'Cupak Gurantang',
@@ -299,7 +299,7 @@ final mockPackages = [
       timeList24H: ["16:00"],
       addOn: []),
 
-  const ProductModel(
+    ProductEntity(
       packageId: "17",
       category: ProductCategory.culture,
       title: 'Cungklik',
@@ -316,7 +316,7 @@ final mockPackages = [
       initenaryList: ['First day - arrive at home stay '],
       timeList24H: ["16:00"],
       addOn: []),
-  const ProductModel(
+    ProductEntity(
       packageId: "171",
       category: ProductCategory.culture,
       title: 'Tembang Lontar',
@@ -334,7 +334,7 @@ final mockPackages = [
       timeList24H: ["16:00"],
       addOn: []),
 
-  const ProductModel(
+    ProductEntity(
       packageId: "21",
       category: ProductCategory.culture,
       title: 'Selodor',
@@ -350,9 +350,9 @@ final mockPackages = [
       reviewCount: 12,
       initenaryList: ['First day - arrive at home stay '],
       timeList24H: ["16:00"],
-      addOn: [AddOnModel(name: "Driver", price: 20, id: "339")]),
+      addOn: [AddOnEntity(name: "Driver", price: 20, id: "339")]),
 
-  const ProductModel(
+    ProductEntity(
       packageId: "25",
       category: ProductCategory.landscape,
       title: 'Tiu Kelep Waterfall',
@@ -368,8 +368,8 @@ final mockPackages = [
       reviewCount: 12,
       initenaryList: ['First day - arrive at home stay '],
       timeList24H: ["16:00"],
-      addOn: [AddOnModel(name: "Driver", price: 20, id: "339")]),
-  const ProductModel(
+      addOn: [AddOnEntity(name: "Driver", price: 20, id: "339")]),
+    ProductEntity(
       packageId: "26",
       category: ProductCategory.landscape,
       title: 'Tiu Teja Waterfall',
@@ -385,9 +385,9 @@ final mockPackages = [
       reviewCount: 12,
       initenaryList: ['First day - arrive at home stay '],
       timeList24H: ["16:00"],
-      addOn: [AddOnModel(name: "Driver", price: 20, id: "339")]),
+      addOn: [AddOnEntity(name: "Driver", price: 20, id: "339")]),
 
-  const ProductModel(
+    ProductEntity(
       packageId: "28",
       category: ProductCategory.landscape,
       title: 'Sambik Elen Waterfall',
@@ -403,8 +403,8 @@ final mockPackages = [
       reviewCount: 12,
       initenaryList: ['First day - arrive at home stay '],
       timeList24H: ["16:00"],
-      addOn: [AddOnModel(name: "Driver", price: 20, id: "339")]),
-  const ProductModel(
+      addOn: [AddOnEntity(name: "Driver", price: 20, id: "339")]),
+    ProductEntity(
       packageId: "29",
       category: ProductCategory.culture,
       title: 'Perisean',
@@ -420,9 +420,9 @@ final mockPackages = [
       reviewCount: 12,
       initenaryList: ['First day - arrive at home stay '],
       timeList24H: ["16:00"],
-      addOn: [AddOnModel(name: "Driver", price: 20, id: "339")]),
+      addOn: [AddOnEntity(name: "Driver", price: 20, id: "339")]),
 
-  const ProductModel(
+    ProductEntity(
       packageId: "30",
       title: "Budaya Kaki Rinjani",
       location: "Jl.Pariwisata, RT 01 RW 06, Senaru, Indonesia",
@@ -438,9 +438,9 @@ final mockPackages = [
       avaiabilityStatus: "avaiable",
       accomodation: "bike rental and car rental is avaiable",
       addOn: [
-        AddOnModel(name: "Bike Rental", price: 10, id: "1291"),
-        AddOnModel(name: "Car Rental", price: 30, id: "1292"),
-        AddOnModel(name: "Personal Driver", price: 30, id: "1293"),
+        AddOnEntity(name: "Bike Rental", price: 10, id: "1291"),
+        AddOnEntity(name: "Car Rental", price: 30, id: "1292"),
+        AddOnEntity(name: "Personal Driver", price: 30, id: "1293"),
       ],
       initenaryList: [
         ''

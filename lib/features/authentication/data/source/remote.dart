@@ -3,10 +3,10 @@ import 'package:dio/dio.dart';
 import 'package:retrofit/http.dart';
 import 'package:rinjani_visitor/core/constant/network.dart';
 
-import 'package:rinjani_visitor/features/authentication/domain/data/remote/request/login_request.dart';
-import 'package:rinjani_visitor/features/authentication/domain/data/remote/request/register_request.dart';
-import 'package:rinjani_visitor/features/authentication/domain/data/remote/response/login_response.dart';
-import 'package:rinjani_visitor/features/authentication/domain/data/remote/response/register_response.dart';
+import 'package:rinjani_visitor/features/authentication/data/models/request/login_request.dart';
+import 'package:rinjani_visitor/features/authentication/data/models/request/register_request.dart';
+import 'package:rinjani_visitor/features/authentication/data/models/response/login_response.dart';
+import 'package:rinjani_visitor/features/authentication/data/models/response/register_response.dart';
 
 part 'remote.g.dart';
 

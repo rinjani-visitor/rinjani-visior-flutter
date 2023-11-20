@@ -1,18 +1,14 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+class ProfileEntity {
+  String name;
+  String email;
+  String phoneNumber;
+  String birthDate;
+  String? address;
 
-part "profile_model.freezed.dart";
-part "profile_model.g.dart";
-
-@unfreezed
-class ProfileModel with _$ProfileModel {
-  factory ProfileModel({
-    required String name,
-    required String email,
-    required String phoneNumber,
-    required String birthDate,
-    String? address,
-  }) = _ProfileModel;
-
-  factory ProfileModel.fromJson(Map<String, dynamic> json) =>
-      _$ProfileModelFromJson(json);
+  ProfileEntity(
+      {required this.name,
+      required this.email,
+      required this.phoneNumber,
+      required this.birthDate,
+      this.address});
 }

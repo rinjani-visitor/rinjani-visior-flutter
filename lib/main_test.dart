@@ -1,17 +1,19 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rinjani_visitor/core/constant/country.dart';
-import 'package:rinjani_visitor/page/booking/continue_payment_page.dart';
+import 'package:rinjani_visitor/page/account/booking_history_page.dart';
 import 'package:rinjani_visitor/widget/form/dropdown_textfield.dart';
 
 void main() {
   // Force google font to use offline fonts instead of re-downloading again
   GoogleFonts.config.allowRuntimeFetching = false;
 
+  WidgetsFlutterBinding.ensureInitialized();
   // setup license fonts
   LicenseRegistry.addLicense(() async* {
     final license = await rootBundle.loadString('google_fonts/OFL.txt');
@@ -27,10 +29,15 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const CupertinoApp(
+      localizationsDelegates: [
+        GlobalCupertinoLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate
+      ],
       theme: CupertinoThemeData(
         brightness: Brightness.light,
       ),
-      home: ContinuePaymentPage(),
+      home: BookingHistoryPage(),
     );
   }
 }

@@ -27,6 +27,7 @@ class _TimeButtonWidgetState extends State<TimeButtonWidget> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
+        behavior: HitTestBehavior.opaque,
         onTap: _handleButtonTap,
         child: Container(
           width: 100,

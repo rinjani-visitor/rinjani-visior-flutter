@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:rinjani_visitor/page/main/account_page.dart';
-import 'package:rinjani_visitor/page/main/event_page.dart';
-import 'package:rinjani_visitor/page/main/home_page.dart';
-import 'package:rinjani_visitor/page/main/wishlist_page.dart';
+import 'package:rinjani_visitor/page/main/account/account_page.dart';
+import 'package:rinjani_visitor/page/main/event/event_page.dart';
+import 'package:rinjani_visitor/page/main/home/home_page.dart';
+import 'package:rinjani_visitor/page/main/wishlist/wishlist_page.dart';
 import 'package:rinjani_visitor/core/presentation/theme/theme.dart';
 
 class MainPage extends StatelessWidget {
@@ -40,8 +40,6 @@ class MainPage extends StatelessWidget {
             ]),
         tabBuilder: (context, index) {
           switch (index) {
-            case 0:
-              return const HomePage();
             case 1:
               return const EventPage();
             case 2:

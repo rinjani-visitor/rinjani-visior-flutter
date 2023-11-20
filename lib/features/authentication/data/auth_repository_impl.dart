@@ -4,33 +4,31 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rinjani_visitor/core/exception/exception.dart';
 import 'package:rinjani_visitor/core/presentation/services/dio_service.dart';
-import 'package:rinjani_visitor/core/presentation/utils/exception_utils.dart';
 import 'package:rinjani_visitor/features/authentication/data/source/local.dart';
 import 'package:rinjani_visitor/features/authentication/data/source/remote.dart';
-import 'package:rinjani_visitor/features/authentication/domain/auth_model.dart';
+import 'package:rinjani_visitor/features/authentication/data/models/request/login_request.dart';
+import 'package:rinjani_visitor/features/authentication/data/models/request/register_request.dart';
+import 'package:rinjani_visitor/features/authentication/domain/repo/auth_repository.dart';
+import 'package:rinjani_visitor/features/authentication/domain/entity/auth.dart';
 
-import 'package:rinjani_visitor/features/authentication/domain/auth_repository.dart';
-import 'package:rinjani_visitor/features/authentication/domain/data/remote/request/login_request.dart';
-import 'package:rinjani_visitor/features/authentication/domain/data/remote/request/register_request.dart';
+final authRepositoryProvider = Provider((ref) => AuthRepositoryImpl(
+    localSource: ref.read(authLocalSourceProvider),
+    remoteSource: AuthRemoteSource(ref.read(dioServiceProvider))));
 
 class AuthRepositoryImpl implements AuthRepository {
   final AuthLocalSource localSource;
   final AuthRemoteSource remoteSource;
 
-  static final provider = Provider((ref) => AuthRepositoryImpl(
-      localSource: ref.read(AuthLocalSource.provider),
-      remoteSource: AuthRemoteSource(ref.read(dioServiceProvider))));
-
   AuthRepositoryImpl({required this.localSource, required this.remoteSource});
 
-//========================//
   @override
-  Future<void> logout() async {
+  Future<Auth?> logout() async {
     await localSource.clearSession();
+    return null;
   }
 
   @override
-  Future<AuthModel> register(
+  Future<Auth> register(
       {required String username,
       required String email,
       required String country,
@@ -38,17 +36,9 @@ class AuthRepositoryImpl implements AuthRepository {
       required String password}) async {
     debugPrint("$NAME: Register...");
 
-    if (username.isEmpty ||
-        email.isEmpty ||
-        country.isEmpty ||
-        phone.isEmpty ||
-        password.isEmpty) {
-      throw ExtException("field must not be empty");
-    }
-
     try {
       debugPrint(
-          "values: email - $email, country - $country, phone - $phone, password - $password");
+          "values: email - $email, country - $country, phone - $phone, password - ${password.isNotEmpty}");
       final response = await remoteSource.register(RegisterRequest(
           username: username,
           email: email,
@@ -56,52 +46,40 @@ class AuthRepositoryImpl implements AuthRepository {
           password: password,
           phone: phone));
       debugPrint("Repository: data from remote: ${response.toString()}");
-      return AuthModel(
-          userId: response.user?.userId!,
-          username: response.user?.username!,
-          email: response.user?.email!);
+      if (response.user == null) return Auth();
+      return response.user!.toEntity();
     } catch (e) {
-      throw exceptionHandler(e);
+      throw ExtException.fromDioException(e);
     }
   }
 
   @override
-  Future<AuthModel> logIn(
-      {required String email, required String password}) async {
+  Future<Auth> logIn({required String email, required String password}) async {
     debugPrint("$NAME: Login...");
-    if (email.isEmpty || password.isEmpty) {
-      final exception = ExtException("Email / password should not be null");
-      debugPrint("$NAME: Error: ${exception.toString()}");
-      throw exception;
-    }
-
     try {
       final response = await remoteSource
           .logIn(LoginRequest(password: password, email: email));
       debugPrint("Repository: new data from remote: ${response.toString()}");
       final loginResult = response.loginResult!;
-      final result = AuthModel(
-          userId: loginResult.userId,
-          email: loginResult.email,
-          username: loginResult.username,
-          token: loginResult.token);
-      await localSource.setSession(result);
+      final result = loginResult.toEntity();
+      await localSource.setSession(result.token);
       return result;
-    } catch (e) {
-      final err = exceptionHandler(e);
+    } on Exception catch (e) {
+      debugPrint("$NAME: RawError: ${e.toString()}");
+      final err = ExtException.fromDioException(e);
       debugPrint("$NAME: Error: ${err.toString()}");
       throw err;
     }
   }
 
   @override
-  Future<AuthModel?> getSavedSession() async {
+  Future<Auth?> getSavedSession() async {
     final sessionModel = await localSource.getSession();
     try {
       debugPrint("$NAME : $sessionModel");
-      return sessionModel;
+      return Auth(token: sessionModel);
     } catch (e) {
-      throw exceptionHandler(e);
+      throw ExtException.fromDioException(e);
     }
   }
 

@@ -23,8 +23,7 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
   final _phoneNumberTxtController = TextEditingController();
   final _passwordTxtController = TextEditingController();
 
-  late final _viewModel = ref.read(authRiverpodProvider.notifier);
-  late var _state = ref.read(authRiverpodProvider);
+  late final authNotifier = ref.read(authRiverpodProvider.notifier);
 
   @override
   void dispose() {
@@ -41,15 +40,18 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
   }
 
   void _onFormSubmit() async {
-    await _viewModel.register(
+    await authNotifier.register(
         _usernameTxtController.text,
         _emailTxtController.text,
         _countryTxtController.text,
         _phoneNumberTxtController.text,
         _passwordTxtController.text,
         _passwordTxtController.text);
-    if (_state.hasError) {
-      Fluttertoast.showToast(msg: _state.asError!.error.toString());
+
+    final state = ref.read(authRiverpodProvider);
+
+    if (state.hasError) {
+      Fluttertoast.showToast(msg: state.asError!.error.toString());
       return;
     }
     _toLogin();
@@ -57,7 +59,7 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
 
   @override
   Widget build(BuildContext context) {
-    _state = ref.watch(authRiverpodProvider);
+    final state = ref.watch(authRiverpodProvider);
     return CupertinoPageScaffold(
       resizeToAvoidBottomInset: true,
       backgroundColor: whiteColor,
@@ -68,110 +70,97 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                header(),
-                inputSection(),
+                Container(
+                  margin: const EdgeInsets.only(top: 24, bottom: 32),
+                  child: Text(
+                    "Let's start your\njourney with us",
+                    style:
+                        blackTextStyle.copyWith(fontSize: 32, fontWeight: bold),
+                  ),
+                ),
+                Form(
+                  child: Column(
+                    children: [
+                      DropdownTextfield(
+                        label: "Country",
+                        controller: _countryTxtController,
+                        placeholder: "Eg: Vatikan",
+                        items: countryLists,
+                      ),
+                      const SizedBox(
+                        height: 12,
+                      ),
+                      InputFormField(
+                        label: 'Username',
+                        controller: _usernameTxtController,
+                        textInputAction: TextInputAction.next,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return "Username required";
+                          }
+                          return null;
+                        },
+                      ),
+                      InputFormField(
+                        label: 'Email',
+                        controller: _emailTxtController,
+                        textInputAction: TextInputAction.next,
+                        autoFillHints: const [AutofillHints.email],
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return "Email required";
+                          }
+                          if (!value.isEmailValid()) {
+                            return "Not valid email";
+                          }
+                          return null;
+                        },
+                      ),
+                      InputFormField(
+                        label: 'Phone number',
+                        placeholder: "Same as your Whatsapp",
+                        textInputAction: TextInputAction.next,
+                        keyboardType: TextInputType.phone,
+                        controller: _phoneNumberTxtController,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return "Phone number required";
+                          }
+                          return null;
+                        },
+                      ),
+                      InputFormField(
+                        label: 'Password',
+                        secureText: true,
+                        textInputAction: TextInputAction.done,
+                        controller: _passwordTxtController,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return "Password required";
+                          }
+                          if (value.length < 8) {
+                            return "Password must have 8 characters minimum";
+                          }
+                          return null;
+                        },
+                      )
+                    ],
+                  ),
+                ),
                 const SizedBox(
                   height: 36,
                 ),
-                signUpButton()
+                PrimaryButton(
+                    onPressed: () => _onFormSubmit(),
+                    isLoading: state.isLoading,
+                    child: const Text(
+                      'Sign Up',
+                    ))
               ],
             ),
           ),
         ),
       ),
     );
-  }
-
-  Widget header() {
-    return Container(
-      margin: const EdgeInsets.only(top: 24, bottom: 32),
-      child: Text(
-        "Let's start your\njourney with us",
-        style: blackTextStyle.copyWith(fontSize: 32, fontWeight: bold),
-      ),
-    );
-  }
-
-  Widget inputSection() {
-    return Form(
-      child: Column(
-        children: [
-          DropdownTextfield(
-            label: "Country",
-            controller: _countryTxtController,
-            placeholder: "Eg: Vatikan",
-            items: countryLists,
-          ),
-          const SizedBox(
-            height: 12,
-          ),
-          InputFormField(
-            label: 'Username',
-            controller: _usernameTxtController,
-            textInputAction: TextInputAction.next,
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return "Username required";
-              }
-              return null;
-            },
-          ),
-          InputFormField(
-            label: 'Email',
-            controller: _emailTxtController,
-            textInputAction: TextInputAction.next,
-            autoFillHints: const [AutofillHints.email],
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return "Email required";
-              }
-              if (!value.isEmailValid()) {
-                return "Not valid email";
-              }
-              return null;
-            },
-          ),
-          InputFormField(
-            label: 'Phone number',
-            placeholder: "Same as your Whatsapp",
-            textInputAction: TextInputAction.next,
-            keyboardType: TextInputType.phone,
-            controller: _phoneNumberTxtController,
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return "Phone number required";
-              }
-              return null;
-            },
-          ),
-          InputFormField(
-            label: 'Password',
-            secureText: true,
-            textInputAction: TextInputAction.done,
-            controller: _passwordTxtController,
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return "Password required";
-              }
-              if (value.length < 8) {
-                return "Password must have 8 characters minimum";
-              }
-              return null;
-            },
-          )
-        ],
-      ),
-    );
-  }
-
-  Widget signUpButton() {
-    return PrimaryButton(
-        onPressed: () {
-          _onFormSubmit();
-        },
-        isLoading: _state.isLoading,
-        child: const Text(
-          'Sign Up',
-        ));
   }
 }

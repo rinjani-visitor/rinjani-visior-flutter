@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 //border radius
 double bigRadius = 18.0;
 double smallRadius = 8.0;
+double xsmallRadius = 4.0;
 
 //font size
 double heading1 = 60.0;

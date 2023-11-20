@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:rinjani_visitor/core/presentation/theme/theme.dart';
 
 class AddOnWidget extends StatefulWidget {
+  final String id;
+
   /// Add on name.
   final String name;
 
@@ -11,13 +13,14 @@ class AddOnWidget extends StatefulWidget {
 
   /// initial value.
   final bool selected;
-  final void Function(bool? value)? onChanged;
+  final void Function(bool? value, bool isSelected)? onChanged;
   const AddOnWidget(
       {super.key,
       required this.name,
       required this.price,
       required this.selected,
-      required this.onChanged});
+      required this.onChanged,
+      required this.id});
 
   @override
   State<AddOnWidget> createState() => _AddOnWidgetState();
@@ -49,7 +52,7 @@ class _AddOnWidgetState extends State<AddOnWidget> {
             child: CupertinoCheckbox(
               onChanged: (value) {
                 if (widget.onChanged != null) {
-                  widget.onChanged!(value);
+                  widget.onChanged!(value, widget.selected);
                 }
               },
               value: widget.selected,
@@ -57,31 +60,6 @@ class _AddOnWidgetState extends State<AddOnWidget> {
           )
         ],
       ),
-    );
-  }
-}
-
-class AddOnWidgetMock extends StatefulWidget {
-  const AddOnWidgetMock({super.key});
-
-  @override
-  State<AddOnWidgetMock> createState() => _AddOnWidgetMockState();
-}
-
-class _AddOnWidgetMockState extends State<AddOnWidgetMock> {
-  bool val = false;
-  @override
-  Widget build(BuildContext context) {
-    return AddOnWidget(
-      onChanged: (p0) {
-        setState(() {
-          val = !val;
-        });
-        debugPrint("State: $p0");
-      },
-      name: "Driver",
-      price: "Rp.200.000",
-      selected: val,
     );
   }
 }
