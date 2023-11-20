@@ -6,7 +6,7 @@ import 'package:rinjani_visitor/features/product/domain/entity/addon.dart';
 import 'package:rinjani_visitor/features/product/domain/product_repository.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-final orderRiverpodProvider =
+final orderViewModelProvider =
     AutoDisposeNotifierProviderImpl<OrderRiverpod, OrderEntity>(
         () => OrderRiverpod());
 

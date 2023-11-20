@@ -19,8 +19,8 @@ class _BookingDetailPageState extends ConsumerState<BookingDetailPage> {
   final _priceRangeController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
-  late final _viewModel = ref.read(orderRiverpodProvider.notifier);
-  late final _state = ref.read(orderRiverpodProvider);
+  late final _viewModel = ref.read(orderViewModelProvider.notifier);
+  late final _state = ref.read(orderViewModelProvider);
 
   Widget imageTitle() {
     return Container(

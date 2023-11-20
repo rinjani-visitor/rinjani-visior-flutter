@@ -2,10 +2,10 @@ import 'package:rinjani_visitor/features/notification/data/notification_reposito
 import 'package:rinjani_visitor/features/notification/domain/entity/notification.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-final notificationRiverpodProvider =
-    AsyncNotifierProviderImpl(() => NotificationRiverpod());
+final notificationViewModelProvider =
+    AsyncNotifierProviderImpl(() => NotificationViewModel());
 
-class NotificationRiverpod extends AsyncNotifier<List<NotificationEntity>> {
+class NotificationViewModel extends AsyncNotifier<List<NotificationEntity>> {
   @override
   FutureOr<List<NotificationEntity>> build() async {
     final data =

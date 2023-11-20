@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:rinjani_visitor/features/authentication/presentation/auth_riverpod.dart';
+import 'package:rinjani_visitor/features/authentication/presentation/view_model/auth.dart';
 import 'package:rinjani_visitor/core/presentation/theme/theme.dart';
 
 class SplashScreen extends ConsumerStatefulWidget {
@@ -11,7 +11,7 @@ class SplashScreen extends ConsumerStatefulWidget {
 }
 
 class _SplashScreenState extends ConsumerState<SplashScreen> {
-  late var _state = ref.read(authRiverpodProvider);
+  late var _state = ref.read(authViewModelProvider);
 
   Future<void> syncToken() async {
     final token = _state.asData?.value?.token;
@@ -31,7 +31,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    _state = ref.watch(authRiverpodProvider);
+    _state = ref.watch(authViewModelProvider);
     if (_state is AsyncData) {
       WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
         syncToken();

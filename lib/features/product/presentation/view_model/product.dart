@@ -1,12 +1,15 @@
+import 'dart:async';
+
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rinjani_visitor/features/product/data/product_repository_impl.dart';
 import 'package:rinjani_visitor/features/product/domain/category_enum.dart';
 import 'package:rinjani_visitor/features/product/domain/entity/product.dart';
-import 'package:riverpod_annotation/riverpod_annotation.dart';
 
+final productViewModelProvider =
+    AsyncNotifierProvider<ProductViewModel, List<ProductEntity>>(
+        () => ProductViewModel());
 
-final productRiverpodProvider = AsyncNotifierProviderImpl<ProductRiverpod, List<ProductEntity>>(() => ProductRiverpod());
-
-class ProductRiverpod extends AsyncNotifier<List<ProductEntity>> {
+class ProductViewModel extends AsyncNotifier<List<ProductEntity>> {
   @override
   FutureOr<List<ProductEntity>> build() async {
     final repo = ref.read(productRepositoryProvider);

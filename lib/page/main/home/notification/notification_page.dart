@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rinjani_visitor/core/enums/booking_enum.dart';
 import 'package:rinjani_visitor/core/presentation/theme/theme.dart';
-import 'package:rinjani_visitor/features/notification/presentation/notification_riverpod.dart';
+import 'package:rinjani_visitor/features/notification/presentation/view_model/notification.dart';
 import 'package:rinjani_visitor/widget/notification_card_widget.dart';
 import 'package:rinjani_visitor/widget/status.dart';
 
@@ -41,7 +41,7 @@ class _NotificationPageState extends ConsumerState<NotificationPage> {
 
   @override
   Widget build(BuildContext context) {
-    final state = ref.watch(notificationRiverpodProvider);
+    final state = ref.watch(notificationViewModelProvider);
     return CupertinoPageScaffold(
         backgroundColor: backgroundColor,
         navigationBar: const CupertinoNavigationBar(

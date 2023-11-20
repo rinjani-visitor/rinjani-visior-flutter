@@ -18,7 +18,7 @@ class SearchPage extends ConsumerStatefulWidget {
 class _SearchPageState extends ConsumerState<SearchPage> {
   @override
   Widget build(BuildContext context) {
-    final searchData = ref.watch(searchRiverpodProvider);
+    final searchData = ref.watch(searchViewModelProvider);
     return CupertinoPageScaffold(
       backgroundColor: backgroundColor,
       navigationBar: CupertinoNavigationBar(
@@ -26,7 +26,9 @@ class _SearchPageState extends ConsumerState<SearchPage> {
         padding: const EdgeInsetsDirectional.only(bottom: 8),
         middle: AutoSearch(
           onSearch: (searchText) {
-            ref.read(searchRiverpodProvider.notifier).searchPackage(searchText);
+            ref
+                .read(searchViewModelProvider.notifier)
+                .searchPackage(searchText);
           },
         ),
       ),

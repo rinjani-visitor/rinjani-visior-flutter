@@ -21,7 +21,7 @@ class RecommendationList extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final recommendedData = ref.watch(recommendedProductRiverpodProvider);
+    final recommendedData = ref.watch(recommendedProductViewModelProvider);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,

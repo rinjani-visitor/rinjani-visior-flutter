@@ -27,8 +27,8 @@ class _DetailPageState extends ConsumerState<ProductDetailPage> {
   // TODO: override later with server data
   late final ProductEntity data = widget.data;
 
-  late final _viewModel = ref.read(orderRiverpodProvider.notifier);
-  late var _state = ref.read(orderRiverpodProvider);
+  late final _viewModel = ref.read(orderViewModelProvider.notifier);
+  late var _state = ref.read(orderViewModelProvider);
 
   late final _dateController = TextEditingController(text: _state.date);
   late final _personController =
@@ -163,7 +163,7 @@ class _DetailPageState extends ConsumerState<ProductDetailPage> {
 
   @override
   Widget build(BuildContext context) {
-    _state = ref.watch(orderRiverpodProvider);
+    _state = ref.watch(orderViewModelProvider);
     return CupertinoPageScaffold(
         navigationBar: const CupertinoNavigationBar(
           middle: Text('Detail Trip'),
