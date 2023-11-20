@@ -28,7 +28,7 @@ void main() {
     expect(result, isA<SettingModel>());
   });
   test(
-      "settings repository should return error if data in storage is not provided / invalid",
+      "settings repository should return null if data in storage is not provided / invalid",
       () async {
     Exception? result;
     SharedPreferences.setMockInitialValues({"setting_data": ''});
@@ -38,6 +38,6 @@ void main() {
     } on Exception catch (e) {
       result = e;
     }
-    expect(result, isA<Exception>());
+    expect(result, isNull);
   });
 }
