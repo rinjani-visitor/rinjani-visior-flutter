@@ -29,7 +29,7 @@ void main() {
     container = _makeProviderContainer(authRepository);
   });
 
-  group("authViewModel Test", () {
+  group("AuthViewModel", () {
     test("init should return null", () async {
       when(authRepository.getSavedSession())
           .thenAnswer((_) async => Future.value(null));
