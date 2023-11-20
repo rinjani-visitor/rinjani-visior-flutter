@@ -36,8 +36,7 @@ void main() {
       final expectedData = mockPackages
           .where((element) => element.category == ProductCategory.culture)
           .toList();
-      when(productRepository.getPackages(
-              category: ProductCategory.culture.name))
+      when(productRepository.getPackages(category: ProductCategory.culture))
           .thenAnswer(
               (_) => Future.value(expectedData.getRange(0, 10).toList()));
       final result = await container
@@ -45,8 +44,7 @@ void main() {
           .getProductByCategory(ProductCategory.culture);
       expect(result, isNotNull);
       expect(result, isNotEmpty);
-      verify(productRepository.getPackages(
-              category: ProductCategory.culture.name))
+      verify(productRepository.getPackages(category: ProductCategory.culture))
           .called(1);
     });
   });

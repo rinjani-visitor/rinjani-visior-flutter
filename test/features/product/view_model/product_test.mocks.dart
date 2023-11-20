@@ -9,6 +9,8 @@ import 'package:mockito/mockito.dart' as _i1;
 import 'package:rinjani_visitor/features/product/data/product_repository_impl.dart'
     as _i4;
 import 'package:rinjani_visitor/features/product/data/source/mock.dart' as _i2;
+import 'package:rinjani_visitor/features/product/domain/category_enum.dart'
+    as _i6;
 import 'package:rinjani_visitor/features/product/domain/entity/product.dart'
     as _i3;
 
@@ -129,7 +131,7 @@ class MockProductRepositoryImpl extends _i1.Mock
   _i5.Future<List<_i3.ProductEntity>> getPackages({
     int? pages = 1,
     int? itemsPerPage = 10,
-    String? category,
+    _i6.ProductCategory? category,
     String? query = r'',
     String? avaiability,
   }) =>
