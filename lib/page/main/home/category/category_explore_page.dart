@@ -32,7 +32,7 @@ class _CategoryExplorePageState extends ConsumerState<CategoryExplorePage> {
 
   @override
   Widget build(BuildContext context) {
-    final state = ref.watch(searchViewModelProvider);
+    final state = ref.watch(productSearchViewModelProvider);
     return CupertinoPageScaffold(
         backgroundColor: backgroundColor,
         navigationBar: CupertinoNavigationBar(

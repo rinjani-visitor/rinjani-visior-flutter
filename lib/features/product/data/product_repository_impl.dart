@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rinjani_visitor/features/product/data/source/mock.dart';
+import 'package:rinjani_visitor/features/product/domain/category_enum.dart';
 import 'package:rinjani_visitor/features/product/domain/entity/product.dart';
 import 'package:rinjani_visitor/features/product/domain/product_repository.dart';
 
@@ -33,10 +34,11 @@ class ProductRepositoryImpl implements ProductRespository {
   Future<List<ProductEntity>> getPackages(
       {int pages = 1,
       int? itemsPerPage = 10,
-      String? category,
+      ProductCategory? category,
       String query = "",
       String? avaiability}) async {
-    final result = await remote.getProducts(limit: itemsPerPage ?? 10, query: query);
+    final result =
+        await remote.getProducts(limit: itemsPerPage ?? 10, query: query);
     //TODO: remove this when backend is complete
     return result;
   }

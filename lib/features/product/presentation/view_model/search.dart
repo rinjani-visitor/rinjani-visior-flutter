@@ -7,11 +7,11 @@ import 'package:rinjani_visitor/features/product/domain/category_enum.dart';
 import 'package:rinjani_visitor/features/product/domain/entity/product.dart';
 import 'package:rinjani_visitor/features/product/domain/product_repository.dart';
 
-final searchViewModelProvider =
-    AsyncNotifierProvider<SearchViewModel, List<ProductEntity>>(
-        () => SearchViewModel());
+final productSearchViewModelProvider =
+    AsyncNotifierProvider<ProductSearchViewModel, List<ProductEntity>>(
+        () => ProductSearchViewModel());
 
-class SearchViewModel extends AsyncNotifier<List<ProductEntity>> {
+class ProductSearchViewModel extends AsyncNotifier<List<ProductEntity>> {
   late final ProductRespository productRepository;
 
   @override
@@ -28,11 +28,5 @@ class SearchViewModel extends AsyncNotifier<List<ProductEntity>> {
 
     state = await AsyncValue.guard(
         () async => await productRepository.getPackages(query: name));
-  }
-
-  List<ProductEntity> getProductByCategory(ProductCategory category) {
-    if (state.asData == null) return [];
-    final products = state.asData!.value;
-    return products.where((element) => element.category == category).toList();
   }
 }

@@ -1,3 +1,4 @@
+import 'package:rinjani_visitor/features/product/domain/category_enum.dart';
 import 'package:rinjani_visitor/features/product/domain/entity/product.dart';
 
 abstract class ProductRespository {
@@ -5,7 +6,7 @@ abstract class ProductRespository {
   Future<List<ProductEntity>> getPackages(
       {int pages = 1,
       int? itemsPerPage = 10,
-      String? category,
+      ProductCategory? category,
       String query = "",
       String? avaiability});
 

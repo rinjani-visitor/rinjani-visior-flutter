@@ -17,10 +17,12 @@ class ProductViewModel extends AsyncNotifier<List<ProductEntity>> {
     return packages;
   }
 
-  List<ProductEntity> getProductByCategory(ProductCategory category) {
-    final products = state.asData!.value;
-    return products.where((element) => element.category == category).toList();
+  Future<List<ProductEntity>> getProductByCategory(
+      ProductCategory category) async {
+    final repo = ref.read(productRepositoryProvider);
+    state = const AsyncLoading();
+    state = await AsyncValue.guard(
+        () async => await repo.getPackages(category: category));
+    return state.value ?? [];
   }
-
-  void sendPayment() {}
 }
