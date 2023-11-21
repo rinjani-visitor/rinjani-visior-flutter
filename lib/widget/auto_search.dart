@@ -1,29 +1,21 @@
 import 'package:flutter/cupertino.dart';
-// import 'package:flutter/material.dart';
-import 'package:rinjani_visitor/core/constant/product_package.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:rinjani_visitor/features/search/presentation/view_model/search_suggestion.dart';
 
-class AutoSearch extends StatelessWidget {
+class AutoSearch extends ConsumerWidget {
   final void Function(String searchText)? onSearch;
   const AutoSearch({super.key, this.onSearch});
 
   @override
-  Widget build(BuildContext context) {
-    final suggestionData = mockPackages.map((e) => e.title).toList();
+  Widget build(BuildContext context, ref) {
+    final suggestionData =
+        ref.watch(searchSuggestionViewModel).map((e) => e.name).toList();
     return RawAutocomplete(
       optionsBuilder: (TextEditingValue textEditingValue) {
-        if (textEditingValue.text == '') {
-          return const Iterable<String>.empty();
-        } else {
-          List<String> matches = <String>[];
-          matches.addAll(suggestionData);
-
-          matches.retainWhere((s) {
-            return s
-                .toLowerCase()
-                .contains(textEditingValue.text.toLowerCase());
-          });
-          return matches;
-        }
+        ref
+            .read(searchSuggestionViewModel.notifier)
+            .update(textEditingValue.text);
+        return suggestionData;
       },
       onSelected: (String selection) {
         debugPrint('You just selected $selection');
@@ -52,6 +44,7 @@ class AutoSearch extends StatelessWidget {
                       onSelected(opt);
                     },
                     child: CupertinoListTile(
+                      backgroundColor: CupertinoColors.white,
                       title: Text(opt),
                     ));
               }).toList(),
