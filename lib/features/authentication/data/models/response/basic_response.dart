@@ -5,7 +5,7 @@ part 'basic_response.g.dart';
 @JsonSerializable()
 class BasicResponse {
   final String message;
-  final bool error;
+  final List<String> error;
 
   BasicResponse({required this.error, required this.message});
 

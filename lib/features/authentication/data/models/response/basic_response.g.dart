@@ -8,7 +8,7 @@ part of 'basic_response.dart';
 
 BasicResponse _$BasicResponseFromJson(Map<String, dynamic> json) =>
     BasicResponse(
-      error: json['error'] as bool,
+      error: (json['error'] as List<dynamic>).map((e) => e as String).toList(),
       message: json['message'] as String,
     );
 
