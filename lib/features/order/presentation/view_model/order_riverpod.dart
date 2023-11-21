@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rinjani_visitor/features/order/domain/entity/order.dart';
 import 'package:rinjani_visitor/features/product/data/product_repository_impl.dart';
 import 'package:rinjani_visitor/features/product/domain/entity/addon.dart';
+import 'package:rinjani_visitor/features/product/domain/entity/product.dart';
 import 'package:rinjani_visitor/features/product/domain/product_repository.dart';
 
 final orderViewModelProvider =
@@ -73,5 +74,10 @@ class OrderRiverpod extends AutoDisposeNotifier<OrderEntity> {
     debugPrint("remove addon");
     state.addOn.removeWhere((element) => element.name == addOn.name);
     debugPrint("Addon: ${state.addOn.length}");
+  }
+
+  void submitOrder(BuildContext context, ProductEntity data) {
+    state.product = data;
+    Navigator.pushNamed(context, "/booking/detail");
   }
 }

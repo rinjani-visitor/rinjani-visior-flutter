@@ -8,5 +8,7 @@ final writeReviewViewModelProvider =
 
 class WriteReviewViewModel extends StateNotifier<ReviewEntity> {
   WriteReviewViewModel() : super(ReviewEntity());
-  void sendReview() {}
+  void sendReview() {
+    // TODO: implement sendReview
+  }
 }
