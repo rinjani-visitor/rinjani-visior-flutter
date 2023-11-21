@@ -49,12 +49,14 @@ dependencies:
   flutter_native_splash: ^2.3.2
   image_picker: ^1.0.4
   permission_handler: ^11.0.1
-  skeletonizer: ^0.8.0
-  badges: ^3.1.2
   flutter_riverpod: ^2.4.0
   flutter_svg: ^2.0.7
 
-  # bussiness related
+  # UI
+  skeletonizer: ^0.8.0
+  badges: ^3.1.2
+
+  # data & bussiness related
   json_annotation: ^4.8.1
   freezed_annotation: ^2.4.1
   circular_profile_avatar: ^2.0.5
