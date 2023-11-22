@@ -24,11 +24,11 @@ class _SearchPageState extends ConsumerState<SearchPage> {
       navigationBar: CupertinoNavigationBar(
         automaticallyImplyLeading: false,
         padding: const EdgeInsetsDirectional.only(bottom: 2, top: 2),
-        middle: AutoSearch(
-          onSearch: (searchText) {
+        middle: CupertinoSearchTextField(
+          onSubmitted: (text) {
             ref
                 .read(productSearchViewModelProvider.notifier)
-                .searchPackage(searchText);
+                .searchPackage(text);
           },
         ),
       ),
