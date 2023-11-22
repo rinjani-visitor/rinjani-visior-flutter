@@ -23,7 +23,7 @@ class _SearchPageState extends ConsumerState<SearchPage> {
       backgroundColor: backgroundColor,
       navigationBar: CupertinoNavigationBar(
         automaticallyImplyLeading: false,
-        padding: const EdgeInsetsDirectional.only(bottom: 8),
+        padding: const EdgeInsetsDirectional.only(bottom: 2, top: 2),
         middle: AutoSearch(
           onSearch: (searchText) {
             ref
