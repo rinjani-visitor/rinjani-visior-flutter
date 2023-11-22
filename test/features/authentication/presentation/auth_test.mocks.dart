@@ -50,8 +50,8 @@ class _FakeAuthRemoteSource_1 extends _i1.SmartFake
         );
 }
 
-class _FakeAuth_2 extends _i1.SmartFake implements _i4.Auth {
-  _FakeAuth_2(
+class _FakeAuthEntity_2 extends _i1.SmartFake implements _i4.AuthEntity {
+  _FakeAuthEntity_2(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -88,16 +88,16 @@ class MockAuthRepositoryImpl extends _i1.Mock
       ) as _i3.AuthRemoteSource);
 
   @override
-  _i6.Future<_i4.Auth?> logout() => (super.noSuchMethod(
+  _i6.Future<_i4.AuthEntity?> logout() => (super.noSuchMethod(
         Invocation.method(
           #logout,
           [],
         ),
-        returnValue: _i6.Future<_i4.Auth?>.value(),
-      ) as _i6.Future<_i4.Auth?>);
+        returnValue: _i6.Future<_i4.AuthEntity?>.value(),
+      ) as _i6.Future<_i4.AuthEntity?>);
 
   @override
-  _i6.Future<_i4.Auth> register({
+  _i6.Future<_i4.AuthEntity> register({
     required String? username,
     required String? email,
     required String? country,
@@ -116,7 +116,7 @@ class MockAuthRepositoryImpl extends _i1.Mock
             #password: password,
           },
         ),
-        returnValue: _i6.Future<_i4.Auth>.value(_FakeAuth_2(
+        returnValue: _i6.Future<_i4.AuthEntity>.value(_FakeAuthEntity_2(
           this,
           Invocation.method(
             #register,
@@ -130,10 +130,10 @@ class MockAuthRepositoryImpl extends _i1.Mock
             },
           ),
         )),
-      ) as _i6.Future<_i4.Auth>);
+      ) as _i6.Future<_i4.AuthEntity>);
 
   @override
-  _i6.Future<_i4.Auth> logIn({
+  _i6.Future<_i4.AuthEntity> logIn({
     required String? email,
     required String? password,
   }) =>
@@ -146,7 +146,7 @@ class MockAuthRepositoryImpl extends _i1.Mock
             #password: password,
           },
         ),
-        returnValue: _i6.Future<_i4.Auth>.value(_FakeAuth_2(
+        returnValue: _i6.Future<_i4.AuthEntity>.value(_FakeAuthEntity_2(
           this,
           Invocation.method(
             #logIn,
@@ -157,14 +157,14 @@ class MockAuthRepositoryImpl extends _i1.Mock
             },
           ),
         )),
-      ) as _i6.Future<_i4.Auth>);
+      ) as _i6.Future<_i4.AuthEntity>);
 
   @override
-  _i6.Future<_i4.Auth?> getSavedSession() => (super.noSuchMethod(
+  _i6.Future<_i4.AuthEntity?> getSavedSession() => (super.noSuchMethod(
         Invocation.method(
           #getSavedSession,
           [],
         ),
-        returnValue: _i6.Future<_i4.Auth?>.value(),
-      ) as _i6.Future<_i4.Auth?>);
+        returnValue: _i6.Future<_i4.AuthEntity?>.value(),
+      ) as _i6.Future<_i4.AuthEntity?>);
 }

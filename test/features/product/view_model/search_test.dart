@@ -7,6 +7,7 @@ import 'search_test.mocks.dart';
 @GenerateMocks([ProductRepositoryImpl])
 void main() {
   group("ProductSearchViewModel", () {
+    setUp(() {});
     test("should fetch packages when build", () => null);
     test("should fetch filtered package when method search is invoked",
         () => null);

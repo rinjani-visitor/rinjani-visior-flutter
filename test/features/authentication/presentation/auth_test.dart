@@ -39,7 +39,7 @@ void main() {
     test(
         "login should return auth data, authRepository.logIn function should called 1 time",
         () async {
-      final expectAuthData = Auth(token: "token");
+      final expectAuthData = AuthEntity(accessToken: "token");
       final controller = container.read(authViewModelProvider.notifier);
       when(authRepository.logIn(email: "", password: ""))
           .thenAnswer((_) => Future.value(expectAuthData));
@@ -52,7 +52,7 @@ void main() {
     test(
         "Register should return auth data, authRepository.register function should called 1 time",
         () async {
-      final expectAuthData = Auth();
+      final expectAuthData = AuthEntity();
 
       final controller = container.read(authViewModelProvider.notifier);
 

@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:retrofit/http.dart';
 import 'package:rinjani_visitor/core/constant/network.dart';
-import 'package:rinjani_visitor/features/product/domain/data/response.dart';
+import 'package:rinjani_visitor/features/product/data/models/response.dart';
 
 part 'remote.g.dart';
 
