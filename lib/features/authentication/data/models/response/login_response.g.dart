@@ -8,33 +8,37 @@ part of 'login_response.dart';
 
 LoginResponse _$LoginResponseFromJson(Map<String, dynamic> json) =>
     LoginResponse(
-      error: json['error'] as bool,
+      errors:
+          (json['errors'] as List<dynamic>?)?.map((e) => e as String).toList(),
       message: json['message'] as String,
-      loginResult: json['loginResult'] == null
+      data: json['data'] == null
           ? null
-          : LoginResponseBody.fromJson(
-              json['loginResult'] as Map<String, dynamic>),
+          : LoginResponseBody.fromJson(json['data'] as Map<String, dynamic>),
+      accessToken: json['accessToken'] as String,
+      refreshToken: json['refreshToken'] as String,
     );
 
 Map<String, dynamic> _$LoginResponseToJson(LoginResponse instance) =>
     <String, dynamic>{
-      'error': instance.error,
+      'errors': instance.errors,
       'message': instance.message,
-      'loginResult': instance.loginResult,
+      'data': instance.data,
+      'accessToken': instance.accessToken,
+      'refreshToken': instance.refreshToken,
     };
 
 LoginResponseBody _$LoginResponseBodyFromJson(Map<String, dynamic> json) =>
     LoginResponseBody(
       userId: json['userId'] as String,
       email: json['email'] as String,
-      username: json['username'] as String,
-      token: json['token'] as String,
+      name: json['name'] as String,
+      role: json['role'] as String,
     );
 
 Map<String, dynamic> _$LoginResponseBodyToJson(LoginResponseBody instance) =>
     <String, dynamic>{
       'userId': instance.userId,
-      'username': instance.username,
+      'name': instance.name,
       'email': instance.email,
-      'token': instance.token,
+      'role': instance.role,
     };

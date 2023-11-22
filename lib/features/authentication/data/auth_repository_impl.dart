@@ -22,13 +22,13 @@ class AuthRepositoryImpl implements AuthRepository {
   AuthRepositoryImpl({required this.localSource, required this.remoteSource});
 
   @override
-  Future<Auth?> logout() async {
+  Future<AuthEntity?> logout() async {
     await localSource.clearSession();
     return null;
   }
 
   @override
-  Future<Auth> register(
+  Future<AuthEntity> register(
       {required String username,
       required String email,
       required String country,
@@ -44,9 +44,10 @@ class AuthRepositoryImpl implements AuthRepository {
           email: email,
           country: country,
           password: password,
+          confirmPassword: password,
           phone: phone));
       debugPrint("Repository: data from remote: ${response.toString()}");
-      if (response.user == null) return Auth();
+      if (response.user == null) return AuthEntity();
       return response.user!.toEntity();
     } catch (e) {
       throw ExtException.fromDioException(e);
@@ -54,15 +55,14 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Future<Auth> logIn({required String email, required String password}) async {
+  Future<AuthEntity> logIn({required String email, required String password}) async {
     debugPrint("$NAME: Login...");
     try {
       final response = await remoteSource
           .logIn(LoginRequest(password: password, email: email));
       debugPrint("Repository: new data from remote: ${response.toString()}");
-      final loginResult = response.loginResult!;
-      final result = loginResult.toEntity();
-      await localSource.setSession(result.token);
+      final result = response.toEntity();
+      await localSource.setSession(result.accessToken, result.refreshToken);
       return result;
     } on Exception catch (e) {
       debugPrint("$NAME: RawError: ${e.toString()}");
@@ -73,11 +73,11 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Future<Auth?> getSavedSession() async {
+  Future<AuthEntity?> getSavedSession() async {
     final sessionModel = await localSource.getSession();
-    try {
       debugPrint("$NAME : $sessionModel");
-      return Auth(token: sessionModel);
+    try {
+      return AuthEntity(accessToken: sessionModel?.accessToken, refreshToken: sessionModel?.refreshToken);
     } catch (e) {
       throw ExtException.fromDioException(e);
     }

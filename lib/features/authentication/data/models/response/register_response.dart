@@ -1,4 +1,4 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:json_annotation/json_annotation.dart';
 import 'package:rinjani_visitor/features/authentication/domain/entity/auth.dart';
 
 part 'register_response.g.dart';
@@ -32,7 +32,7 @@ class RegisterResponseBody {
       _$RegisterResponseBodyFromJson(json);
 
   Map<String, dynamic> toJson() => _$RegisterResponseBodyToJson(this);
-  Auth toEntity() => Auth(
+  AuthEntity toEntity() => AuthEntity(
         userId: userId,
         email: email,
         username: username,

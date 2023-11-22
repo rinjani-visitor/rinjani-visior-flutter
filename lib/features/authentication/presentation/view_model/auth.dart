@@ -7,15 +7,15 @@ import 'package:rinjani_visitor/features/authentication/domain/repo/auth_reposit
 import 'package:rinjani_visitor/features/authentication/domain/entity/auth.dart';
 
 final authViewModelProvider =
-    AsyncNotifierProvider<AuthViewModel, Auth?>(() => AuthViewModel());
+    AsyncNotifierProvider<AuthViewModel, AuthEntity?>(() => AuthViewModel());
 
-class AuthViewModel extends AsyncNotifier<Auth?> {
+class AuthViewModel extends AsyncNotifier<AuthEntity?> {
   // ignore: constant_identifier_names
   static const NAME = "AuthRiverpod";
   late final AuthRepository repository;
 
   @override
-  FutureOr<Auth?> build() async {
+  FutureOr<AuthEntity?> build() async {
     repository = ref.read(authRepositoryProvider);
     return await repository.getSavedSession();
   }
@@ -28,7 +28,7 @@ class AuthViewModel extends AsyncNotifier<Auth?> {
   }
 
   FutureOr<void> logOut() async {
-    if (state.hasValue && state.value?.token != null) {
+    if (state.hasValue && state.value?.refreshToken != null) {
       state = const AsyncLoading();
       debugPrint("$NAME : Logout emitted");
       state = await AsyncValue.guard(() async => await repository.logout());
