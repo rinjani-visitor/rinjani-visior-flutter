@@ -22,6 +22,7 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
   final _countryTxtController = TextEditingController();
   final _phoneNumberTxtController = TextEditingController();
   final _passwordTxtController = TextEditingController();
+  final _confirmPasswordTxtController = TextEditingController();
 
   late final authNotifier = ref.read(authViewModelProvider.notifier);
 
@@ -30,8 +31,9 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
     _usernameTxtController.dispose();
     _emailTxtController.dispose();
     _phoneNumberTxtController.dispose();
-    _passwordTxtController.dispose();
     _countryTxtController.dispose();
+    _passwordTxtController.dispose();
+    _confirmPasswordTxtController.dispose();
     super.dispose();
   }
 
@@ -46,7 +48,7 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
         _countryTxtController.text,
         _phoneNumberTxtController.text,
         _passwordTxtController.text,
-        _passwordTxtController.text);
+        _confirmPasswordTxtController.text);
 
     final state = ref.read(authViewModelProvider);
 
@@ -143,7 +145,22 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
                           }
                           return null;
                         },
-                      )
+                      ),
+                      InputFormField(
+                        label: 'Confirm password',
+                        secureText: true,
+                        textInputAction: TextInputAction.done,
+                        controller: _passwordTxtController,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return "Password required";
+                          }
+                          if (value != _passwordTxtController.text) {
+                            return "Password shoulsd be same";
+                          }
+                          return null;
+                        },
+                      ),
                     ],
                   ),
                 ),

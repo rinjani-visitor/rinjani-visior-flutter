@@ -14,7 +14,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
   late var _state = ref.read(authViewModelProvider);
 
   Future<void> syncToken() async {
-    final token = _state.asData?.value?.token;
+    final token = _state.asData?.value?.accessToken;
     if (token != null && token.isNotEmpty) {
       debugPrint("value $token");
       Navigator.pushReplacementNamed(context, '/home');

@@ -41,7 +41,6 @@ class _LoginPageState extends ConsumerState<LoginPage> {
   }
 
   void _submitForm() async {
-    return _toHome();
     if (_formKey.currentState!.validate()) {
       final email = emailTxtController.text;
       final pass = passwordTxtController.text;
