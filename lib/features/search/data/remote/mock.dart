@@ -5,7 +5,8 @@ class MockRemoteSource {
   Future<List<ProductEntity>> refresh(String val) async {
     await Future.delayed(Duration(seconds: 1));
     return mockPackages
-        .where((element) => element.title.contains(val))
+        .where((element) =>
+            element.title.toLowerCase().contains(val.toLowerCase()))
         .toList();
   }
 }

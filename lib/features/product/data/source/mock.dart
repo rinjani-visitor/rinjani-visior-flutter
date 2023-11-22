@@ -2,8 +2,12 @@ import 'package:rinjani_visitor/core/constant/product_package.dart';
 import 'package:rinjani_visitor/features/product/domain/entity/product.dart';
 
 class DataSourceMock {
-  Future<List<ProductEntity>> getProducts({int limit = 5, String query = "" }) async {
-    final filteredPackage = query.isNotEmpty ? mockPackages.where((element) => element.title.contains(query)) : mockPackages;
+  Future<List<ProductEntity>> getProducts(
+      {int limit = 5, String query = ""}) async {
+    final filteredPackage = query.isNotEmpty
+        ? mockPackages.where((element) =>
+            element.title.toLowerCase().contains(query.toLowerCase()))
+        : mockPackages;
     await Future.delayed(const Duration(seconds: 1));
     return filteredPackage.take(limit).toList();
   }
