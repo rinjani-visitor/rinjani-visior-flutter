@@ -1,18 +1,16 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:rinjani_visitor/core/domain/entity/base_response.dart';
 import 'package:rinjani_visitor/features/authentication/domain/entity/auth.dart';
 
 part 'register_response.g.dart';
 
 @JsonSerializable()
-class RegisterResponse {
-  final bool error;
-  final String message;
-  final RegisterResponseBody? user;
+class RegisterResponse extends BaseResponse<RegisterResponseBody?> {
+  RegisterResponse(
+      {required super.errors, required super.message, required super.data});
 
   factory RegisterResponse.fromJson(Map<String, dynamic> json) =>
       _$RegisterResponseFromJson(json);
-
-  RegisterResponse(this.error, this.message, this.user);
 
   Map<String, dynamic> toJson() => _$RegisterResponseToJson(this);
 }

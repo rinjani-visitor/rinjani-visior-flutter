@@ -16,9 +16,9 @@ import 'package:rinjani_visitor/widget/segmented_widget.dart';
 import 'package:rinjani_visitor/widget/status.dart';
 
 class ProductDetailPage extends ConsumerStatefulWidget {
-  final ProductEntity data;
+  final String id;
 
-  const ProductDetailPage({super.key, required this.data});
+  const ProductDetailPage({super.key, required this.id});
 
   @override
   ConsumerState<ProductDetailPage> createState() => _DetailPageState();
@@ -26,7 +26,7 @@ class ProductDetailPage extends ConsumerStatefulWidget {
 
 class _DetailPageState extends ConsumerState<ProductDetailPage> {
   // TODO: override later with server data
-  late final ProductEntity data = widget.data;
+  late final String id = widget.id;
   late final _viewModel = ref.read(orderViewModelProvider.notifier);
 
   late var _state = ref.read(orderViewModelProvider);
@@ -38,7 +38,6 @@ class _DetailPageState extends ConsumerState<ProductDetailPage> {
   @override
   void initState() {
     super.initState();
-
     debugPrint(_state.toString());
   }
 
@@ -51,7 +50,8 @@ class _DetailPageState extends ConsumerState<ProductDetailPage> {
             onSubmit: (value) {
               _state.person = int.parse(_personController.text);
               _viewModel.setDate(_dateController.text);
-              _viewModel.submitOrder(context, data);
+              _viewModel.submitOrder(
+                  context, ref.read(productDetailViewModelProvider(id)).value!);
             },
           );
         });
@@ -60,8 +60,7 @@ class _DetailPageState extends ConsumerState<ProductDetailPage> {
   @override
   Widget build(BuildContext context) {
     _state = ref.watch(orderViewModelProvider);
-    final currentProduct =
-        ref.watch(productDetailViewModelProvider(data.packageId));
+    final currentProduct = ref.watch(productDetailViewModelProvider(id));
     return CupertinoPageScaffold(
         navigationBar: const CupertinoNavigationBar(
           middle: Text('Detail Trip'),

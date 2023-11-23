@@ -17,7 +17,7 @@ class AuthLocalSource {
   final FlutterSecureStorage storage;
 
   AuthLocalSource({required this.storage});
-  
+
   Future<TokenModel?> getSession() async {
     final data = await storage.read(key: SESSION_KEY);
     debugPrint("$NAME : current session - $data");
@@ -26,13 +26,19 @@ class AuthLocalSource {
     }
     return null;
   }
-  Future<void> _setSession(TokenModel tokens) async {
+
+  Future<void> setSessionModel(TokenModel tokens) async {
+    debugPrint("$NAME : set session - ${tokens.toJson()}");
     await storage.write(key: SESSION_KEY, value: jsonEncode(tokens.toJson()));
   }
-  Future<void> setSession(String? accessToken, String? refreshToken) async {
-    await _setSession(TokenModel(refreshToken: refreshToken, accessToken: accessToken));
+
+  Future<void> setSession(String accessToken, String refreshToken) async {
+    await setSessionModel(
+        TokenModel(refreshToken: refreshToken, accessToken: accessToken));
   }
+
   Future<void> clearSession() async {
     await storage.delete(key: SESSION_KEY);
+    debugPrint("$NAME : clear session");
   }
 }

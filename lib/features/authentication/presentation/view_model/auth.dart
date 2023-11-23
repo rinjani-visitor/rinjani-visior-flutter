@@ -48,4 +48,14 @@ class AuthViewModel extends AsyncNotifier<AuthEntity?> {
         password: password));
     debugPrint("value ${state.asData?.value.toString()}");
   }
+
+  FutureOr<void> refresh() async {
+    if (state.hasValue && state.value?.refreshToken != null) {
+      state = const AsyncLoading();
+      debugPrint("$NAME : Refresh emitted");
+      state = await AsyncValue.guard(
+          () async => await repository.refresh(state.value));
+      debugPrint("AuthEntity: ${state.asData.toString()}");
+    }
+  }
 }

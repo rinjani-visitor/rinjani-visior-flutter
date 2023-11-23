@@ -10,6 +10,11 @@ abstract class ProductRemoteSource {
   factory ProductRemoteSource(Dio dio, {String? baseUrl}) =
       _ProductRemoteSource;
 
-  @GET("product")
-  Future<ProductResponse> getProduct();
+  @GET("/api/products")
+  Future<ProductResponse> getProduct({
+    @Header("Authorization") required String token,
+    @Query("status") bool? status,
+    @Query("category") String? category,
+    @Query("rating") int? rating,
+  });
 }

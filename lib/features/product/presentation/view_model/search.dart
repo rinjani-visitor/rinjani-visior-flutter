@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:rinjani_visitor/features/authentication/presentation/view_model/auth.dart';
 import 'package:rinjani_visitor/features/product/data/product_repository_impl.dart';
 import 'package:rinjani_visitor/features/product/domain/entity/product.dart';
 import 'package:rinjani_visitor/features/product/domain/product_repository.dart';
@@ -16,7 +17,8 @@ class ProductSearchViewModel extends AsyncNotifier<List<ProductEntity>> {
   @override
   FutureOr<List<ProductEntity>> build() async {
     productRepository = ref.read(productRepositoryProvider);
-    final data = await productRepository.getPackages(itemsPerPage: 40);
+    final data = await productRepository.getPackages(
+        ref.read(authViewModelProvider).value!.toAccessTokenAuthorization());
     debugPrint("Search Data: ${data.length}");
     return data;
   }
@@ -25,7 +27,10 @@ class ProductSearchViewModel extends AsyncNotifier<List<ProductEntity>> {
     debugPrint("Search Data: $name");
     state = const AsyncLoading();
 
-    state = await AsyncValue.guard(
-        () async => await productRepository.getPackages(query: name));
+    state = await AsyncValue.guard(() async =>
+        await productRepository.getPackages(ref
+            .read(authViewModelProvider)
+            .value!
+            .toAccessTokenAuthorization()));
   }
 }

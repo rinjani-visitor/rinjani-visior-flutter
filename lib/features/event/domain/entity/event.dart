@@ -5,7 +5,7 @@ class EventEntity {
   final String imgUrl;
   final DateTime date;
   final String description;
-  final List<ProductEntity> products;
+  final List<ProductDetailEntity> products;
 
   EventEntity(
       {required this.name,

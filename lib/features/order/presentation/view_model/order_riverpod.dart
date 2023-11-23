@@ -76,7 +76,7 @@ class OrderRiverpod extends AutoDisposeNotifier<OrderEntity> {
     debugPrint("Addon: ${state.addOn.length}");
   }
 
-  void submitOrder(BuildContext context, ProductEntity data) {
+  void submitOrder(BuildContext context, ProductDetailEntity data) {
     state.product = data;
     Navigator.pushNamed(context, "/booking/detail");
   }

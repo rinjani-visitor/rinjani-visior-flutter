@@ -13,7 +13,7 @@ class _ProductRemoteSource implements ProductRemoteSource {
     this._dio, {
     this.baseUrl,
   }) {
-    baseUrl ??= 'https://rinjani-api-tpe6yyswta-as.a.run.app/';
+    baseUrl ??= 'https://rinjani-api-v1-tpe6yyswta-as.a.run.app';
   }
 
   final Dio _dio;
@@ -21,10 +21,21 @@ class _ProductRemoteSource implements ProductRemoteSource {
   String? baseUrl;
 
   @override
-  Future<ProductResponse> getProduct() async {
+  Future<ProductResponse> getProduct({
+    required String token,
+    bool? status,
+    String? category,
+    int? rating,
+  }) async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      r'status': status,
+      r'category': category,
+      r'rating': rating,
+    };
+    queryParameters.removeWhere((k, v) => v == null);
+    final _headers = <String, dynamic>{r'Authorization': token};
+    _headers.removeWhere((k, v) => v == null);
     final Map<String, dynamic>? _data = null;
     final _result = await _dio
         .fetch<Map<String, dynamic>>(_setStreamType<ProductResponse>(Options(
@@ -34,7 +45,7 @@ class _ProductRemoteSource implements ProductRemoteSource {
     )
             .compose(
               _dio.options,
-              'product',
+              '/api/products',
               queryParameters: queryParameters,
               data: _data,
             )

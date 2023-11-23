@@ -5,8 +5,7 @@ import 'package:rinjani_visitor/core/constant/network.dart';
 
 import 'package:rinjani_visitor/features/authentication/data/models/request/login_request.dart';
 import 'package:rinjani_visitor/features/authentication/data/models/request/register_request.dart';
-import 'package:rinjani_visitor/features/authentication/data/models/response/login_response.dart';
-import 'package:rinjani_visitor/features/authentication/data/models/response/register_response.dart';
+import 'package:rinjani_visitor/features/authentication/data/models/response/response.dart';
 
 part 'remote.g.dart';
 
@@ -14,9 +13,12 @@ part 'remote.g.dart';
 abstract class AuthRemoteSource {
   factory AuthRemoteSource(Dio dio, {String? baseUrl}) = _AuthRemoteSource;
 
-  @POST("login")
+  @POST("/api/users/login")
   Future<LoginResponse> logIn(@Body() LoginRequest body);
 
-  @POST('register')
+  @POST('/api/users')
   Future<RegisterResponse> register(@Body() RegisterRequest body);
+
+  @POST('/api/users/refresh')
+  Future<RefreshResponse> refresh(@Header("Authorization") String refreshToken);
 }

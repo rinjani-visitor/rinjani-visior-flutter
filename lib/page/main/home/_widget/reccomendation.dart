@@ -10,12 +10,12 @@ import 'package:skeletonizer/skeletonizer.dart';
 class RecommendationList extends ConsumerWidget {
   const RecommendationList({super.key});
 
-  void _toProductDetail(BuildContext context, ProductEntity data) {
+  void _toProductDetail(BuildContext context, ProductDetailEntity data) {
     Navigator.push(
         context,
         CupertinoPageRoute(
             builder: (context) => ProductDetailPage(
-                  data: data,
+                  id: data,
                 )));
   }
 

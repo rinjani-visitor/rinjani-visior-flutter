@@ -58,7 +58,7 @@ class ExtException implements Exception {
   /// create error message at flutter pages / screen using toast or equivalent
   /// without `Exception:` text _shenaigans_.
   factory ExtException.fromDioException(Object exception) {
-    debugPrint("Exception Catched: ${exception.toString()}");
+    debugPrint("Raw Error: ${exception.toString()}");
     var message = "";
     try {
       if (exception is DioException) {

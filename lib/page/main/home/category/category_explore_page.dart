@@ -21,12 +21,12 @@ class CategoryExplorePage extends ConsumerStatefulWidget {
 }
 
 class _CategoryExplorePageState extends ConsumerState<CategoryExplorePage> {
-  void _pushToDetail(ProductEntity entity) {
+  void _pushToDetail(ProductDetailEntity entity) {
     Navigator.push(
         context,
         CupertinoPageRoute(
             builder: (context) => ProductDetailPage(
-                  data: entity,
+                  id: entity,
                 )));
   }
 

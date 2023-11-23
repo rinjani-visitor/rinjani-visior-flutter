@@ -6,6 +6,7 @@ part 'login_response.g.dart';
 
 @JsonSerializable()
 class LoginResponse extends BaseResponse<LoginResponseBody?> {
+  @JsonKey(name: "acessToken")
   final String accessToken;
   final String refreshToken;
 

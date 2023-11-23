@@ -97,7 +97,7 @@ class MockAuthRepositoryImpl extends _i1.Mock
       ) as _i6.Future<_i4.AuthEntity?>);
 
   @override
-  _i6.Future<_i4.AuthEntity> register({
+  _i6.Future<_i4.AuthEntity?> register({
     required String? username,
     required String? email,
     required String? country,
@@ -116,24 +116,11 @@ class MockAuthRepositoryImpl extends _i1.Mock
             #password: password,
           },
         ),
-        returnValue: _i6.Future<_i4.AuthEntity>.value(_FakeAuthEntity_2(
-          this,
-          Invocation.method(
-            #register,
-            [],
-            {
-              #username: username,
-              #email: email,
-              #country: country,
-              #phone: phone,
-              #password: password,
-            },
-          ),
-        )),
-      ) as _i6.Future<_i4.AuthEntity>);
+        returnValue: _i6.Future<_i4.AuthEntity?>.value(),
+      ) as _i6.Future<_i4.AuthEntity?>);
 
   @override
-  _i6.Future<_i4.AuthEntity> logIn({
+  _i6.Future<_i4.AuthEntity?> logIn({
     required String? email,
     required String? password,
   }) =>
@@ -146,18 +133,8 @@ class MockAuthRepositoryImpl extends _i1.Mock
             #password: password,
           },
         ),
-        returnValue: _i6.Future<_i4.AuthEntity>.value(_FakeAuthEntity_2(
-          this,
-          Invocation.method(
-            #logIn,
-            [],
-            {
-              #email: email,
-              #password: password,
-            },
-          ),
-        )),
-      ) as _i6.Future<_i4.AuthEntity>);
+        returnValue: _i6.Future<_i4.AuthEntity?>.value(),
+      ) as _i6.Future<_i4.AuthEntity?>);
 
   @override
   _i6.Future<_i4.AuthEntity?> getSavedSession() => (super.noSuchMethod(
@@ -167,4 +144,20 @@ class MockAuthRepositoryImpl extends _i1.Mock
         ),
         returnValue: _i6.Future<_i4.AuthEntity?>.value(),
       ) as _i6.Future<_i4.AuthEntity?>);
+
+  @override
+  _i6.Future<_i4.AuthEntity> refresh(_i4.AuthEntity? entity) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #refresh,
+          [entity],
+        ),
+        returnValue: _i6.Future<_i4.AuthEntity>.value(_FakeAuthEntity_2(
+          this,
+          Invocation.method(
+            #refresh,
+            [entity],
+          ),
+        )),
+      ) as _i6.Future<_i4.AuthEntity>);
 }

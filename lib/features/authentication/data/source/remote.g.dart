@@ -13,7 +13,7 @@ class _AuthRemoteSource implements AuthRemoteSource {
     this._dio, {
     this.baseUrl,
   }) {
-    baseUrl ??= 'https://rinjani-api-tpe6yyswta-as.a.run.app/';
+    baseUrl ??= 'https://rinjani-api-v1-tpe6yyswta-as.a.run.app';
   }
 
   final Dio _dio;
@@ -35,7 +35,7 @@ class _AuthRemoteSource implements AuthRemoteSource {
     )
             .compose(
               _dio.options,
-              'login',
+              '/api/users/login',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -63,7 +63,7 @@ class _AuthRemoteSource implements AuthRemoteSource {
     )
             .compose(
               _dio.options,
-              'register',
+              '/api/users',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -73,6 +73,34 @@ class _AuthRemoteSource implements AuthRemoteSource {
               baseUrl,
             ))));
     final value = RegisterResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<RefreshResponse> refresh(String refreshToken) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{r'Authorization': refreshToken};
+    _headers.removeWhere((k, v) => v == null);
+    final Map<String, dynamic>? _data = null;
+    final _result = await _dio
+        .fetch<Map<String, dynamic>>(_setStreamType<RefreshResponse>(Options(
+      method: 'POST',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/api/users/refresh',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final value = RefreshResponse.fromJson(_result.data!);
     return value;
   }
 

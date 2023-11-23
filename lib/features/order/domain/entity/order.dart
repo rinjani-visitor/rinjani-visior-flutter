@@ -1,7 +1,6 @@
 import 'package:rinjani_visitor/features/product/domain/entity/addon.dart';
 import 'package:rinjani_visitor/features/product/domain/entity/product.dart';
 
-
 class OrderEntity {
   OrderEntity({
     required this.date,
@@ -21,7 +20,7 @@ class OrderEntity {
   int get totalPrice => (product?.priceLow ?? 1 * person) + _addOnPricing;
 
   String? packageId;
-  ProductEntity? product;
+  ProductDetailEntity? product;
   int person;
   String? proofOfPayment;
   String date;

@@ -28,7 +28,7 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Future<AuthEntity> register(
+  Future<AuthEntity?> register(
       {required String username,
       required String email,
       required String country,
@@ -39,35 +39,36 @@ class AuthRepositoryImpl implements AuthRepository {
     try {
       debugPrint(
           "values: email - $email, country - $country, phone - $phone, password - ${password.isNotEmpty}");
-      final response = await remoteSource.register(RegisterRequest(
+      final request = RegisterRequest(
           username: username,
           email: email,
           country: country,
           password: password,
           confirmPassword: password,
-          phone: phone));
+          phone: phone);
+      final response = await remoteSource.register(request);
       debugPrint("Repository: data from remote: ${response.toString()}");
-      if (response.user == null) return AuthEntity();
-      return response.user!.toEntity();
+      if (response.data == null) return null;
+      return response.data!.toEntity();
     } catch (e) {
       throw ExtException.fromDioException(e);
     }
   }
 
   @override
-  Future<AuthEntity> logIn({required String email, required String password}) async {
-    debugPrint("$NAME: Login...");
+  Future<AuthEntity?> logIn(
+      {required String email, required String password}) async {
+    debugPrint("$NAME: Login..., email $email password $password");
     try {
       final response = await remoteSource
           .logIn(LoginRequest(password: password, email: email));
       debugPrint("Repository: new data from remote: ${response.toString()}");
       final result = response.toEntity();
-      await localSource.setSession(result.accessToken, result.refreshToken);
+      debugPrint("Repository: entity: ${result.toString()}");
+      await localSource.setSession(result.accessToken!, result.refreshToken!);
       return result;
     } on Exception catch (e) {
-      debugPrint("$NAME: RawError: ${e.toString()}");
       final err = ExtException.fromDioException(e);
-      debugPrint("$NAME: Error: ${err.toString()}");
       throw err;
     }
   }
@@ -75,9 +76,26 @@ class AuthRepositoryImpl implements AuthRepository {
   @override
   Future<AuthEntity?> getSavedSession() async {
     final sessionModel = await localSource.getSession();
-      debugPrint("$NAME : $sessionModel");
+    if (sessionModel == null) return null;
     try {
-      return AuthEntity(accessToken: sessionModel?.accessToken, refreshToken: sessionModel?.refreshToken);
+      return AuthEntity(
+          accessToken: sessionModel.accessToken,
+          refreshToken: sessionModel.refreshToken);
+    } catch (e) {
+      throw ExtException.fromDioException(e);
+    }
+  }
+
+  @override
+  Future<AuthEntity> refresh(AuthEntity? entity) async {
+    try {
+      final authdata = entity ?? await getSavedSession();
+      final newAccessToken =
+          await remoteSource.refresh(authdata!.toRefreshTokenAuthorization());
+      final newAuthData = authdata.copyWith(accessToken: newAccessToken.data);
+      await localSource.setSession(
+          newAuthData.accessToken, newAuthData.refreshToken);
+      return newAuthData;
     } catch (e) {
       throw ExtException.fromDioException(e);
     }

@@ -43,16 +43,16 @@ class _SearchPageState extends ConsumerState<SearchPage> {
                       return Padding(
                         padding: const EdgeInsets.only(bottom: 8.0),
                         child: BigProductCard(
-                            image: AssetImage(curr.imgUrl),
+                            image: NetworkImage(curr.thumbnail),
                             title: curr.title,
                             status: StatusColor.available,
-                            rating: curr.rating,
+                            rating: curr.rating.toString(),
                             onTap: () {
                               Navigator.push(
                                   context,
                                   CupertinoPageRoute(
                                       builder: (context) => ProductDetailPage(
-                                            data: curr,
+                                            id: curr,
                                           )));
                             },
                             price: curr.rangePricing),

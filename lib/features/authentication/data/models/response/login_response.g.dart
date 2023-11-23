@@ -14,7 +14,7 @@ LoginResponse _$LoginResponseFromJson(Map<String, dynamic> json) =>
       data: json['data'] == null
           ? null
           : LoginResponseBody.fromJson(json['data'] as Map<String, dynamic>),
-      accessToken: json['accessToken'] as String,
+      accessToken: json['acessToken'] as String,
       refreshToken: json['refreshToken'] as String,
     );
 
@@ -23,7 +23,7 @@ Map<String, dynamic> _$LoginResponseToJson(LoginResponse instance) =>
       'errors': instance.errors,
       'message': instance.message,
       'data': instance.data,
-      'accessToken': instance.accessToken,
+      'acessToken': instance.accessToken,
       'refreshToken': instance.refreshToken,
     };
 
