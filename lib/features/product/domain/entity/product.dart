@@ -24,10 +24,11 @@ class ProductEntity {
 /// '80$- 90$ / person'
 class ProductDetailEntity {
   ProductDetailEntity({
-    required this.packageId,
+    required this.id,
     required this.title,
     required this.location,
-    required this.imgUrl,
+    required this.imgs,
+    required this.images,
     required this.category,
     required this.priceLow,
     required this.rating,
@@ -44,10 +45,11 @@ class ProductDetailEntity {
 
   get rangePricing => '$priceLow\$ / person';
 
-  final String packageId;
+  final String id;
   final String title;
   final String location;
-  final String imgUrl;
+  final String imgs;
+  final List<String> images;
   final ProductCategory category;
   final String? locationUrl;
   final String? avaiabilityStatus;

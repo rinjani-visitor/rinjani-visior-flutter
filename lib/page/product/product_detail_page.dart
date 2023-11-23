@@ -84,7 +84,7 @@ class _DetailPageState extends ConsumerState<ProductDetailPage> {
                           children: [
                             _Header(
                                 title: data.title,
-                                imgUrl: data.imgUrl,
+                                imgUrl: data.imgs,
                                 location: data.location,
                                 rating: data.rating,
                                 rangePricing: data.rangePricing,

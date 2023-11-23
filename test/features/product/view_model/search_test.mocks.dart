@@ -69,7 +69,7 @@ class MockProductRepositoryImpl extends _i1.Mock
       ) as _i2.ProductRemoteSource);
 
   @override
-  _i5.Future<List<_i3.ProductEntity>> getPackages(
+  _i5.Future<List<_i3.ProductEntity>> getProducts(
     String? token, {
     _i6.ProductCategory? category,
     bool? avaiable,
@@ -77,7 +77,7 @@ class MockProductRepositoryImpl extends _i1.Mock
   }) =>
       (super.noSuchMethod(
         Invocation.method(
-          #getPackages,
+          #getProducts,
           [token],
           {
             #category: category,

@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:rinjani_visitor/core/constant/product_package.dart';
 import 'package:rinjani_visitor/core/presentation/utils/internationalization.dart';
 import 'package:rinjani_visitor/features/event/domain/entity/event.dart';
 import 'package:rinjani_visitor/page/product/product_detail_page.dart';
@@ -14,11 +13,7 @@ final mockdata = EventEntity(
     imgUrl: "assets/rinjani.jpeg",
     date: DateTime.now(),
     description: "",
-    products: [
-      mockPackages[0],
-      mockPackages[1],
-      mockPackages[2],
-    ]);
+    products: []);
 
 class EventDetailPage extends StatefulWidget {
   const EventDetailPage({super.key});
@@ -147,10 +142,10 @@ class _EventDetailPageState extends State<EventDetailPage> {
                           context,
                           CupertinoPageRoute(
                               builder: (context) => ProductDetailPage(
-                                    id: data.products[index].packageId,
+                                    id: data.products[index].id,
                                   )));
                     },
-                    image: AssetImage(current.imgUrl),
+                    image: AssetImage(current.imgs),
                     title: current.title,
                     price: current.rangePricing,
                     status: StatusColor.available,
