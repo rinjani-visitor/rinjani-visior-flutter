@@ -6,10 +6,9 @@ import 'package:rinjani_visitor/features/product/data/product_repository_impl.da
 import 'package:rinjani_visitor/features/product/domain/category_enum.dart';
 import 'package:rinjani_visitor/features/product/domain/entity/product.dart';
 
-final productCategoryViewModelProvider = AutoDisposeFamilyAsyncNotifierProvider<
-    ProductCategoryViewModel,
-    List<ProductEntity>,
-    ProductCategory>(ProductCategoryViewModel.new);
+final productCategoryViewModelProvider =
+    AutoDisposeAsyncNotifierProvider.family<ProductCategoryViewModel,
+        List<ProductEntity>, ProductCategory>(ProductCategoryViewModel.new);
 
 class ProductCategoryViewModel extends AutoDisposeFamilyAsyncNotifier<
     List<ProductEntity>, ProductCategory> {

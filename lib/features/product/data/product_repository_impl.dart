@@ -22,6 +22,7 @@ class ProductRepositoryImpl implements ProductRespository {
       {ProductCategory? category, bool? avaiable, int? rating}) async {
     try {
       developer.log("Get Product", name: runtimeType.toString());
+      developer.log("category: ${category}", name: runtimeType.toString());
       final result = await remote.getProducts(
           token: token,
           category: category?.toString(),
