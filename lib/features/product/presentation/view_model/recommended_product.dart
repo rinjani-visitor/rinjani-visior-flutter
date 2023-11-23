@@ -10,11 +10,17 @@ final recommendedProductViewModelProvider =
         () => RecommendedProductViewModel());
 
 class RecommendedProductViewModel extends AsyncNotifier<List<ProductEntity>> {
+  Future<List<ProductEntity>> get _getProducts async =>
+      await ref.read(productRepositoryProvider).getProducts(
+          ref.read(authViewModelProvider).value!.toAccessTokenAuthorization());
   @override
   FutureOr<List<ProductEntity>> build() async {
-    final repo = ref.read(productRepositoryProvider);
-    final packages = await repo.getPackages(
-        ref.read(authViewModelProvider).value!.toAccessTokenAuthorization());
+    final packages = await _getProducts;
     return packages;
+  }
+
+  void refresh() async {
+    state = AsyncValue.loading();
+    state = await AsyncValue.guard(() async => await _getProducts);
   }
 }

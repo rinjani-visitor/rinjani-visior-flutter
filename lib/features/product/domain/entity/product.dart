@@ -4,7 +4,7 @@ import 'package:rinjani_visitor/features/product/domain/category_enum.dart';
 class ProductEntity {
   final String productId;
   final String title;
-  final String avaiable;
+  final bool avaiable;
   final double rating;
   final String location;
   final String thumbnail;

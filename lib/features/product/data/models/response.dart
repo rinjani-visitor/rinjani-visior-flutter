@@ -20,7 +20,7 @@ class ProductResponseBody {
   final String productId;
   final String title;
   @JsonKey(name: "status")
-  final String avaiable;
+  final bool avaiable;
   final double rating;
   final String location;
   final String thumbnail;

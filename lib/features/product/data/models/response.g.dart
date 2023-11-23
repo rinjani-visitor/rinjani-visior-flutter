@@ -27,7 +27,7 @@ ProductResponseBody _$ProductResponseBodyFromJson(Map<String, dynamic> json) =>
     ProductResponseBody(
       productId: json['productId'] as String,
       title: json['title'] as String,
-      avaiable: json['status'] as String,
+      avaiable: json['status'] as bool,
       rating: (json['rating'] as num).toDouble(),
       location: json['location'] as String,
       thumbnail: json['thumbnail'] as String,

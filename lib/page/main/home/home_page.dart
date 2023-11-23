@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rinjani_visitor/features/authentication/presentation/view_model/auth.dart';
 import 'package:rinjani_visitor/core/presentation/theme/theme.dart';
 import 'package:badges/badges.dart' as badges;
+import 'package:rinjani_visitor/features/product/presentation/view_model/recommended_product.dart';
 
 import '_widget/category_selector.dart';
 import '_widget/event_list.dart';
@@ -19,6 +20,11 @@ class HomePage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    Future<void> _refresh() async {
+      ref.read(recommendedProductViewModelProvider.notifier).refresh();
+      await Future.delayed(const Duration(seconds: 2));
+    }
+
     final username = ref.watch(authViewModelProvider).value?.username ?? "User";
     return CupertinoPageScaffold(
       backgroundColor: backgroundColor,
@@ -42,7 +48,7 @@ class HomePage extends ConsumerWidget {
         ],
         body: RefreshIndicator.adaptive(
           onRefresh: () async {
-            await Future.delayed(const Duration(seconds: 2));
+            await _refresh();
           },
           child: ListView(
             padding: const EdgeInsets.symmetric(vertical: 16),

@@ -43,9 +43,14 @@ enum ExceptionType {
 /// Extended exception, this should be used instead of generic exception
 class ExtException implements Exception {
   final String? message;
+  final String? errorMessage;
   final int? code;
   final ExceptionType exceptionType;
-  ExtException({required this.exceptionType, this.message, this.code});
+  ExtException(
+      {required this.exceptionType,
+      this.message,
+      this.errorMessage,
+      this.code});
   @override
   String toString() {
     return "$message";
@@ -62,6 +67,7 @@ class ExtException implements Exception {
     var message = "";
     try {
       if (exception is DioException) {
+        final String? errorMessage = exception.response?.data["errors"][0];
         var code = exception.response?.statusCode;
         ExceptionType exceptionType = ExceptionType.unrecognizedException;
         switch (exception.type) {
@@ -106,7 +112,10 @@ class ExtException implements Exception {
             exceptionType = ExceptionType.unrecognizedException;
         }
         return ExtException(
-            exceptionType: exceptionType, message: message, code: code);
+            exceptionType: exceptionType,
+            message: message,
+            errorMessage: errorMessage,
+            code: code);
       }
     } on Exception catch (e) {
       debugPrint("Exception Catched: ${e.toString()}");

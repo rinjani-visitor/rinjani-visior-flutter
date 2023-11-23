@@ -11,10 +11,10 @@ abstract class ProductRemoteSource {
       _ProductRemoteSource;
 
   @GET("/api/products")
-  Future<ProductResponse> getProduct({
+  Future<ProductResponse> getProducts({
     @Header("Authorization") required String token,
-    @Query("status") bool? status,
+    @Query("status") String? status,
     @Query("category") String? category,
-    @Query("rating") int? rating,
+    @Query("rating") String? rating,
   });
 }

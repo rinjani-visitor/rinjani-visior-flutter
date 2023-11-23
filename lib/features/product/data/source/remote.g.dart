@@ -21,11 +21,11 @@ class _ProductRemoteSource implements ProductRemoteSource {
   String? baseUrl;
 
   @override
-  Future<ProductResponse> getProduct({
+  Future<ProductResponse> getProducts({
     required String token,
-    bool? status,
+    String? status,
     String? category,
-    int? rating,
+    String? rating,
   }) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{

@@ -16,7 +16,7 @@ class ProductCategoryViewModel extends AutoDisposeFamilyAsyncNotifier<
   @override
   FutureOr<List<ProductEntity>> build(ProductCategory arg) async {
     final repo = ref.read(productRepositoryProvider);
-    final data = await repo.getPackages(
+    final data = await repo.getProducts(
         ref.read(authViewModelProvider).value!.toAccessTokenAuthorization(),
         category: arg);
     return data;

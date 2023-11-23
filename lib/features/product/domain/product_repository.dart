@@ -3,7 +3,7 @@ import 'package:rinjani_visitor/features/product/domain/entity/product.dart';
 
 abstract class ProductRespository {
   ///get packages from API with additional query (page, item, category)
-  Future<List<ProductEntity>> getPackages(String token,
+  Future<List<ProductEntity>> getProducts(String token,
       {ProductCategory? category, bool? avaiable, int? rating});
 
   /// get package detail, with addons avaiable, etc.

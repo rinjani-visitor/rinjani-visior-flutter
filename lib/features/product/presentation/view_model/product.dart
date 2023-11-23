@@ -14,7 +14,7 @@ class ProductViewModel extends AutoDisposeAsyncNotifier<List<ProductEntity>> {
   @override
   FutureOr<List<ProductEntity>> build() async {
     final repo = ref.read(productRepositoryProvider);
-    final packages = await repo.getPackages(
+    final packages = await repo.getProducts(
         ref.read(authViewModelProvider).value!.toAccessTokenAuthorization());
     return packages;
   }
@@ -23,7 +23,7 @@ class ProductViewModel extends AutoDisposeAsyncNotifier<List<ProductEntity>> {
       ProductCategory category) async {
     final repo = ref.read(productRepositoryProvider);
     state = const AsyncLoading();
-    state = await AsyncValue.guard(() async => await repo.getPackages(
+    state = await AsyncValue.guard(() async => await repo.getProducts(
         ref.read(authViewModelProvider).value!.toAccessTokenAuthorization(),
         category: category));
     return state.value ?? [];
