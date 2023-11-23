@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:rinjani_visitor/core/exception/exception.dart';
 import 'package:rinjani_visitor/core/presentation/theme/theme.dart';
 import 'package:rinjani_visitor/features/product/domain/entity/product.dart';
 import 'package:rinjani_visitor/features/product/presentation/view_model/recommended_product.dart';
@@ -54,7 +55,10 @@ class RecommendationList extends ConsumerWidget {
             );
           },
           error: (error, stackTrace) {
-            return Center(child: Text("error $error"));
+            if (error is ExtException) {
+              return Center(child: Text("${error.errorMessage}"));
+            }
+            return Center(child: Text("error ${error}"));
           },
           loading: () => SingleChildScrollView(
             scrollDirection: Axis.horizontal,
