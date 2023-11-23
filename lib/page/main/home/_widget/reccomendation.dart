@@ -10,12 +10,12 @@ import 'package:skeletonizer/skeletonizer.dart';
 class RecommendationList extends ConsumerWidget {
   const RecommendationList({super.key});
 
-  void _toProductDetail(BuildContext context, ProductDetailEntity data) {
+  void _toProductDetail(BuildContext context, String id) {
     Navigator.push(
         context,
         CupertinoPageRoute(
             builder: (context) => ProductDetailPage(
-                  id: data,
+                  id: id,
                 )));
   }
 
@@ -45,10 +45,10 @@ class RecommendationList extends ConsumerWidget {
                 children: List.generate(data.length, (index) {
                   final current = data[index];
                   return SmallProductCard(
-                      onTap: () => _toProductDetail(context, current),
+                      onTap: () => _toProductDetail(context, current.productId),
                       title: current.title,
-                      rating: current.rating,
-                      image: AssetImage(current.imgUrl));
+                      rating: current.rating.toString(),
+                      image: NetworkImage(current.thumbnail));
                 }),
               ),
             );

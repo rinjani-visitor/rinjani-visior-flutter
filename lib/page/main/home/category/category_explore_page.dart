@@ -21,12 +21,12 @@ class CategoryExplorePage extends ConsumerStatefulWidget {
 }
 
 class _CategoryExplorePageState extends ConsumerState<CategoryExplorePage> {
-  void _pushToDetail(ProductDetailEntity entity) {
+  void _pushToDetail(String id) {
     Navigator.push(
         context,
         CupertinoPageRoute(
             builder: (context) => ProductDetailPage(
-                  id: entity,
+                  id: id,
                 )));
   }
 
@@ -41,10 +41,7 @@ class _CategoryExplorePageState extends ConsumerState<CategoryExplorePage> {
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: state.when(
-            data: (data) {
-              final filteredData = data
-                  .where((element) => element.category == widget.category)
-                  .toList();
+            data: (filteredData) {
               return filteredData.isNotEmpty
                   ? ListView.builder(
                       itemCount: filteredData.length,
@@ -53,12 +50,12 @@ class _CategoryExplorePageState extends ConsumerState<CategoryExplorePage> {
                         return Padding(
                           padding: const EdgeInsets.only(bottom: 8.0),
                           child: BigProductCard(
-                              image: AssetImage(current.imgUrl),
+                              image: AssetImage(current.thumbnail),
                               title: current.title,
-                              rating: current.rating,
+                              rating: current.rating.toString(),
                               status: StatusColor.available,
-                              onTap: () => _pushToDetail(current),
-                              price: current.rangePricing),
+                              onTap: () => _pushToDetail(current.productId),
+                              price: "${current.lowestPrice.toString()}\$"),
                         );
                       },
                     )

@@ -52,10 +52,10 @@ class _SearchPageState extends ConsumerState<SearchPage> {
                                   context,
                                   CupertinoPageRoute(
                                       builder: (context) => ProductDetailPage(
-                                            id: curr,
+                                            id: curr.productId,
                                           )));
                             },
-                            price: curr.rangePricing),
+                            price: "${curr.lowestPrice}\$"),
                       );
                     },
                   )

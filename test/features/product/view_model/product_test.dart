@@ -5,9 +5,21 @@ import 'package:mockito/mockito.dart';
 import 'package:rinjani_visitor/core/constant/product_package.dart';
 import 'package:rinjani_visitor/features/product/data/product_repository_impl.dart';
 import 'package:rinjani_visitor/features/product/domain/category_enum.dart';
+import 'package:rinjani_visitor/features/product/domain/entity/product.dart';
 import 'package:rinjani_visitor/features/product/presentation/view_model/product.dart';
 
 import 'product_test.mocks.dart';
+
+final expectedData = [
+  ProductEntity(
+      productId: "productId",
+      title: "title",
+      avaiable: "avaiable",
+      rating: 0,
+      location: "location",
+      thumbnail: "thumbnail",
+      lowestPrice: 0)
+];
 
 @GenerateMocks([ProductRepositoryImpl])
 void main() {
@@ -23,20 +35,16 @@ void main() {
     });
 
     test('should fetch packages on build', () async {
-      final expectedData = mockPackages;
-      when(productRepository.getPackages()).thenAnswer(
+      when(productRepository.getPackages("")).thenAnswer(
           (_) => Future.value(expectedData.getRange(0, 10).toList()));
       await expectLater(container.read(productViewModelProvider.future),
           completion(isNotNull));
 
-      verify(productRepository.getPackages()).called(1);
+      verify(productRepository.getPackages("")).called(1);
     });
 
     test('should fetch package with matches category', () async {
-      final expectedData = mockPackages
-          .where((element) => element.category == ProductCategory.culture)
-          .toList();
-      when(productRepository.getPackages(category: ProductCategory.culture))
+      when(productRepository.getPackages("", category: ProductCategory.culture))
           .thenAnswer(
               (_) => Future.value(expectedData.getRange(0, 10).toList()));
       final result = await container
@@ -44,7 +52,8 @@ void main() {
           .getProductByCategory(ProductCategory.culture);
       expect(result, isNotNull);
       expect(result, isNotEmpty);
-      verify(productRepository.getPackages(category: ProductCategory.culture))
+      verify(productRepository.getPackages("",
+              category: ProductCategory.culture))
           .called(1);
     });
   });
