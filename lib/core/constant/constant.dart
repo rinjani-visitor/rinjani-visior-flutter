@@ -1,19 +1,5 @@
-enum RouteMap {
-  root,
-  welcome,
-  home,
-  event,
-  wishlist,
-  profile,
-  search,
-}
+// ignore_for_file: constant_identifier_names
 
 enum Language { system, enUS, enCK, idID }
 
-enum ConstantProps {
-  apiUrl,
-}
-
-const Map<ConstantProps, dynamic> constant = {
-  ConstantProps.apiUrl: "http://localhost"
-};
+const API_URL = "https://rinjani-api-v1-tpe6yyswta-as.a.run.app";
