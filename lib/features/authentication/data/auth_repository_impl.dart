@@ -1,5 +1,5 @@
 // ignore_for_file: constant_identifier_names
-
+import 'dart:developer' as developer;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rinjani_visitor/core/exception/exception.dart';
@@ -34,10 +34,10 @@ class AuthRepositoryImpl implements AuthRepository {
       required String country,
       required String phone,
       required String password}) async {
-    debugPrint("$NAME: Register...");
+    developer.log("$NAME: Register...");
 
     try {
-      debugPrint(
+      developer.log(
           "values: email - $email, country - $country, phone - $phone, password - ${password.isNotEmpty}");
       final request = RegisterRequest(
           username: username,
@@ -47,7 +47,7 @@ class AuthRepositoryImpl implements AuthRepository {
           confirmPassword: password,
           phone: phone);
       final response = await remoteSource.register(request);
-      debugPrint("Repository: data from remote: ${response.toString()}");
+      developer.log("Repository: data from remote: ${response.toString()}");
       if (response.data == null) return null;
       return response.data!.toEntity();
     } catch (e) {
@@ -58,13 +58,13 @@ class AuthRepositoryImpl implements AuthRepository {
   @override
   Future<AuthEntity?> logIn(
       {required String email, required String password}) async {
-    debugPrint("$NAME: Login..., email $email password $password");
+    developer.log("$NAME: Login..., email $email password $password");
     try {
       final response = await remoteSource
           .logIn(LoginRequest(password: password, email: email));
-      debugPrint("Repository: new data from remote: ${response.toString()}");
+      developer.log("Repository: new data from remote: ${response.toString()}");
       final result = response.toEntity();
-      debugPrint("Repository: entity: ${result.toString()}");
+      developer.log("Repository: entity: ${result.toString()}");
       await localSource.setSession(result.accessToken!, result.refreshToken!);
       return result;
     } on Exception catch (e) {
@@ -88,14 +88,22 @@ class AuthRepositoryImpl implements AuthRepository {
 
   @override
   Future<AuthEntity> refresh(AuthEntity? entity) async {
+    developer.log("$NAME: Refresh...");
     try {
-      final authdata = entity ?? await getSavedSession();
+      final authdata = await getSavedSession();
+      developer.log("AccessToken : ${authdata?.accessToken}");
+      developer
+          .log("RefreshToken : ${authdata?.toRefreshTokenAuthorization()}");
       final newAccessToken =
           await remoteSource.refresh(authdata!.toRefreshTokenAuthorization());
-      final newAuthData = authdata.copyWith(accessToken: newAccessToken.data);
+      developer.log("NewAccessToken : ${newAccessToken.accessToken}",
+          name: runtimeType.toString());
+      authdata.accessToken = newAccessToken.accessToken;
+      developer.log("authEntity : ${authdata.toString()}",
+          name: runtimeType.toString());
       await localSource.setSession(
-          newAuthData.accessToken, newAuthData.refreshToken);
-      return newAuthData;
+          newAccessToken.accessToken, newAccessToken.refreshToken);
+      return authdata;
     } catch (e) {
       throw ExtException.fromDioException(e);
     }

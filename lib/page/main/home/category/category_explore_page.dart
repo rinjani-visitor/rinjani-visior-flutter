@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:rinjani_visitor/core/exception/exception.dart';
 import 'package:rinjani_visitor/features/product/domain/category_enum.dart';
 import 'package:rinjani_visitor/features/product/domain/entity/product.dart';
+import 'package:rinjani_visitor/features/product/presentation/view_model/category.dart';
 import 'package:rinjani_visitor/features/product/presentation/view_model/search.dart';
 import 'package:rinjani_visitor/page/product/product_detail_page.dart';
 import 'package:rinjani_visitor/core/presentation/theme/theme.dart';
@@ -32,7 +34,7 @@ class _CategoryExplorePageState extends ConsumerState<CategoryExplorePage> {
 
   @override
   Widget build(BuildContext context) {
-    final state = ref.watch(productSearchViewModelProvider);
+    final state = ref.watch(productCategoryViewModelProvider(widget.category));
     return CupertinoPageScaffold(
         backgroundColor: backgroundColor,
         navigationBar: CupertinoNavigationBar(
@@ -50,7 +52,7 @@ class _CategoryExplorePageState extends ConsumerState<CategoryExplorePage> {
                         return Padding(
                           padding: const EdgeInsets.only(bottom: 8.0),
                           child: BigProductCard(
-                              image: AssetImage(current.thumbnail),
+                              image: NetworkImage(current.thumbnail),
                               title: current.title,
                               rating: current.rating.toString(),
                               status: StatusColor.available,
@@ -62,6 +64,11 @@ class _CategoryExplorePageState extends ConsumerState<CategoryExplorePage> {
                   : const Center(child: Text('Sorry, product not avaiable'));
             },
             error: (error, stackTrace) {
+              if (error is ExtException) {
+                return Center(
+                  child: Text("${error.errorMessage}"),
+                );
+              }
               return Center(
                 child: Text(error.toString()),
               );

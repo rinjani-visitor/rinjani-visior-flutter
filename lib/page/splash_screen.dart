@@ -26,6 +26,8 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
   @override
   void initState() {
     super.initState();
+    ref.read(authViewModelProvider.notifier).refresh();
+
     debugPrint("${_state.asData?.value.toString()}");
   }
 

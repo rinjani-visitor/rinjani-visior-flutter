@@ -19,6 +19,6 @@ abstract class AuthRemoteSource {
   @POST('/api/users')
   Future<RegisterResponse> register(@Body() RegisterRequest body);
 
-  @POST('/api/users/refresh')
+  @GET('/api/users/refresh')
   Future<RefreshResponse> refresh(@Header("Authorization") String refreshToken);
 }
