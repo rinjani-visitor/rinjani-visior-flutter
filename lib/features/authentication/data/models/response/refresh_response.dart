@@ -1,5 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:rinjani_visitor/core/domain/entity/base_response.dart';
+import 'package:rinjani_visitor/features/authentication/domain/entity/auth.dart';
 
 part 'refresh_response.g.dart';
 
@@ -18,6 +19,14 @@ class RefreshResponse extends BaseResponse<RefreshResponseBody?> {
   factory RefreshResponse.fromJson(Map<String, dynamic> json) =>
       _$RefreshResponseFromJson(json);
   Map<String, dynamic> toJson() => _$RefreshResponseToJson(this);
+
+  AuthEntity toEntity() => AuthEntity(
+        userId: data?.userId,
+        email: data?.email,
+        username: data?.name,
+        accessToken: accessToken,
+        refreshToken: refreshToken,
+      );
 }
 
 @JsonSerializable()

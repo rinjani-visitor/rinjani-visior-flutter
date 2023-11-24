@@ -8,6 +8,7 @@ import 'package:rinjani_visitor/features/authentication/data/source/local.dart';
 import 'package:rinjani_visitor/features/authentication/data/source/remote.dart';
 import 'package:rinjani_visitor/features/authentication/data/models/request/login_request.dart';
 import 'package:rinjani_visitor/features/authentication/data/models/request/register_request.dart';
+import 'package:rinjani_visitor/features/authentication/domain/entity/auth_detail.dart';
 import 'package:rinjani_visitor/features/authentication/domain/repo/auth_repository.dart';
 import 'package:rinjani_visitor/features/authentication/domain/entity/auth.dart';
 
@@ -94,16 +95,27 @@ class AuthRepositoryImpl implements AuthRepository {
       developer.log("AccessToken : ${authdata?.accessToken}");
       developer
           .log("RefreshToken : ${authdata?.toRefreshTokenAuthorization()}");
-      final newAccessToken =
+      final response =
           await remoteSource.refresh(authdata!.toRefreshTokenAuthorization());
-      developer.log("NewAccessToken : ${newAccessToken.accessToken}",
+      developer.log("NewAccessToken : ${response.accessToken}",
           name: runtimeType.toString());
-      authdata.accessToken = newAccessToken.accessToken;
+      authdata.accessToken = response.accessToken;
       developer.log("authEntity : ${authdata.toString()}",
           name: runtimeType.toString());
-      await localSource.setSession(
-          newAccessToken.accessToken, newAccessToken.refreshToken);
-      return authdata;
+      await localSource.setSession(response.accessToken, response.refreshToken);
+      return response.toEntity();
+    } catch (e) {
+      throw ExtException.fromDioException(e);
+    }
+  }
+
+  @override
+  Future<AuthDetailEntity?> userDetail(String accessToken, String id) async {
+    developer.log("Get user detail with id $id", name: runtimeType.toString());
+    try {
+      final data = await remoteSource.userDetail(accessToken, id);
+      final result = data.toEntity();
+      return result;
     } catch (e) {
       throw ExtException.fromDioException(e);
     }

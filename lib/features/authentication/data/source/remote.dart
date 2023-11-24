@@ -7,18 +7,21 @@ import 'package:rinjani_visitor/features/authentication/data/models/request/logi
 import 'package:rinjani_visitor/features/authentication/data/models/request/register_request.dart';
 import 'package:rinjani_visitor/features/authentication/data/models/response/response.dart';
 
+import '../models/response/user_detail_response.dart';
+
 part 'remote.g.dart';
 
 @RestApi(baseUrl: restApiBaseUrl)
 abstract class AuthRemoteSource {
   factory AuthRemoteSource(Dio dio, {String? baseUrl}) = _AuthRemoteSource;
 
-  @POST("/api/users/login")
-  Future<LoginResponse> logIn(@Body() LoginRequest body);
-
   @POST('/api/users')
   Future<RegisterResponse> register(@Body() RegisterRequest body);
-
+  @POST("/api/users/login")
+  Future<LoginResponse> logIn(@Body() LoginRequest body);
   @GET('/api/users/refresh')
   Future<RefreshResponse> refresh(@Header("Authorization") String refreshToken);
+  @GET('/api/users/{id}')
+  Future<UserDetailResponse> userDetail(
+      @Header("Authorization") String accessToken, @Path("id") String id);
 }
