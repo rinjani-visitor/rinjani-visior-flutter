@@ -31,6 +31,7 @@ ProductResponseBody _$ProductResponseBodyFromJson(Map<String, dynamic> json) =>
       rating: (json['rating'] as num).toDouble(),
       location: json['location'] as String,
       thumbnail: json['thumbnail'] as String,
+      category: json['category'] as String,
       lowestPrice: json['lowestPrice'] as int,
     );
 
@@ -39,6 +40,7 @@ Map<String, dynamic> _$ProductResponseBodyToJson(
     <String, dynamic>{
       'productId': instance.productId,
       'title': instance.title,
+      'category': instance.category,
       'status': instance.avaiable,
       'rating': instance.rating,
       'location': instance.location,

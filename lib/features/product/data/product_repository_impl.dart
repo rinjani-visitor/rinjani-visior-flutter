@@ -38,7 +38,20 @@ class ProductRepositoryImpl implements ProductRespository {
   }
 
   @override
-  Future<ProductDetailEntity> bookingPackage(String token,
+  Future<ProductDetailEntity?> getPackageDetail(String token,
+      {required String productId, required String category}) async {
+    try {
+      final data = await remote.getPackageDetail(
+          token: token, category: category, id: productId);
+      return data.toEntity();
+      ;
+    } catch (e) {
+      throw ExtException.fromDioException(e);
+    }
+  }
+
+  @override
+  Future<ProductDetailEntity?> bookingPackage(String token,
       {required String packageId,
       List<String>? addOns,
       String? paymentMethod}) {
@@ -49,13 +62,6 @@ class ProductRepositoryImpl implements ProductRespository {
   @override
   Future<void> cancelPackage(String token, {required String packageId}) {
     // TODO: implement cancelPackage
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<ProductDetailEntity> getPackageDetail(String token,
-      {required String packageId}) {
-    // TODO: implement getPackageDetail
     throw UnimplementedError();
   }
 }

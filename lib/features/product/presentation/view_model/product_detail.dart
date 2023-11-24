@@ -8,15 +8,16 @@ import 'package:rinjani_visitor/features/product/domain/entity/product.dart';
 final productDetailViewModelProvider = AutoDisposeAsyncNotifierProvider.family<
     ProductDetailViewModel,
     ProductDetailEntity?,
-    String>(ProductDetailViewModel.new);
+    List<String>>(ProductDetailViewModel.new);
 
 class ProductDetailViewModel
-    extends AutoDisposeFamilyAsyncNotifier<ProductDetailEntity?, String> {
+    extends AutoDisposeFamilyAsyncNotifier<ProductDetailEntity?, List<String>> {
   @override
-  FutureOr<ProductDetailEntity?> build(String arg) async {
+  FutureOr<ProductDetailEntity?> build(List<String> arg) async {
     final data = await ref.read(productRepositoryProvider).getPackageDetail(
         ref.read(authViewModelProvider).value!.toAccessTokenAuthorization(),
-        packageId: arg);
+        category: arg[0],
+        productId: arg[1]);
     await Future.delayed(const Duration(seconds: 1));
     return data;
   }

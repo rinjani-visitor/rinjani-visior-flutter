@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rinjani_visitor/features/order/domain/entity/order.dart';
 import 'package:rinjani_visitor/features/product/data/product_repository_impl.dart';
-import 'package:rinjani_visitor/features/product/domain/entity/addon.dart';
 import 'package:rinjani_visitor/features/product/domain/entity/product.dart';
 import 'package:rinjani_visitor/features/product/domain/product_repository.dart';
 
@@ -19,7 +18,7 @@ class OrderRiverpod extends AutoDisposeNotifier<OrderEntity> {
     _productRepository = ref.watch(productRepositoryProvider);
     return OrderEntity(
         date: DateTime.timestamp().toIso8601String(),
-        addOn: <AddOnEntity>{},
+        addOn: <String>{},
         person: 0,
         time: <String>{});
   }
@@ -27,7 +26,7 @@ class OrderRiverpod extends AutoDisposeNotifier<OrderEntity> {
   void reset() {
     state = OrderEntity(
         date: DateTime.timestamp().toIso8601String(),
-        addOn: <AddOnEntity>{},
+        addOn: <String>{},
         person: 0,
         time: <String>{});
   }
@@ -65,14 +64,14 @@ class OrderRiverpod extends AutoDisposeNotifier<OrderEntity> {
     return joinData;
   }
 
-  void addAddon(AddOnEntity addOn) {
-    state.addOn.add(addOn);
+  void addAddon(String name) {
+    state.addOn.add(name);
     debugPrint("Addon: ${state.addOn.length}");
   }
 
-  void removeAddon(AddOnEntity addOn) {
+  void removeAddon(String name) {
     debugPrint("remove addon");
-    state.addOn.removeWhere((element) => element.name == addOn.name);
+    state.addOn.removeWhere((element) => element == name);
     debugPrint("Addon: ${state.addOn.length}");
   }
 

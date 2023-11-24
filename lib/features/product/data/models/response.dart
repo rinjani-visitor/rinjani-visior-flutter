@@ -19,6 +19,7 @@ class ProductResponse extends BaseResponse<List<ProductResponseBody>?> {
 class ProductResponseBody {
   final String productId;
   final String title;
+  final String category;
   @JsonKey(name: "status")
   final bool avaiable;
   final double rating;
@@ -33,6 +34,7 @@ class ProductResponseBody {
       required this.rating,
       required this.location,
       required this.thumbnail,
+      required this.category,
       required this.lowestPrice});
 
   factory ProductResponseBody.fromJson(Map<String, dynamic> json) =>
@@ -44,6 +46,7 @@ class ProductResponseBody {
         title: title,
         avaiable: avaiable,
         rating: rating,
+        category: category,
         location: location,
         thumbnail: thumbnail,
         lowestPrice: lowestPrice,
