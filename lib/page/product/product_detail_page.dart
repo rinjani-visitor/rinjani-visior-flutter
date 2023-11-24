@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:like_button/like_button.dart';
 import 'package:rinjani_visitor/features/order/presentation/view_model/order_riverpod.dart';
 import 'package:rinjani_visitor/core/presentation/theme/theme.dart';
+import 'package:rinjani_visitor/features/product/domain/entity/product.dart';
 import 'package:rinjani_visitor/features/product/presentation/view_model/product_detail.dart';
 import 'package:rinjani_visitor/widget/add_on_widget.dart';
 import 'package:rinjani_visitor/widget/button/primary_button.dart';
@@ -37,10 +38,16 @@ class _DetailPageState extends ConsumerState<ProductDetailPage> {
   @override
   void initState() {
     super.initState();
+    Future(() =>
+        ref.read(productDetailViewModelProvider.notifier).getProductDetail(
+              widget.category,
+              widget.id,
+            ));
+
     debugPrint(_state.toString());
   }
 
-  void _showModalPopup() {
+  void _showModalPopup(ProductDetailEntity data) {
     showCupertinoModalPopup(
         context: context,
         builder: (BuildContext context) {
@@ -49,12 +56,7 @@ class _DetailPageState extends ConsumerState<ProductDetailPage> {
             onSubmit: (value) {
               _state.person = int.parse(_personController.text);
               _viewModel.setDate(_dateController.text);
-              _viewModel.submitOrder(
-                  context,
-                  ref
-                      .read(productDetailViewModelProvider(
-                          [widget.category, widget.id]))
-                      .value!);
+              _viewModel.submitOrder(context, data);
             },
           );
         });
@@ -63,151 +65,163 @@ class _DetailPageState extends ConsumerState<ProductDetailPage> {
   @override
   Widget build(BuildContext context) {
     _state = ref.watch(orderViewModelProvider);
-    final currentProduct =
-        ref.watch(productDetailViewModelProvider([widget.category, widget.id]));
+    final currentProduct = ref.watch(productDetailViewModelProvider);
+    ;
     return CupertinoPageScaffold(
         navigationBar: const CupertinoNavigationBar(
           middle: Text('Detail Trip'),
         ),
         child: SafeArea(
-          child: currentProduct.when(
-            error: (error, stackTrace) => Center(
-              child: Text(error.toString()),
-            ),
-            loading: () => const Center(
-              child: CupertinoActivityIndicator(),
-            ),
-            data: (data) => data == null
-                ? const Center(
-                    child: Text("Product not fount "),
-                  )
-                : CustomScrollView(
-                    slivers: [
-                      SliverToBoxAdapter(
-                        child: Column(
-                          children: [
-                            _Header(
-                                title: data.title,
-                                imgUrl: data.imgs,
-                                location: data.location,
-                                rating: data.rating,
-                                rangePricing: data.rangePricing,
-                                tripDuration: data.tripDuration),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 16.0),
-                              child: DetailSegmentedWidget(
-                                description: KVDetailDescriptionWidget(
-                                  kvChildren: [
-                                    KVContentWidget(
-                                        title: "Description",
-                                        content: Text(
-                                          data.description,
-                                          style: blackTextStyle.copyWith(
-                                            fontSize: body2,
-                                          ),
-                                        )),
-                                    KVContentWidget(
-                                        title: "AddOn",
-                                        content: data.addOn.isNotEmpty
-                                            ? Column(
-                                                children: List.generate(
-                                                    data.addOn.length, (index) {
-                                                  final current =
-                                                      data.addOn[index];
-                                                  final currentSelected = _state
-                                                      .addOn
-                                                      .contains(current);
-                                                  return Tooltip(
-                                                    message: current,
-                                                    child: AddOnWidget(
-                                                      name: current,
-                                                      selected: currentSelected,
-                                                      onChanged:
-                                                          (value, isSelected) {
-                                                        if (isSelected) {
-                                                          setState(() {
-                                                            _viewModel
-                                                                .removeAddon(
-                                                                    current);
-                                                          });
-                                                          return;
-                                                        }
+          child: RefreshIndicator.adaptive(
+            onRefresh: () async {
+              await ref
+                  .read(productDetailViewModelProvider.notifier)
+                  .getProductDetail(
+                    widget.category,
+                    widget.id,
+                  );
+              await Future.delayed(Duration(seconds: 1));
+            },
+            child: currentProduct.when(
+              error: (error, stackTrace) => Center(
+                child: Text(error.toString()),
+              ),
+              loading: () => const Center(
+                child: CupertinoActivityIndicator(),
+              ),
+              data: (data) => data == null
+                  ? const Column(
+                      children: [Text("Product not found")],
+                    )
+                  : SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          _Header(
+                              title: data.title ?? "Title not found",
+                              imgUrl: data.imgs ?? "",
+                              location: data.location ?? "",
+                              rating: data.rating ?? "-.-",
+                              rangePricing: data.rangePricing,
+                              tripDuration: data.tripDuration ?? "N/a"),
+                          Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 16.0),
+                            child: DetailSegmentedWidget(
+                              description: KVDetailDescriptionWidget(
+                                kvChildren: [
+                                  KVContentWidget(
+                                      title: "Description",
+                                      content: Text(
+                                        data.description ??
+                                            "No description provided",
+                                        style: blackTextStyle.copyWith(
+                                          fontSize: body2,
+                                        ),
+                                      )),
+                                  KVContentWidget(
+                                      title: "AddOn",
+                                      content: data.addOn != null &&
+                                              data.addOn!.isNotEmpty
+                                          ? Column(
+                                              children: List.generate(
+                                                  data.addOn!.length, (index) {
+                                                final current =
+                                                    data.addOn![index];
+                                                final currentSelected = _state
+                                                    .addOn
+                                                    .contains(current);
+                                                return Tooltip(
+                                                  message: current,
+                                                  child: AddOnWidget(
+                                                    name: current,
+                                                    selected: currentSelected,
+                                                    onChanged:
+                                                        (value, isSelected) {
+                                                      if (isSelected) {
                                                         setState(() {
-                                                          _viewModel.addAddon(
-                                                              current);
+                                                          _viewModel
+                                                              .removeAddon(
+                                                                  current);
                                                         });
-                                                      },
-                                                    ),
-                                                  );
-                                                }),
-                                              )
-                                            : const Text(
-                                                "Add On unavailable for this package")),
-                                    KVContentWidget(
-                                      title: "Date and Time",
-                                      content: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          DatePickerWidget(
-                                            initialDate: _viewModel.getDate(),
-                                            onChange: (dateVal) {
-                                              _dateController.text =
-                                                  dateVal ?? "";
-                                              setState(() {
-                                                _viewModel.setDate(dateVal);
-                                              });
-                                            },
-                                          ),
-                                          const SizedBox(
-                                            height: 8,
-                                          ),
-                                          TimeList(
-                                              selectedTimeListData:
-                                                  _state.time.toList(),
-                                              timeListData: data.timeList24H,
-                                              onTimeListTap:
-                                                  (value, isSelected) {
-                                                if (isSelected) {
-                                                  _state.time.add(value);
-                                                } else {
-                                                  _state.time.remove(value);
-                                                }
+                                                        return;
+                                                      }
+                                                      setState(() {
+                                                        _viewModel
+                                                            .addAddon(current);
+                                                      });
+                                                    },
+                                                  ),
+                                                );
                                               }),
-                                        ],
-                                      ),
+                                            )
+                                          : const Text(
+                                              "Add On unavailable for this package")),
+                                  KVContentWidget(
+                                    title: "Date and Time",
+                                    content: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        DatePickerWidget(
+                                          initialDate: _viewModel.getDate(),
+                                          onChange: (dateVal) {
+                                            _dateController.text =
+                                                dateVal ?? "";
+                                            setState(() {
+                                              _viewModel.setDate(dateVal);
+                                            });
+                                          },
+                                        ),
+                                        const SizedBox(
+                                          height: 8,
+                                        ),
+                                        TimeList(
+                                            selectedTimeListData:
+                                                _state.time.toList(),
+                                            timeListData:
+                                                data.timeList24H ?? [],
+                                            onTimeListTap: (value, isSelected) {
+                                              if (isSelected) {
+                                                _state.time.add(value);
+                                              } else {
+                                                _state.time.remove(value);
+                                              }
+                                            }),
+                                      ],
                                     ),
-                                    KVContentWidget(
-                                        title: "Accomodation",
-                                        content: Text(
-                                          data.accomodation,
-                                          style: const TextStyle(fontSize: 16),
+                                  ),
+                                  KVContentWidget(
+                                      title: "Accomodation",
+                                      content: Text(
+                                        data.accomodation ??
+                                            "No accomodation provided",
+                                        style: const TextStyle(fontSize: 16),
+                                      )),
+                                  const KVContentWidget(
+                                      title: "Reviews",
+                                      content: ReviewWidgetMock()),
+                                  KVContentWidget(
+                                    title: "Buy Product",
+                                    content: PrimaryButton(
+                                        // isDisabled: true,
+                                        isDisabled: (data.status == false),
+                                        onPressed: () => _showModalPopup(data),
+                                        child: Text(
+                                          'Buy Product',
+                                          style: whiteTextStyle.copyWith(
+                                              fontSize: 16),
                                         )),
-                                    const KVContentWidget(
-                                        title: "Reviews",
-                                        content: ReviewWidgetMock()),
-                                    KVContentWidget(
-                                      title: "Buy Product",
-                                      content: PrimaryButton(
-                                          onPressed: () => _showModalPopup(),
-                                          child: Text(
-                                            'Buy Product',
-                                            style: whiteTextStyle.copyWith(
-                                                fontSize: 16),
-                                          )),
-                                    )
-                                  ],
-                                ),
-                                initenary: DetailIniteraryWidget(
-                                    initenaryList: data.initenaryList),
+                                  )
+                                ],
                               ),
+                              initenary: DetailIniteraryWidget(
+                                  initenaryList: data.initenaryList ?? []),
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
+                    ),
+            ),
           ),
         ));
   }
@@ -222,17 +236,17 @@ class _Header extends StatelessWidget {
   final String tripDuration;
   const _Header(
       {super.key,
-      required this.title,
-      required this.imgUrl,
-      required this.location,
-      required this.rating,
-      required this.rangePricing,
-      required this.tripDuration});
+      this.title = "Title not found",
+      this.imgUrl = "",
+      this.location = "",
+      this.rating = "-.-",
+      this.rangePricing = "--\$",
+      this.tripDuration = "N/a"});
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 16.0),
+      padding: const EdgeInsets.only(bottom: 16.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -241,7 +255,7 @@ class _Header extends StatelessWidget {
             height: 241,
             decoration: BoxDecoration(
                 image: DecorationImage(
-                    fit: BoxFit.cover, image: AssetImage(imgUrl))),
+                    fit: BoxFit.cover, image: NetworkImage(imgUrl))),
           ),
           const SizedBox(
             height: 16,

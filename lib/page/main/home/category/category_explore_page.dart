@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rinjani_visitor/core/exception/exception.dart';
 import 'package:rinjani_visitor/features/product/domain/category_enum.dart';
@@ -11,7 +12,7 @@ import 'package:skeletonizer/skeletonizer.dart';
 
 class CategoryExplorePage extends ConsumerStatefulWidget {
   final String title;
-  final ProductCategory category;
+  final String category;
   const CategoryExplorePage(
       {super.key, required this.title, required this.category});
 
@@ -21,6 +22,17 @@ class CategoryExplorePage extends ConsumerStatefulWidget {
 }
 
 class _CategoryExplorePageState extends ConsumerState<CategoryExplorePage> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    Future(() {
+      ref
+          .read(productCategoryViewModelProvider.notifier)
+          .getProductCategory(widget.category);
+    });
+  }
+
   void _pushToDetail(String category, String id) {
     Navigator.push(
         context,
@@ -33,64 +45,68 @@ class _CategoryExplorePageState extends ConsumerState<CategoryExplorePage> {
 
   @override
   Widget build(BuildContext context) {
-    final state = ref.watch(productCategoryViewModelProvider(widget.category));
+    final state = ref.watch(productCategoryViewModelProvider);
     return CupertinoPageScaffold(
         backgroundColor: backgroundColor,
         navigationBar: CupertinoNavigationBar(
           middle: Text(widget.title),
         ),
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: state.when(
-            data: (filteredData) {
-              return filteredData.isNotEmpty
-                  ? ListView.builder(
-                      itemCount: filteredData.length,
-                      itemBuilder: (context, index) {
-                        final current = filteredData[index];
-                        return Padding(
-                          padding: const EdgeInsets.only(bottom: 8.0),
-                          child: BigProductCard(
-                              image: NetworkImage(current.thumbnail),
-                              title: current.title,
-                              rating: current.rating.toString(),
-                              status: StatusColor.available,
-                              onTap: () => _pushToDetail(
-                                  current.category, current.productId),
-                              price: "${current.lowestPrice.toString()}\$"),
-                        );
-                      },
-                    )
-                  : const Center(child: Text('Sorry, product not avaiable'));
-            },
-            error: (error, stackTrace) {
-              if (error is ExtException) {
+        child: RefreshIndicator.adaptive(
+          onRefresh: () async {},
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: state.when(
+              data: (filteredData) {
+                return filteredData != null && filteredData.isNotEmpty
+                    ? ListView.builder(
+                        itemCount: filteredData.length,
+                        itemBuilder: (context, index) {
+                          final current = filteredData[index];
+                          return Padding(
+                            padding: const EdgeInsets.only(bottom: 8.0),
+                            child: BigProductCard(
+                                image: NetworkImage(current.thumbnail ?? ""),
+                                title: current.title ?? "No title found",
+                                rating: current.rating.toString(),
+                                status: StatusColor.available,
+                                onTap: () => _pushToDetail(
+                                    current.category ?? "rinjani",
+                                    current.productId),
+                                price: "${current.lowestPrice.toString()}\$"),
+                          );
+                        },
+                      )
+                    : const Center(child: Text('Sorry, product not avaiable'));
+              },
+              error: (error, stackTrace) {
+                if (error is ExtException) {
+                  return Center(
+                    child: Text("${error.errorMessage}"),
+                  );
+                }
                 return Center(
-                  child: Text("${error.errorMessage}"),
+                  child: Text(error.toString()),
                 );
-              }
-              return Center(
-                child: Text(error.toString()),
-              );
-            },
-            loading: () {
-              return Skeletonizer(
-                ignoreContainers: true,
-                child: ListView.builder(
-                  itemCount: 8,
-                  itemBuilder: (context, index) {
-                    return const Padding(
-                      padding: EdgeInsets.only(bottom: 8.0),
-                      child: BigProductCard(
-                          image: AssetImage("assets/logo.png"),
-                          title: " ",
-                          status: StatusColor.available,
-                          price: "23123"),
-                    );
-                  },
-                ),
-              );
-            },
+              },
+              loading: () {
+                return Skeletonizer(
+                  ignoreContainers: true,
+                  child: ListView.builder(
+                    itemCount: 8,
+                    itemBuilder: (context, index) {
+                      return const Padding(
+                        padding: EdgeInsets.only(bottom: 8.0),
+                        child: BigProductCard(
+                            image: AssetImage("assets/logo.png"),
+                            title: " ",
+                            status: StatusColor.available,
+                            price: "23123"),
+                      );
+                    },
+                  ),
+                );
+              },
+            ),
           ),
         ));
   }

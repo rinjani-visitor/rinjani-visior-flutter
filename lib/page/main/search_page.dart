@@ -42,18 +42,20 @@ class _SearchPageState extends ConsumerState<SearchPage> {
                       return Padding(
                         padding: const EdgeInsets.only(bottom: 8.0),
                         child: BigProductCard(
-                            image: NetworkImage(curr.thumbnail),
-                            title: curr.title,
+                            image: NetworkImage(curr.thumbnail ?? ""),
+                            title: curr.title ?? "Title not found",
                             status: StatusColor.available,
                             rating: curr.rating.toString(),
                             onTap: () {
-                              Navigator.push(
-                                  context,
-                                  CupertinoPageRoute(
-                                      builder: (context) => ProductDetailPage(
-                                            category: curr.category,
-                                            id: curr.productId,
-                                          )));
+                              if (curr.category != null) {
+                                Navigator.push(
+                                    context,
+                                    CupertinoPageRoute(
+                                        builder: (context) => ProductDetailPage(
+                                              category: curr.category!,
+                                              id: curr.productId,
+                                            )));
+                              }
                             },
                             price: "${curr.lowestPrice}\$"),
                       );
