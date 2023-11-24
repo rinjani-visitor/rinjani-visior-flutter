@@ -22,7 +22,7 @@ class NotificationRepositoryImpl implements NotificationRepository {
   Future<List<NotificationEntity>> getNotifications() async {
     final notifications = await _notificationRemote.getNotification();
     final entity = notifications.map((e) => e.toEntity()).toList();
-    return entity;
+    return [];
   }
 
   @override
