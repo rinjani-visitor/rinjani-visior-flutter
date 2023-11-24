@@ -1,5 +1,5 @@
+import 'dart:developer' as developer;
 import 'package:dio/dio.dart';
-import 'package:flutter/foundation.dart';
 
 enum ExceptionType {
   /// The exception for a bad response from the api.
@@ -63,7 +63,8 @@ class ExtException implements Exception {
   /// create error message at flutter pages / screen using toast or equivalent
   /// without `Exception:` text _shenaigans_.
   factory ExtException.fromDioException(Object exception) {
-    debugPrint("Raw Error: ${exception.toString()}");
+    developer.log("Raw Error Catched",
+        name: "ExtException.fromDioException", error: exception);
     var message = "";
     try {
       if (exception is DioException) {
@@ -118,7 +119,8 @@ class ExtException implements Exception {
             code: code);
       }
     } on Exception catch (e) {
-      debugPrint("Exception Catched: ${e.toString()}");
+      developer.log("Exception Catched",
+          name: "ExtException.fromDioException", error: e);
       return ExtException(
           exceptionType: ExceptionType.unrecognizedException,
           message: e.toString());

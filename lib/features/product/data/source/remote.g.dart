@@ -61,7 +61,7 @@ class _ProductRemoteSource implements ProductRemoteSource {
   }
 
   @override
-  Future<ProductDetailResponse> getPackageDetail({
+  Future<ProductDetailResponse> getProductDetail({
     required String token,
     required String category,
     required String id,

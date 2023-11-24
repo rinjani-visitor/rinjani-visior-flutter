@@ -7,7 +7,7 @@ abstract class ProductRespository {
       {String? category, bool? avaiable, int? rating, String? query});
 
   /// get package detail, with addons avaiable, etc.
-  Future<ProductDetailEntity?> getPackageDetail(String token,
+  Future<ProductDetailEntity?> getProductDetail(String token,
       {required String productId, required String category});
 
   /// cancel purchased package.

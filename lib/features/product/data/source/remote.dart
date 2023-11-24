@@ -22,7 +22,7 @@ abstract class ProductRemoteSource {
   });
 
   @GET("/api/products/{category}/{id}")
-  Future<ProductDetailResponse> getPackageDetail({
+  Future<ProductDetailResponse> getProductDetail({
     @Header("Authorization") required String token,
     @Path("category") required String category,
     @Path("id") required String id,

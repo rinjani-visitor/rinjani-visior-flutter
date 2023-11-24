@@ -5,20 +5,23 @@ import 'package:rinjani_visitor/features/authentication/presentation/view_model/
 import 'package:rinjani_visitor/features/product/data/product_repository_impl.dart';
 import 'package:rinjani_visitor/features/product/domain/entity/product.dart';
 
-final productDetailViewModelProvider = AutoDisposeAsyncNotifierProvider.family<
-    ProductDetailViewModel,
-    ProductDetailEntity?,
-    List<String>>(ProductDetailViewModel.new);
+final productDetailViewModelProvider = AutoDisposeAsyncNotifierProvider<
+    ProductDetailViewModel, ProductDetailEntity?>(ProductDetailViewModel.new);
 
 class ProductDetailViewModel
-    extends AutoDisposeFamilyAsyncNotifier<ProductDetailEntity?, List<String>> {
+    extends AutoDisposeAsyncNotifier<ProductDetailEntity?> {
   @override
-  FutureOr<ProductDetailEntity?> build(List<String> arg) async {
-    final data = await ref.read(productRepositoryProvider).getPackageDetail(
-        ref.read(authViewModelProvider).value!.toAccessTokenAuthorization(),
-        category: arg[0],
-        productId: arg[1]);
-    await Future.delayed(const Duration(seconds: 1));
-    return data;
+  FutureOr<ProductDetailEntity?> build() async {
+    return null;
+  }
+
+  Future<void> getProductDetail(String category, String productId) async {
+    state = AsyncLoading();
+    state = await AsyncValue.guard(() async => await ref
+        .read(productRepositoryProvider)
+        .getProductDetail(
+            ref.read(authViewModelProvider).value!.toAccessTokenAuthorization(),
+            category: category,
+            productId: productId));
   }
 }

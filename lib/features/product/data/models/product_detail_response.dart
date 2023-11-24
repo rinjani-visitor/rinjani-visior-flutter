@@ -1,6 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:rinjani_visitor/core/domain/entity/base_response.dart';
-import 'package:rinjani_visitor/features/product/domain/category_enum.dart';
 import 'package:rinjani_visitor/features/product/domain/entity/product.dart';
 
 part 'product_detail_response.g.dart';
@@ -15,14 +14,14 @@ class ProductDetailResponse extends BaseResponse<ProductDetailBody> {
   Map<String, dynamic> toJson() => _$ProductDetailResponseToJson(this);
 
   ProductDetailEntity toEntity() => ProductDetailEntity(
-      category: ProductCategory.rinjani,
-      accomodation: "",
       id: data.productId,
+      category: data.category,
+      accomodation: null,
       title: data.title,
       status: data.status,
       description: data.description,
       imgs: data.thumbnail,
-      images: data.fotos!.map((e) => e.url!).toList(),
+      images: data.fotos?.map((e) => e.url!).toList(),
       location: data.location,
       priceLow: data.lowestPrice,
       rating: data.rating.toString(),
@@ -38,20 +37,20 @@ class ProductDetailResponse extends BaseResponse<ProductDetailBody> {
 @JsonSerializable()
 class ProductDetailBody {
   final String productId;
-  final String title;
-  final bool status;
-  final double rating;
-  final String location;
-  final int lowestPrice;
-  final String thumbnail;
-  final String description;
-  final String duration;
-  final String program;
-  final String porter;
-  final String guide;
-  final String category;
-  final String subCategory;
-  final int favoritedCount;
+  String? title;
+  bool? status;
+  double? rating;
+  String? location;
+  int? lowestPrice;
+  String? thumbnail;
+  String? description;
+  String? duration;
+  String? program;
+  String? porter;
+  String? guide;
+  String? category;
+  String? subCategory;
+  int? favoritedCount;
   List<String>? facilities;
   String? note;
   String? createdAt;
@@ -61,20 +60,20 @@ class ProductDetailBody {
 
   ProductDetailBody(
       {required this.productId,
-      required this.title,
-      required this.status,
-      required this.rating,
-      required this.location,
-      required this.lowestPrice,
-      required this.thumbnail,
-      required this.description,
-      required this.duration,
-      required this.program,
-      required this.porter,
-      required this.guide,
-      required this.category,
-      required this.subCategory,
-      required this.favoritedCount,
+      this.title,
+      this.status,
+      this.rating,
+      this.location,
+      this.lowestPrice,
+      this.thumbnail,
+      this.description,
+      this.duration,
+      this.program,
+      this.porter,
+      this.guide,
+      this.category,
+      this.subCategory,
+      this.favoritedCount,
       this.facilities,
       this.note,
       this.createdAt,

@@ -17,25 +17,25 @@ class ProductResponse extends BaseResponse<List<ProductResponseBody>?> {
 
 @JsonSerializable()
 class ProductResponseBody {
-  final String productId;
-  final String title;
-  final String category;
+  String productId;
+  String? title;
+  String? category;
   @JsonKey(name: "status")
-  final bool avaiable;
-  final double rating;
-  final String location;
-  final String thumbnail;
-  final int lowestPrice;
+  bool? avaiable;
+  double? rating;
+  String? location;
+  String? thumbnail;
+  int? lowestPrice;
 
   ProductResponseBody(
       {required this.productId,
-      required this.title,
-      required this.avaiable,
-      required this.rating,
-      required this.location,
-      required this.thumbnail,
-      required this.category,
-      required this.lowestPrice});
+      this.title,
+      this.avaiable,
+      this.rating,
+      this.location,
+      this.thumbnail,
+      this.category,
+      this.lowestPrice});
 
   factory ProductResponseBody.fromJson(Map<String, dynamic> json) =>
       _$ProductResponseBodyFromJson(json);

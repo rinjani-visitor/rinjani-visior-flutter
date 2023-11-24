@@ -1,5 +1,5 @@
 import 'dart:async';
-
+import 'dart:developer' as developer;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rinjani_visitor/features/authentication/presentation/view_model/auth.dart';
 import 'package:rinjani_visitor/features/product/data/product_repository_impl.dart';
@@ -16,6 +16,7 @@ class RecommendedProductViewModel extends AsyncNotifier<List<ProductEntity>> {
   @override
   FutureOr<List<ProductEntity>> build() async {
     final packages = await _getProducts;
+    developer.log("packages: $packages", name: runtimeType.toString());
     return packages;
   }
 
