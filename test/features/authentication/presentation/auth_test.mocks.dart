@@ -3,17 +3,19 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i6;
+import 'dart:async' as _i5;
 
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:rinjani_visitor/features/authentication/data/auth_repository_impl.dart'
-    as _i5;
+    as _i4;
 import 'package:rinjani_visitor/features/authentication/data/source/local.dart'
     as _i2;
 import 'package:rinjani_visitor/features/authentication/data/source/remote.dart'
     as _i3;
 import 'package:rinjani_visitor/features/authentication/domain/entity/auth.dart'
-    as _i4;
+    as _i6;
+import 'package:rinjani_visitor/features/authentication/domain/entity/auth_detail.dart'
+    as _i7;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -50,21 +52,11 @@ class _FakeAuthRemoteSource_1 extends _i1.SmartFake
         );
 }
 
-class _FakeAuthEntity_2 extends _i1.SmartFake implements _i4.AuthEntity {
-  _FakeAuthEntity_2(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
-}
-
 /// A class which mocks [AuthRepositoryImpl].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockAuthRepositoryImpl extends _i1.Mock
-    implements _i5.AuthRepositoryImpl {
+    implements _i4.AuthRepositoryImpl {
   MockAuthRepositoryImpl() {
     _i1.throwOnMissingStub(this);
   }
@@ -88,16 +80,16 @@ class MockAuthRepositoryImpl extends _i1.Mock
       ) as _i3.AuthRemoteSource);
 
   @override
-  _i6.Future<_i4.AuthEntity?> logout() => (super.noSuchMethod(
+  _i5.Future<_i6.AuthEntity?> logout() => (super.noSuchMethod(
         Invocation.method(
           #logout,
           [],
         ),
-        returnValue: _i6.Future<_i4.AuthEntity?>.value(),
-      ) as _i6.Future<_i4.AuthEntity?>);
+        returnValue: _i5.Future<_i6.AuthEntity?>.value(),
+      ) as _i5.Future<_i6.AuthEntity?>);
 
   @override
-  _i6.Future<_i4.AuthEntity?> register({
+  _i5.Future<_i6.AuthEntity?> register({
     required String? username,
     required String? email,
     required String? country,
@@ -116,11 +108,11 @@ class MockAuthRepositoryImpl extends _i1.Mock
             #password: password,
           },
         ),
-        returnValue: _i6.Future<_i4.AuthEntity?>.value(),
-      ) as _i6.Future<_i4.AuthEntity?>);
+        returnValue: _i5.Future<_i6.AuthEntity?>.value(),
+      ) as _i5.Future<_i6.AuthEntity?>);
 
   @override
-  _i6.Future<_i4.AuthEntity?> logIn({
+  _i5.Future<_i6.AuthEntity?> logIn({
     required String? email,
     required String? password,
   }) =>
@@ -133,31 +125,41 @@ class MockAuthRepositoryImpl extends _i1.Mock
             #password: password,
           },
         ),
-        returnValue: _i6.Future<_i4.AuthEntity?>.value(),
-      ) as _i6.Future<_i4.AuthEntity?>);
+        returnValue: _i5.Future<_i6.AuthEntity?>.value(),
+      ) as _i5.Future<_i6.AuthEntity?>);
 
   @override
-  _i6.Future<_i4.AuthEntity?> getSavedSession() => (super.noSuchMethod(
+  _i5.Future<_i6.AuthEntity?> getSavedSession() => (super.noSuchMethod(
         Invocation.method(
           #getSavedSession,
           [],
         ),
-        returnValue: _i6.Future<_i4.AuthEntity?>.value(),
-      ) as _i6.Future<_i4.AuthEntity?>);
+        returnValue: _i5.Future<_i6.AuthEntity?>.value(),
+      ) as _i5.Future<_i6.AuthEntity?>);
 
   @override
-  _i6.Future<_i4.AuthEntity> refresh(_i4.AuthEntity? entity) =>
+  _i5.Future<_i6.AuthEntity?> refresh(_i6.AuthEntity? entity) =>
       (super.noSuchMethod(
         Invocation.method(
           #refresh,
           [entity],
         ),
-        returnValue: _i6.Future<_i4.AuthEntity>.value(_FakeAuthEntity_2(
-          this,
-          Invocation.method(
-            #refresh,
-            [entity],
-          ),
-        )),
-      ) as _i6.Future<_i4.AuthEntity>);
+        returnValue: _i5.Future<_i6.AuthEntity?>.value(),
+      ) as _i5.Future<_i6.AuthEntity?>);
+
+  @override
+  _i5.Future<_i7.AuthDetailEntity?> userDetail(
+    String? accessToken,
+    String? id,
+  ) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #userDetail,
+          [
+            accessToken,
+            id,
+          ],
+        ),
+        returnValue: _i5.Future<_i7.AuthDetailEntity?>.value(),
+      ) as _i5.Future<_i7.AuthDetailEntity?>);
 }

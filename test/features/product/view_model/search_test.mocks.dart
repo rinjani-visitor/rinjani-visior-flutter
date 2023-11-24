@@ -3,17 +3,15 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i5;
+import 'dart:async' as _i4;
 
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:rinjani_visitor/features/product/data/product_repository_impl.dart'
-    as _i4;
+    as _i3;
 import 'package:rinjani_visitor/features/product/data/source/remote.dart'
     as _i2;
-import 'package:rinjani_visitor/features/product/domain/category_enum.dart'
-    as _i6;
 import 'package:rinjani_visitor/features/product/domain/entity/product.dart'
-    as _i3;
+    as _i5;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -39,22 +37,11 @@ class _FakeProductRemoteSource_0 extends _i1.SmartFake
         );
 }
 
-class _FakeProductDetailEntity_1 extends _i1.SmartFake
-    implements _i3.ProductDetailEntity {
-  _FakeProductDetailEntity_1(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
-}
-
 /// A class which mocks [ProductRepositoryImpl].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockProductRepositoryImpl extends _i1.Mock
-    implements _i4.ProductRepositoryImpl {
+    implements _i3.ProductRepositoryImpl {
   MockProductRepositoryImpl() {
     _i1.throwOnMissingStub(this);
   }
@@ -69,11 +56,12 @@ class MockProductRepositoryImpl extends _i1.Mock
       ) as _i2.ProductRemoteSource);
 
   @override
-  _i5.Future<List<_i3.ProductEntity>> getProducts(
+  _i4.Future<List<_i5.ProductEntity>> getProducts(
     String? token, {
-    _i6.ProductCategory? category,
+    String? category,
     bool? avaiable,
     int? rating,
+    String? query,
   }) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -83,14 +71,33 @@ class MockProductRepositoryImpl extends _i1.Mock
             #category: category,
             #avaiable: avaiable,
             #rating: rating,
+            #query: query,
           },
         ),
         returnValue:
-            _i5.Future<List<_i3.ProductEntity>>.value(<_i3.ProductEntity>[]),
-      ) as _i5.Future<List<_i3.ProductEntity>>);
+            _i4.Future<List<_i5.ProductEntity>>.value(<_i5.ProductEntity>[]),
+      ) as _i4.Future<List<_i5.ProductEntity>>);
 
   @override
-  _i5.Future<_i3.ProductDetailEntity> bookingPackage(
+  _i4.Future<_i5.ProductDetailEntity?> getProductDetail(
+    String? token, {
+    required String? productId,
+    required String? category,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getProductDetail,
+          [token],
+          {
+            #productId: productId,
+            #category: category,
+          },
+        ),
+        returnValue: _i4.Future<_i5.ProductDetailEntity?>.value(),
+      ) as _i4.Future<_i5.ProductDetailEntity?>);
+
+  @override
+  _i4.Future<_i5.ProductDetailEntity?> bookingPackage(
     String? token, {
     required String? packageId,
     List<String>? addOns,
@@ -106,23 +113,11 @@ class MockProductRepositoryImpl extends _i1.Mock
             #paymentMethod: paymentMethod,
           },
         ),
-        returnValue: _i5.Future<_i3.ProductDetailEntity>.value(
-            _FakeProductDetailEntity_1(
-          this,
-          Invocation.method(
-            #bookingPackage,
-            [token],
-            {
-              #packageId: packageId,
-              #addOns: addOns,
-              #paymentMethod: paymentMethod,
-            },
-          ),
-        )),
-      ) as _i5.Future<_i3.ProductDetailEntity>);
+        returnValue: _i4.Future<_i5.ProductDetailEntity?>.value(),
+      ) as _i4.Future<_i5.ProductDetailEntity?>);
 
   @override
-  _i5.Future<void> cancelPackage(
+  _i4.Future<void> cancelPackage(
     String? token, {
     required String? packageId,
   }) =>
@@ -132,29 +127,7 @@ class MockProductRepositoryImpl extends _i1.Mock
           [token],
           {#packageId: packageId},
         ),
-        returnValue: _i5.Future<void>.value(),
-        returnValueForMissingStub: _i5.Future<void>.value(),
-      ) as _i5.Future<void>);
-
-  @override
-  _i5.Future<_i3.ProductDetailEntity> getPackageDetail(
-    String? token, {
-    required String? packageId,
-  }) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #getPackageDetail,
-          [token],
-          {#packageId: packageId},
-        ),
-        returnValue: _i5.Future<_i3.ProductDetailEntity>.value(
-            _FakeProductDetailEntity_1(
-          this,
-          Invocation.method(
-            #getPackageDetail,
-            [token],
-            {#packageId: packageId},
-          ),
-        )),
-      ) as _i5.Future<_i3.ProductDetailEntity>);
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
 }
