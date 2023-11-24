@@ -88,7 +88,7 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Future<AuthEntity> refresh(AuthEntity? entity) async {
+  Future<AuthEntity?> refresh(AuthEntity? entity) async {
     developer.log("$NAME: Refresh...");
     try {
       final authdata = await getSavedSession();
@@ -103,7 +103,8 @@ class AuthRepositoryImpl implements AuthRepository {
       developer.log("authEntity : ${authdata.toString()}",
           name: runtimeType.toString());
       await localSource.setSession(response.accessToken, response.refreshToken);
-      return response.toEntity();
+      final data = response.toEntity();
+      return data;
     } catch (e) {
       throw ExtException.fromDioException(e);
     }

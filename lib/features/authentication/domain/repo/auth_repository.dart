@@ -14,5 +14,5 @@ abstract class AuthRepository {
 
   Future<AuthEntity?> logout();
   Future<AuthEntity?> getSavedSession();
-  Future<AuthEntity> refresh(AuthEntity? authEntity);
+  Future<AuthEntity?> refresh(AuthEntity? authEntity);
 }

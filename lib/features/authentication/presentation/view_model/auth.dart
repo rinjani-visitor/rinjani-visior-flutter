@@ -17,7 +17,13 @@ class AuthViewModel extends AsyncNotifier<AuthEntity?> {
   @override
   FutureOr<AuthEntity?> build() async {
     repository = ref.read(authRepositoryProvider);
-    return await repository.getSavedSession();
+    final authEntity = await repository.getSavedSession();
+    developer.log("auth entity: ${authEntity.toString()}");
+    if (authEntity == null) {
+      return null;
+    }
+    final data = await repository.refresh(authEntity);
+    return data;
   }
 
   FutureOr<void> logIn(String email, String password) async {
@@ -47,15 +53,5 @@ class AuthViewModel extends AsyncNotifier<AuthEntity?> {
         phone: phone,
         password: password));
     developer.log("value ${state.asData?.value.toString()}");
-  }
-
-  FutureOr<void> refresh() async {
-    if (state.hasValue && state.value?.refreshToken != null) {
-      state = const AsyncLoading();
-      developer.log("$NAME : Refresh emitted");
-      state = await AsyncValue.guard(
-          () async => await repository.refresh(state.value));
-      developer.log("AuthEntity: ${state.asData.toString()}");
-    }
   }
 }
