@@ -23,40 +23,43 @@ class ProductEntity {
 /// for `rangePricing`, remember to make something like this:
 /// '80$- 90$ / person'
 class ProductDetailEntity {
-  ProductDetailEntity({
-    required this.id,
-    required this.title,
-    required this.location,
-    required this.imgs,
-    required this.images,
-    required this.category,
-    required this.priceLow,
-    required this.rating,
-    required this.tripDuration,
-    required this.description,
-    required this.accomodation,
-    required this.reviewCount,
-    required this.initenaryList,
-    required this.timeList24H,
-    required this.addOn,
-    this.locationUrl,
-    this.avaiabilityStatus,
-  });
+  ProductDetailEntity(
+      {required this.id,
+      required this.title,
+      required this.status,
+      required this.rating,
+      required this.location,
+      required this.priceLow,
+      required this.imgs,
+      required this.description,
+      required this.tripDuration,
+      required this.program,
+      required this.images,
+      required this.category,
+      required this.locationUrl,
+      required this.avaiabilityStatus,
+      required this.accomodation,
+      required this.reviewCount,
+      required this.initenaryList,
+      required this.timeList24H,
+      required this.addOn});
 
   get rangePricing => '$priceLow\$ / person';
 
   final String id;
   final String title;
+  final bool status;
+  final String rating;
   final String location;
+  final int priceLow;
   final String imgs;
+  final String description;
+  final String tripDuration;
+  final String program;
   final List<String> images;
   final ProductCategory category;
   final String? locationUrl;
   final String? avaiabilityStatus;
-  final int priceLow;
-  final String rating;
-  final String tripDuration;
-  final String description;
   final String accomodation;
   final int reviewCount;
   final List<String> initenaryList;

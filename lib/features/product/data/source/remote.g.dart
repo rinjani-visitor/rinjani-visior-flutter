@@ -23,12 +23,14 @@ class _ProductRemoteSource implements ProductRemoteSource {
   @override
   Future<ProductResponse> getProducts({
     required String token,
+    String? query,
     String? status,
     String? category,
     String? rating,
   }) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
+      r'query': query,
       r'status': status,
       r'category': category,
       r'rating': rating,

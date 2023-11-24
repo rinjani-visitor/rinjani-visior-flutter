@@ -12,12 +12,27 @@ final productCategoryViewModelProvider =
 
 class ProductCategoryViewModel extends AutoDisposeFamilyAsyncNotifier<
     List<ProductEntity>, ProductCategory> {
+  String? _fromEnum(ProductCategory category) {
+    switch (category) {
+      case ProductCategory.rinjani:
+        return "rinjani";
+      case ProductCategory.culture:
+        return "culture";
+      case ProductCategory.homeStay:
+        return "home_stay";
+      case ProductCategory.landscape:
+        return "landscape";
+      default:
+        return null;
+    }
+  }
+
   @override
   FutureOr<List<ProductEntity>> build(ProductCategory arg) async {
     final repo = ref.read(productRepositoryProvider);
     final data = await repo.getProducts(
         ref.read(authViewModelProvider).value!.toAccessTokenAuthorization(),
-        category: arg);
+        category: _fromEnum(arg));
     return data;
   }
 }

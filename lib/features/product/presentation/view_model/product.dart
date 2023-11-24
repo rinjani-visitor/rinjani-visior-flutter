@@ -18,14 +18,4 @@ class ProductViewModel extends AutoDisposeAsyncNotifier<List<ProductEntity>> {
         ref.read(authViewModelProvider).value!.toAccessTokenAuthorization());
     return packages;
   }
-
-  Future<List<ProductEntity>> getProductByCategory(
-      ProductCategory category) async {
-    final repo = ref.read(productRepositoryProvider);
-    state = const AsyncLoading();
-    state = await AsyncValue.guard(() async => await repo.getProducts(
-        ref.read(authViewModelProvider).value!.toAccessTokenAuthorization(),
-        category: category));
-    return state.value ?? [];
-  }
 }

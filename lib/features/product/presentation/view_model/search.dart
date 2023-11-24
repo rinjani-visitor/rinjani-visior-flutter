@@ -28,9 +28,8 @@ class ProductSearchViewModel extends AsyncNotifier<List<ProductEntity>> {
     state = const AsyncLoading();
 
     state = await AsyncValue.guard(() async =>
-        await productRepository.getProducts(ref
-            .read(authViewModelProvider)
-            .value!
-            .toAccessTokenAuthorization()));
+        await productRepository.getProducts(
+            ref.read(authViewModelProvider).value!.toAccessTokenAuthorization(),
+            query: name));
   }
 }

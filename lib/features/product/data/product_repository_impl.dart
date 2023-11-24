@@ -19,12 +19,13 @@ class ProductRepositoryImpl implements ProductRespository {
 
   @override
   Future<List<ProductEntity>> getProducts(String token,
-      {ProductCategory? category, bool? avaiable, int? rating}) async {
+      {String? category, bool? avaiable, int? rating, String? query}) async {
     try {
       developer.log("Get Product", name: runtimeType.toString());
       developer.log("category: ${category}", name: runtimeType.toString());
       final result = await remote.getProducts(
           token: token,
+          query: query?.toString(),
           category: category?.toString(),
           status: avaiable?.toString(),
           rating: rating?.toString());
