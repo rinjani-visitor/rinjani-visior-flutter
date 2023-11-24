@@ -51,6 +51,7 @@ class _SearchPageState extends ConsumerState<SearchPage> {
                                   context,
                                   CupertinoPageRoute(
                                       builder: (context) => ProductDetailPage(
+                                            category: curr.category,
                                             id: curr.productId,
                                           )));
                             },

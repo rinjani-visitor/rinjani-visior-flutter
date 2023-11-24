@@ -2,9 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rinjani_visitor/core/exception/exception.dart';
 import 'package:rinjani_visitor/features/product/domain/category_enum.dart';
-import 'package:rinjani_visitor/features/product/domain/entity/product.dart';
 import 'package:rinjani_visitor/features/product/presentation/view_model/category.dart';
-import 'package:rinjani_visitor/features/product/presentation/view_model/search.dart';
 import 'package:rinjani_visitor/page/product/product_detail_page.dart';
 import 'package:rinjani_visitor/core/presentation/theme/theme.dart';
 import 'package:rinjani_visitor/widget/product/big_card.dart';
@@ -23,11 +21,12 @@ class CategoryExplorePage extends ConsumerStatefulWidget {
 }
 
 class _CategoryExplorePageState extends ConsumerState<CategoryExplorePage> {
-  void _pushToDetail(String id) {
+  void _pushToDetail(String category, String id) {
     Navigator.push(
         context,
         CupertinoPageRoute(
             builder: (context) => ProductDetailPage(
+                  category: category,
                   id: id,
                 )));
   }
@@ -56,7 +55,8 @@ class _CategoryExplorePageState extends ConsumerState<CategoryExplorePage> {
                               title: current.title,
                               rating: current.rating.toString(),
                               status: StatusColor.available,
-                              onTap: () => _pushToDetail(current.productId),
+                              onTap: () => _pushToDetail(
+                                  current.category, current.productId),
                               price: "${current.lowestPrice.toString()}\$"),
                         );
                       },

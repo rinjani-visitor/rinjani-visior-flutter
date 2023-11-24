@@ -148,7 +148,7 @@ class _BookingDetailPageState extends ConsumerState<BookingDetailPage> {
                 children: List.generate(
                     _state.addOn.length,
                     (index) => Text(
-                          "- ${_state.addOn.elementAt(index).name} - ${_state.addOn.elementAt(index).price}\$",
+                          "- ${_state.addOn.elementAt(index)}}\$",
                           style: blackTextStyle.copyWith(
                               fontSize: 16, fontWeight: medium),
                         )),

@@ -142,7 +142,8 @@ class _EventDetailPageState extends State<EventDetailPage> {
                           context,
                           CupertinoPageRoute(
                               builder: (context) => ProductDetailPage(
-                                    id: data.products[index].id,
+                                    id: current.id,
+                                    category: current.category.name,
                                   )));
                     },
                     image: AssetImage(current.imgs),

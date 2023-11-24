@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:like_button/like_button.dart';
 import 'package:rinjani_visitor/features/order/presentation/view_model/order_riverpod.dart';
-import 'package:rinjani_visitor/features/product/domain/entity/product.dart';
 import 'package:rinjani_visitor/core/presentation/theme/theme.dart';
 import 'package:rinjani_visitor/features/product/presentation/view_model/product_detail.dart';
 import 'package:rinjani_visitor/widget/add_on_widget.dart';
@@ -17,16 +16,16 @@ import 'package:rinjani_visitor/widget/status.dart';
 
 class ProductDetailPage extends ConsumerStatefulWidget {
   final String id;
+  final String category;
 
-  const ProductDetailPage({super.key, required this.id});
+  const ProductDetailPage(
+      {super.key, required this.category, required this.id});
 
   @override
   ConsumerState<ProductDetailPage> createState() => _DetailPageState();
 }
 
 class _DetailPageState extends ConsumerState<ProductDetailPage> {
-  // TODO: override later with server data
-  late final String id = widget.id;
   late final _viewModel = ref.read(orderViewModelProvider.notifier);
 
   late var _state = ref.read(orderViewModelProvider);
@@ -51,7 +50,11 @@ class _DetailPageState extends ConsumerState<ProductDetailPage> {
               _state.person = int.parse(_personController.text);
               _viewModel.setDate(_dateController.text);
               _viewModel.submitOrder(
-                  context, ref.read(productDetailViewModelProvider(id)).value!);
+                  context,
+                  ref
+                      .read(productDetailViewModelProvider(
+                          [widget.category, widget.id]))
+                      .value!);
             },
           );
         });
@@ -60,7 +63,8 @@ class _DetailPageState extends ConsumerState<ProductDetailPage> {
   @override
   Widget build(BuildContext context) {
     _state = ref.watch(orderViewModelProvider);
-    final currentProduct = ref.watch(productDetailViewModelProvider(id));
+    final currentProduct =
+        ref.watch(productDetailViewModelProvider([widget.category, widget.id]));
     return CupertinoPageScaffold(
         navigationBar: const CupertinoNavigationBar(
           middle: Text('Detail Trip'),
@@ -113,16 +117,11 @@ class _DetailPageState extends ConsumerState<ProductDetailPage> {
                                                       data.addOn[index];
                                                   final currentSelected = _state
                                                       .addOn
-                                                      .map((e) => e.id)
-                                                      .contains(current.id);
+                                                      .contains(current);
                                                   return Tooltip(
-                                                    message:
-                                                        current.description ??
-                                                            "",
+                                                    message: current,
                                                     child: AddOnWidget(
-                                                      id: current.id,
-                                                      name: current.name,
-                                                      price: current.pricing,
+                                                      name: current,
                                                       selected: currentSelected,
                                                       onChanged:
                                                           (value, isSelected) {
