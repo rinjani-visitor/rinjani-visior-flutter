@@ -148,13 +148,13 @@ class MockAuthRepositoryImpl extends _i1.Mock
       ) as _i5.Future<_i6.AuthEntity?>);
 
   @override
-  _i5.Future<_i7.AuthDetailEntity?> userDetail(
+  _i5.Future<_i7.AuthDetailEntity?> getUserDetail(
     String? accessToken,
     String? id,
   ) =>
       (super.noSuchMethod(
         Invocation.method(
-          #userDetail,
+          #getUserDetail,
           [
             accessToken,
             id,

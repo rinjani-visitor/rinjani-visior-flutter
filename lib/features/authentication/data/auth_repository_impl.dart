@@ -111,7 +111,7 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Future<AuthDetailEntity?> userDetail(String accessToken, String id) async {
+  Future<AuthDetailEntity?> getUserDetail(String accessToken, String id) async {
     developer.log("Get user detail with id $id", name: runtimeType.toString());
     try {
       final data = await remoteSource.userDetail(accessToken, id);

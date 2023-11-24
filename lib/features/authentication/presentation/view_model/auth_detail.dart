@@ -15,7 +15,8 @@ class AuthDetailViewModel extends AutoDisposeAsyncNotifier<AuthDetailEntity?> {
     final id = ref.read(authViewModelProvider).value!.userId;
 
     final token = ref.read(authViewModelProvider).value!.accessToken;
-    final data = await ref.read(authRepositoryProvider).userDetail(token!, id!);
+    final data =
+        await ref.read(authRepositoryProvider).getUserDetail(token!, id!);
     return data;
   }
 
@@ -24,6 +25,6 @@ class AuthDetailViewModel extends AutoDisposeAsyncNotifier<AuthDetailEntity?> {
     final id = ref.read(authViewModelProvider).value!.userId;
     final token = ref.read(authViewModelProvider).value!.accessToken;
     state = await AsyncValue.guard(() async =>
-        await ref.read(authRepositoryProvider).userDetail(token!, id!));
+        await ref.read(authRepositoryProvider).getUserDetail(token!, id!));
   }
 }

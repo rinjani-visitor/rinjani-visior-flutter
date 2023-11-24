@@ -10,7 +10,7 @@ abstract class AuthRepository {
       required String password});
 
   Future<AuthEntity?> logIn({required String email, required String password});
-  Future<AuthDetailEntity?> userDetail(String accessToken, String id);
+  Future<AuthDetailEntity?> getUserDetail(String accessToken, String id);
 
   Future<AuthEntity?> logout();
   Future<AuthEntity?> getSavedSession();
