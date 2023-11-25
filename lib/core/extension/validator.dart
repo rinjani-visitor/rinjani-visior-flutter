@@ -23,10 +23,3 @@ extension NullValidation on Null {
     return this != null;
   }
 }
-
-extension ObjectValidation on Object {
-  /// Check if object is not null
-  bool isExist() {
-    return this != null;
-  }
-}
