@@ -154,7 +154,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
             ),
             TextButton(
                 onPressed: () {
-                  Navigator.pushNamed(context, '/home');
+                  Navigator.pushNamed(context, '/login/forgot');
                 },
                 child: Text(
                   "Forgot your password?",

@@ -58,7 +58,9 @@ class OrderRiverpod extends AutoDisposeNotifier<OrderEntity> {
   }
 
   String getTimeInStringFormat() {
-    final joinData = state.time.join(", ");
+    final joinData = state.time.isNotEmpty
+        ? state.time.join(", ")
+        : "Time arrival is not set";
     debugPrint(state.time.toString());
     debugPrint(joinData);
     return joinData;

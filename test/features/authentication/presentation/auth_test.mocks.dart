@@ -162,4 +162,15 @@ class MockAuthRepositoryImpl extends _i1.Mock
         ),
         returnValue: _i5.Future<_i7.AuthDetailEntity?>.value(),
       ) as _i5.Future<_i7.AuthDetailEntity?>);
+
+  @override
+  _i5.Future<String?> resetPassword({required String? email}) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #resetPassword,
+          [],
+          {#email: email},
+        ),
+        returnValue: _i5.Future<String?>.value(),
+      ) as _i5.Future<String?>);
 }

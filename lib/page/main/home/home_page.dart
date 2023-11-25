@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rinjani_visitor/features/authentication/presentation/view_model/auth.dart';
 import 'package:rinjani_visitor/core/presentation/theme/theme.dart';
 import 'package:badges/badges.dart' as badges;
+import 'package:rinjani_visitor/features/authentication/presentation/view_model/auth_detail.dart';
 import 'package:rinjani_visitor/features/product/presentation/view_model/recommended_product.dart';
 
 import '_widget/category_selector.dart';
@@ -25,6 +26,7 @@ class HomePage extends ConsumerWidget {
       await Future.delayed(const Duration(seconds: 2));
     }
 
+    final userDetail = ref.watch(authDetailViewModelProvider);
     final username = ref.watch(authViewModelProvider).value?.username ?? "User";
     return CupertinoPageScaffold(
       backgroundColor: backgroundColor,
@@ -34,7 +36,7 @@ class HomePage extends ConsumerWidget {
             floating: true,
             pinned: true,
             delegate: SliverHomeAppbarDelegate(
-              title: username,
+              title: userDetail.asData?.value?.name ?? username,
               leading: CupertinoButton(
                   onPressed: () => _toNotification(context),
                   child: badges.Badge(

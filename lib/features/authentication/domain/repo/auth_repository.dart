@@ -12,6 +12,8 @@ abstract class AuthRepository {
   Future<AuthEntity?> logIn({required String email, required String password});
   Future<AuthDetailEntity?> getUserDetail(String accessToken, String id);
 
+  Future<String?> resetPassword({required String email});
+
   Future<AuthEntity?> logout();
   Future<AuthEntity?> getSavedSession();
   Future<AuthEntity?> refresh(AuthEntity? authEntity);

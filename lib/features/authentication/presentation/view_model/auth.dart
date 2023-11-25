@@ -54,4 +54,13 @@ class AuthViewModel extends AsyncNotifier<AuthEntity?> {
         password: password));
     developer.log("value ${state.asData?.value.toString()}");
   }
+
+  FutureOr<String?> resetPassword(String email) async {
+    final temp = state;
+    state = const AsyncLoading();
+    developer.log("$NAME : Reset Password emitted");
+    final data = await repository.resetPassword(email: email);
+    state = temp;
+    return data;
+  }
 }

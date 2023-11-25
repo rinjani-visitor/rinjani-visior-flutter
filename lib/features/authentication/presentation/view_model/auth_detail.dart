@@ -14,17 +14,19 @@ class AuthDetailViewModel extends AutoDisposeAsyncNotifier<AuthDetailEntity?> {
   FutureOr<AuthDetailEntity?> build() async {
     final id = ref.read(authViewModelProvider).value!.userId;
 
-    final token = ref.read(authViewModelProvider).value!.accessToken;
+    final token =
+        ref.read(authViewModelProvider).value!.toAccessTokenAuthorization();
     final data =
-        await ref.read(authRepositoryProvider).getUserDetail(token!, id!);
+        await ref.read(authRepositoryProvider).getUserDetail(token, id!);
     return data;
   }
 
   FutureOr<void> refresh() async {
     state = const AsyncLoading();
     final id = ref.read(authViewModelProvider).value!.userId;
-    final token = ref.read(authViewModelProvider).value!.accessToken;
+    final token =
+        ref.read(authViewModelProvider).value!.toAccessTokenAuthorization();
     state = await AsyncValue.guard(() async =>
-        await ref.read(authRepositoryProvider).getUserDetail(token!, id!));
+        await ref.read(authRepositoryProvider).getUserDetail(token, id!));
   }
 }

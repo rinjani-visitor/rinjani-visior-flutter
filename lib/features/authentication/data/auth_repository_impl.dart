@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rinjani_visitor/core/exception/exception.dart';
 import 'package:rinjani_visitor/core/presentation/services/dio_service.dart';
+import 'package:rinjani_visitor/features/authentication/data/models/request/reset_request.dart';
 import 'package:rinjani_visitor/features/authentication/data/source/local.dart';
 import 'package:rinjani_visitor/features/authentication/data/source/remote.dart';
 import 'package:rinjani_visitor/features/authentication/data/models/request/login_request.dart';
@@ -119,6 +120,18 @@ class AuthRepositoryImpl implements AuthRepository {
       return result;
     } catch (e) {
       throw ExtException.fromDioException(e);
+    }
+  }
+
+  @override
+  Future<String?> resetPassword({required String email}) async {
+    try {
+      final data = await remoteSource.resetPassword(ResetRequest(email: email));
+      final result = data.message;
+      return result;
+    } catch (e) {
+      final error = ExtException.fromDioException(e);
+      return "Failed: ${error.errorMessage}";
     }
   }
 

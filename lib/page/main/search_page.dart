@@ -47,15 +47,14 @@ class _SearchPageState extends ConsumerState<SearchPage> {
                             status: StatusColor.available,
                             rating: curr.rating.toString(),
                             onTap: () {
-                              if (curr.category != null) {
-                                Navigator.push(
-                                    context,
-                                    CupertinoPageRoute(
-                                        builder: (context) => ProductDetailPage(
-                                              category: curr.category!,
-                                              id: curr.productId,
-                                            )));
-                              }
+                              Navigator.push(
+                                  context,
+                                  CupertinoPageRoute(
+                                      builder: (context) => ProductDetailPage(
+                                            category:
+                                                curr.category ?? "rinjani",
+                                            id: curr.productId,
+                                          )));
                             },
                             price: "${curr.lowestPrice}\$"),
                       );

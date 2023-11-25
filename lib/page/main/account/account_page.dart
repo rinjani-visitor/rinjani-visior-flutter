@@ -3,11 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rinjani_visitor/features/authentication/presentation/view_model/auth.dart';
 import 'package:rinjani_visitor/core/presentation/theme/theme.dart';
+import 'package:rinjani_visitor/features/authentication/presentation/view_model/auth_detail.dart';
 
 class AccountPage extends ConsumerWidget {
   const AccountPage({super.key});
 
-  Widget header(String username) {
+  Widget header(String username, String imgUrl) {
     return Column(
       children: [
         const SizedBox(
@@ -16,7 +17,7 @@ class AccountPage extends ConsumerWidget {
         CircleAvatar(
           backgroundColor: lightGray,
           radius: 80,
-          backgroundImage: const AssetImage('assets/booking-success.png'),
+          backgroundImage: NetworkImage(imgUrl),
         ),
         const SizedBox(
           height: 8,
@@ -32,8 +33,7 @@ class AccountPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final username =
-        ref.read(authViewModelProvider).asData?.value?.username ?? "User";
+    final userDetail = ref.read(authDetailViewModelProvider);
     return CupertinoPageScaffold(
         child: CustomScrollView(
       slivers: [
@@ -41,7 +41,8 @@ class AccountPage extends ConsumerWidget {
           largeTitle: Text('Account'),
         ),
         SliverToBoxAdapter(
-          child: header(username),
+          child: header(userDetail.asData?.value?.name ?? "User",
+              userDetail.asData?.value?.profileImg ?? ""),
         ),
         SliverToBoxAdapter(
           child: Padding(
