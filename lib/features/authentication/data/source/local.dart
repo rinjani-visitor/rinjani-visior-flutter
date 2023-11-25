@@ -4,7 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:rinjani_visitor/core/presentation/services/secure_storage_service.dart';
-import 'package:rinjani_visitor/features/authentication/data/models/token_model.dart';
+import 'package:rinjani_visitor/features/authentication/data/models/token.dart';
 
 final authLocalSourceProvider =
     Provider((ref) => AuthLocalSource(storage: ref.read(secureStorageService)));

@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:rinjani_visitor/features/authentication/data/auth_repository_impl.dart';
+import 'package:rinjani_visitor/features/authentication/data/repo.dart';
 import 'package:rinjani_visitor/features/authentication/domain/entity/auth_detail.dart';
 import 'package:rinjani_visitor/features/authentication/presentation/view_model/auth.dart';
 

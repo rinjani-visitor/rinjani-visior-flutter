@@ -1,6 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 
-part 'token_model.g.dart';
+part 'token.g.dart';
 
 @JsonSerializable()
 class TokenModel {

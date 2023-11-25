@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'reset_response.dart';
+part of 'reset.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator

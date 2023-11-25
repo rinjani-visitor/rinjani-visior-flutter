@@ -2,7 +2,7 @@ import 'package:json_annotation/json_annotation.dart';
 import 'package:rinjani_visitor/core/domain/entity/base_response.dart';
 import 'package:rinjani_visitor/features/authentication/domain/entity/auth.dart';
 
-part 'register_response.g.dart';
+part 'register.g.dart';
 
 @JsonSerializable()
 class RegisterResponse extends BaseResponse<RegisterResponseBody?> {
