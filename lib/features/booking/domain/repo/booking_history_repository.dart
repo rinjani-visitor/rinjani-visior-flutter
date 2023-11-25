@@ -1,4 +1,4 @@
-import 'package:rinjani_visitor/features/booking_history/domain/entitiy/booking_history.dart';
+import 'package:rinjani_visitor/features/booking/domain/entitiy/booking_history.dart';
 
 abstract class BookingHistoryRepository {
   Future<List<BookingHistoryEntity>> getBookingHistories();

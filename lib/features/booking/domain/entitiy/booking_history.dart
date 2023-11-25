@@ -1,4 +1,4 @@
-import 'package:rinjani_visitor/features/booking_history/domain/enum/history_status.dart';
+import 'package:rinjani_visitor/features/booking/domain/enum/history_status.dart';
 
 class BookingHistoryEntity {
   final String id;
