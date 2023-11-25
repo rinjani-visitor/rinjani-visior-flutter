@@ -20,18 +20,22 @@ class ProductDetailResponse extends BaseResponse<ProductDetailBody> {
       title: data.title,
       status: data.status,
       description: data.description,
-      imgs: data.thumbnail,
+      thumbnail: data.thumbnail,
       images: data.fotos?.map((e) => e.url!).toList(),
       location: data.location,
-      priceLow: data.lowestPrice,
+      lowestPrice: data.lowestPrice,
       rating: data.rating.toString(),
       tripDuration: data.duration,
       program: data.program,
       reviewCount: data.favoritedCount,
-      initenaryList: [],
-      addOn: [],
-      locationUrl: '',
-      timeList24H: []);
+      facilities: data.facilities,
+      addOns: data.addOns,
+      locationUrl: "",
+      timeList24H: [],
+      favoritedCount: data.favoritedCount.toString(),
+      reviews: data.reviews,
+      note: data.note,
+      subCategory: data.subCategory);
 }
 
 @JsonSerializable()
@@ -46,12 +50,11 @@ class ProductDetailBody {
   String? description;
   String? duration;
   String? program;
-  String? porter;
-  String? guide;
   String? category;
   String? subCategory;
   int? favoritedCount;
   List<String>? facilities;
+  List<String>? addOns;
   String? note;
   String? createdAt;
   String? updatedAt;
@@ -69,8 +72,6 @@ class ProductDetailBody {
       this.description,
       this.duration,
       this.program,
-      this.porter,
-      this.guide,
       this.category,
       this.subCategory,
       this.favoritedCount,

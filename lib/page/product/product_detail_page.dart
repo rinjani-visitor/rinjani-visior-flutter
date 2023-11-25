@@ -98,7 +98,7 @@ class _DetailPageState extends ConsumerState<ProductDetailPage> {
                         children: [
                           _Header(
                               title: data.title ?? "Title not found",
-                              imgUrl: data.imgs ?? "",
+                              imgUrl: data.thumbnail ?? "",
                               location: data.location ?? "",
                               rating: data.rating ?? "-.-",
                               rangePricing: data.rangePricing,
@@ -120,13 +120,13 @@ class _DetailPageState extends ConsumerState<ProductDetailPage> {
                                       )),
                                   KVContentWidget(
                                       title: "AddOn",
-                                      content: data.addOn != null &&
-                                              data.addOn!.isNotEmpty
+                                      content: data.addOns != null &&
+                                              data.addOns!.isNotEmpty
                                           ? Column(
                                               children: List.generate(
-                                                  data.addOn!.length, (index) {
+                                                  data.addOns!.length, (index) {
                                                 final current =
-                                                    data.addOn![index];
+                                                    data.addOns![index];
                                                 final currentSelected = _state
                                                     .addOn
                                                     .contains(current);
@@ -215,7 +215,7 @@ class _DetailPageState extends ConsumerState<ProductDetailPage> {
                                 ],
                               ),
                               initenary: DetailIniteraryWidget(
-                                  initenaryList: data.initenaryList ?? []),
+                                  initenaryList: data.facilities ?? []),
                             ),
                           ),
                         ],

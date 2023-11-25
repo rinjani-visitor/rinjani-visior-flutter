@@ -35,8 +35,6 @@ ProductDetailBody _$ProductDetailBodyFromJson(Map<String, dynamic> json) =>
       description: json['description'] as String?,
       duration: json['duration'] as String?,
       program: json['program'] as String?,
-      porter: json['porter'] as String?,
-      guide: json['guide'] as String?,
       category: json['category'] as String?,
       subCategory: json['subCategory'] as String?,
       favoritedCount: json['favoritedCount'] as int?,
@@ -51,7 +49,8 @@ ProductDetailBody _$ProductDetailBodyFromJson(Map<String, dynamic> json) =>
           .toList(),
       reviews:
           (json['reviews'] as List<dynamic>?)?.map((e) => e as String).toList(),
-    );
+    )..addOns =
+        (json['addOns'] as List<dynamic>?)?.map((e) => e as String).toList();
 
 Map<String, dynamic> _$ProductDetailBodyToJson(ProductDetailBody instance) =>
     <String, dynamic>{
@@ -65,12 +64,11 @@ Map<String, dynamic> _$ProductDetailBodyToJson(ProductDetailBody instance) =>
       'description': instance.description,
       'duration': instance.duration,
       'program': instance.program,
-      'porter': instance.porter,
-      'guide': instance.guide,
       'category': instance.category,
       'subCategory': instance.subCategory,
       'favoritedCount': instance.favoritedCount,
       'facilities': instance.facilities,
+      'addOns': instance.addOns,
       'note': instance.note,
       'createdAt': instance.createdAt,
       'updatedAt': instance.updatedAt,

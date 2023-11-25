@@ -11,7 +11,7 @@ class OrderEntity {
     this.proofOfPayment,
   });
 
-  int get totalPrice => (product?.priceLow ?? 1 * person);
+  int get totalPrice => (product?.lowestPrice ?? 1 * person);
 
   String? packageId;
   ProductDetailEntity? product;

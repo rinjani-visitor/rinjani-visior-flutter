@@ -30,8 +30,8 @@ class ProductDetailEntity {
       this.status,
       this.rating,
       this.location,
-      this.priceLow,
-      this.imgs,
+      this.lowestPrice,
+      this.thumbnail,
       this.description,
       this.tripDuration,
       this.program,
@@ -40,11 +40,15 @@ class ProductDetailEntity {
       this.locationUrl,
       this.accomodation,
       this.reviewCount,
-      this.initenaryList,
+      this.facilities,
       this.timeList24H,
-      this.addOn});
+      this.addOns,
+      this.favoritedCount,
+      this.reviews,
+      this.note,
+      this.subCategory});
 
-  get rangePricing => '$priceLow\$ / person';
+  get rangePricing => '$lowestPrice\$ / person';
   get avaiabilityStatus => status != null ? "Avaiable" : "Not Avaiable";
 
   final String id;
@@ -52,18 +56,21 @@ class ProductDetailEntity {
   bool? status;
   String? rating;
   String? location;
-  int? priceLow;
-  String? imgs;
+  int? lowestPrice;
+  int? reviewCount;
+  String? thumbnail;
   String? description;
+  String? note;
   String? tripDuration;
   String? program;
-  List<String>? images;
   String? category;
+  String? subCategory;
+  String? favoritedCount;
   String? locationUrl;
   String? accomodation;
-  int? reviewCount;
-  List<String>? initenaryList;
+  List<String>? images;
+  List<String>? facilities;
   List<String>? timeList24H;
-  List<String>? addOn;
-  List<String>? reviewIds;
+  List<String>? addOns;
+  List<String>? reviews;
 }
