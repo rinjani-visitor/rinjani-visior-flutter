@@ -46,8 +46,8 @@ class RecommendationList extends ConsumerWidget {
                 children: List.generate(data.length, (index) {
                   final current = data[index];
                   return SmallProductCard(
-                      onTap: () => _toProductDetail(context,
-                          current.category ?? "rinjani", current.productId),
+                      onTap: () => _toProductDetail(
+                          context, current.category ?? "", current.productId),
                       title: current.title ?? "No title found",
                       rating: current.rating.toString(),
                       image: NetworkImage(current.thumbnail ?? ""));

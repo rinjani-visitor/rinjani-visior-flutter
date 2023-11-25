@@ -13,7 +13,7 @@ class _AuthRemoteSource implements AuthRemoteSource {
     this._dio, {
     this.baseUrl,
   }) {
-    baseUrl ??= 'https://rinjani-api-v1-tpe6yyswta-as.a.run.app';
+    baseUrl ??= 'https://test.rinjanivisitor.com';
   }
 
   final Dio _dio;

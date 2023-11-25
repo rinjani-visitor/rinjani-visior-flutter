@@ -1,4 +1,3 @@
-import 'package:rinjani_visitor/features/product/domain/category_enum.dart';
 import 'package:rinjani_visitor/features/product/domain/entity/product.dart';
 
 abstract class ProductRespository {

@@ -96,7 +96,7 @@ class DetailSegmentedWidget extends StatefulWidget {
 class _DetailSegmentedWidgetState extends State<DetailSegmentedWidget> {
   Map<dynamic, Widget> children = <dynamic, Widget>{
     0: const Text('Description'),
-    1: const Text('Initenary')
+    1: const Text('Features')
   };
   int _sliding = 0;
 
