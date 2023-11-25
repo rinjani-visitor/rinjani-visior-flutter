@@ -33,7 +33,8 @@ class _DetailPageState extends ConsumerState<ProductDetailPage> {
 
   late var _state = ref.read(bookingViewModelProvider);
 
-  late final _dateController = TextEditingController(text: _state.endDateTime);
+  late final _dateController =
+      TextEditingController(text: _state.startDateTime);
   late final _personController =
       TextEditingController(text: _state.totalPersons.toString());
 

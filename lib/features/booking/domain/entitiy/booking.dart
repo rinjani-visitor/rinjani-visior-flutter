@@ -5,7 +5,6 @@ class BookingEntity {
   String userId;
   String productId;
   String startDateTime;
-  String endDateTime;
   List<String> addOns;
   List<String> time = [];
   int offeringPrice;
@@ -14,7 +13,6 @@ class BookingEntity {
     required this.userId,
     required this.productId,
     required this.startDateTime,
-    required this.endDateTime,
     required this.addOns,
     required this.offeringPrice,
     required this.totalPersons,

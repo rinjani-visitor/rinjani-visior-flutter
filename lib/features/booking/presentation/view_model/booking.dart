@@ -19,7 +19,6 @@ class BookingViewModel extends AutoDisposeNotifier<BookingEntity> {
     return BookingEntity(
       addOns: [],
       startDateTime: DateTime.timestamp().toIso8601String(),
-      endDateTime: DateTime.timestamp().toIso8601String(),
       offeringPrice: 0,
       productId: "",
       totalPersons: "",
@@ -31,7 +30,6 @@ class BookingViewModel extends AutoDisposeNotifier<BookingEntity> {
     state = BookingEntity(
       addOns: [],
       startDateTime: DateTime.timestamp().toIso8601String(),
-      endDateTime: DateTime.timestamp().toIso8601String(),
       offeringPrice: 0,
       productId: "",
       totalPersons: "",
