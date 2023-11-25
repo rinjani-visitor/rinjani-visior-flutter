@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:rinjani_visitor/features/booking_history/domain/entitiy/booking_history.dart';
+import 'package:rinjani_visitor/features/booking/domain/entitiy/booking_history.dart';
 
 final bookingHistoryViewModelProvider =
     AsyncNotifierProvider<BookingHistoryViewModel, List<BookingHistoryEntity>>(

@@ -5,6 +5,7 @@ import 'package:rinjani_visitor/core/presentation/theme/theme.dart';
 class AddOnWidget extends StatefulWidget {
   /// Add on name.
   final String name;
+  final String? description;
 
   /// initial value.
   final bool selected;
@@ -14,6 +15,7 @@ class AddOnWidget extends StatefulWidget {
     required this.name,
     required this.selected,
     required this.onChanged,
+    this.description,
   });
 
   @override
@@ -27,19 +29,26 @@ class _AddOnWidgetState extends State<AddOnWidget> {
       padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 8.0),
       child: Row(
         children: [
-          Row(
-            children: [
-              Icon(
-                Icons.directions_car,
-                color: blackColor,
-              ),
-              const SizedBox(
-                width: 8,
-              ),
-              Text('${widget.name}')
-            ],
+          Icon(
+            Icons.add_outlined,
+            color: blackColor,
           ),
-          const Spacer(),
+          const SizedBox(
+            width: 12,
+          ),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(widget.name),
+                widget.description != null
+                    ? Text("${widget.description}",
+                        style:
+                            const TextStyle(color: CupertinoColors.systemGrey2))
+                    : Container(),
+              ],
+            ),
+          ),
           SizedBox(
             width: 24,
             height: 24,

@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:rinjani_visitor/core/enums/booking_enum.dart';
+import 'package:rinjani_visitor/core/domain/enums/booking_enum.dart';
 import 'package:rinjani_visitor/core/presentation/theme/theme.dart';
 import 'package:rinjani_visitor/features/notification/presentation/view_model/notification.dart';
 import 'package:rinjani_visitor/widget/notification_card_widget.dart';

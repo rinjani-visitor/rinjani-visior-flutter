@@ -24,7 +24,6 @@ class CategoryExplorePage extends ConsumerStatefulWidget {
 class _CategoryExplorePageState extends ConsumerState<CategoryExplorePage> {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     Future(() {
       ref

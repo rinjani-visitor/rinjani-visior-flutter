@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:rinjani_visitor/core/presentation/theme/theme.dart';
 import 'package:rinjani_visitor/widget/time_button_widget.dart';
 
@@ -134,7 +135,7 @@ class DetailIniteraryWidget extends StatelessWidget {
   String initenaryDatas() {
     var string = "";
     for (final item in initenaryList) {
-      string = string += "$item\n";
+      string = string += "- $item\n";
     }
     return string;
   }
@@ -145,16 +146,31 @@ class DetailIniteraryWidget extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Initenary',
+          'Features from this package',
           style: blackTextStyle.copyWith(fontSize: 20, fontWeight: semibold),
         ),
         const SizedBox(
           height: 8,
         ),
-        Text(
-          initenaryDatas(),
-          style: TextStyle(fontSize: body1),
-        ),
+        Column(
+          children: List.generate(
+              initenaryList.length,
+              (index) => Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 2.0),
+                    child: Row(
+                      children: [
+                        const Icon(
+                          Icons.remove,
+                          color: CupertinoColors.black,
+                        ),
+                        const SizedBox(
+                          width: 8,
+                        ),
+                        Text(initenaryList[index])
+                      ],
+                    ),
+                  )),
+        )
       ],
     );
   }

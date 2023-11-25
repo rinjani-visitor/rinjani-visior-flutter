@@ -1,5 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:rinjani_visitor/core/domain/entity/base_response.dart';
+import 'package:rinjani_visitor/features/product/domain/entity/addon.dart';
 import 'package:rinjani_visitor/features/product/domain/entity/product.dart';
 
 part 'product_detail_response.g.dart';
@@ -24,12 +25,12 @@ class ProductDetailResponse extends BaseResponse<ProductDetailBody> {
       images: data.fotos?.map((e) => e.url!).toList(),
       location: data.location,
       lowestPrice: data.lowestPrice,
-      rating: data.rating.toString(),
+      rating: data.rating?.toString(),
       tripDuration: data.duration,
       program: data.program,
       reviewCount: data.favoritedCount,
       facilities: data.facilities,
-      addOns: data.addOns,
+      addOns: data.addOns?.map((e) => AddonEntity(title: e)).toList(),
       locationUrl: "",
       timeList24H: [],
       favoritedCount: data.favoritedCount.toString(),

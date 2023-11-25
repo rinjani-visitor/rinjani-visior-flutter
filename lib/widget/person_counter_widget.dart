@@ -49,11 +49,18 @@ class _PersonCounterWidgetState extends State<PersonCounterWidget> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Material(
-                child: IconButton(
-                  onPressed: () => _decrement(),
-                  icon: const Icon(Icons.remove),
-                ),
-              ),
+                  child: int.parse(widget.controller.text) > 1
+                      ? IconButton(
+                          onPressed: () => _decrement(),
+                          icon: const Icon(Icons.remove),
+                        )
+                      : const Padding(
+                          padding: EdgeInsets.all(12.0),
+                          child: Icon(
+                            Icons.remove,
+                            color: Colors.grey,
+                          ),
+                        )),
               const SizedBox(width: 20),
               Text(
                 widget.controller.text,

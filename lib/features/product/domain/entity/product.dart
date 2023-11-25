@@ -1,10 +1,12 @@
-import 'package:rinjani_visitor/features/product/domain/category_enum.dart';
+import 'package:rinjani_visitor/features/product/domain/entity/addon.dart';
 
 class ProductEntity {
   final String productId;
   String? title;
   bool? avaiable;
   double? rating;
+  String get ratingString =>
+      rating == null || rating == 0.0 ? "-.-" : this.rating.toString();
   String? category;
   String? location;
   String? thumbnail;
@@ -71,6 +73,6 @@ class ProductDetailEntity {
   List<String>? images;
   List<String>? facilities;
   List<String>? timeList24H;
-  List<String>? addOns;
+  List<AddonEntity>? addOns;
   List<String>? reviews;
 }
