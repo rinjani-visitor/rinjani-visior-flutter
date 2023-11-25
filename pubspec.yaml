@@ -55,6 +55,7 @@ dependencies:
   # UI
   skeletonizer: ^0.8.0
   badges: ^3.1.2
+  country_picker: ^2.0.22
 
   # data & bussiness related
   json_annotation: ^4.8.1

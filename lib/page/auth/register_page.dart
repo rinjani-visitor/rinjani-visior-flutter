@@ -1,4 +1,6 @@
+import 'package:country_picker/country_picker.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:rinjani_visitor/core/constant/country.dart';
@@ -83,14 +85,37 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
                 Form(
                   child: Column(
                     children: [
-                      DropdownTextfield(
+                      InputFormField(
                         label: "Country",
                         controller: _countryTxtController,
+                        onTap: () {
+                          showCountryPicker(
+                              showSearch: false,
+                              countryListTheme: CountryListThemeData(
+                                inputDecoration: InputDecoration(
+                                    labelText: 'Search',
+                                    hintText: 'Start typing to search',
+                                    fillColor: mediumGray,
+                                    hoverColor: mediumGray,
+                                    focusColor: mediumGray,
+                                    prefixIcon: const Icon(Icons.search),
+                                    contentPadding: const EdgeInsets.all(4),
+                                    border: OutlineInputBorder(
+                                      gapPadding: 0,
+                                      borderRadius:
+                                          BorderRadius.circular(smallRadius),
+                                      borderSide: BorderSide(
+                                        color: lightGray,
+                                      ),
+                                    )),
+                              ),
+                              context: context,
+                              onSelect: (country) {
+                                _countryTxtController.text = country.name;
+                              });
+                        },
+                        textInputAction: TextInputAction.next,
                         placeholder: "Eg: Vatikan",
-                        items: countryLists,
-                      ),
-                      const SizedBox(
-                        height: 12,
                       ),
                       InputFormField(
                         label: 'Username',
