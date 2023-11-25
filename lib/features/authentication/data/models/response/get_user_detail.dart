@@ -2,15 +2,15 @@ import 'package:json_annotation/json_annotation.dart';
 import 'package:rinjani_visitor/core/domain/entity/base_response.dart';
 import 'package:rinjani_visitor/features/authentication/domain/entity/auth_detail.dart';
 
-part 'user_detail_response.g.dart';
+part 'get_user_detail.g.dart';
 
 @JsonSerializable()
-class UserDetailResponse extends BaseResponse<UserDetailResponseBody?> {
-  UserDetailResponse(
+class GetUserDetailResponse extends BaseResponse<UserDetailResponseBody?> {
+  GetUserDetailResponse(
       {required super.errors, required super.message, required super.data});
-  factory UserDetailResponse.fromJson(Map<String, dynamic> json) =>
-      _$UserDetailResponseFromJson(json);
-  Map<String, dynamic> toJson() => _$UserDetailResponseToJson(this);
+  factory GetUserDetailResponse.fromJson(Map<String, dynamic> json) =>
+      _$GetUserDetailResponseFromJson(json);
+  Map<String, dynamic> toJson() => _$GetUserDetailResponseToJson(this);
 
   AuthDetailEntity toEntity() => AuthDetailEntity(
       name: data?.name,

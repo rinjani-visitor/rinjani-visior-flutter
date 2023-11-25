@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'refresh_response.dart';
+part of 'refresh.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator

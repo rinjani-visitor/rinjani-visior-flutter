@@ -1,7 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:rinjani_visitor/core/domain/entity/base_response.dart';
 
-part 'reset_response.g.dart';
+part 'reset.g.dart';
 
 @JsonSerializable()
 class ResetResponse {

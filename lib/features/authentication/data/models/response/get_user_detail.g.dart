@@ -1,13 +1,14 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'user_detail_response.dart';
+part of 'get_user_detail.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-UserDetailResponse _$UserDetailResponseFromJson(Map<String, dynamic> json) =>
-    UserDetailResponse(
+GetUserDetailResponse _$GetUserDetailResponseFromJson(
+        Map<String, dynamic> json) =>
+    GetUserDetailResponse(
       errors:
           (json['errors'] as List<dynamic>?)?.map((e) => e as String).toList(),
       message: json['message'] as String,
@@ -17,7 +18,8 @@ UserDetailResponse _$UserDetailResponseFromJson(Map<String, dynamic> json) =>
               json['data'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$UserDetailResponseToJson(UserDetailResponse instance) =>
+Map<String, dynamic> _$GetUserDetailResponseToJson(
+        GetUserDetailResponse instance) =>
     <String, dynamic>{
       'errors': instance.errors,
       'message': instance.message,

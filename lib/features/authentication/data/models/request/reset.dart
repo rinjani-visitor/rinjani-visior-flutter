@@ -1,6 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 
-part 'reset_request.g.dart';
+part 'reset.g.dart';
 
 @JsonSerializable()
 class ResetRequest {

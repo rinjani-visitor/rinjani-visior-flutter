@@ -133,7 +133,7 @@ class _AuthRemoteSource implements AuthRemoteSource {
   }
 
   @override
-  Future<UserDetailResponse> userDetail(
+  Future<GetUserDetailResponse> getUserDetail(
     String accessToken,
     String id,
   ) async {
@@ -142,8 +142,8 @@ class _AuthRemoteSource implements AuthRemoteSource {
     final _headers = <String, dynamic>{r'Authorization': accessToken};
     _headers.removeWhere((k, v) => v == null);
     final Map<String, dynamic>? _data = null;
-    final _result = await _dio
-        .fetch<Map<String, dynamic>>(_setStreamType<UserDetailResponse>(Options(
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<GetUserDetailResponse>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
@@ -159,7 +159,7 @@ class _AuthRemoteSource implements AuthRemoteSource {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    final value = UserDetailResponse.fromJson(_result.data!);
+    final value = GetUserDetailResponse.fromJson(_result.data!);
     return value;
   }
 

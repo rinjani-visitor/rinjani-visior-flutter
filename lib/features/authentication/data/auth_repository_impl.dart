@@ -4,11 +4,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rinjani_visitor/core/exception/exception.dart';
 import 'package:rinjani_visitor/core/presentation/services/dio_service.dart';
-import 'package:rinjani_visitor/features/authentication/data/models/request/reset_request.dart';
+import 'package:rinjani_visitor/features/authentication/data/models/request/reset.dart';
 import 'package:rinjani_visitor/features/authentication/data/source/local.dart';
 import 'package:rinjani_visitor/features/authentication/data/source/remote.dart';
-import 'package:rinjani_visitor/features/authentication/data/models/request/login_request.dart';
-import 'package:rinjani_visitor/features/authentication/data/models/request/register_request.dart';
+import 'package:rinjani_visitor/features/authentication/data/models/request/login.dart';
+import 'package:rinjani_visitor/features/authentication/data/models/request/register.dart';
 import 'package:rinjani_visitor/features/authentication/domain/entity/auth_detail.dart';
 import 'package:rinjani_visitor/features/authentication/domain/repo/auth_repository.dart';
 import 'package:rinjani_visitor/features/authentication/domain/entity/auth.dart';
@@ -115,7 +115,7 @@ class AuthRepositoryImpl implements AuthRepository {
   Future<AuthDetailEntity?> getUserDetail(String accessToken, String id) async {
     developer.log("Get user detail with id $id", name: runtimeType.toString());
     try {
-      final data = await remoteSource.userDetail(accessToken, id);
+      final data = await remoteSource.getUserDetail(accessToken, id);
       final result = data.toEntity();
       return result;
     } catch (e) {
