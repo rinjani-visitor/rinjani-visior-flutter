@@ -1,4 +1,4 @@
-import 'package:rinjani_visitor/features/comment_review/domain/entity/review.dart';
+import 'package:rinjani_visitor/features/review/domain/entity/review.dart';
 
 abstract class ReviewRepository {
   Future<void> createReview(ReviewEntity entity);

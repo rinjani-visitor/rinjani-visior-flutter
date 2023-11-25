@@ -6,8 +6,7 @@
 import 'dart:async' as _i5;
 
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:rinjani_visitor/features/authentication/data/auth_repository_impl.dart'
-    as _i4;
+import 'package:rinjani_visitor/features/authentication/data/repo.dart' as _i4;
 import 'package:rinjani_visitor/features/authentication/data/source/local.dart'
     as _i2;
 import 'package:rinjani_visitor/features/authentication/data/source/remote.dart'

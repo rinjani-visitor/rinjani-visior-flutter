@@ -2,7 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:mockito/annotations.dart';
-import 'package:rinjani_visitor/features/authentication/data/auth_repository_impl.dart';
+import 'package:rinjani_visitor/features/authentication/data/repo.dart';
 import 'package:rinjani_visitor/features/authentication/domain/entity/auth.dart';
 import 'package:rinjani_visitor/features/authentication/presentation/view_model/auth.dart';
 

@@ -1,5 +1,5 @@
-import 'package:rinjani_visitor/features/comment_review/domain/entity/review.dart';
-import 'package:rinjani_visitor/features/comment_review/domain/repo/review_repository.dart';
+import 'package:rinjani_visitor/features/review/domain/entity/review.dart';
+import 'package:rinjani_visitor/features/review/domain/repo/review.dart';
 
 /// class ReviewRepositoryImpl that implements ReviewRepository abstract class
 class ReviewRepositoryImpl implements ReviewRepository {

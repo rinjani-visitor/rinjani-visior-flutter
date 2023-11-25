@@ -1,5 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:rinjani_visitor/features/comment_review/domain/entity/review.dart';
+import 'package:rinjani_visitor/features/review/domain/entity/review.dart';
 
 final writeReviewViewModelProvider =
     StateNotifierProvider<WriteReviewViewModel, ReviewEntity>((ref) {

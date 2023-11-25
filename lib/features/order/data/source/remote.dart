@@ -5,8 +5,6 @@ import 'package:http_parser/http_parser.dart';
 import 'package:retrofit/http.dart';
 import 'package:rinjani_visitor/core/constant/network.dart';
 import 'package:rinjani_visitor/features/order/data/models/response/booking.dart';
-import 'package:rinjani_visitor/features/order/data/models/request/booking.dart';
-import 'package:rinjani_visitor/features/order/data/models/response/booking_detail.dart';
 import 'package:rinjani_visitor/features/order/data/models/response/order.dart';
 
 part "remote.g.dart";
@@ -14,28 +12,6 @@ part "remote.g.dart";
 @RestApi(baseUrl: restApiBaseUrl)
 abstract class RemoteOrderSource {
   factory RemoteOrderSource(Dio dio, {String? baseUrl}) = _RemoteOrderSource;
-
-  @POST("/api/booking")
-  Future<BookingResponse> createBooking(
-      @Header("Authorization") String token, @Body() BookingRequest booking);
-
-  @PATCH("/api/booking")
-  Future<BookingResponse> updateBooking(
-      @Header("Authorization") String token, @Body() BookingRequest booking);
-
-  @GET("/api/booking")
-  Future<BookingResponse> getBookings(
-      @Header("Authorization") String token, @Query("userId") String userId);
-
-  @GET("/api/booking/{bookingId}")
-  Future<BookingDetailResponse> getBookingDetail(
-      @Header("Authorization") String token,
-      @Path("bookingId") String bookingId);
-
-  @DELETE("/api/booking/{bookingId}")
-  Future<BookingDetailResponse> cancelBooking(
-      @Header("Authorization") String token,
-      @Path("bookingId") String bookingId);
 
   @MultiPart()
   @POST("/api/payment/bank")
