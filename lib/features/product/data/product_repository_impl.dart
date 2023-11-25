@@ -24,7 +24,7 @@ class ProductRepositoryImpl implements ProductRespository {
       developer.log("Get Product", name: runtimeType.toString());
       final result = await remote.getProducts(
           token: token,
-          query: query?.toString(),
+          title: query?.toString(),
           category: category?.toString(),
           status: avaiable?.toString(),
           rating: rating?.toString());

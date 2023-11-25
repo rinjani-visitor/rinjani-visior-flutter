@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rinjani_visitor/core/exception/exception.dart';
@@ -49,8 +50,8 @@ class RecommendationList extends ConsumerWidget {
                       onTap: () => _toProductDetail(
                           context, current.category ?? "", current.productId),
                       title: current.title ?? "No title found",
-                      rating: current.rating.toString(),
-                      image: NetworkImage(current.thumbnail ?? ""));
+                      rating: current.ratingString,
+                      imageUrl: current.thumbnail);
                 }),
               ),
             );
@@ -68,8 +69,9 @@ class RecommendationList extends ConsumerWidget {
               child: Row(
                 children: List.generate(3, (index) {
                   return const SmallProductCard(
-                      title: "Placeholder",
-                      image: AssetImage('assets/rinjani.jpeg'));
+                    title: "Placeholder",
+                    loading: true,
+                  );
                 }),
               ),
             ),

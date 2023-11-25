@@ -1,8 +1,10 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:like_button/like_button.dart';
-import 'package:rinjani_visitor/features/order/presentation/view_model/order_riverpod.dart';
+import 'package:rinjani_visitor/features/booking/presentation/view_model/booking.dart';
 import 'package:rinjani_visitor/core/presentation/theme/theme.dart';
 import 'package:rinjani_visitor/features/product/domain/entity/product.dart';
 import 'package:rinjani_visitor/features/product/presentation/view_model/product_detail.dart';
@@ -27,13 +29,13 @@ class ProductDetailPage extends ConsumerStatefulWidget {
 }
 
 class _DetailPageState extends ConsumerState<ProductDetailPage> {
-  late final _viewModel = ref.read(orderViewModelProvider.notifier);
+  late final _viewModel = ref.read(bookingViewModelProvider.notifier);
 
-  late var _state = ref.read(orderViewModelProvider);
+  late var _state = ref.read(bookingViewModelProvider);
 
-  late final _dateController = TextEditingController(text: _state.date);
+  late final _dateController = TextEditingController(text: _state.endDateTime);
   late final _personController =
-      TextEditingController(text: _state.person.toString());
+      TextEditingController(text: _state.totalPersons.toString());
 
   @override
   void initState() {
@@ -54,7 +56,7 @@ class _DetailPageState extends ConsumerState<ProductDetailPage> {
           return PersonCounterWidget(
             controller: _personController,
             onSubmit: (value) {
-              _state.person = int.parse(_personController.text);
+              _state.totalPersons = _personController.text;
               _viewModel.setDate(_dateController.text);
               _viewModel.submitOrder(context, data);
             },
@@ -64,7 +66,7 @@ class _DetailPageState extends ConsumerState<ProductDetailPage> {
 
   @override
   Widget build(BuildContext context) {
-    _state = ref.watch(orderViewModelProvider);
+    _state = ref.watch(bookingViewModelProvider);
     final currentProduct = ref.watch(productDetailViewModelProvider);
     ;
     return CupertinoPageScaffold(
@@ -101,6 +103,7 @@ class _DetailPageState extends ConsumerState<ProductDetailPage> {
                               imgUrl: data.thumbnail ?? "",
                               location: data.location ?? "",
                               rating: data.rating ?? "-.-",
+                              avaiable: data.status ?? false,
                               rangePricing: data.rangePricing,
                               tripDuration: data.tripDuration ?? "N/a"),
                           Padding(
@@ -128,26 +131,26 @@ class _DetailPageState extends ConsumerState<ProductDetailPage> {
                                                 final current =
                                                     data.addOns![index];
                                                 final currentSelected = _state
-                                                    .addOn
-                                                    .contains(current);
+                                                    .addOns
+                                                    .contains(current.title);
                                                 return Tooltip(
-                                                  message: current,
+                                                  message: current.toString(),
                                                   child: AddOnWidget(
-                                                    name: current,
+                                                    name: current.toString(),
                                                     selected: currentSelected,
                                                     onChanged:
                                                         (value, isSelected) {
                                                       if (isSelected) {
                                                         setState(() {
-                                                          _viewModel
-                                                              .removeAddon(
-                                                                  current);
+                                                          _viewModel.removeAddon(
+                                                              current
+                                                                  .toString());
                                                         });
                                                         return;
                                                       }
                                                       setState(() {
-                                                        _viewModel
-                                                            .addAddon(current);
+                                                        _viewModel.addAddon(
+                                                            current.toString());
                                                       });
                                                     },
                                                   ),
@@ -234,8 +237,10 @@ class _Header extends StatelessWidget {
   final String rating;
   final String rangePricing;
   final String tripDuration;
+  final bool avaiable;
   const _Header(
       {super.key,
+      this.avaiable = false,
       this.title = "Title not found",
       this.imgUrl = "",
       this.location = "",
@@ -250,12 +255,19 @@ class _Header extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Container(
-            width: double.infinity,
-            height: 241,
-            decoration: BoxDecoration(
+          CachedNetworkImage(
+            imageUrl: imgUrl,
+            errorWidget: (context, url, error) => const Icon(Icons.error),
+            imageBuilder: (context, imageProvider) => Container(
+              width: double.infinity,
+              height: 241,
+              decoration: BoxDecoration(
                 image: DecorationImage(
-                    fit: BoxFit.cover, image: NetworkImage(imgUrl))),
+                  image: imageProvider,
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
           ),
           const SizedBox(
             height: 16,
@@ -281,9 +293,10 @@ class _Header extends StatelessWidget {
                       ),
                     ),
                     const Spacer(),
-                    const Status(
-                      status: StatusColor.available,
-                      text: "Available",
+                    Status(
+                      status:
+                          avaiable ? StatusColor.available : StatusColor.error,
+                      text: avaiable ? "Avaiable" : "Not Avaiable",
                     )
                   ],
                 ),
@@ -320,7 +333,12 @@ class _Header extends StatelessWidget {
                           fontSize: 16, fontWeight: semibold),
                     ),
                     const Spacer(),
-                    const LikeButton()
+                    LikeButton(
+                      onTap: (status) {
+                        debugPrint("Like button tapped");
+                        return Future(() => false);
+                      },
+                    )
                   ],
                 ),
                 const SizedBox(

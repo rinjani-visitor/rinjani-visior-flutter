@@ -15,7 +15,7 @@ abstract class ProductRemoteSource {
   @GET("/api/products")
   Future<ProductResponse> getProducts({
     @Header("Authorization") required String token,
-    @Query("query") String? query,
+    @Query("title") String? title,
     @Query("status") String? status,
     @Query("category") String? category,
     @Query("rating") String? rating,
