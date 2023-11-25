@@ -1,17 +1,19 @@
-import 'package:flutter/foundation.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:json_annotation/json_annotation.dart';
 
-part 'comment_model.freezed.dart';
 part 'comment_model.g.dart';
 
-@freezed
-class CommentModel with _$CommentModel {
-  const factory CommentModel(
-      {required String user,
-      required String commentId,
-      required String reviewScore,
-      required String content}) = _CommentModel;
+@JsonSerializable()
+class CommentModel {
+  String user;
+  String commentId;
+  String reviewScore;
+  String content;
 
-  factory CommentModel.fromJson(Map<String, Object?> json) =>
-      _$CommentModelFromJson(json);
+  CommentModel(
+      {required this.user,
+      required this.content,
+      required this.commentId,
+      required this.reviewScore});
+
+  factory CommentModel.fromJson(Map<String, dynamic> json) => _$CommentModelFromJson(json);
 }

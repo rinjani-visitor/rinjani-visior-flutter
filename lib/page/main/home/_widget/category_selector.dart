@@ -2,15 +2,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rinjani_visitor/core/presentation/theme/theme.dart';
-import 'package:rinjani_visitor/features/product/domain/category_enum.dart';
 import 'package:rinjani_visitor/page/main/home/category/category_explore_page.dart';
 import 'package:rinjani_visitor/widget/category_item.dart';
 
 class CategorySelector extends ConsumerWidget {
   const CategorySelector({super.key});
 
-  void _toCategoryPage(
-      BuildContext context, String label, ProductCategory category) {
+  void _toCategoryPage(BuildContext context, String label, String category) {
     Navigator.push(
         context,
         CupertinoPageRoute(
@@ -40,26 +38,23 @@ class CategorySelector extends ConsumerWidget {
               CategoryItem(
                 label: 'Rinjani',
                 iconName: Icons.landscape,
-                onTap: (label) =>
-                    _toCategoryPage(context, label, ProductCategory.rinjani),
+                onTap: (label) => _toCategoryPage(context, label, "rinjani"),
               ),
               CategoryItem(
                 label: 'Home Stay',
                 iconName: Icons.hotel,
-                onTap: (label) =>
-                    _toCategoryPage(context, label, ProductCategory.homeStay),
+                onTap: (label) => _toCategoryPage(context, label, "home-stay"),
               ),
               CategoryItem(
                 label: 'Culture',
                 iconName: Icons.self_improvement,
-                onTap: (label) =>
-                    _toCategoryPage(context, label, ProductCategory.culture),
+                onTap: (label) => _toCategoryPage(context, label, "culture"),
               ),
               CategoryItem(
                   label: 'Landscape',
                   iconName: Icons.hiking,
-                  onTap: (label) => _toCategoryPage(
-                      context, label, ProductCategory.landscape)),
+                  onTap: (label) =>
+                      _toCategoryPage(context, label, "landscape")),
             ],
           )
         ],

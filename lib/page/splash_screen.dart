@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:rinjani_visitor/features/authentication/presentation/auth_riverpod.dart';
+import 'package:rinjani_visitor/features/authentication/presentation/view_model/auth.dart';
 import 'package:rinjani_visitor/core/presentation/theme/theme.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class SplashScreen extends ConsumerStatefulWidget {
   const SplashScreen({super.key});
@@ -11,27 +12,29 @@ class SplashScreen extends ConsumerStatefulWidget {
 }
 
 class _SplashScreenState extends ConsumerState<SplashScreen> {
-  late var _state = ref.read(authRiverpodProvider);
+  late var _state = ref.read(authViewModelProvider);
 
   Future<void> syncToken() async {
-    final token = _state.asData?.value?.token;
+    final token = _state.asData?.value?.accessToken;
     if (token != null && token.isNotEmpty) {
       debugPrint("value $token");
       Navigator.pushReplacementNamed(context, '/home');
       return;
     }
+    Fluttertoast.showToast(msg: _state.error.toString());
     Navigator.pushReplacementNamed(context, '/login');
   }
 
   @override
   void initState() {
     super.initState();
+
     debugPrint("${_state.asData?.value.toString()}");
   }
 
   @override
   Widget build(BuildContext context) {
-    _state = ref.watch(authRiverpodProvider);
+    _state = ref.watch(authViewModelProvider);
     if (_state is AsyncData) {
       WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
         syncToken();

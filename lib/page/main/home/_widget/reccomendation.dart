@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:rinjani_visitor/core/exception/exception.dart';
 import 'package:rinjani_visitor/core/presentation/theme/theme.dart';
-import 'package:rinjani_visitor/features/product/domain/entity/product.dart';
 import 'package:rinjani_visitor/features/product/presentation/view_model/recommended_product.dart';
 import 'package:rinjani_visitor/page/product/product_detail_page.dart';
 import 'package:rinjani_visitor/widget/product/small_card.dart';
@@ -10,18 +10,19 @@ import 'package:skeletonizer/skeletonizer.dart';
 class RecommendationList extends ConsumerWidget {
   const RecommendationList({super.key});
 
-  void _toProductDetail(BuildContext context, ProductEntity data) {
+  void _toProductDetail(BuildContext context, String category, String id) {
     Navigator.push(
         context,
         CupertinoPageRoute(
             builder: (context) => ProductDetailPage(
-                  data: data,
+                  id: id,
+                  category: category,
                 )));
   }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final recommendedData = ref.watch(recommendedProductRiverpodProvider);
+    final recommendedData = ref.watch(recommendedProductViewModelProvider);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -45,16 +46,20 @@ class RecommendationList extends ConsumerWidget {
                 children: List.generate(data.length, (index) {
                   final current = data[index];
                   return SmallProductCard(
-                      onTap: () => _toProductDetail(context, current),
-                      title: current.title,
-                      rating: current.rating,
-                      image: AssetImage(current.imgUrl));
+                      onTap: () => _toProductDetail(context,
+                          current.category ?? "rinjani", current.productId),
+                      title: current.title ?? "No title found",
+                      rating: current.rating.toString(),
+                      image: NetworkImage(current.thumbnail ?? ""));
                 }),
               ),
             );
           },
           error: (error, stackTrace) {
-            return Center(child: Text("error $error"));
+            if (error is ExtException) {
+              return Center(child: Text("${error.errorMessage}"));
+            }
+            return Center(child: Text("error ${error}"));
           },
           loading: () => SingleChildScrollView(
             scrollDirection: Axis.horizontal,

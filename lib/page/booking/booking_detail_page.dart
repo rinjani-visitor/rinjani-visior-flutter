@@ -19,8 +19,8 @@ class _BookingDetailPageState extends ConsumerState<BookingDetailPage> {
   final _priceRangeController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
-  late final _viewModel = ref.read(orderRiverpodProvider.notifier);
-  late final _state = ref.read(orderRiverpodProvider);
+  late final _viewModel = ref.read(orderViewModelProvider.notifier);
+  late final _state = ref.read(orderViewModelProvider);
 
   Widget imageTitle() {
     return Container(
@@ -148,7 +148,7 @@ class _BookingDetailPageState extends ConsumerState<BookingDetailPage> {
                 children: List.generate(
                     _state.addOn.length,
                     (index) => Text(
-                          "- ${_state.addOn.elementAt(index).name} - ${_state.addOn.elementAt(index).price}\$",
+                          "- ${_state.addOn.elementAt(index)}}\$",
                           style: blackTextStyle.copyWith(
                               fontSize: 16, fontWeight: medium),
                         )),

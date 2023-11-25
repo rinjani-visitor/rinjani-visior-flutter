@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:rinjani_visitor/core/constant/country.dart';
 import 'package:rinjani_visitor/core/extension/validator.dart';
-import 'package:rinjani_visitor/features/authentication/presentation/auth_riverpod.dart';
+import 'package:rinjani_visitor/features/authentication/presentation/view_model/auth.dart';
 import 'package:rinjani_visitor/core/presentation/theme/theme.dart';
 import 'package:rinjani_visitor/widget/button/primary_button.dart';
 import 'package:rinjani_visitor/widget/form/dropdown_textfield.dart';
@@ -22,16 +22,18 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
   final _countryTxtController = TextEditingController();
   final _phoneNumberTxtController = TextEditingController();
   final _passwordTxtController = TextEditingController();
+  final _confirmPasswordTxtController = TextEditingController();
 
-  late final authNotifier = ref.read(authRiverpodProvider.notifier);
+  late final authNotifier = ref.read(authViewModelProvider.notifier);
 
   @override
   void dispose() {
     _usernameTxtController.dispose();
     _emailTxtController.dispose();
     _phoneNumberTxtController.dispose();
-    _passwordTxtController.dispose();
     _countryTxtController.dispose();
+    _passwordTxtController.dispose();
+    _confirmPasswordTxtController.dispose();
     super.dispose();
   }
 
@@ -46,9 +48,9 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
         _countryTxtController.text,
         _phoneNumberTxtController.text,
         _passwordTxtController.text,
-        _passwordTxtController.text);
+        _confirmPasswordTxtController.text);
 
-    final state = ref.read(authRiverpodProvider);
+    final state = ref.read(authViewModelProvider);
 
     if (state.hasError) {
       Fluttertoast.showToast(msg: state.asError!.error.toString());
@@ -59,7 +61,7 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
 
   @override
   Widget build(BuildContext context) {
-    final state = ref.watch(authRiverpodProvider);
+    final state = ref.watch(authViewModelProvider);
     return CupertinoPageScaffold(
       resizeToAvoidBottomInset: true,
       backgroundColor: whiteColor,
@@ -143,7 +145,22 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
                           }
                           return null;
                         },
-                      )
+                      ),
+                      InputFormField(
+                        label: 'Confirm password',
+                        secureText: true,
+                        textInputAction: TextInputAction.done,
+                        controller: _passwordTxtController,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return "Password required";
+                          }
+                          if (value != _passwordTxtController.text) {
+                            return "Password shoulsd be same";
+                          }
+                          return null;
+                        },
+                      ),
                     ],
                   ),
                 ),

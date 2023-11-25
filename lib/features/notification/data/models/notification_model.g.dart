@@ -6,20 +6,18 @@ part of 'notification_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$NotificationModelImpl _$$NotificationModelImplFromJson(
-        Map<String, dynamic> json) =>
-    _$NotificationModelImpl(
+NotificationModel _$NotificationModelFromJson(Map<String, dynamic> json) =>
+    NotificationModel(
       id: json['id'] as String,
-      title: json['title'] as String,
       description: json['description'] as String,
+      title: json['title'] as String,
       orderBookingNo: json['orderBookingNo'] as String,
       orderDate: json['orderDate'] as String,
       viewed: json['viewed'] as bool,
       status: $enumDecodeNullable(_$StatusColorEnumMap, json['status']),
     );
 
-Map<String, dynamic> _$$NotificationModelImplToJson(
-        _$NotificationModelImpl instance) =>
+Map<String, dynamic> _$NotificationModelToJson(NotificationModel instance) =>
     <String, dynamic>{
       'id': instance.id,
       'title': instance.title,

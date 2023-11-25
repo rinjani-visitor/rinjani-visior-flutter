@@ -1,7 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:rinjani_visitor/core/presentation/services/secure_storage_service.dart';
+import 'package:rinjani_visitor/features/authentication/data/models/token_model.dart';
 
 final authLocalSourceProvider =
     Provider((ref) => AuthLocalSource(storage: ref.read(secureStorageService)));
@@ -15,21 +18,27 @@ class AuthLocalSource {
 
   AuthLocalSource({required this.storage});
 
-  Future<String?> getSession() async {
-    final data = await storage.read(key: SESSION_KEY) ?? "";
+  Future<TokenModel?> getSession() async {
+    final data = await storage.read(key: SESSION_KEY);
     debugPrint("$NAME : current session - $data");
-    if (data.isNotEmpty) {
-      return data;
+    if (data != null) {
+      return TokenModel.fromJson(jsonDecode(data));
     }
     return null;
   }
 
-  Future<void> setSession(String? token) async {
-    if (token == null) return;
-    await storage.write(key: SESSION_KEY, value: token);
+  Future<void> setSessionModel(TokenModel tokens) async {
+    debugPrint("$NAME : set session - ${tokens.toJson()}");
+    await storage.write(key: SESSION_KEY, value: jsonEncode(tokens.toJson()));
+  }
+
+  Future<void> setSession(String accessToken, String refreshToken) async {
+    await setSessionModel(
+        TokenModel(refreshToken: refreshToken, accessToken: accessToken));
   }
 
   Future<void> clearSession() async {
     await storage.delete(key: SESSION_KEY);
+    debugPrint("$NAME : clear session");
   }
 }

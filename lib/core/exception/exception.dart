@@ -1,5 +1,5 @@
+import 'dart:developer' as developer;
 import 'package:dio/dio.dart';
-import 'package:flutter/foundation.dart';
 
 enum ExceptionType {
   /// The exception for a bad response from the api.
@@ -43,9 +43,14 @@ enum ExceptionType {
 /// Extended exception, this should be used instead of generic exception
 class ExtException implements Exception {
   final String? message;
+  final String? errorMessage;
   final int? code;
   final ExceptionType exceptionType;
-  ExtException({required this.exceptionType, this.message, this.code});
+  ExtException(
+      {required this.exceptionType,
+      this.message,
+      this.errorMessage,
+      this.code});
   @override
   String toString() {
     return "$message";
@@ -58,10 +63,12 @@ class ExtException implements Exception {
   /// create error message at flutter pages / screen using toast or equivalent
   /// without `Exception:` text _shenaigans_.
   factory ExtException.fromDioException(Object exception) {
-    debugPrint("Exception Catched: ${exception.toString()}");
+    developer.log("Raw Error Catched",
+        name: "ExtException.fromDioException", error: exception);
     var message = "";
     try {
       if (exception is DioException) {
+        final String? errorMessage = exception.response?.data["errors"][0];
         var code = exception.response?.statusCode;
         ExceptionType exceptionType = ExceptionType.unrecognizedException;
         switch (exception.type) {
@@ -106,10 +113,14 @@ class ExtException implements Exception {
             exceptionType = ExceptionType.unrecognizedException;
         }
         return ExtException(
-            exceptionType: exceptionType, message: message, code: code);
+            exceptionType: exceptionType,
+            message: message,
+            errorMessage: errorMessage,
+            code: code);
       }
     } on Exception catch (e) {
-      debugPrint("Exception Catched: ${e.toString()}");
+      developer.log("Exception Catched",
+          name: "ExtException.fromDioException", error: e);
       return ExtException(
           exceptionType: ExceptionType.unrecognizedException,
           message: e.toString());

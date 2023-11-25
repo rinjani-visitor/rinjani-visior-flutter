@@ -1,8 +1,27 @@
-
-class Auth {
+class AuthEntity {
   String? userId;
   String? username;
   String? email;
-  String? token;
-  Auth({this.userId, this.username, this.email, this.token});
+  String? role;
+  String? accessToken;
+  String? refreshToken;
+  AuthEntity(
+      {this.userId,
+      this.username,
+      this.email,
+      this.role,
+      this.accessToken,
+      this.refreshToken});
+
+  copyWith({String? accessToken}) {
+    this.accessToken = accessToken ?? this.accessToken;
+  }
+
+  String toAccessTokenAuthorization() {
+    return "Bearer $accessToken";
+  }
+
+  String toRefreshTokenAuthorization() {
+    return "Bearer $refreshToken";
+  }
 }

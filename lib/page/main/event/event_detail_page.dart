@@ -1,24 +1,19 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:rinjani_visitor/core/constant/product_package.dart';
 import 'package:rinjani_visitor/core/presentation/utils/internationalization.dart';
-import 'package:rinjani_visitor/features/event/domain/event_model.dart';
+import 'package:rinjani_visitor/features/event/domain/entity/event.dart';
 import 'package:rinjani_visitor/page/product/product_detail_page.dart';
 import 'package:rinjani_visitor/core/presentation/theme/theme.dart';
 import 'package:rinjani_visitor/widget/product/big_card.dart';
 import 'package:rinjani_visitor/widget/status.dart';
 
 // mock data about lombok festival
-final mockdata = EventModel(
+final mockdata = EventEntity(
     name: "Lombok Festival",
     imgUrl: "assets/rinjani.jpeg",
     date: DateTime.now(),
     description: "",
-    products: [
-      mockPackages[0],
-      mockPackages[1],
-      mockPackages[2],
-    ]);
+    products: []);
 
 class EventDetailPage extends StatefulWidget {
   const EventDetailPage({super.key});
@@ -147,11 +142,12 @@ class _EventDetailPageState extends State<EventDetailPage> {
                           context,
                           CupertinoPageRoute(
                               builder: (context) => ProductDetailPage(
-                                    data: data.products[index],
+                                    id: current.id,
+                                    category: current.category ?? "",
                                   )));
                     },
-                    image: AssetImage(current.imgUrl),
-                    title: current.title,
+                    image: NetworkImage(current.imgs ?? ""),
+                    title: current.title ?? "No title found",
                     price: current.rangePricing,
                     status: StatusColor.available,
                     rating: current.rating),

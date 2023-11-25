@@ -61,7 +61,7 @@ class BookingStatusPage extends StatelessWidget {
                       onPressed: () {
                         Navigator.popUntil(
                           context,
-                          (route) => route.settings.name == "/home",
+                          ModalRoute.withName("/home"),
                         );
                       },
                       child: const Text(

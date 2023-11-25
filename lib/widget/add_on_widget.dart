@@ -3,24 +3,18 @@ import 'package:flutter/material.dart';
 import 'package:rinjani_visitor/core/presentation/theme/theme.dart';
 
 class AddOnWidget extends StatefulWidget {
-  final String id;
-
   /// Add on name.
   final String name;
-
-  /// shows the price of addon. not include price unit formatting
-  final String price;
 
   /// initial value.
   final bool selected;
   final void Function(bool? value, bool isSelected)? onChanged;
-  const AddOnWidget(
-      {super.key,
-      required this.name,
-      required this.price,
-      required this.selected,
-      required this.onChanged,
-      required this.id});
+  const AddOnWidget({
+    super.key,
+    required this.name,
+    required this.selected,
+    required this.onChanged,
+  });
 
   @override
   State<AddOnWidget> createState() => _AddOnWidgetState();
@@ -42,7 +36,7 @@ class _AddOnWidgetState extends State<AddOnWidget> {
               const SizedBox(
                 width: 8,
               ),
-              Text('${widget.name} - ${widget.price}')
+              Text('${widget.name}')
             ],
           ),
           const Spacer(),

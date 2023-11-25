@@ -1,9 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:rinjani_visitor/features/authentication/presentation/auth_riverpod.dart';
+import 'package:rinjani_visitor/features/authentication/presentation/view_model/auth.dart';
 import 'package:rinjani_visitor/core/presentation/theme/theme.dart';
 import 'package:badges/badges.dart' as badges;
+import 'package:rinjani_visitor/features/authentication/presentation/view_model/auth_detail.dart';
+import 'package:rinjani_visitor/features/product/presentation/view_model/recommended_product.dart';
 
 import '_widget/category_selector.dart';
 import '_widget/event_list.dart';
@@ -19,7 +21,13 @@ class HomePage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final username = ref.watch(authRiverpodProvider).value?.username ?? "User";
+    Future<void> _refresh() async {
+      ref.read(recommendedProductViewModelProvider.notifier).refresh();
+      await Future.delayed(const Duration(seconds: 2));
+    }
+
+    final userDetail = ref.watch(authDetailViewModelProvider);
+    final username = ref.watch(authViewModelProvider).value?.username ?? "User";
     return CupertinoPageScaffold(
       backgroundColor: backgroundColor,
       child: NestedScrollView(
@@ -28,7 +36,7 @@ class HomePage extends ConsumerWidget {
             floating: true,
             pinned: true,
             delegate: SliverHomeAppbarDelegate(
-              title: username,
+              title: userDetail.asData?.value?.name ?? username,
               leading: CupertinoButton(
                   onPressed: () => _toNotification(context),
                   child: badges.Badge(
@@ -42,7 +50,7 @@ class HomePage extends ConsumerWidget {
         ],
         body: RefreshIndicator.adaptive(
           onRefresh: () async {
-            await Future.delayed(const Duration(seconds: 2));
+            await _refresh();
           },
           child: ListView(
             padding: const EdgeInsets.symmetric(vertical: 16),

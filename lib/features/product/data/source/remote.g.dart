@@ -13,7 +13,7 @@ class _ProductRemoteSource implements ProductRemoteSource {
     this._dio, {
     this.baseUrl,
   }) {
-    baseUrl ??= 'https://rinjani-api-tpe6yyswta-as.a.run.app/';
+    baseUrl ??= 'https://rinjani-api-v1-tpe6yyswta-as.a.run.app';
   }
 
   final Dio _dio;
@@ -21,10 +21,23 @@ class _ProductRemoteSource implements ProductRemoteSource {
   String? baseUrl;
 
   @override
-  Future<ProductResponse> getProduct() async {
+  Future<ProductResponse> getProducts({
+    required String token,
+    String? query,
+    String? status,
+    String? category,
+    String? rating,
+  }) async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      r'query': query,
+      r'status': status,
+      r'category': category,
+      r'rating': rating,
+    };
+    queryParameters.removeWhere((k, v) => v == null);
+    final _headers = <String, dynamic>{r'Authorization': token};
+    _headers.removeWhere((k, v) => v == null);
     final Map<String, dynamic>? _data = null;
     final _result = await _dio
         .fetch<Map<String, dynamic>>(_setStreamType<ProductResponse>(Options(
@@ -34,7 +47,7 @@ class _ProductRemoteSource implements ProductRemoteSource {
     )
             .compose(
               _dio.options,
-              'product',
+              '/api/products',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -44,6 +57,38 @@ class _ProductRemoteSource implements ProductRemoteSource {
               baseUrl,
             ))));
     final value = ProductResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<ProductDetailResponse> getProductDetail({
+    required String token,
+    required String category,
+    required String id,
+  }) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{r'Authorization': token};
+    _headers.removeWhere((k, v) => v == null);
+    final Map<String, dynamic>? _data = null;
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<ProductDetailResponse>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/api/products/${category}/${id}',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final value = ProductDetailResponse.fromJson(_result.data!);
     return value;
   }
 

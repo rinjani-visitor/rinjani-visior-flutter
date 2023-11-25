@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rinjani_visitor/features/product/presentation/view_model/search.dart';
 import 'package:rinjani_visitor/page/product/product_detail_page.dart';
 import 'package:rinjani_visitor/core/presentation/theme/theme.dart';
-import 'package:rinjani_visitor/widget/auto_search.dart';
 import 'package:rinjani_visitor/widget/product/big_card.dart';
 import 'package:rinjani_visitor/widget/status.dart';
 import 'package:skeletonizer/skeletonizer.dart';
@@ -18,15 +17,17 @@ class SearchPage extends ConsumerStatefulWidget {
 class _SearchPageState extends ConsumerState<SearchPage> {
   @override
   Widget build(BuildContext context) {
-    final searchData = ref.watch(searchRiverpodProvider);
+    final searchData = ref.watch(productSearchViewModelProvider);
     return CupertinoPageScaffold(
       backgroundColor: backgroundColor,
       navigationBar: CupertinoNavigationBar(
         automaticallyImplyLeading: false,
-        padding: const EdgeInsetsDirectional.only(bottom: 8),
-        middle: AutoSearch(
-          onSearch: (searchText) {
-            ref.read(searchRiverpodProvider.notifier).searchPackage(searchText);
+        padding: const EdgeInsetsDirectional.only(bottom: 2, top: 2),
+        middle: CupertinoSearchTextField(
+          onSubmitted: (text) {
+            ref
+                .read(productSearchViewModelProvider.notifier)
+                .searchPackage(text);
           },
         ),
       ),
@@ -41,19 +42,21 @@ class _SearchPageState extends ConsumerState<SearchPage> {
                       return Padding(
                         padding: const EdgeInsets.only(bottom: 8.0),
                         child: BigProductCard(
-                            image: AssetImage(curr.imgUrl),
-                            title: curr.title,
+                            image: NetworkImage(curr.thumbnail ?? ""),
+                            title: curr.title ?? "Title not found",
                             status: StatusColor.available,
-                            rating: curr.rating,
+                            rating: curr.rating.toString(),
                             onTap: () {
                               Navigator.push(
                                   context,
                                   CupertinoPageRoute(
                                       builder: (context) => ProductDetailPage(
-                                            data: curr,
+                                            category:
+                                                curr.category ?? "rinjani",
+                                            id: curr.productId,
                                           )));
                             },
-                            price: curr.rangePricing),
+                            price: "${curr.lowestPrice}\$"),
                       );
                     },
                   )

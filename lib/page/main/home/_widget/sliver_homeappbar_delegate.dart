@@ -25,10 +25,13 @@ class SliverHomeAppbarDelegate extends SliverPersistentHeaderDelegate {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  'Hi, $title',
-                  style: whiteTextStyle.copyWith(
-                      fontSize: heading3, fontWeight: bold),
+                FittedBox(
+                  fit: BoxFit.fitWidth,
+                  child: Text(
+                    'Hi, $title',
+                    style: whiteTextStyle.copyWith(
+                        fontSize: heading3, fontWeight: bold),
+                  ),
                 ),
                 leading ?? const SizedBox(),
               ],
