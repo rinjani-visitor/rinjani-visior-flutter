@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rinjani_visitor/core/presentation/utils/internationalization.dart';
 import 'package:rinjani_visitor/features/booking/presentation/view_model/booking.dart';
 import 'package:rinjani_visitor/core/presentation/theme/theme.dart';
+import 'package:rinjani_visitor/page/booking/booking_status_page.dart';
 import 'package:rinjani_visitor/widget/button/primary_button.dart';
 import 'package:rinjani_visitor/widget/input_field.dart';
 
@@ -219,7 +220,12 @@ class _BookingDetailPageState extends ConsumerState<BookingDetailPage> {
                   if (_formKey.currentState?.validate() == false) {
                     return;
                   }
-                  Navigator.popAndPushNamed(context, '/booking/status');
+                  Navigator.push(
+                      context,
+                      CupertinoPageRoute(
+                          builder: (context) => const BookingStatusPage(
+                                isSuccess: true,
+                              )));
                 })
           ],
         ),

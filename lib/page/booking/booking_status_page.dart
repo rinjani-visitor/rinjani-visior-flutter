@@ -19,12 +19,20 @@ const bookingStatus = [
 ];
 
 class BookingStatusPage extends StatelessWidget {
-  BookingStatusPage({super.key});
+  final bool isSuccess;
+  final String? error;
+  const BookingStatusPage({super.key, required this.isSuccess, this.error});
 
-  final data = bookingStatus[0];
+  void _backToHome(BuildContext context) {
+    Navigator.popUntil(
+      context,
+      ModalRoute.withName("/home"),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
+    late final data = isSuccess ? bookingStatus[0] : bookingStatus[1];
     return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
         automaticallyImplyLeading: false,
@@ -59,13 +67,10 @@ class BookingStatusPage extends StatelessWidget {
                       borderRadius: BorderRadius.circular(smallRadius)),
                   child: PrimaryButton(
                       onPressed: () {
-                        Navigator.popUntil(
-                          context,
-                          ModalRoute.withName("/home"),
-                        );
+                        _backToHome(context);
                       },
                       child: const Text(
-                        "Home page",
+                        "back to Homepage",
                       )))
             ],
           ),
