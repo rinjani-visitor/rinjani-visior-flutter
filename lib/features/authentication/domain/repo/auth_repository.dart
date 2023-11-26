@@ -12,8 +12,8 @@ abstract class AuthRepository {
       required String password});
 
   Future<AuthEntity?> logIn({required String email, required String password});
-  Future<AuthDetailEntity?> getUserDetail(String accessToken, String id);
-  Future<bool?> uploadAvatar(String accessToken, String id, File file);
+  Future<AuthDetailEntity?> getUserDetail(String accessToken);
+  Future<bool?> uploadAvatar(String accessToken, File file);
 
   Future<String?> resetPassword({required String email});
 

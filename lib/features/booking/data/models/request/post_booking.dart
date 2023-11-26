@@ -4,8 +4,6 @@ part 'post_booking.g.dart';
 
 @JsonSerializable()
 class PostBookingRequest {
-  @JsonKey(name: 'userId')
-  final String userId;
   @JsonKey(name: 'productId')
   final String productId;
   @JsonKey(name: 'startDateTime')
@@ -18,7 +16,6 @@ class PostBookingRequest {
   final String totalPersons;
 
   PostBookingRequest({
-    required this.userId,
     required this.productId,
     required this.startDateTime,
     required this.addOns,

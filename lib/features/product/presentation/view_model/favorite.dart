@@ -23,7 +23,6 @@ class FavoriteViewModel extends AutoDisposeAsyncNotifier<bool?> {
     state = await AsyncValue.guard(() async {
       return await repository.toggleFavorite(
         authData.state.value!.toAccessTokenAuthorization(),
-        authData.state.value!.userId!,
         productId,
       );
     });

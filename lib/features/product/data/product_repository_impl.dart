@@ -62,13 +62,11 @@ class ProductRepositoryImpl implements ProductRespository {
   }
 
   @override
-  Future<bool?> toggleFavorite(
-      String token, String userId, String productId) async {
+  Future<bool?> toggleFavorite(String token, String productId) async {
     developer.log("Add to Favorite", name: runtimeType.toString());
     try {
       final result = await remote.toggleFavourites(
         token: token,
-        userId: userId,
         body: ToggleFavoriteRequest(productId: productId),
       );
       return result.data != null;
@@ -78,11 +76,10 @@ class ProductRepositoryImpl implements ProductRespository {
   }
 
   @override
-  Future<List<ProductEntity>> getFavorites(String token, String userId) {
+  Future<List<ProductEntity>> getFavorites(String token) {
     try {
       final result = remote.getFavorites(
         token: token,
-        userId: userId,
       );
       return result
           .then((value) => value.data!.map((e) => e.toEntity()).toList());

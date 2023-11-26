@@ -17,7 +17,7 @@ class FavoriteListViewModel
   @override
   FutureOr<List<ProductEntity>?> build() async {
     return await repository.getFavorites(
-        authData.state.value!.toAccessTokenAuthorization(),
-        authData.state.value!.userId!);
+      authData.state.value!.toAccessTokenAuthorization(),
+    );
   }
 }

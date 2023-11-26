@@ -29,10 +29,10 @@ Map<String, dynamic> _$LoginResponseToJson(LoginResponse instance) =>
 
 LoginResponseBody _$LoginResponseBodyFromJson(Map<String, dynamic> json) =>
     LoginResponseBody(
-      userId: json['userId'] as String,
-      email: json['email'] as String,
-      name: json['name'] as String,
-      role: json['role'] as String,
+      userId: json['userId'] as String?,
+      email: json['email'] as String?,
+      name: json['name'] as String?,
+      role: json['role'] as String?,
     );
 
 Map<String, dynamic> _$LoginResponseBodyToJson(LoginResponseBody instance) =>

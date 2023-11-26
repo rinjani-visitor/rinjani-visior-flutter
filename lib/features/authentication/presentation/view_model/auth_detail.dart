@@ -18,26 +18,23 @@ class AuthDetailViewModel extends AutoDisposeAsyncNotifier<AuthDetailEntity?> {
   AuthViewModel get authViewModel => ref.read(authViewModelProvider.notifier);
   @override
   FutureOr<AuthDetailEntity?> build() async {
-    final id = authViewModel.state.value!.userId;
     final token = authViewModel.state.value!.toAccessTokenAuthorization();
-    final data = await authRepository.getUserDetail(token, id!);
+    final data = await authRepository.getUserDetail(token);
     return data;
   }
 
   FutureOr<void> refresh() async {
     state = const AsyncLoading();
-    final id = authViewModel.state.value!.userId;
     final token = authViewModel.state.value!.toAccessTokenAuthorization();
     state = await AsyncValue.guard(
-        () async => await authRepository.getUserDetail(token, id!));
+        () async => await authRepository.getUserDetail(token));
   }
 
   Future<void> uploadAvatar(File? file) async {
     if (file == null) return;
-    final id = authViewModel.state.value!.userId;
     final token = authViewModel.state.value!.toAccessTokenAuthorization();
     try {
-      final data = await authRepository.uploadAvatar(token, id!, file);
+      final data = await authRepository.uploadAvatar(token, file);
       developer.log("upload status ${data.toString()}",
           name: runtimeType.toString());
       if (data == true) {

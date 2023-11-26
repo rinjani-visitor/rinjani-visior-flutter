@@ -113,10 +113,10 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Future<AuthDetailEntity?> getUserDetail(String accessToken, String id) async {
-    developer.log("Get user detail with id $id", name: runtimeType.toString());
+  Future<AuthDetailEntity?> getUserDetail(String accessToken) async {
+    developer.log("Get user detail", name: runtimeType.toString());
     try {
-      final data = await remoteSource.getUserDetail(accessToken, id);
+      final data = await remoteSource.getUserDetail(accessToken);
       final result = data.toEntity();
       return result;
     } catch (e) {
@@ -137,11 +137,11 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Future<bool?> uploadAvatar(String accessToken, String id, File file) async {
+  Future<bool?> uploadAvatar(String accessToken, File file) async {
     try {
       developer.log("Upload avatar with file ${file.path}",
           name: runtimeType.toString());
-      final result = await remoteSource.uploadAvatar(accessToken, id, file);
+      final result = await remoteSource.uploadAvatar(accessToken, file);
       if (result.errors != null) {
         return true;
       }

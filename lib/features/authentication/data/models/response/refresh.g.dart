@@ -29,9 +29,9 @@ Map<String, dynamic> _$RefreshResponseToJson(RefreshResponse instance) =>
 
 RefreshResponseBody _$RefreshResponseBodyFromJson(Map<String, dynamic> json) =>
     RefreshResponseBody(
-      userId: json['userId'] as String,
-      name: json['name'] as String,
-      email: json['email'] as String,
+      userId: json['userId'] as String?,
+      name: json['name'] as String?,
+      email: json['email'] as String?,
     );
 
 Map<String, dynamic> _$RefreshResponseBodyToJson(

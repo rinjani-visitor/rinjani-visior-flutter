@@ -136,12 +136,9 @@ class _RemoteOrderSource implements RemoteOrderSource {
   }
 
   @override
-  Future<OrderResponse> getOrders(
-    String token,
-    String userId,
-  ) async {
+  Future<OrderResponse> getOrders(String token) async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{r'userId': userId};
+    final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{r'Authorization': token};
     _headers.removeWhere((k, v) => v == null);
     final Map<String, dynamic>? _data = null;
@@ -170,10 +167,9 @@ class _RemoteOrderSource implements RemoteOrderSource {
   Future<OrderResponse> cancelOrder(
     String token,
     String orderId,
-    String userId,
   ) async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{r'userId': userId};
+    final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{r'Authorization': token};
     _headers.removeWhere((k, v) => v == null);
     final Map<String, dynamic>? _data = null;

@@ -31,9 +31,9 @@ class RefreshResponse extends BaseResponse<RefreshResponseBody?> {
 
 @JsonSerializable()
 class RefreshResponseBody {
-  final String userId;
-  final String name;
-  final String email;
+  final String? userId;
+  final String? name;
+  final String? email;
 
   RefreshResponseBody(
       {required this.userId, required this.name, required this.email});

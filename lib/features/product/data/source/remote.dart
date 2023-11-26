@@ -27,16 +27,15 @@ abstract class ProductRemoteSource {
     @Path("id") required String id,
   });
 
+  //TODO: GANTI ENPOINTNYA, TUNGGU KONFIRMASI DARI TIM BACKEND
   @GET("/api/users/{userId}/favorite")
   Future<ProductResponse> getFavorites({
     @Header("Authorization") required String token,
-    @Path("id") required String userId,
   });
 
   @POST("/api/users/{userId}/favorite")
   Future<ToggleFavoriteResponse> toggleFavourites({
     @Header("Authorization") required String token,
-    @Path("id") required String userId,
     @Body() required ToggleFavoriteRequest body,
   });
 }

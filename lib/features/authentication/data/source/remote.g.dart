@@ -133,10 +133,7 @@ class _AuthRemoteSource implements AuthRemoteSource {
   }
 
   @override
-  Future<GetUserDetailResponse> getUserDetail(
-    String accessToken,
-    String id,
-  ) async {
+  Future<GetUserDetailResponse> getUserDetail(String accessToken) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{r'Authorization': accessToken};
@@ -150,7 +147,7 @@ class _AuthRemoteSource implements AuthRemoteSource {
     )
             .compose(
               _dio.options,
-              '/api/users/${id}',
+              '/api/users',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -166,7 +163,6 @@ class _AuthRemoteSource implements AuthRemoteSource {
   @override
   Future<UploadAvatarResponse> uploadAvatar(
     String accessToken,
-    String id,
     File file,
   ) async {
     const _extra = <String, dynamic>{};
@@ -190,7 +186,7 @@ class _AuthRemoteSource implements AuthRemoteSource {
     )
             .compose(
               _dio.options,
-              '/api/users/avatar/${id}',
+              '/api/users/avatar',
               queryParameters: queryParameters,
               data: _data,
             )

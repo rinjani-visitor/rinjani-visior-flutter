@@ -23,14 +23,15 @@ abstract class AuthRemoteSource {
   Future<RefreshResponse> refresh(@Header("Authorization") String refreshToken);
 
   // ========================= user related data ========================== //
-  @GET('/api/users/{id}')
+  @GET('/api/users')
   Future<GetUserDetailResponse> getUserDetail(
-      @Header("Authorization") String accessToken, @Path("id") String id);
+    @Header("Authorization") String accessToken,
+  );
 
   @MultiPart()
-  @PATCH("/api/users/avatar/{id}")
+  @PATCH("/api/users/avatar")
   Future<UploadAvatarResponse> uploadAvatar(
-      @Header("Authorization") String accessToken,
-      @Path("id") String id,
-      @Part(name: "avatar") File file);
+    @Header("Authorization") String accessToken,
+    @Part(name: "avatar") File file,
+  );
 }

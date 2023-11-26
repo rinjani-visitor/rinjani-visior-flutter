@@ -99,7 +99,6 @@ class MockProductRepositoryImpl extends _i1.Mock
   @override
   _i4.Future<bool?> toggleFavorite(
     String? token,
-    String? userId,
     String? productId,
   ) =>
       (super.noSuchMethod(
@@ -107,7 +106,6 @@ class MockProductRepositoryImpl extends _i1.Mock
           #toggleFavorite,
           [
             token,
-            userId,
             productId,
           ],
         ),
@@ -115,17 +113,11 @@ class MockProductRepositoryImpl extends _i1.Mock
       ) as _i4.Future<bool?>);
 
   @override
-  _i4.Future<List<_i5.ProductEntity>> getFavorites(
-    String? token,
-    String? userId,
-  ) =>
+  _i4.Future<List<_i5.ProductEntity>> getFavorites(String? token) =>
       (super.noSuchMethod(
         Invocation.method(
           #getFavorites,
-          [
-            token,
-            userId,
-          ],
+          [token],
         ),
         returnValue:
             _i4.Future<List<_i5.ProductEntity>>.value(<_i5.ProductEntity>[]),

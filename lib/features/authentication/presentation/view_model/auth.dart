@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:developer' as developer;
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rinjani_visitor/features/authentication/data/repo.dart';
 import 'package:rinjani_visitor/features/authentication/domain/repo/auth_repository.dart';

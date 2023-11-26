@@ -93,10 +93,7 @@ class _ProductRemoteSource implements ProductRemoteSource {
   }
 
   @override
-  Future<ProductResponse> getFavorites({
-    required String token,
-    required String userId,
-  }) async {
+  Future<ProductResponse> getFavorites({required String token}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{r'Authorization': token};
@@ -126,7 +123,6 @@ class _ProductRemoteSource implements ProductRemoteSource {
   @override
   Future<ToggleFavoriteResponse> toggleFavourites({
     required String token,
-    required String userId,
     required ToggleFavoriteRequest body,
   }) async {
     const _extra = <String, dynamic>{};

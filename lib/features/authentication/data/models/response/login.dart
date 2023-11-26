@@ -30,16 +30,12 @@ class LoginResponse extends BaseResponse<LoginResponseBody?> {
 
 @JsonSerializable()
 class LoginResponseBody {
-  final String userId;
-  final String name;
-  final String email;
-  final String role;
+  final String? userId;
+  final String? name;
+  final String? email;
+  final String? role;
 
-  LoginResponseBody(
-      {required this.userId,
-      required this.email,
-      required this.name,
-      required this.role});
+  LoginResponseBody({this.userId, this.email, this.name, this.role});
 
   factory LoginResponseBody.fromJson(Map<String, dynamic> json) =>
       _$LoginResponseBodyFromJson(json);

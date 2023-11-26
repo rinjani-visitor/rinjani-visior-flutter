@@ -37,10 +37,11 @@ abstract class RemoteOrderSource {
   });
 
   @GET("/api/order")
-  Future<OrderResponse> getOrders(
-      @Header("Authorization") String token, @Query("userId") String userId);
+  Future<OrderResponse> getOrders(@Header("Authorization") String token);
 
   @PATCH("/api/order/{orderId}")
-  Future<OrderResponse> cancelOrder(@Header("Authorization") String token,
-      @Path("orderId") String orderId, @Query("userId") String userId);
+  Future<OrderResponse> cancelOrder(
+    @Header("Authorization") String token,
+    @Path("orderId") String orderId,
+  );
 }
