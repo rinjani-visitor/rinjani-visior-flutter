@@ -4,15 +4,18 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rinjani_visitor/features/authentication/presentation/view_model/auth.dart';
 import 'package:rinjani_visitor/features/product/data/product_repository_impl.dart';
 import 'package:rinjani_visitor/features/product/domain/entity/product.dart';
+import 'package:rinjani_visitor/features/product/domain/product_repository.dart';
 
 final recommendedProductViewModelProvider =
     AsyncNotifierProvider<RecommendedProductViewModel, List<ProductEntity>>(
         () => RecommendedProductViewModel());
 
 class RecommendedProductViewModel extends AsyncNotifier<List<ProductEntity>> {
-  Future<List<ProductEntity>> get _getProducts async =>
-      await ref.read(productRepositoryProvider).getProducts(
-          ref.read(authViewModelProvider).value!.toAccessTokenAuthorization());
+  ProductRespository get repository => ref.read(productRepositoryProvider);
+  AuthViewModel get authData => ref.read(authViewModelProvider.notifier);
+
+  Future<List<ProductEntity>> get _getProducts async => await repository
+      .getProducts(authData.state.value!.toAccessTokenAuthorization());
   @override
   FutureOr<List<ProductEntity>> build() async {
     final packages = await _getProducts;
@@ -21,7 +24,7 @@ class RecommendedProductViewModel extends AsyncNotifier<List<ProductEntity>> {
   }
 
   void refresh() async {
-    state = AsyncValue.loading();
+    state = const AsyncValue.loading();
     state = await AsyncValue.guard(() async => await _getProducts);
   }
 }

@@ -42,6 +42,8 @@ class ProductDetailResponse extends BaseResponse<ProductDetailBody> {
 @JsonSerializable()
 class ProductDetailBody {
   final String productId;
+  @JsonKey(name: "user_favorited")
+  bool? userFavorited;
   String? title;
   bool? status;
   double? rating;
@@ -80,6 +82,7 @@ class ProductDetailBody {
       this.note,
       this.createdAt,
       this.updatedAt,
+      this.userFavorited,
       this.fotos,
       this.reviews});
 

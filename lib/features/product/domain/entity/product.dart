@@ -11,9 +11,11 @@ class ProductEntity {
   String? location;
   String? thumbnail;
   int? lowestPrice;
+  bool? favoriteStatus;
 
   ProductEntity(
       {required this.productId,
+      this.favoriteStatus,
       this.title,
       this.category,
       this.avaiable,

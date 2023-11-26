@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:retrofit/http.dart';
 import 'package:rinjani_visitor/core/constant/network.dart';
+import 'package:rinjani_visitor/features/product/data/models/request/request.dart';
 import 'package:rinjani_visitor/features/product/data/models/response.dart';
 
 import '../models/product_detail_response.dart';
@@ -26,5 +27,18 @@ abstract class ProductRemoteSource {
     @Header("Authorization") required String token,
     @Path("category") required String category,
     @Path("id") required String id,
+  });
+
+  @GET("/api/users/{userId}/favorite")
+  Future<ProductResponse> getFavorites({
+    @Header("Authorization") required String token,
+    @Path("id") required String userId,
+  });
+
+  @POST("/api/users/{userId}/favorite")
+  Future<ProductResponse> toggleFavourites({
+    @Header("Authorization") required String token,
+    @Path("id") required String userId,
+    @Body() required ToggleFavoriteRequest body,
   });
 }
