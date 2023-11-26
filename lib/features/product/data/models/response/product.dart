@@ -1,9 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:rinjani_visitor/core/domain/entity/base_response.dart';
-
-import '../../domain/entity/product.dart';
-
-part 'response.g.dart';
+import 'package:rinjani_visitor/features/product/domain/entity/product.dart';
+part 'product.g.dart';
 
 @JsonSerializable()
 class ProductResponse extends BaseResponse<List<ProductResponseBody>?> {

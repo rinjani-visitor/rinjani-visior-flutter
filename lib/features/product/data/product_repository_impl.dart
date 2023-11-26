@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rinjani_visitor/core/exception/exception.dart';
 import 'package:rinjani_visitor/core/presentation/services/dio_service.dart';
+import 'package:rinjani_visitor/features/product/data/models/request/toogle_favorite.dart';
 import '../domain/category_enum.dart';
 import '../domain/entity/product.dart';
 import '../domain/product_repository.dart';
@@ -18,17 +19,21 @@ class ProductRepositoryImpl implements ProductRespository {
   ProductRepositoryImpl({required this.remote});
 
   @override
-  Future<List<ProductEntity>> getProducts(String token,
-      {String? category, bool? avaiable, int? rating, String? query}) async {
+  Future<List<ProductEntity>> getProducts(
+    String token, {
+    String? category,
+    bool? avaiable,
+    int? rating,
+    String? query,
+  }) async {
+    developer.log("Get Product", name: runtimeType.toString());
     try {
-      developer.log("Get Product", name: runtimeType.toString());
       final result = await remote.getProducts(
           token: token,
           title: query?.toString(),
           category: category?.toString(),
           status: avaiable?.toString(),
           rating: rating?.toString());
-      developer.log("Get Product Done", name: runtimeType.toString());
       final list = result.data!.map((e) => e.toEntity()).toList();
       return list;
     } catch (e) {
@@ -37,8 +42,11 @@ class ProductRepositoryImpl implements ProductRespository {
   }
 
   @override
-  Future<ProductDetailEntity?> getProductDetail(String token,
-      {required String productId, required String category}) async {
+  Future<ProductDetailEntity?> getProductDetail(
+    String token, {
+    required String productId,
+    required String category,
+  }) async {
     developer.log("Get Product Detail, $category $productId",
         name: runtimeType.toString());
     try {
@@ -54,17 +62,32 @@ class ProductRepositoryImpl implements ProductRespository {
   }
 
   @override
-  Future<ProductDetailEntity?> bookingPackage(String token,
-      {required String packageId,
-      List<String>? addOns,
-      String? paymentMethod}) {
-    // TODO: implement bookingPackage
-    throw UnimplementedError();
+  Future<bool?> toggleFavorite(
+      String token, String userId, String productId) async {
+    developer.log("Add to Favorite", name: runtimeType.toString());
+    try {
+      final result = await remote.toggleFavourites(
+        token: token,
+        userId: userId,
+        body: ToggleFavoriteRequest(productId: productId),
+      );
+      return result.data != null;
+    } catch (e) {
+      throw ExtException.fromDioException(e);
+    }
   }
 
   @override
-  Future<void> cancelPackage(String token, {required String packageId}) {
-    // TODO: implement cancelPackage
-    throw UnimplementedError();
+  Future<List<ProductEntity>> getFavorites(String token, String userId) {
+    try {
+      final result = remote.getFavorites(
+        token: token,
+        userId: userId,
+      );
+      return result
+          .then((value) => value.data!.map((e) => e.toEntity()).toList());
+    } catch (e) {
+      throw ExtException.fromDioException(e);
+    }
   }
 }

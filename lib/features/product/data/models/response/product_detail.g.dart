@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'product_detail_response.dart';
+part of 'product_detail.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
@@ -44,6 +44,7 @@ ProductDetailBody _$ProductDetailBodyFromJson(Map<String, dynamic> json) =>
       note: json['note'] as String?,
       createdAt: json['createdAt'] as String?,
       updatedAt: json['updatedAt'] as String?,
+      userFavorited: json['user_favorited'] as bool?,
       fotos: (json['fotos'] as List<dynamic>?)
           ?.map((e) => Fotos.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -55,6 +56,7 @@ ProductDetailBody _$ProductDetailBodyFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$ProductDetailBodyToJson(ProductDetailBody instance) =>
     <String, dynamic>{
       'productId': instance.productId,
+      'user_favorited': instance.userFavorited,
       'title': instance.title,
       'status': instance.status,
       'rating': instance.rating,

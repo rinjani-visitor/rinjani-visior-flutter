@@ -6,17 +6,18 @@ import 'package:rinjani_visitor/features/product/data/product_repository_impl.da
 import 'package:rinjani_visitor/features/product/domain/entity/product.dart';
 import 'package:rinjani_visitor/features/product/domain/product_repository.dart';
 
-final productViewModelProvider =
-    AutoDisposeAsyncNotifierProvider<ProductViewModel, List<ProductEntity>>(
-        () => ProductViewModel());
+final favoriteListViewModelProvider = AutoDisposeAsyncNotifierProvider<
+    FavoriteListViewModel, List<ProductEntity>?>(FavoriteListViewModel.new);
 
-class ProductViewModel extends AutoDisposeAsyncNotifier<List<ProductEntity>> {
+class FavoriteListViewModel
+    extends AutoDisposeAsyncNotifier<List<ProductEntity>?> {
   ProductRespository get repository => ref.read(productRepositoryProvider);
   AuthViewModel get authData => ref.read(authViewModelProvider.notifier);
+
   @override
-  FutureOr<List<ProductEntity>> build() async {
-    final packages = await repository
-        .getProducts(authData.state.value!.toAccessTokenAuthorization());
-    return packages;
+  FutureOr<List<ProductEntity>?> build() async {
+    return await repository.getFavorites(
+        authData.state.value!.toAccessTokenAuthorization(),
+        authData.state.value!.userId!);
   }
 }

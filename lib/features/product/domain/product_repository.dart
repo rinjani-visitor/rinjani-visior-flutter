@@ -9,11 +9,9 @@ abstract class ProductRespository {
   Future<ProductDetailEntity?> getProductDetail(String token,
       {required String productId, required String category});
 
-  /// cancel purchased package.
-  /// this method will throw error if current package has already purchased
-  Future<void> cancelPackage(String token, {required String packageId});
+  /// toggle save current product as favorite
+  Future<bool?> toggleFavorite(String token, String userId, String productId);
 
-  ///  purchase / booking current package
-  Future<ProductDetailEntity?> bookingPackage(String token,
-      {required String packageId, List<String>? addOns, String? paymentMethod});
+  /// get all favorite product
+  Future<List<ProductEntity>> getFavorites(String token, String userId);
 }
