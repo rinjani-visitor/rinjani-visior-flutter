@@ -97,37 +97,37 @@ class MockProductRepositoryImpl extends _i1.Mock
       ) as _i4.Future<_i5.ProductDetailEntity?>);
 
   @override
-  _i4.Future<_i5.ProductDetailEntity?> bookingPackage(
-    String? token, {
-    required String? packageId,
-    List<String>? addOns,
-    String? paymentMethod,
-  }) =>
+  _i4.Future<bool?> toggleFavorite(
+    String? token,
+    String? userId,
+    String? productId,
+  ) =>
       (super.noSuchMethod(
         Invocation.method(
-          #bookingPackage,
-          [token],
-          {
-            #packageId: packageId,
-            #addOns: addOns,
-            #paymentMethod: paymentMethod,
-          },
+          #toggleFavorite,
+          [
+            token,
+            userId,
+            productId,
+          ],
         ),
-        returnValue: _i4.Future<_i5.ProductDetailEntity?>.value(),
-      ) as _i4.Future<_i5.ProductDetailEntity?>);
+        returnValue: _i4.Future<bool?>.value(),
+      ) as _i4.Future<bool?>);
 
   @override
-  _i4.Future<void> cancelPackage(
-    String? token, {
-    required String? packageId,
-  }) =>
+  _i4.Future<List<_i5.ProductEntity>> getFavorites(
+    String? token,
+    String? userId,
+  ) =>
       (super.noSuchMethod(
         Invocation.method(
-          #cancelPackage,
-          [token],
-          {#packageId: packageId},
+          #getFavorites,
+          [
+            token,
+            userId,
+          ],
         ),
-        returnValue: _i4.Future<void>.value(),
-        returnValueForMissingStub: _i4.Future<void>.value(),
-      ) as _i4.Future<void>);
+        returnValue:
+            _i4.Future<List<_i5.ProductEntity>>.value(<_i5.ProductEntity>[]),
+      ) as _i4.Future<List<_i5.ProductEntity>>);
 }
