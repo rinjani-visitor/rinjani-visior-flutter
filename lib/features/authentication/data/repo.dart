@@ -1,5 +1,6 @@
 // ignore_for_file: constant_identifier_names
 import 'dart:developer' as developer;
+import 'dart:io';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rinjani_visitor/core/exception/exception.dart';
 import 'package:rinjani_visitor/core/presentation/services/dio_service.dart';
@@ -19,6 +20,7 @@ final authRepositoryProvider = Provider((ref) => AuthRepositoryImpl(
 class AuthRepositoryImpl implements AuthRepository {
   final AuthLocalSource localSource;
   final AuthRemoteSource remoteSource;
+  static const NAME = "AuthRepository";
 
   AuthRepositoryImpl({required this.localSource, required this.remoteSource});
 
@@ -134,5 +136,18 @@ class AuthRepositoryImpl implements AuthRepository {
     }
   }
 
-  static const NAME = "AuthRepository";
+  @override
+  Future<bool?> uploadAvatar(String accessToken, String id, File file) async {
+    try {
+      developer.log("Upload avatar with file ${file.path}",
+          name: runtimeType.toString());
+      final result = await remoteSource.uploadAvatar(accessToken, id, file);
+      if (result.errors != null) {
+        return true;
+      }
+      return false;
+    } catch (e) {
+      throw ExtException.fromDioException(e);
+    }
+  }
 }

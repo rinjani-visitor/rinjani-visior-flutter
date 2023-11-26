@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 
 import 'package:retrofit/http.dart';
@@ -24,4 +26,11 @@ abstract class AuthRemoteSource {
   @GET('/api/users/{id}')
   Future<GetUserDetailResponse> getUserDetail(
       @Header("Authorization") String accessToken, @Path("id") String id);
+
+  @MultiPart()
+  @PATCH("/api/users/avatar/{id}")
+  Future<UploadAvatarResponse> uploadAvatar(
+      @Header("Authorization") String accessToken,
+      @Path("id") String id,
+      @Part(name: "avatar") File file);
 }

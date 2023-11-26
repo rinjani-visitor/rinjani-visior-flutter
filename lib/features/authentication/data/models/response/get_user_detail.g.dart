@@ -32,7 +32,7 @@ UserDetailResponseBody _$UserDetailResponseBodyFromJson(
       name: json['name'] as String,
       email: json['email'] as String,
       country: json['country'] as String,
-      phoneNumber: json['phoneNumber'] as String,
+      phoneNumber: json['phoneNumber'] as String?,
       imgUrl: json['profilPicture'] as String,
     );
 

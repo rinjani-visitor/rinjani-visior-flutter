@@ -17,6 +17,7 @@ final dioServiceProvider = Provider((ref) {
     onResponse: (response, handler) {
       developer.log(
           "RESPONSE[${response.statusCode}] => PATH: ${response.requestOptions.path}");
+      developer.log("BODY[${response.data.toString()}]");
       return handler.next(response);
     },
     onError: (e, handler) {

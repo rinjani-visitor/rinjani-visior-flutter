@@ -25,7 +25,7 @@ class UserDetailResponseBody {
   final String name;
   final String email;
   final String country;
-  final String phoneNumber;
+  final String? phoneNumber;
   @JsonKey(name: "profilPicture")
   final String imgUrl;
 
@@ -33,7 +33,7 @@ class UserDetailResponseBody {
       {required this.name,
       required this.email,
       required this.country,
-      required this.phoneNumber,
+      this.phoneNumber,
       required this.imgUrl});
 
   factory UserDetailResponseBody.fromJson(Map<String, dynamic> json) =>
