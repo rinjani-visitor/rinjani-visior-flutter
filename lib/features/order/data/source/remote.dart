@@ -38,7 +38,6 @@ abstract class RemoteOrderSource {
 
   @GET("/api/order")
   Future<OrderResponse> getOrders(@Header("Authorization") String token);
-
   @PATCH("/api/order/{orderId}")
   Future<OrderResponse> cancelOrder(
     @Header("Authorization") String token,

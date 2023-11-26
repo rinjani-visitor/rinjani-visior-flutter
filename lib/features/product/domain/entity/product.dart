@@ -13,44 +13,47 @@ class ProductEntity {
   int? lowestPrice;
   bool? favoriteStatus;
 
-  ProductEntity(
-      {required this.productId,
-      this.favoriteStatus,
-      this.title,
-      this.category,
-      this.avaiable,
-      this.rating,
-      this.location,
-      this.thumbnail,
-      this.lowestPrice});
+  ProductEntity({
+    required this.productId,
+    this.favoriteStatus,
+    this.title,
+    this.category,
+    this.avaiable,
+    this.rating,
+    this.location,
+    this.thumbnail,
+    this.lowestPrice,
+  });
 }
 
 /// for `rangePricing`, remember to make something like this:
 /// '80$- 90$ / person'
 class ProductDetailEntity {
-  ProductDetailEntity(
-      {required this.id,
-      required this.title,
-      this.status,
-      this.rating,
-      this.location,
-      this.lowestPrice,
-      this.thumbnail,
-      this.description,
-      this.tripDuration,
-      this.program,
-      this.images,
-      this.category,
-      this.locationUrl,
-      this.accomodation,
-      this.reviewCount,
-      this.facilities,
-      this.timeList24H,
-      this.addOns,
-      this.favoritedCount,
-      this.reviews,
-      this.note,
-      this.subCategory});
+  ProductDetailEntity({
+    required this.id,
+    required this.title,
+    this.status,
+    this.includeEndDate,
+    this.rating,
+    this.location,
+    this.lowestPrice,
+    this.thumbnail,
+    this.description,
+    this.tripDuration,
+    this.program,
+    this.images,
+    this.category,
+    this.locationUrl,
+    this.accomodation,
+    this.reviewCount,
+    this.facilities,
+    this.timeList24H,
+    this.addOns,
+    this.favoritedCount,
+    this.reviews,
+    this.note,
+    this.subCategory,
+  });
 
   get rangePricing => '$lowestPrice\$ / person';
   get avaiabilityStatus => status != null ? "Avaiable" : "Not Avaiable";
@@ -58,8 +61,10 @@ class ProductDetailEntity {
   final String id;
   String? title;
   bool? status;
+  bool? includeEndDate;
   String? rating;
   String? location;
+
   int? lowestPrice;
   int? reviewCount;
   String? thumbnail;

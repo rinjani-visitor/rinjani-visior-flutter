@@ -37,7 +37,6 @@ class NotificationPage extends ConsumerStatefulWidget {
 
 class _NotificationPageState extends ConsumerState<NotificationPage> {
   //TODO: change this when backend is finished
-  final data = _dataMock;
 
   @override
   Widget build(BuildContext context) {
@@ -55,43 +54,40 @@ class _NotificationPageState extends ConsumerState<NotificationPage> {
                 // await ref.read(notificationRiverpodProvider.notifier).refresh();
                 await Future.delayed(const Duration(seconds: 2));
               },
-              child: SingleChildScrollView(
-                physics: const AlwaysScrollableScrollPhysics(),
-                child: state.when(
-                  data: (data) {
-                    return data.isEmpty
-                        ? const Center(
-                            child: Text("Your notification is empty"),
-                          )
-                        : ListView.builder(
-                            itemCount: data.length,
-                            itemBuilder: (context, index) {
-                              final current = data[index];
-                              return NotificationCardWidget(
-                                data: current,
-                                title: current.title,
-                                subtitle: current.description,
-                                status: current.status ?? StatusColor.loading,
-                              );
-                            },
-                          );
-                  },
-                  error: (error, stackTrace) {
-                    return Center(
-                      child: Text("Error occured: ${error.toString()}"),
-                    );
-                  },
-                  loading: () {
-                    return ListView.builder(
-                      itemCount: 10,
-                      itemBuilder: (context, index) =>
-                          const NotificationCardWidget(
-                              title: "",
-                              subtitle: "",
-                              status: StatusColor.loading),
-                    );
-                  },
-                ),
+              child: state.when(
+                data: (data) {
+                  return data.isEmpty
+                      ? const Center(
+                          child: Text("Your notification is empty"),
+                        )
+                      : ListView.builder(
+                          itemCount: data.length,
+                          itemBuilder: (context, index) {
+                            final current = data[index];
+                            return NotificationCardWidget(
+                              data: current,
+                              title: current.title,
+                              subtitle: current.description,
+                              status: current.status ?? StatusColor.loading,
+                            );
+                          },
+                        );
+                },
+                error: (error, stackTrace) {
+                  return Center(
+                    child: Text("Error occured: ${error.toString()}"),
+                  );
+                },
+                loading: () {
+                  return ListView.builder(
+                    itemCount: 10,
+                    itemBuilder: (context, index) =>
+                        const NotificationCardWidget(
+                            title: "",
+                            subtitle: "",
+                            status: StatusColor.loading),
+                  );
+                },
               )),
         )));
   }

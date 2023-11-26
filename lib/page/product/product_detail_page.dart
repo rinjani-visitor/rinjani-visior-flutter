@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:like_button/like_button.dart';
+import 'package:rinjani_visitor/core/presentation/utils/internationalization.dart';
 import 'package:rinjani_visitor/features/booking/presentation/view_model/booking.dart';
 import 'package:rinjani_visitor/core/presentation/theme/theme.dart';
 import 'package:rinjani_visitor/features/product/domain/entity/product.dart';
@@ -11,11 +12,13 @@ import 'package:rinjani_visitor/features/product/presentation/view_model/product
 import 'package:rinjani_visitor/widget/add_on_widget.dart';
 import 'package:rinjani_visitor/widget/button/primary_button.dart';
 import 'package:rinjani_visitor/widget/date_picker_widget.dart';
+import 'package:rinjani_visitor/widget/input_field.dart';
 import 'package:rinjani_visitor/widget/person_counter_widget.dart';
 import 'package:rinjani_visitor/widget/rating_widget.dart';
 import 'package:rinjani_visitor/widget/review_widget.dart';
 import 'package:rinjani_visitor/widget/segmented_widget.dart';
 import 'package:rinjani_visitor/widget/status.dart';
+import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
 class ProductDetailPage extends ConsumerStatefulWidget {
   final String id;
@@ -29,14 +32,14 @@ class ProductDetailPage extends ConsumerStatefulWidget {
 }
 
 class _DetailPageState extends ConsumerState<ProductDetailPage> {
-  late final _viewModel = ref.read(bookingViewModelProvider.notifier);
+  late var bookingState = ref.read(bookingViewModelProvider);
+  BookingViewModel get bookingNotifier =>
+      ref.read(bookingViewModelProvider.notifier);
 
-  late var _state = ref.read(bookingViewModelProvider);
-
-  late final _dateController =
-      TextEditingController(text: _state.startDateTime);
+  late final _startDateController = TextEditingController(
+      text: dateFormat.format(DateTime.parse(bookingState.startDateTime)));
   late final _personController =
-      TextEditingController(text: _state.totalPersons.toString());
+      TextEditingController(text: bookingState.totalPersons.toString());
 
   @override
   void initState() {
@@ -47,19 +50,87 @@ class _DetailPageState extends ConsumerState<ProductDetailPage> {
               widget.id,
             ));
 
-    debugPrint(_state.toString());
+    debugPrint(bookingState.toString());
   }
 
-  void _showModalPopup(ProductDetailEntity data) {
+  void _onSubmit(ProductDetailEntity data) {
+    bookingNotifier.submitOrder(context, data);
+  }
+
+  void _showDatePicker(bool rangeDate) {
+    showCupertinoModalPopup(
+      context: context,
+      builder: (BuildContext context) {
+        return Material(
+          color: CupertinoColors.white,
+          surfaceTintColor: CupertinoColors.white,
+          child: Container(
+            height: 400,
+            padding: const EdgeInsets.all(16),
+            child: SfDateRangePicker(
+              minDate: DateTime.now(),
+              selectionColor: primaryColor,
+              startRangeSelectionColor: primaryColor,
+              endRangeSelectionColor: primaryColor,
+              rangeSelectionColor: accentPrimaryColor,
+              initialDisplayDate: bookingState.startDateTime.isNotEmpty
+                  ? DateTime.parse(bookingState.startDateTime)
+                  : DateTime.now(),
+              initialSelectedRange: rangeDate
+                  ? PickerDateRange(
+                      bookingState.startDateTime.isNotEmpty
+                          ? DateTime.parse(bookingState.startDateTime)
+                          : DateTime.now(),
+                      bookingState.endDateTime.isNotEmpty
+                          ? DateTime.parse(bookingState.endDateTime)
+                          : DateTime.now(),
+                    )
+                  : null,
+              monthViewSettings: DateRangePickerMonthViewSettings(
+                viewHeaderStyle: DateRangePickerViewHeaderStyle(
+                    textStyle: blackTextStyle.copyWith(
+                      fontSize: heading5,
+                      fontWeight: semibold,
+                    ),
+                    backgroundColor: CupertinoColors.white),
+              ),
+              onSelectionChanged: (DateRangePickerSelectionChangedArgs args) {
+                final date = args.value;
+                if (date is DateTime) {
+                  final localizedDate = dateFormat.format(date);
+                  bookingState.startDateTime = date.toString();
+                  _startDateController.text = localizedDate;
+                } else if (date is PickerDateRange) {
+                  final localizedStartDate =
+                      dateFormat.format(date.startDate ?? DateTime.now());
+                  final localizedEndDate = date.endDate != null
+                      ? dateFormat.format(date.endDate!)
+                      : "";
+                  bookingState.startDateTime = date.startDate.toString();
+                  bookingState.endDateTime = date.endDate.toString();
+                  _startDateController.text =
+                      "${localizedStartDate.toString()} - ${localizedEndDate.toString()}";
+                }
+              },
+              selectionMode: rangeDate
+                  ? DateRangePickerSelectionMode.range
+                  : DateRangePickerSelectionMode.single,
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  void _showPersonSelector(ProductDetailEntity data) {
     showCupertinoModalPopup(
         context: context,
         builder: (BuildContext context) {
           return PersonCounterWidget(
             controller: _personController,
             onSubmit: (value) {
-              _state.totalPersons = _personController.text;
-              _viewModel.setDate(_dateController.text);
-              _viewModel.submitOrder(context, data);
+              bookingState.totalPersons = _personController.text;
+              _onSubmit(data);
             },
           );
         });
@@ -67,9 +138,9 @@ class _DetailPageState extends ConsumerState<ProductDetailPage> {
 
   @override
   Widget build(BuildContext context) {
-    _state = ref.watch(bookingViewModelProvider);
+    bookingState = ref.watch(bookingViewModelProvider);
     final currentProduct = ref.watch(productDetailViewModelProvider);
-    ;
+
     return CupertinoPageScaffold(
         navigationBar: const CupertinoNavigationBar(
           middle: Text('Detail Trip'),
@@ -83,7 +154,7 @@ class _DetailPageState extends ConsumerState<ProductDetailPage> {
                     widget.category,
                     widget.id,
                   );
-              await Future.delayed(Duration(seconds: 1));
+              await Future.delayed(const Duration(seconds: 1));
             },
             child: currentProduct.when(
               error: (error, stackTrace) => Center(
@@ -100,13 +171,14 @@ class _DetailPageState extends ConsumerState<ProductDetailPage> {
                       child: Column(
                         children: [
                           _Header(
-                              title: data.title ?? "Title not found",
-                              imgUrl: data.thumbnail ?? "",
-                              location: data.location ?? "",
-                              rating: data.rating ?? "-.-",
-                              avaiable: data.status ?? false,
-                              rangePricing: data.rangePricing,
-                              tripDuration: data.tripDuration ?? "N/a"),
+                            title: data.title ?? "Title not found",
+                            imgUrl: data.thumbnail ?? "",
+                            location: data.location ?? "",
+                            rating: data.rating ?? "-.-",
+                            avaiable: data.status ?? false,
+                            rangePricing: data.rangePricing,
+                            tripDuration: data.tripDuration ?? "N/a",
+                          ),
                           Padding(
                             padding:
                                 const EdgeInsets.symmetric(horizontal: 16.0),
@@ -114,81 +186,61 @@ class _DetailPageState extends ConsumerState<ProductDetailPage> {
                               description: KVDetailDescriptionWidget(
                                 kvChildren: [
                                   KVContentWidget(
-                                      title: "Description",
-                                      content: Text(
-                                        data.description ??
-                                            "No description provided",
-                                        style: blackTextStyle.copyWith(
-                                          fontSize: body2,
-                                        ),
-                                      )),
+                                    title: "Description",
+                                    content: Text(
+                                      data.description ??
+                                          "No description provided",
+                                      style: blackTextStyle.copyWith(
+                                        fontSize: body1,
+                                      ),
+                                    ),
+                                  ),
                                   KVContentWidget(
-                                      title: "AddOn",
-                                      content: data.addOns != null &&
-                                              data.addOns!.isNotEmpty
-                                          ? Column(
-                                              children: List.generate(
-                                                  data.addOns!.length, (index) {
-                                                final current =
-                                                    data.addOns![index];
-                                                final currentSelected = _state
-                                                    .addOns
-                                                    .contains(current.title);
-                                                return Tooltip(
-                                                  message: current.toString(),
-                                                  child: AddOnWidget(
-                                                    name: current.toString(),
-                                                    selected: currentSelected,
-                                                    onChanged:
-                                                        (value, isSelected) {
-                                                      if (isSelected) {
-                                                        setState(() {
-                                                          _viewModel.removeAddon(
-                                                              current
-                                                                  .toString());
-                                                        });
-                                                        return;
-                                                      }
-                                                      setState(() {
-                                                        _viewModel.addAddon(
-                                                            current.toString());
-                                                      });
-                                                    },
-                                                  ),
-                                                );
-                                              }),
-                                            )
-                                          : const Text(
-                                              "Add On unavailable for this package")),
+                                    title: "Note",
+                                    content: Text(
+                                      data.note ?? "No note provided",
+                                    ),
+                                  ),
+                                  KVContentWidget(
+                                    title: "AddOn",
+                                    content: AddOnWidgetWrapper(
+                                      addOns: data.addOns ?? [],
+                                      selectedAddOns: bookingState.addOns,
+                                      onSelected: (value) {
+                                        setState(() {
+                                          bookingNotifier.toggleAddon(value);
+                                        });
+                                      },
+                                    ),
+                                  ),
                                   KVContentWidget(
                                     title: "Date and Time",
                                     content: Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        DatePickerWidget(
-                                          initialDate: _viewModel.getDate(),
-                                          onChange: (dateVal) {
-                                            _dateController.text =
-                                                dateVal ?? "";
-                                            setState(() {
-                                              _viewModel.setDate(dateVal);
-                                            });
-                                          },
+                                        GestureDetector(
+                                          behavior: HitTestBehavior.translucent,
+                                          onTap: () => _showDatePicker(
+                                              data.includeEndDate ?? false),
+                                          child: InputField(
+                                            controller: _startDateController,
+                                            enabled: false,
+                                          ),
                                         ),
                                         const SizedBox(
                                           height: 8,
                                         ),
                                         TimeList(
                                             selectedTimeListData:
-                                                _state.time.toList(),
+                                                bookingState.time.toList(),
                                             timeListData:
                                                 data.timeList24H ?? [],
                                             onTimeListTap: (value, isSelected) {
                                               if (isSelected) {
-                                                _state.time.add(value);
+                                                bookingState.time.add(value);
                                               } else {
-                                                _state.time.remove(value);
+                                                bookingState.time.remove(value);
                                               }
                                             }),
                                       ],
@@ -209,7 +261,8 @@ class _DetailPageState extends ConsumerState<ProductDetailPage> {
                                     content: PrimaryButton(
                                         // isDisabled: true,
                                         isDisabled: (data.status == false),
-                                        onPressed: () => _showModalPopup(data),
+                                        onPressed: () =>
+                                            _showPersonSelector(data),
                                         child: Text(
                                           'Buy Product',
                                           style: whiteTextStyle.copyWith(

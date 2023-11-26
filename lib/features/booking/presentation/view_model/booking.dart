@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:rinjani_visitor/core/presentation/utils/internationalization.dart';
 import 'package:rinjani_visitor/features/booking/domain/entitiy/booking.dart';
 import 'package:rinjani_visitor/features/product/data/product_repository_impl.dart';
 import 'package:rinjani_visitor/features/product/domain/entity/product.dart';
@@ -19,7 +20,7 @@ class BookingViewModel extends AutoDisposeNotifier<BookingEntity> {
     return BookingEntity(
       addOns: [],
       startDateTime: DateTime.timestamp().toIso8601String(),
-      offeringPrice: 0,
+      endDateTime: "",
       productId: "",
       totalPersons: "",
       userId: "",
@@ -30,7 +31,7 @@ class BookingViewModel extends AutoDisposeNotifier<BookingEntity> {
     state = BookingEntity(
       addOns: [],
       startDateTime: DateTime.timestamp().toIso8601String(),
-      offeringPrice: 0,
+      endDateTime: "",
       productId: "",
       totalPersons: "",
       userId: "",
@@ -53,6 +54,15 @@ class BookingViewModel extends AutoDisposeNotifier<BookingEntity> {
     final parsedDate = DateTime.parse(state.startDateTime);
     debugPrint("OrderRiverpod: $parsedDate");
     return DateTime.parse(state.startDateTime);
+  }
+
+  String getLocalizedDate() {
+    final parsedStartDate = DateTime.parse(state.startDateTime);
+    if (state.endDateTime.isEmpty) {
+      return dateFormat.format(parsedStartDate);
+    }
+    final parsedEndDate = DateTime.parse(state.endDateTime);
+    return "${dateFormat.format(parsedStartDate)} - ${dateFormat.format(parsedEndDate)}";
   }
 
   void addTime(String time24H) {
@@ -81,6 +91,14 @@ class BookingViewModel extends AutoDisposeNotifier<BookingEntity> {
     debugPrint("remove addon");
     state.addOns.removeWhere((element) => element == name);
     debugPrint("Addon: ${state.addOns.length}");
+  }
+
+  void toggleAddon(String name) {
+    if (state.addOns.contains(name)) {
+      removeAddon(name);
+    } else {
+      addAddon(name);
+    }
   }
 
   void submitOrder(BuildContext context, ProductDetailEntity data) {

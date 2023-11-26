@@ -1,8 +1,41 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rinjani_visitor/core/presentation/theme/theme.dart';
+import 'package:rinjani_visitor/features/product/domain/entity/addon.dart';
 
-class AddOnWidget extends StatefulWidget {
+class AddOnWidgetWrapper extends StatelessWidget {
+  final List<AddonEntity> addOns;
+  final List<String> selectedAddOns;
+  final void Function(String addonId)? onSelected;
+
+  const AddOnWidgetWrapper({
+    super.key,
+    required this.addOns,
+    required this.selectedAddOns,
+    this.onSelected,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return addOns.isNotEmpty
+        ? Column(
+            children: List.generate(addOns.length, (index) {
+            final current = addOns[index];
+            return _AddOnWidget(
+              name: current.title,
+              selected: selectedAddOns.contains(current.title),
+              onChanged: (value, isSelected) {
+                if (onSelected != null) {
+                  onSelected!(current.title);
+                }
+              },
+            );
+          }))
+        : const Text("Add On unavailable for this package");
+  }
+}
+
+class _AddOnWidget extends StatefulWidget {
   /// Add on name.
   final String name;
   final String? description;
@@ -10,7 +43,7 @@ class AddOnWidget extends StatefulWidget {
   /// initial value.
   final bool selected;
   final void Function(bool? value, bool isSelected)? onChanged;
-  const AddOnWidget({
+  const _AddOnWidget({
     super.key,
     required this.name,
     required this.selected,
@@ -19,10 +52,10 @@ class AddOnWidget extends StatefulWidget {
   });
 
   @override
-  State<AddOnWidget> createState() => _AddOnWidgetState();
+  State<_AddOnWidget> createState() => _AddOnWidgetState();
 }
 
-class _AddOnWidgetState extends State<AddOnWidget> {
+class _AddOnWidgetState extends State<_AddOnWidget> {
   @override
   Widget build(BuildContext context) {
     return Padding(

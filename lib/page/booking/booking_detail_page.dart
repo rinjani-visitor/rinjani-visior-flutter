@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:rinjani_visitor/core/presentation/utils/internationalization.dart';
 import 'package:rinjani_visitor/features/booking/presentation/view_model/booking.dart';
 import 'package:rinjani_visitor/core/presentation/theme/theme.dart';
 import 'package:rinjani_visitor/page/booking/booking_status_page.dart';
@@ -106,7 +105,7 @@ class _BookingDetailPageState extends ConsumerState<BookingDetailPage> {
                     Icons.calendar_month,
                     color: blackColor,
                   ),
-                  title: Text(dateFormat.format(_viewModel.getDate()))),
+                  title: Text(_viewModel.getLocalizedDate())),
               Text(
                 'Arrival',
                 style:
@@ -208,14 +207,10 @@ class _BookingDetailPageState extends ConsumerState<BookingDetailPage> {
             ),
             PrimaryButton(
                 isDisabled: _formKey.currentState?.validate() == false,
-                child: Container(
-                    decoration: BoxDecoration(
-                        color: primaryColor,
-                        borderRadius: BorderRadius.circular(smallRadius)),
-                    child: Text(
-                      'Make an offer',
-                      style: whiteTextStyle.copyWith(fontWeight: medium),
-                    )),
+                child: Text(
+                  'Make an offer',
+                  style: whiteTextStyle.copyWith(fontWeight: medium),
+                ),
                 onPressed: () {
                   if (_formKey.currentState?.validate() == false) {
                     return;

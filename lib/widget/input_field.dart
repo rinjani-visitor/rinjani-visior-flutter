@@ -14,6 +14,7 @@ class InputField extends StatelessWidget {
   final void Function()? onTap;
   final List<TextInputFormatter>? inputFormatters;
   final bool secureText;
+  final bool? enabled;
 
   const InputField(
       {super.key,
@@ -27,7 +28,8 @@ class InputField extends StatelessWidget {
       this.onTap,
       this.errorText,
       this.textInputAction,
-      this.inputFormatters});
+      this.inputFormatters,
+      this.enabled});
 
   @override
   Widget build(BuildContext context) {
@@ -65,6 +67,7 @@ class InputField extends StatelessWidget {
           textInputAction: textInputAction,
           inputFormatters: inputFormatters,
           onTap: onTap,
+          enabled: enabled ?? true,
         ),
       ],
     );
