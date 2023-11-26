@@ -206,7 +206,6 @@ class _BookingDetailPageState extends ConsumerState<BookingDetailPage> {
               keyboardType: TextInputType.number,
             ),
             PrimaryButton(
-                isDisabled: _formKey.currentState?.validate() == false,
                 child: Text(
                   'Make an offer',
                   style: whiteTextStyle.copyWith(fontWeight: medium),
