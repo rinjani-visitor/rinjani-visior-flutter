@@ -4,7 +4,7 @@ import 'package:rinjani_visitor/core/exception/exception.dart';
 import 'package:rinjani_visitor/core/presentation/theme/theme.dart';
 import 'package:rinjani_visitor/features/product/presentation/view_model/recommended_product.dart';
 import 'package:rinjani_visitor/page/product/product_detail_page.dart';
-import 'package:rinjani_visitor/widget/product/small_card.dart';
+import 'package:rinjani_visitor/core/widget/product/small_card.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 class RecommendationList extends ConsumerWidget {

@@ -6,8 +6,8 @@ import 'package:rinjani_visitor/core/presentation/utils/internationalization.dar
 import 'package:rinjani_visitor/features/booking/domain/entitiy/booking_history.dart';
 import 'package:rinjani_visitor/features/booking/domain/enum/history_status.dart';
 import 'package:rinjani_visitor/page/review/write_review_page.dart';
-import 'package:rinjani_visitor/widget/button/primary_button.dart';
-import 'package:rinjani_visitor/widget/status.dart';
+import 'package:rinjani_visitor/core/widget/button/primary_button.dart';
+import 'package:rinjani_visitor/core/widget/status.dart';
 
 final List<BookingHistoryEntity> mockData = [
   BookingHistoryEntity(

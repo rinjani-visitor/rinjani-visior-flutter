@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rinjani_visitor/core/presentation/theme/theme.dart';
-import 'package:rinjani_visitor/widget/time_button_widget.dart';
+import 'package:rinjani_visitor/core/widget/time_button.dart';
 
 class KVContentWidget extends StatelessWidget {
   final String title;

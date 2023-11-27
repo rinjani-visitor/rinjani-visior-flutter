@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:rinjani_visitor/core/presentation/theme/theme.dart';
 import 'package:rinjani_visitor/features/notification/domain/entity/notification.dart';
-import 'package:rinjani_visitor/widget/status.dart';
+import 'package:rinjani_visitor/core/widget/status.dart';
 
 class NotificationDetailPage extends StatelessWidget {
   /// change status
@@ -29,7 +29,10 @@ class NotificationDetailPage extends StatelessWidget {
               style: grayTextStyle.copyWith(fontSize: 16, fontWeight: medium),
             ),
             const Spacer(),
-            Status(status: data.status ?? StatusColor.init, text: "approval",),
+            Status(
+              status: data.status ?? StatusColor.init,
+              text: "approval",
+            ),
           ],
         ),
         Text(
@@ -45,8 +48,8 @@ class NotificationDetailPage extends StatelessWidget {
   }
 
   Widget information(String text) {
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
       //set status text nya di sini
       children: [Text(text)],
     );
@@ -62,7 +65,8 @@ class NotificationDetailPage extends StatelessWidget {
         ),
         child: SafeArea(
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+            padding:
+                const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
             child: Column(
               children: [
                 imageContainer(),

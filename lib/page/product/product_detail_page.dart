@@ -9,14 +9,14 @@ import 'package:rinjani_visitor/core/presentation/theme/theme.dart';
 import 'package:rinjani_visitor/features/favorite/presentation/view_model/favorite.dart';
 import 'package:rinjani_visitor/features/product/domain/entity/product.dart';
 import 'package:rinjani_visitor/features/product/presentation/view_model/product_detail.dart';
-import 'package:rinjani_visitor/widget/add_on_widget.dart';
-import 'package:rinjani_visitor/widget/button/primary_button.dart';
-import 'package:rinjani_visitor/widget/input_field.dart';
-import 'package:rinjani_visitor/widget/person_counter_widget.dart';
-import 'package:rinjani_visitor/widget/rating_widget.dart';
-import 'package:rinjani_visitor/widget/review_widget.dart';
-import 'package:rinjani_visitor/widget/segmented_widget.dart';
-import 'package:rinjani_visitor/widget/status.dart';
+import 'package:rinjani_visitor/core/widget/add_on.dart';
+import 'package:rinjani_visitor/core/widget/button/primary_button.dart';
+import 'package:rinjani_visitor/core/widget/form/input_field.dart';
+import 'package:rinjani_visitor/core/widget/person_counter.dart';
+import 'package:rinjani_visitor/core/widget/rating_widget.dart';
+import 'package:rinjani_visitor/core/widget/review_widget.dart';
+import 'package:rinjani_visitor/core/widget/segmented_widget.dart';
+import 'package:rinjani_visitor/core/widget/status.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
 class ProductDetailPage extends ConsumerStatefulWidget {

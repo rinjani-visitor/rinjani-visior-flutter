@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:rinjani_visitor/features/notification/domain/entity/notification.dart';
 import 'package:rinjani_visitor/page/main/home/notification/notification_detail_page.dart';
 import 'package:rinjani_visitor/core/presentation/theme/theme.dart';
-import 'package:rinjani_visitor/widget/status.dart';
+import 'package:rinjani_visitor/core/widget/status.dart';
 
 class NotificationCardWidget extends StatelessWidget {
   final String title;
@@ -14,7 +14,8 @@ class NotificationCardWidget extends StatelessWidget {
     super.key,
     required this.title,
     required this.subtitle,
-    required this.status, this.data,
+    required this.status,
+    this.data,
   });
 
   @override
@@ -23,7 +24,7 @@ class NotificationCardWidget extends StatelessWidget {
       margin: const EdgeInsets.only(top: 8),
       child: CupertinoListTile(
         onTap: () {
-          if(data == null) {
+          if (data == null) {
             return;
           }
           Navigator.push(

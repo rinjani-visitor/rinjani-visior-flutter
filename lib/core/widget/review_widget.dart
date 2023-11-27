@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:rinjani_visitor/features/product/domain/entity/review.dart';
-import 'package:rinjani_visitor/widget/review_card_widget.dart';
+import 'package:rinjani_visitor/core/widget/review_card.dart';
 
 class ReviewWidgetMock extends StatelessWidget {
   const ReviewWidgetMock({super.key});

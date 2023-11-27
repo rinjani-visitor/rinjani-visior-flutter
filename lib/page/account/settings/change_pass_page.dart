@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rinjani_visitor/core/presentation/theme/theme.dart';
-import 'package:rinjani_visitor/widget/input_field.dart';
+import 'package:rinjani_visitor/core/widget/form/input_field.dart';
 
 class ChangePassPage extends StatelessWidget {
   const ChangePassPage({super.key});

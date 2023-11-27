@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rinjani_visitor/core/presentation/theme/theme.dart';
-import 'package:rinjani_visitor/widget/product/big_card.dart';
-import 'package:rinjani_visitor/widget/status.dart';
+import 'package:rinjani_visitor/core/widget/product/big_card.dart';
+import 'package:rinjani_visitor/core/widget/status.dart';
 
 class EventList extends ConsumerWidget {
   const EventList({super.key});
