@@ -4,14 +4,17 @@ import 'package:rinjani_visitor/core/presentation/theme/theme.dart';
 class PrimaryButton extends StatelessWidget {
   final bool isLoading;
   final bool isDisabled;
+  final Color backgroundColor;
   final Widget child;
   final Function onPressed;
-  const PrimaryButton(
-      {super.key,
-      required this.child,
-      this.isDisabled = false,
-      this.isLoading = false,
-      required this.onPressed});
+  const PrimaryButton({
+    super.key,
+    required this.child,
+    this.isDisabled = false,
+    this.isLoading = false,
+    this.backgroundColor = primaryColor,
+    required this.onPressed,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +26,7 @@ class PrimaryButton extends StatelessWidget {
           constraints:
               BoxConstraints(minWidth: MediaQuery.of(context).size.width),
           decoration: BoxDecoration(
-              color: isLoading || isDisabled ? Colors.grey : primaryColor,
+              color: isLoading || isDisabled ? Colors.grey : backgroundColor,
               borderRadius: BorderRadius.circular(smallRadius)),
           child: Padding(
             padding: const EdgeInsets.all(8.0),
