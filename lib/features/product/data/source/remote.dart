@@ -1,7 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:retrofit/http.dart';
 import 'package:rinjani_visitor/core/constant/network.dart';
-import 'package:rinjani_visitor/features/product/data/models/request/request.dart';
 import 'package:rinjani_visitor/features/product/data/models/response/response.dart';
 
 part 'remote.g.dart';
@@ -28,14 +27,5 @@ abstract class ProductRemoteSource {
   });
 
   //TODO: GANTI ENPOINTNYA, TUNGGU KONFIRMASI DARI TIM BACKEND
-  @GET("/api/users/{userId}/favorite")
-  Future<ProductResponse> getFavorites({
-    @Header("Authorization") required String token,
-  });
 
-  @POST("/api/users/{userId}/favorite")
-  Future<ToggleFavoriteResponse> toggleFavourites({
-    @Header("Authorization") required String token,
-    @Body() required ToggleFavoriteRequest body,
-  });
 }

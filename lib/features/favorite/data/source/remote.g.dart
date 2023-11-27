@@ -8,8 +8,8 @@ part of 'remote.dart';
 
 // ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers
 
-class _ProductRemoteSource implements ProductRemoteSource {
-  _ProductRemoteSource(
+class _RemoteFavoriteSource implements RemoteFavoriteSource {
+  _RemoteFavoriteSource(
     this._dio, {
     this.baseUrl,
   }) {
@@ -21,65 +21,21 @@ class _ProductRemoteSource implements ProductRemoteSource {
   String? baseUrl;
 
   @override
-  Future<ProductResponse> getProducts({
-    required String token,
-    String? title,
-    String? status,
-    String? category,
-    String? rating,
-  }) async {
-    const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{
-      r'title': title,
-      r'status': status,
-      r'category': category,
-      r'rating': rating,
-    };
-    queryParameters.removeWhere((k, v) => v == null);
-    final _headers = <String, dynamic>{r'Authorization': token};
-    _headers.removeWhere((k, v) => v == null);
-    final Map<String, dynamic>? _data = null;
-    final _result = await _dio
-        .fetch<Map<String, dynamic>>(_setStreamType<ProductResponse>(Options(
-      method: 'GET',
-      headers: _headers,
-      extra: _extra,
-    )
-            .compose(
-              _dio.options,
-              '/api/products',
-              queryParameters: queryParameters,
-              data: _data,
-            )
-            .copyWith(
-                baseUrl: _combineBaseUrls(
-              _dio.options.baseUrl,
-              baseUrl,
-            ))));
-    final value = ProductResponse.fromJson(_result.data!);
-    return value;
-  }
-
-  @override
-  Future<ProductDetailResponse> getProductDetail({
-    required String token,
-    required String category,
-    required String id,
-  }) async {
+  Future<GetFavoriteResponse> getFavorites({required String token}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{r'Authorization': token};
     _headers.removeWhere((k, v) => v == null);
     final Map<String, dynamic>? _data = null;
     final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<ProductDetailResponse>(Options(
+        _setStreamType<GetFavoriteResponse>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
     )
             .compose(
               _dio.options,
-              '/api/products/${category}/${id}',
+              '/api/users/{userId}/favorite',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -88,7 +44,39 @@ class _ProductRemoteSource implements ProductRemoteSource {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    final value = ProductDetailResponse.fromJson(_result.data!);
+    final value = GetFavoriteResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<ToggleFavoriteResponse> toggleFavourites({
+    required String token,
+    required ToggleFavoriteRequest body,
+  }) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{r'Authorization': token};
+    _headers.removeWhere((k, v) => v == null);
+    final _data = <String, dynamic>{};
+    _data.addAll(body.toJson());
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<ToggleFavoriteResponse>(Options(
+      method: 'POST',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/api/users/{userId}/favorite',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final value = ToggleFavoriteResponse.fromJson(_result.data!);
     return value;
   }
 

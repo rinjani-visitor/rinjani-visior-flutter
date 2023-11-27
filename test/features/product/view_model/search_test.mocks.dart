@@ -95,31 +95,4 @@ class MockProductRepositoryImpl extends _i1.Mock
         ),
         returnValue: _i4.Future<_i5.ProductDetailEntity?>.value(),
       ) as _i4.Future<_i5.ProductDetailEntity?>);
-
-  @override
-  _i4.Future<bool?> toggleFavorite(
-    String? token,
-    String? productId,
-  ) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #toggleFavorite,
-          [
-            token,
-            productId,
-          ],
-        ),
-        returnValue: _i4.Future<bool?>.value(),
-      ) as _i4.Future<bool?>);
-
-  @override
-  _i4.Future<List<_i5.ProductEntity>> getFavorites(String? token) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #getFavorites,
-          [token],
-        ),
-        returnValue:
-            _i4.Future<List<_i5.ProductEntity>>.value(<_i5.ProductEntity>[]),
-      ) as _i4.Future<List<_i5.ProductEntity>>);
 }

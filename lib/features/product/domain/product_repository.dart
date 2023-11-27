@@ -8,10 +8,4 @@ abstract class ProductRespository {
   /// get package detail, with addons avaiable, etc.
   Future<ProductDetailEntity?> getProductDetail(String token,
       {required String productId, required String category});
-
-  /// toggle save current product as favorite
-  Future<bool?> toggleFavorite(String token, String productId);
-
-  /// get all favorite product
-  Future<List<ProductEntity>> getFavorites(String token);
 }
