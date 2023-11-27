@@ -23,9 +23,10 @@ abstract class AuthRemoteSource {
   Future<RefreshResponse> refresh(@Header("Authorization") String refreshToken);
 
   // ========================= user related data ========================== //
-  @GET('/api/users')
+  @GET('/api/users/{userId}')
   Future<GetUserDetailResponse> getUserDetail(
     @Header("Authorization") String accessToken,
+    @Path("userId") String userId,
   );
 
   @MultiPart()

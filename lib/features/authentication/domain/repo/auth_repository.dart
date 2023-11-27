@@ -12,7 +12,7 @@ abstract class AuthRepository {
       required String password});
 
   Future<AuthEntity?> logIn({required String email, required String password});
-  Future<AuthDetailEntity?> getUserDetail(String accessToken);
+  Future<AuthDetailEntity?> getUserDetail(String accessToken, String userId);
   Future<bool?> uploadAvatar(String accessToken, File file);
 
   Future<String?> resetPassword({required String email});

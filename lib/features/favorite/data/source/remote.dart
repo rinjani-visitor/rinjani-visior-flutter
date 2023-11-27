@@ -12,7 +12,7 @@ abstract class RemoteFavoriteSource {
   factory RemoteFavoriteSource(Dio dio, {String? baseUrl}) =
       _RemoteFavoriteSource;
 
-  @GET("/api/users/favorite")
+  @GET("/api/users/favorite/all")
   Future<GetFavoriteResponse> getFavorites({
     @Header("Authorization") required String token,
   });

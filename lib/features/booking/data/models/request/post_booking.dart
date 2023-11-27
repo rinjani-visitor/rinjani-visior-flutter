@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:rinjani_visitor/features/authentication/data/models/request/reset.dart';
 
 part 'post_booking.g.dart';
 
@@ -8,6 +9,8 @@ class PostBookingRequest {
   final String productId;
   @JsonKey(name: 'startDateTime')
   final String startDateTime;
+  @JsonKey(name: 'endDateTime')
+  final String? endDateTime;
   @JsonKey(name: 'addOns')
   final String addOns;
   @JsonKey(name: 'offeringPrice')
@@ -18,6 +21,7 @@ class PostBookingRequest {
   PostBookingRequest({
     required this.productId,
     required this.startDateTime,
+    this.endDateTime,
     required this.addOns,
     required this.offeringPrice,
     required this.totalPersons,

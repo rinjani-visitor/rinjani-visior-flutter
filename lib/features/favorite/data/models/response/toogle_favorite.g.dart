@@ -12,7 +12,9 @@ ToggleFavoriteResponse _$ToggleFavoriteResponseFromJson(
       errors:
           (json['errors'] as List<dynamic>?)?.map((e) => e as String).toList(),
       message: json['message'] as String,
-      data: json['data'] as String?,
+      data: json['data'] == null
+          ? null
+          : ToggleFavoriteBody.fromJson(json['data'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$ToggleFavoriteResponseToJson(
@@ -21,4 +23,16 @@ Map<String, dynamic> _$ToggleFavoriteResponseToJson(
       'errors': instance.errors,
       'message': instance.message,
       'data': instance.data,
+    };
+
+ToggleFavoriteBody _$ToggleFavoriteBodyFromJson(Map<String, dynamic> json) =>
+    ToggleFavoriteBody(
+      favoriteId: json['favoriteId'] as int?,
+      productId: json['productId'] as String?,
+    );
+
+Map<String, dynamic> _$ToggleFavoriteBodyToJson(ToggleFavoriteBody instance) =>
+    <String, dynamic>{
+      'favoriteId': instance.favoriteId,
+      'productId': instance.productId,
     };

@@ -104,7 +104,8 @@ class AuthRepositoryImpl implements AuthRepository {
       authdata.accessToken = response.accessToken;
       developer.log("authEntity : ${authdata.toString()}",
           name: runtimeType.toString());
-      await localSource.setSession(response.accessToken, response.refreshToken);
+      await localSource.setSession(
+          response.accessToken!, response.refreshToken!);
       final data = response.toEntity();
       return data;
     } catch (e) {
@@ -113,10 +114,11 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Future<AuthDetailEntity?> getUserDetail(String accessToken) async {
+  Future<AuthDetailEntity?> getUserDetail(
+      String accessToken, String userId) async {
     developer.log("Get user detail", name: runtimeType.toString());
     try {
-      final data = await remoteSource.getUserDetail(accessToken);
+      final data = await remoteSource.getUserDetail(accessToken, userId);
       final result = data.toEntity();
       return result;
     } catch (e) {

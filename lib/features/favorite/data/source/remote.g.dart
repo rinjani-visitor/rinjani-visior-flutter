@@ -35,7 +35,7 @@ class _RemoteFavoriteSource implements RemoteFavoriteSource {
     )
             .compose(
               _dio.options,
-              '/api/users/favorite',
+              '/api/users/favorite/all',
               queryParameters: queryParameters,
               data: _data,
             )

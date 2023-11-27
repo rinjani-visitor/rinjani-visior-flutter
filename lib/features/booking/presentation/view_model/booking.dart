@@ -1,10 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rinjani_visitor/core/presentation/utils/internationalization.dart';
+import 'package:rinjani_visitor/features/authentication/presentation/view_model/auth.dart';
+import 'package:rinjani_visitor/features/booking/data/repo.dart';
 import 'package:rinjani_visitor/features/booking/domain/entitiy/booking_form.dart';
-import 'package:rinjani_visitor/features/product/data/product_repository_impl.dart';
+import 'package:rinjani_visitor/features/booking/domain/repository/booking.dart';
 import 'package:rinjani_visitor/features/product/domain/entity/product.dart';
-import 'package:rinjani_visitor/features/product/domain/product_repository.dart';
 
 final bookingViewModelProvider =
     AutoDisposeNotifierProvider<BookingViewModel, BookingFormEntity>(
@@ -12,11 +13,12 @@ final bookingViewModelProvider =
 
 class BookingViewModel extends AutoDisposeNotifier<BookingFormEntity> {
   // ignore: unused_field
-  late final ProductRespository _productRepository;
+  BookingRepository get bookingRepository =>
+      ref.read(bookingRepositoryProvider);
+  AuthViewModel get authData => ref.read(authViewModelProvider.notifier);
 
   @override
   BookingFormEntity build() {
-    _productRepository = ref.watch(productRepositoryProvider);
     return BookingFormEntity(
       addOns: [],
       startDateTime: DateTime.now(),
@@ -95,8 +97,11 @@ class BookingViewModel extends AutoDisposeNotifier<BookingFormEntity> {
     }
   }
 
-  void submitOrder(BuildContext context, ProductDetailEntity data) {
+  //TODO: need completion
+  void submitOrder(BuildContext context, ProductDetailEntity data) async {
     state.product = data;
-    Navigator.pushNamed(context, "/booking/detail");
+    final token =
+        ref.read(authViewModelProvider).value!.toAccessTokenAuthorization();
+    final result = await bookingRepository.createBooking(token, state);
   }
 }

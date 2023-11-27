@@ -1,20 +1,33 @@
 import 'package:dio/dio.dart';
 import 'package:retrofit/http.dart';
 import 'package:rinjani_visitor/core/constant/network.dart';
-
-import '../models/response/create_booking.dart';
+import 'package:rinjani_visitor/features/booking/data/models/response/response.dart';
 import '../models/request/post_booking.dart';
 
 part 'remote.g.dart';
 
 @RestApi(baseUrl: restApiBaseUrl)
-abstract class BookingRemoteDataSource {
-  factory BookingRemoteDataSource(Dio dio, {String? baseUrl}) =
-      _BookingRemoteDataSource;
-  // Future<Booking> getBooking(String id);
-  // Future<List<Booking>> getBookings();
+abstract class RemoteBookingDataSource {
+  factory RemoteBookingDataSource(Dio dio, {String? baseUrl}) =
+      _RemoteBookingDataSource;
+
   @POST("/api/booking")
   Future<CreateBookingResponse> createBooking(
       @Body() PostBookingRequest booking);
-  // Future<Booking> updateBooking(Booking booking);
+  @GET("/api/booking")
+  Future<GetBookingResponse> getBookings(
+    @Header("Authorization") String token,
+  );
+  @GET("/api/booking/{id}")
+  Future<GetBookingDetailResponse> getBookingDetail(
+    @Header("Authorization") String token,
+    @Path("id") String bookingId,
+  );
+  @PATCH("/api/booking")
+  Future<UpdateBookingResponse> updateBooking(PostBookingRequest booking);
+  @DELETE("/api/booking/{id}")
+  Future<void> deleteBooking(
+    @Header("Authorization") String token,
+    @Path("id") String bookingId,
+  );
 }
