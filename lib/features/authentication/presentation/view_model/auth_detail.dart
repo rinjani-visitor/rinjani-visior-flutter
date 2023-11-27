@@ -47,4 +47,22 @@ class AuthDetailViewModel extends AutoDisposeAsyncNotifier<AuthDetailEntity?> {
       Fluttertoast.showToast(msg: e.toString());
     }
   }
+
+  Future<void> updateUserDetail(
+      {String? phoneNumber, String? password, String? confirmPassword}) async {
+    final token = authViewModel.state.value!.toAccessTokenAuthorization();
+    final userId = authViewModel.state.value!.userId!;
+    try {
+      await authRepository.updateUserDetail(
+        token,
+        userId,
+        phoneNumber: phoneNumber,
+        password: password,
+        confirmPassword: confirmPassword,
+      );
+      refresh();
+    } catch (e) {
+      Fluttertoast.showToast(msg: e.toString());
+    }
+  }
 }

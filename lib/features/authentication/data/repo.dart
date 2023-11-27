@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rinjani_visitor/core/exception/exception.dart';
 import 'package:rinjani_visitor/core/presentation/services/dio_service.dart';
 import 'package:rinjani_visitor/features/authentication/data/models/request/reset.dart';
+import 'package:rinjani_visitor/features/authentication/data/models/request/update_user_detail.dart';
 import 'package:rinjani_visitor/features/authentication/data/source/local.dart';
 import 'package:rinjani_visitor/features/authentication/data/source/remote.dart';
 import 'package:rinjani_visitor/features/authentication/data/models/request/login.dart';
@@ -118,7 +119,7 @@ class AuthRepositoryImpl implements AuthRepository {
       String accessToken, String userId) async {
     developer.log("Get user detail", name: runtimeType.toString());
     try {
-      final data = await remoteSource.getUserDetail(accessToken, userId);
+      final data = await remoteSource.getUserDetail(accessToken);
       final result = data.toEntity();
       return result;
     } catch (e) {
@@ -148,6 +149,26 @@ class AuthRepositoryImpl implements AuthRepository {
         return true;
       }
       return false;
+    } catch (e) {
+      throw ExtException.fromDioException(e);
+    }
+  }
+
+  @override
+  Future<void> updateUserDetail(
+    String accessToken,
+    String userId, {
+    String? phoneNumber,
+    String? password,
+    String? confirmPassword,
+  }) async {
+    try {
+      final body = UpdateUserDetailRequest(
+        phoneNumber: phoneNumber,
+        password: password,
+        confirmPassword: confirmPassword,
+      );
+      final data = await remoteSource.updateUserDetail(accessToken, body);
     } catch (e) {
       throw ExtException.fromDioException(e);
     }

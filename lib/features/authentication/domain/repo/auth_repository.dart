@@ -13,6 +13,8 @@ abstract class AuthRepository {
 
   Future<AuthEntity?> logIn({required String email, required String password});
   Future<AuthDetailEntity?> getUserDetail(String accessToken, String userId);
+  Future<void> updateUserDetail(String accessToken, String userId,
+      {String? phoneNumber, String? password, String? confirmPassword});
   Future<bool?> uploadAvatar(String accessToken, File file);
 
   Future<String?> resetPassword({required String email});

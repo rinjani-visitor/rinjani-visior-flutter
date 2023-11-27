@@ -133,10 +133,7 @@ class _AuthRemoteSource implements AuthRemoteSource {
   }
 
   @override
-  Future<GetUserDetailResponse> getUserDetail(
-    String accessToken,
-    String userId,
-  ) async {
+  Future<GetUserDetailResponse> getUserDetail(String accessToken) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{r'Authorization': accessToken};
@@ -150,7 +147,7 @@ class _AuthRemoteSource implements AuthRemoteSource {
     )
             .compose(
               _dio.options,
-              '/api/users/${userId}',
+              '/api/users',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -160,6 +157,38 @@ class _AuthRemoteSource implements AuthRemoteSource {
               baseUrl,
             ))));
     final value = GetUserDetailResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<UpdateUserDetailResponse> updateUserDetail(
+    String accessToken,
+    UpdateUserDetailRequest body,
+  ) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{r'Authorization': accessToken};
+    _headers.removeWhere((k, v) => v == null);
+    final _data = <String, dynamic>{};
+    _data.addAll(body.toJson());
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<UpdateUserDetailResponse>(Options(
+      method: 'PATCH',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/api/users',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final value = UpdateUserDetailResponse.fromJson(_result.data!);
     return value;
   }
 

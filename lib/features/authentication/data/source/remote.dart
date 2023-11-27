@@ -5,6 +5,7 @@ import 'package:dio/dio.dart';
 import 'package:retrofit/http.dart';
 import 'package:rinjani_visitor/core/constant/network.dart';
 import 'package:rinjani_visitor/features/authentication/data/models/request/request.dart';
+import 'package:rinjani_visitor/features/authentication/data/models/request/update_user_detail.dart';
 import 'package:rinjani_visitor/features/authentication/data/models/response/response.dart';
 
 part 'remote.g.dart';
@@ -23,10 +24,15 @@ abstract class AuthRemoteSource {
   Future<RefreshResponse> refresh(@Header("Authorization") String refreshToken);
 
   // ========================= user related data ========================== //
-  @GET('/api/users/{userId}')
+  @GET('/api/users')
   Future<GetUserDetailResponse> getUserDetail(
     @Header("Authorization") String accessToken,
-    @Path("userId") String userId,
+  );
+
+  @PATCH("/api/users")
+  Future<UpdateUserDetailResponse> updateUserDetail(
+    @Header("Authorization") String accessToken,
+    @Body() UpdateUserDetailRequest body,
   );
 
   @MultiPart()
