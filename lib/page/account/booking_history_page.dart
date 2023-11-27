@@ -8,6 +8,7 @@ import 'package:rinjani_visitor/core/presentation/utils/internationalization.dar
 import 'package:rinjani_visitor/features/booking/domain/enum/history_status.dart';
 import 'package:rinjani_visitor/features/booking/presentation/view_model/booking.dart';
 import 'package:rinjani_visitor/features/booking/presentation/view_model/booking_form.dart';
+import 'package:rinjani_visitor/page/booking/payment_method_page.dart';
 import 'package:rinjani_visitor/page/review/write_review_page.dart';
 import 'package:rinjani_visitor/core/widget/button/primary_button.dart';
 import 'package:rinjani_visitor/core/widget/status.dart';
@@ -63,8 +64,16 @@ class _BookingHistoryPageState extends ConsumerState<OrderHistoryPage> {
                                     builder: (context) => WriteReviewPage()));
                               }),
                           BookingStatus.waitingForPayment => PrimaryButton(
-                              child: Text("Send Data"),
-                              onPressed: () {},
+                              child: Text("Send Proof of Payment"),
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  CupertinoPageRoute(
+                                    builder: (context) => PaymentMethodPage(
+                                        bookingId: current.bookingId),
+                                  ),
+                                );
+                              },
                             ),
                           BookingStatus.offering ||
                           BookingStatus.declined =>

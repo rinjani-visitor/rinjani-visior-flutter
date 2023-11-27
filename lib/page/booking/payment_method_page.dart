@@ -1,21 +1,40 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rinjani_visitor/core/presentation/theme/theme.dart';
+import 'package:rinjani_visitor/features/booking/presentation/view_model/booking_detail.dart';
+import 'package:rinjani_visitor/features/order/domain/entity/payment_method.dart';
+import 'package:rinjani_visitor/features/order/presentation/payment.dart';
 
 final paymentMethod = [
-  {"name": "Pay with Wise (USD)", "imgSrc": "assets/wise-logo.png"},
-  {"name": "Pay with Bank NTB (IDR)", "imgSrc": "assets/wise-logo.png"},
+  {
+    "name": "Pay with Wise (USD)",
+    "imgSrc": "assets/wise-logo.png",
+  },
+  {"name": "Pay with Bank NTB (IDR)", "imgSrc": "assets/bank-ntb-syariah.png"},
 ];
 
-class PaymentMethodPage extends StatefulWidget {
-  const PaymentMethodPage({super.key});
+class PaymentMethodPage extends ConsumerStatefulWidget {
+  final String bookingId;
+  const PaymentMethodPage({super.key, required this.bookingId});
 
   @override
-  State<PaymentMethodPage> createState() => _PaymentMethodPageState();
+  ConsumerState<PaymentMethodPage> createState() => _PaymentMethodPageState();
 }
 
-class _PaymentMethodPageState extends State<PaymentMethodPage> {
+class _PaymentMethodPageState extends ConsumerState<PaymentMethodPage> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      ref.read(bookingDetailViewModelProvider.notifier).get(widget.bookingId);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    final paymentWatch = ref.watch(orderPaymentViewModelProvider);
+    final bookingDetail = ref.watch(bookingDetailViewModelProvider);
     return CupertinoPageScaffold(
       navigationBar: const CupertinoNavigationBar(
         middle: Text("Select Payment"),
@@ -38,12 +57,15 @@ class _PaymentMethodPageState extends State<PaymentMethodPage> {
                 const SizedBox(
                   height: 16,
                 ),
-                const Text("TAX: 5%"),
-                const Text("Subtotal: \$60"),
-                Text(
-                  "Total: \$63",
-                  style: blackTextStyle.copyWith(fontWeight: FontWeight.bold),
-                ),
+                bookingDetail.maybeWhen(
+                    orElse: () => Text(""),
+                    data: (data) {
+                      return Text(
+                        "Total: ${data?.offeringPrice}\$",
+                        style: blackTextStyle.copyWith(
+                            fontSize: subtitle1, fontWeight: FontWeight.bold),
+                      );
+                    }),
                 const SizedBox(
                   height: 32,
                 ),
@@ -61,12 +83,26 @@ class _PaymentMethodPageState extends State<PaymentMethodPage> {
                   itemCount: paymentMethod.length,
                   itemBuilder: (context, index) {
                     final currentData = paymentMethod[index];
+                    final isWise = index == 0;
                     return Padding(
                       padding: const EdgeInsets.symmetric(vertical: 2.0),
                       child: GestureDetector(
                         behavior: HitTestBehavior.opaque,
                         onTap: () {
-                          debugPrint("tapped");
+                          final bookingId = bookingDetail.value?.bookingId;
+                          isWise
+                              ? ref
+                                  .read(orderPaymentViewModelProvider.notifier)
+                                  .addWisePaymentMethod(
+                                      WisePaymentMethod(bookingId!))
+                              : ref
+                                  .read(orderPaymentViewModelProvider.notifier)
+                                  .addBankPaymentMethod(
+                                      BankPaymentMethod(bookingId!));
+                          ref
+                              .read(orderPaymentViewModelProvider.notifier)
+                              .setBookingId(bookingDetail.value!);
+                          Navigator.pushNamed(context, "/booking/payment");
                         },
                         child: Container(
                           decoration: BoxDecoration(

@@ -26,10 +26,11 @@ class _WishlistPageState extends ConsumerState<WishlistPage> {
       child: SafeArea(
         child: RefreshIndicator.adaptive(
           onRefresh: () async {
+            ref.refresh(favoriteListViewModelProvider.notifier);
             await Future.delayed(const Duration(seconds: 2));
           },
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
             child: favoriteList.when(
               error: (error, _) {
                 return Center(
@@ -60,21 +61,24 @@ class _WishlistPageState extends ConsumerState<WishlistPage> {
                   itemCount: data.length,
                   itemBuilder: (context, index) {
                     final current = data[index];
-                    return BigProductCard(
-                      onTap: () => Navigator.push(
-                        context,
-                        CupertinoPageRoute(
-                            builder: (context) => ProductDetailPage(
-                                category: current.category ?? "",
-                                id: current.productId)),
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 8),
+                      child: BigProductCard(
+                        onTap: () => Navigator.push(
+                          context,
+                          CupertinoPageRoute(
+                              builder: (context) => ProductDetailPage(
+                                  category: current.category ?? "",
+                                  id: current.productId)),
+                        ),
+                        image: CachedNetworkImageProvider(
+                            current.thumbnail ?? IMG_PLACEHOLDER),
+                        title: current.title ?? "No title",
+                        status: current.avaiable != null && current.avaiable!
+                            ? StatusColor.available
+                            : StatusColor.error,
+                        price: current.lowestPrice.toString(),
                       ),
-                      image: CachedNetworkImageProvider(
-                          current.thumbnail ?? IMG_PLACEHOLDER),
-                      title: current.title ?? "No title",
-                      status: current.avaiable != null && current.avaiable!
-                          ? StatusColor.available
-                          : StatusColor.error,
-                      price: current.lowestPrice.toString(),
                     );
                   },
                 );

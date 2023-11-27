@@ -148,11 +148,17 @@ class MockAuthRepositoryImpl extends _i1.Mock
       ) as _i5.Future<_i6.AuthEntity?>);
 
   @override
-  _i5.Future<_i7.AuthDetailEntity?> getUserDetail(String? accessToken) =>
+  _i5.Future<_i7.AuthDetailEntity?> getUserDetail(
+    String? accessToken,
+    String? userId,
+  ) =>
       (super.noSuchMethod(
         Invocation.method(
           #getUserDetail,
-          [accessToken],
+          [
+            accessToken,
+            userId,
+          ],
         ),
         returnValue: _i5.Future<_i7.AuthDetailEntity?>.value(),
       ) as _i5.Future<_i7.AuthDetailEntity?>);
@@ -183,4 +189,29 @@ class MockAuthRepositoryImpl extends _i1.Mock
         ),
         returnValue: _i5.Future<bool?>.value(),
       ) as _i5.Future<bool?>);
+
+  @override
+  _i5.Future<void> updateUserDetail(
+    String? accessToken,
+    String? userId, {
+    String? phoneNumber,
+    String? password,
+    String? confirmPassword,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #updateUserDetail,
+          [
+            accessToken,
+            userId,
+          ],
+          {
+            #phoneNumber: phoneNumber,
+            #password: password,
+            #confirmPassword: confirmPassword,
+          },
+        ),
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
 }
