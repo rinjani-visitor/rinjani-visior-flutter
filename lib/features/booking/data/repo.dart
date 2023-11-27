@@ -49,9 +49,13 @@ class BookingRepositoryImpl implements BookingRepository {
   }
 
   @override
-  Future<BookingDetailEntity> getBookingDetail(String token, String id) {
-    // TODO: implement getBookingDetail
-    throw UnimplementedError();
+  Future<BookingDetailEntity> getBookingDetail(String token, String id) async {
+    try {
+      final result = await remote.getBookingDetail(token, id);
+      return result.toEntity();
+    } catch (e) {
+      throw ExtException.fromDioException(e);
+    }
   }
 
   @override
