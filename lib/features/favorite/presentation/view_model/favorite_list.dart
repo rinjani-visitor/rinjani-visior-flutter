@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rinjani_visitor/features/authentication/presentation/view_model/auth.dart';
 import 'package:rinjani_visitor/features/favorite/data/favorite_repository_impl.dart';
@@ -16,8 +17,10 @@ class FavoriteListViewModel
 
   @override
   FutureOr<List<FavoriteEntity>?> build() async {
-    return await repository.getFavorites(
+    final data = await repository.getFavorites(
       authData.state.value!.toAccessTokenAuthorization(),
     );
+    debugPrint("data: $data");
+    return data;
   }
 }

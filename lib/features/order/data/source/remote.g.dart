@@ -21,12 +21,43 @@ class _RemoteOrderSource implements RemoteOrderSource {
   String? baseUrl;
 
   @override
-  Future<BookingResponse> uploadBankPayment(
+  Future<UpdatePaymentResponse> setPaymentMethod(
+    String token,
+    SetPaymentMethod body,
+  ) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{r'Authorization': token};
+    _headers.removeWhere((k, v) => v == null);
+    final _data = <String, dynamic>{};
+    _data.addAll(body.toJson());
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<UpdatePaymentResponse>(Options(
+      method: 'PATCH',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/api/payment',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final value = UpdatePaymentResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<UploadPaymentResponse> uploadBankPayment(
     String token, {
     required String bookingId,
     required String bankName,
     required String bankAccountName,
-    required String bankAccountNumber,
     required File imageProofTransfer,
   }) async {
     const _extra = <String, dynamic>{};
@@ -46,20 +77,15 @@ class _RemoteOrderSource implements RemoteOrderSource {
       'bankAccountName',
       bankAccountName,
     ));
-    _data.fields.add(MapEntry(
-      'bankAccountNumber',
-      bankAccountNumber,
-    ));
     _data.files.add(MapEntry(
       'imageProofTransfer',
       MultipartFile.fromFileSync(
         imageProofTransfer.path,
         filename: imageProofTransfer.path.split(Platform.pathSeparator).last,
-        contentType: MediaType.parse('image/jpg'),
       ),
     ));
-    final _result = await _dio
-        .fetch<Map<String, dynamic>>(_setStreamType<BookingResponse>(Options(
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<UploadPaymentResponse>(Options(
       method: 'POST',
       headers: _headers,
       extra: _extra,
@@ -76,12 +102,12 @@ class _RemoteOrderSource implements RemoteOrderSource {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    final value = BookingResponse.fromJson(_result.data!);
+    final value = UploadPaymentResponse.fromJson(_result.data!);
     return value;
   }
 
   @override
-  Future<BookingResponse> uploadWisePayment(
+  Future<UploadPaymentResponse> uploadWisePayment(
     String token, {
     required String bookingId,
     required String wiseEmail,
@@ -110,11 +136,10 @@ class _RemoteOrderSource implements RemoteOrderSource {
       MultipartFile.fromFileSync(
         imageProofTransfer.path,
         filename: imageProofTransfer.path.split(Platform.pathSeparator).last,
-        contentType: MediaType.parse('image/jpg'),
       ),
     ));
-    final _result = await _dio
-        .fetch<Map<String, dynamic>>(_setStreamType<BookingResponse>(Options(
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<UploadPaymentResponse>(Options(
       method: 'POST',
       headers: _headers,
       extra: _extra,
@@ -131,7 +156,7 @@ class _RemoteOrderSource implements RemoteOrderSource {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    final value = BookingResponse.fromJson(_result.data!);
+    final value = UploadPaymentResponse.fromJson(_result.data!);
     return value;
   }
 
