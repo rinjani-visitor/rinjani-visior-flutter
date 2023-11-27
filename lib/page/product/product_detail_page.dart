@@ -5,7 +5,7 @@ import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:like_button/like_button.dart';
 import 'package:rinjani_visitor/core/presentation/utils/internationalization.dart';
-import 'package:rinjani_visitor/features/booking/presentation/view_model/booking.dart';
+import 'package:rinjani_visitor/features/booking/presentation/view_model/booking_form.dart';
 import 'package:rinjani_visitor/core/presentation/theme/theme.dart';
 import 'package:rinjani_visitor/features/favorite/presentation/view_model/favorite.dart';
 import 'package:rinjani_visitor/features/product/domain/entity/product.dart';
@@ -32,10 +32,10 @@ class ProductDetailPage extends ConsumerStatefulWidget {
 }
 
 class _DetailPageState extends ConsumerState<ProductDetailPage> {
-  late var bookingState = ref.read(bookingViewModelProvider);
+  late var bookingState = ref.read(bookingFormViewModelProvider);
 
-  BookingViewModel get bookingNotifier =>
-      ref.read(bookingViewModelProvider.notifier);
+  BookingFormViewModel get bookingNotifier =>
+      ref.read(bookingFormViewModelProvider.notifier);
 
   late final _startDateController = TextEditingController(
       text: dateFormat.format(bookingState.startDateTime));
@@ -55,7 +55,8 @@ class _DetailPageState extends ConsumerState<ProductDetailPage> {
   }
 
   void _onSubmit(ProductDetailEntity data) {
-    bookingNotifier.submitOrder(context, data);
+    bookingNotifier.finalizeBooking(context, data);
+    Navigator.pushNamed(context, "/booking/detail");
   }
 
   void _showDatePicker(bool rangeDate) {
@@ -136,7 +137,7 @@ class _DetailPageState extends ConsumerState<ProductDetailPage> {
 
   @override
   Widget build(BuildContext context) {
-    bookingState = ref.watch(bookingViewModelProvider);
+    bookingState = ref.watch(bookingFormViewModelProvider);
     final currentProduct = ref.watch(productDetailViewModelProvider);
 
     return CupertinoPageScaffold(

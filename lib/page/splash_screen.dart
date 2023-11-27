@@ -39,7 +39,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
       });
     }
     return Scaffold(
-      backgroundColor: primaryColor,
+      backgroundColor: accentPrimaryColor,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

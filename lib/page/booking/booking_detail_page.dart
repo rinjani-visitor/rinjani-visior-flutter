@@ -1,8 +1,10 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:rinjani_visitor/features/booking/presentation/view_model/booking.dart';
+import 'package:rinjani_visitor/core/constant/constant.dart';
+import 'package:rinjani_visitor/features/booking/presentation/view_model/booking_form.dart';
 import 'package:rinjani_visitor/core/presentation/theme/theme.dart';
 import 'package:rinjani_visitor/page/booking/booking_status_page.dart';
 import 'package:rinjani_visitor/core/widget/button/primary_button.dart';
@@ -19,8 +21,8 @@ class _BookingDetailPageState extends ConsumerState<BookingDetailPage> {
   final _priceRangeController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
-  late final _viewModel = ref.read(bookingViewModelProvider.notifier);
-  late final _state = ref.read(bookingViewModelProvider);
+  late final _viewModel = ref.read(bookingFormViewModelProvider.notifier);
+  late final _state = ref.read(bookingFormViewModelProvider);
 
   Widget imageTitle() {
     return Container(
@@ -35,9 +37,10 @@ class _BookingDetailPageState extends ConsumerState<BookingDetailPage> {
             height: 125,
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(smallRadius),
-                image: const DecorationImage(
+                image: DecorationImage(
                     fit: BoxFit.cover,
-                    image: AssetImage('assets/Google.jpeg'))),
+                    image: CachedNetworkImageProvider(
+                        _state.product?.thumbnail ?? IMG_PLACEHOLDER))),
           ),
           const SizedBox(
             width: 16,
@@ -214,10 +217,8 @@ class _BookingDetailPageState extends ConsumerState<BookingDetailPage> {
                   if (_formKey.currentState?.validate() == false) {
                     return;
                   }
-                  Navigator.push(
-                      context,
-                      CupertinoPageRoute(
-                          builder: (context) => const BookingStatusPage()));
+                  // _viewModel.submitBooking(context);
+                  Navigator.pushNamed(context, "/booking/submit");
                 })
           ],
         ),
