@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:rinjani_visitor/features/authentication/domain/entity/auth.dart';
 import 'package:rinjani_visitor/features/authentication/domain/entity/auth_detail.dart';
 
@@ -10,7 +12,10 @@ abstract class AuthRepository {
       required String password});
 
   Future<AuthEntity?> logIn({required String email, required String password});
-  Future<AuthDetailEntity?> getUserDetail(String accessToken, String id);
+  Future<AuthDetailEntity?> getUserDetail(String accessToken, String userId);
+  Future<void> updateUserDetail(String accessToken, String userId,
+      {String? phoneNumber, String? password, String? confirmPassword});
+  Future<bool?> uploadAvatar(String accessToken, File file);
 
   Future<String?> resetPassword({required String email});
 

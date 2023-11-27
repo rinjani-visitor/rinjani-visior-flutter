@@ -1,10 +1,12 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:rinjani_visitor/core/constant/constant.dart';
 import 'package:rinjani_visitor/features/product/presentation/view_model/search.dart';
 import 'package:rinjani_visitor/page/product/product_detail_page.dart';
 import 'package:rinjani_visitor/core/presentation/theme/theme.dart';
-import 'package:rinjani_visitor/widget/product/big_card.dart';
-import 'package:rinjani_visitor/widget/status.dart';
+import 'package:rinjani_visitor/core/widget/product/big_card.dart';
+import 'package:rinjani_visitor/core/widget/status.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 class SearchPage extends ConsumerStatefulWidget {
@@ -42,17 +44,19 @@ class _SearchPageState extends ConsumerState<SearchPage> {
                       return Padding(
                         padding: const EdgeInsets.only(bottom: 8.0),
                         child: BigProductCard(
-                            image: NetworkImage(curr.thumbnail ?? ""),
+                            image: CachedNetworkImageProvider(
+                                curr.thumbnail ?? IMG_PLACEHOLDER),
                             title: curr.title ?? "Title not found",
-                            status: StatusColor.available,
-                            rating: curr.rating.toString(),
+                            status: curr.avaiable != null && curr.avaiable!
+                                ? StatusColor.available
+                                : StatusColor.error,
+                            rating: curr.ratingString,
                             onTap: () {
                               Navigator.push(
                                   context,
                                   CupertinoPageRoute(
                                       builder: (context) => ProductDetailPage(
-                                            category:
-                                                curr.category ?? "rinjani",
+                                            category: curr.category ?? "",
                                             id: curr.productId,
                                           )));
                             },

@@ -13,7 +13,7 @@ class _RemoteOrderSource implements RemoteOrderSource {
     this._dio, {
     this.baseUrl,
   }) {
-    baseUrl ??= 'https://rinjani-api-v1-tpe6yyswta-as.a.run.app';
+    baseUrl ??= 'https://test.rinjanivisitor.com';
   }
 
   final Dio _dio;
@@ -21,57 +21,25 @@ class _RemoteOrderSource implements RemoteOrderSource {
   String? baseUrl;
 
   @override
-  Future<BookingResponse> createBooking(
+  Future<UpdatePaymentResponse> setPaymentMethod(
     String token,
-    BookingRequest booking,
+    SetPaymentMethod body,
   ) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{r'Authorization': token};
     _headers.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
-    _data.addAll(booking.toJson());
-    final _result = await _dio
-        .fetch<Map<String, dynamic>>(_setStreamType<BookingResponse>(Options(
-      method: 'POST',
-      headers: _headers,
-      extra: _extra,
-    )
-            .compose(
-              _dio.options,
-              '/api/booking',
-              queryParameters: queryParameters,
-              data: _data,
-            )
-            .copyWith(
-                baseUrl: _combineBaseUrls(
-              _dio.options.baseUrl,
-              baseUrl,
-            ))));
-    final value = BookingResponse.fromJson(_result.data!);
-    return value;
-  }
-
-  @override
-  Future<BookingResponse> updateBooking(
-    String token,
-    BookingRequest booking,
-  ) async {
-    const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{r'Authorization': token};
-    _headers.removeWhere((k, v) => v == null);
-    final _data = <String, dynamic>{};
-    _data.addAll(booking.toJson());
-    final _result = await _dio
-        .fetch<Map<String, dynamic>>(_setStreamType<BookingResponse>(Options(
+    _data.addAll(body.toJson());
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<UpdatePaymentResponse>(Options(
       method: 'PATCH',
       headers: _headers,
       extra: _extra,
     )
             .compose(
               _dio.options,
-              '/api/booking',
+              '/api/payment',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -80,110 +48,16 @@ class _RemoteOrderSource implements RemoteOrderSource {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    final value = BookingResponse.fromJson(_result.data!);
+    final value = UpdatePaymentResponse.fromJson(_result.data!);
     return value;
   }
 
   @override
-  Future<BookingResponse> getBookings(
-    String token,
-    String userId,
-  ) async {
-    const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{r'userId': userId};
-    final _headers = <String, dynamic>{r'Authorization': token};
-    _headers.removeWhere((k, v) => v == null);
-    final Map<String, dynamic>? _data = null;
-    final _result = await _dio
-        .fetch<Map<String, dynamic>>(_setStreamType<BookingResponse>(Options(
-      method: 'GET',
-      headers: _headers,
-      extra: _extra,
-    )
-            .compose(
-              _dio.options,
-              '/api/booking',
-              queryParameters: queryParameters,
-              data: _data,
-            )
-            .copyWith(
-                baseUrl: _combineBaseUrls(
-              _dio.options.baseUrl,
-              baseUrl,
-            ))));
-    final value = BookingResponse.fromJson(_result.data!);
-    return value;
-  }
-
-  @override
-  Future<BookingDetailResponse> getBookingDetail(
-    String token,
-    String bookingId,
-  ) async {
-    const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{r'Authorization': token};
-    _headers.removeWhere((k, v) => v == null);
-    final Map<String, dynamic>? _data = null;
-    final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<BookingDetailResponse>(Options(
-      method: 'GET',
-      headers: _headers,
-      extra: _extra,
-    )
-            .compose(
-              _dio.options,
-              '/api/booking/${bookingId}',
-              queryParameters: queryParameters,
-              data: _data,
-            )
-            .copyWith(
-                baseUrl: _combineBaseUrls(
-              _dio.options.baseUrl,
-              baseUrl,
-            ))));
-    final value = BookingDetailResponse.fromJson(_result.data!);
-    return value;
-  }
-
-  @override
-  Future<BookingDetailResponse> cancelBooking(
-    String token,
-    String bookingId,
-  ) async {
-    const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{r'Authorization': token};
-    _headers.removeWhere((k, v) => v == null);
-    final Map<String, dynamic>? _data = null;
-    final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<BookingDetailResponse>(Options(
-      method: 'DELETE',
-      headers: _headers,
-      extra: _extra,
-    )
-            .compose(
-              _dio.options,
-              '/api/booking/${bookingId}',
-              queryParameters: queryParameters,
-              data: _data,
-            )
-            .copyWith(
-                baseUrl: _combineBaseUrls(
-              _dio.options.baseUrl,
-              baseUrl,
-            ))));
-    final value = BookingDetailResponse.fromJson(_result.data!);
-    return value;
-  }
-
-  @override
-  Future<BookingResponse> uploadBankPayment(
+  Future<UploadPaymentResponse> uploadBankPayment(
     String token, {
     required String bookingId,
     required String bankName,
     required String bankAccountName,
-    required String bankAccountNumber,
     required File imageProofTransfer,
   }) async {
     const _extra = <String, dynamic>{};
@@ -203,20 +77,15 @@ class _RemoteOrderSource implements RemoteOrderSource {
       'bankAccountName',
       bankAccountName,
     ));
-    _data.fields.add(MapEntry(
-      'bankAccountNumber',
-      bankAccountNumber,
-    ));
     _data.files.add(MapEntry(
       'imageProofTransfer',
       MultipartFile.fromFileSync(
         imageProofTransfer.path,
         filename: imageProofTransfer.path.split(Platform.pathSeparator).last,
-        contentType: MediaType.parse('image/jpg'),
       ),
     ));
-    final _result = await _dio
-        .fetch<Map<String, dynamic>>(_setStreamType<BookingResponse>(Options(
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<UploadPaymentResponse>(Options(
       method: 'POST',
       headers: _headers,
       extra: _extra,
@@ -233,12 +102,12 @@ class _RemoteOrderSource implements RemoteOrderSource {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    final value = BookingResponse.fromJson(_result.data!);
+    final value = UploadPaymentResponse.fromJson(_result.data!);
     return value;
   }
 
   @override
-  Future<BookingResponse> uploadWisePayment(
+  Future<UploadPaymentResponse> uploadWisePayment(
     String token, {
     required String bookingId,
     required String wiseEmail,
@@ -267,11 +136,10 @@ class _RemoteOrderSource implements RemoteOrderSource {
       MultipartFile.fromFileSync(
         imageProofTransfer.path,
         filename: imageProofTransfer.path.split(Platform.pathSeparator).last,
-        contentType: MediaType.parse('image/jpg'),
       ),
     ));
-    final _result = await _dio
-        .fetch<Map<String, dynamic>>(_setStreamType<BookingResponse>(Options(
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<UploadPaymentResponse>(Options(
       method: 'POST',
       headers: _headers,
       extra: _extra,
@@ -288,17 +156,14 @@ class _RemoteOrderSource implements RemoteOrderSource {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    final value = BookingResponse.fromJson(_result.data!);
+    final value = UploadPaymentResponse.fromJson(_result.data!);
     return value;
   }
 
   @override
-  Future<OrderResponse> getOrders(
-    String token,
-    String userId,
-  ) async {
+  Future<OrderResponse> getOrders(String token) async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{r'userId': userId};
+    final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{r'Authorization': token};
     _headers.removeWhere((k, v) => v == null);
     final Map<String, dynamic>? _data = null;
@@ -327,10 +192,9 @@ class _RemoteOrderSource implements RemoteOrderSource {
   Future<OrderResponse> cancelOrder(
     String token,
     String orderId,
-    String userId,
   ) async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{r'userId': userId};
+    final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{r'Authorization': token};
     _headers.removeWhere((k, v) => v == null);
     final Map<String, dynamic>? _data = null;

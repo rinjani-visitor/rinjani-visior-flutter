@@ -2,12 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rinjani_visitor/core/exception/exception.dart';
-import 'package:rinjani_visitor/features/product/domain/category_enum.dart';
 import 'package:rinjani_visitor/features/product/presentation/view_model/category.dart';
 import 'package:rinjani_visitor/page/product/product_detail_page.dart';
 import 'package:rinjani_visitor/core/presentation/theme/theme.dart';
-import 'package:rinjani_visitor/widget/product/big_card.dart';
-import 'package:rinjani_visitor/widget/status.dart';
+import 'package:rinjani_visitor/core/widget/product/big_card.dart';
+import 'package:rinjani_visitor/core/widget/status.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 class CategoryExplorePage extends ConsumerStatefulWidget {
@@ -24,7 +23,6 @@ class CategoryExplorePage extends ConsumerStatefulWidget {
 class _CategoryExplorePageState extends ConsumerState<CategoryExplorePage> {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     Future(() {
       ref

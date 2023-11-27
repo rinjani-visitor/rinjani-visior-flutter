@@ -4,8 +4,8 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:rinjani_visitor/core/extension/validator.dart';
 import 'package:rinjani_visitor/core/presentation/theme/theme.dart';
 import 'package:rinjani_visitor/features/authentication/presentation/view_model/auth.dart';
-import 'package:rinjani_visitor/widget/button/primary_button.dart';
-import 'package:rinjani_visitor/widget/input_field.dart';
+import 'package:rinjani_visitor/core/widget/button/primary_button.dart';
+import 'package:rinjani_visitor/core/widget/form/input_field.dart';
 
 class ForgotPasswordPage extends ConsumerStatefulWidget {
   const ForgotPasswordPage({super.key});
@@ -18,6 +18,7 @@ class ForgotPasswordPage extends ConsumerStatefulWidget {
 class _ForgotPasswordPageState extends ConsumerState<ForgotPasswordPage> {
   final _formKey = GlobalKey<FormState>();
   final _textController = TextEditingController();
+
   void pop() {
     Navigator.pop(context);
   }
@@ -93,6 +94,5 @@ class _ForgotPasswordPageState extends ConsumerState<ForgotPasswordPage> {
         ),
       )),
     );
-    ;
   }
 }

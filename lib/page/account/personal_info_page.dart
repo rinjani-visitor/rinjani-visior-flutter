@@ -1,12 +1,27 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:rinjani_visitor/features/authentication/presentation/view_model/auth.dart';
 import 'package:rinjani_visitor/core/presentation/theme/theme.dart';
+import 'package:rinjani_visitor/core/widget/form/input_field.dart';
 import 'package:rinjani_visitor/features/authentication/presentation/view_model/auth_detail.dart';
 
-class PersonalInfoPage extends ConsumerWidget {
+class PersonalInfoPage extends ConsumerStatefulWidget {
   const PersonalInfoPage({super.key});
 
+  @override
+  ConsumerState<PersonalInfoPage> createState() => _PersonalInfoPageState();
+}
+
+class _PersonalInfoPageState extends ConsumerState<PersonalInfoPage> {
+  late final _initState = ref.read(authDetailViewModelProvider);
+
+  late final TextEditingController _nameController =
+      TextEditingController(text: _initState.asData?.value?.name ?? "");
+  late final TextEditingController _emailController =
+      TextEditingController(text: _initState.asData?.value?.email ?? "");
+  late final TextEditingController _phoneController =
+      TextEditingController(text: _initState.asData?.value?.phoneNumber ?? "");
+  late final TextEditingController _countryController =
+      TextEditingController(text: _initState.asData?.value?.country ?? "");
   Widget userInfo(String label, String info) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -46,7 +61,7 @@ class PersonalInfoPage extends ConsumerWidget {
   }
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     final state = ref.watch(authDetailViewModelProvider);
     return CupertinoPageScaffold(
         backgroundColor: backgroundColor,
@@ -58,11 +73,29 @@ class PersonalInfoPage extends ConsumerWidget {
                 margin: const EdgeInsets.all(16),
                 child: ListView(
                   children: [
-                    userInfo('Username', state.asData?.value?.name ?? ""),
-                    userInfo('Email', state.asData?.value?.email ?? ""),
-                    userInfo(
-                        'Phone number', state.asData?.value?.phoneNumber ?? ""),
-                    userInfo('Country', state.asData?.value?.country ?? ""),
+                    InputField(
+                      controller: _nameController,
+                      label: 'Name',
+                      enabled: false,
+                    ),
+                    InputField(
+                      controller: _emailController,
+                      label: 'Email',
+                      enabled: false,
+                    ),
+                    const SizedBox(
+                      height: 16,
+                    ),
+                    InputField(
+                      controller: _phoneController,
+                      label: 'Phone Number',
+                      enabled: false,
+                    ),
+                    InputField(
+                      controller: _countryController,
+                      label: 'Country',
+                      enabled: false,
+                    ),
                   ],
                 ))));
   }

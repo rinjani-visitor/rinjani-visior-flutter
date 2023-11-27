@@ -1,3 +1,7 @@
-export "login_response.dart";
-export 'register_response.dart';
-export 'refresh_response.dart';
+export 'login.dart';
+export 'register.dart';
+export 'refresh.dart';
+export 'reset.dart';
+export 'get_user_detail.dart';
+export 'update_user_detail.dart';
+export 'upload_avatar.dart';

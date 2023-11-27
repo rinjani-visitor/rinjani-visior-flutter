@@ -13,7 +13,7 @@ class _AuthRemoteSource implements AuthRemoteSource {
     this._dio, {
     this.baseUrl,
   }) {
-    baseUrl ??= 'https://rinjani-api-v1-tpe6yyswta-as.a.run.app';
+    baseUrl ??= 'https://test.rinjanivisitor.com';
   }
 
   final Dio _dio;
@@ -133,24 +133,21 @@ class _AuthRemoteSource implements AuthRemoteSource {
   }
 
   @override
-  Future<UserDetailResponse> userDetail(
-    String accessToken,
-    String id,
-  ) async {
+  Future<GetUserDetailResponse> getUserDetail(String accessToken) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{r'Authorization': accessToken};
     _headers.removeWhere((k, v) => v == null);
     final Map<String, dynamic>? _data = null;
-    final _result = await _dio
-        .fetch<Map<String, dynamic>>(_setStreamType<UserDetailResponse>(Options(
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<GetUserDetailResponse>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
     )
             .compose(
               _dio.options,
-              '/api/users/${id}',
+              '/api/users',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -159,7 +156,78 @@ class _AuthRemoteSource implements AuthRemoteSource {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    final value = UserDetailResponse.fromJson(_result.data!);
+    final value = GetUserDetailResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<UpdateUserDetailResponse> updateUserDetail(
+    String accessToken,
+    UpdateUserDetailRequest body,
+  ) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{r'Authorization': accessToken};
+    _headers.removeWhere((k, v) => v == null);
+    final _data = <String, dynamic>{};
+    _data.addAll(body.toJson());
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<UpdateUserDetailResponse>(Options(
+      method: 'PATCH',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/api/users',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final value = UpdateUserDetailResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<UploadAvatarResponse> uploadAvatar(
+    String accessToken,
+    File file,
+  ) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{r'Authorization': accessToken};
+    _headers.removeWhere((k, v) => v == null);
+    final _data = FormData();
+    _data.files.add(MapEntry(
+      'avatar',
+      MultipartFile.fromFileSync(
+        file.path,
+        filename: file.path.split(Platform.pathSeparator).last,
+      ),
+    ));
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<UploadAvatarResponse>(Options(
+      method: 'PATCH',
+      headers: _headers,
+      extra: _extra,
+      contentType: 'multipart/form-data',
+    )
+            .compose(
+              _dio.options,
+              '/api/users/avatar',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final value = UploadAvatarResponse.fromJson(_result.data!);
     return value;
   }
 

@@ -1,12 +1,14 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:rinjani_visitor/core/presentation/utils/internationalization.dart';
-import 'package:rinjani_visitor/features/order/presentation/view_model/order_riverpod.dart';
+import 'package:rinjani_visitor/core/constant/constant.dart';
+import 'package:rinjani_visitor/features/booking/presentation/view_model/booking_form.dart';
 import 'package:rinjani_visitor/core/presentation/theme/theme.dart';
-import 'package:rinjani_visitor/widget/button/primary_button.dart';
-import 'package:rinjani_visitor/widget/input_field.dart';
+import 'package:rinjani_visitor/page/booking/booking_status_page.dart';
+import 'package:rinjani_visitor/core/widget/button/primary_button.dart';
+import 'package:rinjani_visitor/core/widget/form/input_field.dart';
 
 class BookingDetailPage extends ConsumerStatefulWidget {
   const BookingDetailPage({super.key});
@@ -19,8 +21,8 @@ class _BookingDetailPageState extends ConsumerState<BookingDetailPage> {
   final _priceRangeController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
-  late final _viewModel = ref.read(orderViewModelProvider.notifier);
-  late final _state = ref.read(orderViewModelProvider);
+  late final _viewModel = ref.read(bookingFormViewModelProvider.notifier);
+  late final _state = ref.read(bookingFormViewModelProvider);
 
   Widget imageTitle() {
     return Container(
@@ -35,9 +37,10 @@ class _BookingDetailPageState extends ConsumerState<BookingDetailPage> {
             height: 125,
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(smallRadius),
-                image: const DecorationImage(
+                image: DecorationImage(
                     fit: BoxFit.cover,
-                    image: AssetImage('assets/rinjani.jpeg'))),
+                    image: CachedNetworkImageProvider(
+                        _state.product?.thumbnail ?? IMG_PLACEHOLDER))),
           ),
           const SizedBox(
             width: 16,
@@ -105,7 +108,7 @@ class _BookingDetailPageState extends ConsumerState<BookingDetailPage> {
                     Icons.calendar_month,
                     color: blackColor,
                   ),
-                  title: Text(dateFormat.format(_viewModel.getDate()))),
+                  title: Text(_viewModel.getLocalizedDate())),
               Text(
                 'Arrival',
                 style:
@@ -137,7 +140,7 @@ class _BookingDetailPageState extends ConsumerState<BookingDetailPage> {
                     Icons.person,
                     color: blackColor,
                   ),
-                  title: Text("${_state.person} Person")),
+                  title: Text("${_state.totalPersons} Person")),
               Text(
                 'Add On(s)',
                 style:
@@ -146,9 +149,9 @@ class _BookingDetailPageState extends ConsumerState<BookingDetailPage> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: List.generate(
-                    _state.addOn.length,
+                    _state.addOns.length,
                     (index) => Text(
-                          "- ${_state.addOn.elementAt(index)}}\$",
+                          "- ${_state.addOns.elementAt(index)}",
                           style: blackTextStyle.copyWith(
                               fontSize: 16, fontWeight: medium),
                         )),
@@ -168,11 +171,11 @@ class _BookingDetailPageState extends ConsumerState<BookingDetailPage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Estimated Price we can offer',
+            'Lowest Price we can offer',
             style: blackTextStyle.copyWith(fontSize: body1),
           ),
           Text(
-            '${_state.totalPrice}\$',
+            '${_state.offeringPrice}\$',
             style: greenTextStyle.copyWith(fontSize: heading5),
           )
         ],
@@ -194,32 +197,28 @@ class _BookingDetailPageState extends ConsumerState<BookingDetailPage> {
                 if (value == null || value.isEmpty) {
                   return "This field should not be empty";
                 }
-                if (int.parse(value) < _state.totalPrice - 20) {
-                  return "Price you offered is too low";
+                if (int.parse(value) < _state.offeringPrice) {
+                  return "Price you offered is lower dan the lowest price we can offer";
                 }
-                //TODO: tembahkan validasi berdasarkan harga terendah dan harga tertinggi
                 return null;
               },
               label: 'Enter your price offer',
               secureText: false,
-              placeholder: 'should not be too lower than estimated',
+              placeholder: 'put your price offer here',
               inputFormatters: [FilteringTextInputFormatter.digitsOnly],
               keyboardType: TextInputType.number,
             ),
             PrimaryButton(
-                child: Container(
-                    decoration: BoxDecoration(
-                        color: primaryColor,
-                        borderRadius: BorderRadius.circular(smallRadius)),
-                    child: Text(
-                      'Make an offer',
-                      style: whiteTextStyle.copyWith(fontWeight: medium),
-                    )),
+                child: Text(
+                  'Make an offer',
+                  style: whiteTextStyle.copyWith(fontWeight: medium),
+                ),
                 onPressed: () {
                   if (_formKey.currentState?.validate() == false) {
                     return;
                   }
-                  Navigator.popAndPushNamed(context, '/booking/status');
+                  // _viewModel.submitBooking(context);
+                  Navigator.pushNamed(context, "/booking/submit");
                 })
           ],
         ),

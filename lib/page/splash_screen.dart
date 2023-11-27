@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rinjani_visitor/features/authentication/presentation/view_model/auth.dart';
 import 'package:rinjani_visitor/core/presentation/theme/theme.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
 class SplashScreen extends ConsumerStatefulWidget {
   const SplashScreen({super.key});
@@ -21,7 +20,6 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
       Navigator.pushReplacementNamed(context, '/home');
       return;
     }
-    Fluttertoast.showToast(msg: _state.error.toString());
     Navigator.pushReplacementNamed(context, '/login');
   }
 
@@ -41,7 +39,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
       });
     }
     return Scaffold(
-      backgroundColor: primaryColor,
+      backgroundColor: accentPrimaryColor,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -50,7 +48,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
               width: 148,
               height: 66,
               decoration: const BoxDecoration(
-                  image: DecorationImage(image: AssetImage('assets/logo.png'))),
+                  image: DecorationImage(image: AssetImage('assets/icon.png'))),
             ),
             Text("RINJANI VISITOR",
                 style: whiteTextStyle.copyWith(

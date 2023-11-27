@@ -1,19 +1,24 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:like_button/like_button.dart';
-import 'package:rinjani_visitor/features/order/presentation/view_model/order_riverpod.dart';
+import 'package:rinjani_visitor/core/presentation/utils/internationalization.dart';
+import 'package:rinjani_visitor/features/booking/presentation/view_model/booking_form.dart';
 import 'package:rinjani_visitor/core/presentation/theme/theme.dart';
+import 'package:rinjani_visitor/features/favorite/presentation/view_model/favorite.dart';
 import 'package:rinjani_visitor/features/product/domain/entity/product.dart';
 import 'package:rinjani_visitor/features/product/presentation/view_model/product_detail.dart';
-import 'package:rinjani_visitor/widget/add_on_widget.dart';
-import 'package:rinjani_visitor/widget/button/primary_button.dart';
-import 'package:rinjani_visitor/widget/date_picker_widget.dart';
-import 'package:rinjani_visitor/widget/person_counter_widget.dart';
-import 'package:rinjani_visitor/widget/rating_widget.dart';
-import 'package:rinjani_visitor/widget/review_widget.dart';
-import 'package:rinjani_visitor/widget/segmented_widget.dart';
-import 'package:rinjani_visitor/widget/status.dart';
+import 'package:rinjani_visitor/core/widget/add_on.dart';
+import 'package:rinjani_visitor/core/widget/button/primary_button.dart';
+import 'package:rinjani_visitor/core/widget/form/input_field.dart';
+import 'package:rinjani_visitor/core/widget/person_counter.dart';
+import 'package:rinjani_visitor/core/widget/rating_widget.dart';
+import 'package:rinjani_visitor/core/widget/review_widget.dart';
+import 'package:rinjani_visitor/core/widget/segmented_widget.dart';
+import 'package:rinjani_visitor/core/widget/status.dart';
+import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
 class ProductDetailPage extends ConsumerStatefulWidget {
   final String id;
@@ -27,13 +32,15 @@ class ProductDetailPage extends ConsumerStatefulWidget {
 }
 
 class _DetailPageState extends ConsumerState<ProductDetailPage> {
-  late final _viewModel = ref.read(orderViewModelProvider.notifier);
+  late var bookingState = ref.read(bookingFormViewModelProvider);
 
-  late var _state = ref.read(orderViewModelProvider);
+  BookingFormViewModel get bookingNotifier =>
+      ref.read(bookingFormViewModelProvider.notifier);
 
-  late final _dateController = TextEditingController(text: _state.date);
+  late final _startDateController = TextEditingController(
+      text: dateFormat.format(bookingState.startDateTime));
   late final _personController =
-      TextEditingController(text: _state.person.toString());
+      TextEditingController(text: bookingState.totalPersons.toString());
 
   @override
   void initState() {
@@ -44,19 +51,85 @@ class _DetailPageState extends ConsumerState<ProductDetailPage> {
               widget.id,
             ));
 
-    debugPrint(_state.toString());
+    debugPrint(bookingState.toString());
   }
 
-  void _showModalPopup(ProductDetailEntity data) {
+  void _onSubmit(ProductDetailEntity data) {
+    bookingNotifier.finalizeBooking(context, data);
+    Navigator.pushNamed(context, "/booking/detail");
+  }
+
+  void _showDatePicker(bool rangeDate) {
+    showCupertinoModalPopup(
+      context: context,
+      builder: (BuildContext context) {
+        return Material(
+          color: CupertinoColors.white,
+          surfaceTintColor: CupertinoColors.white,
+          child: Container(
+            height: 400,
+            padding: const EdgeInsets.all(16),
+            child: SfDateRangePicker(
+              minDate: DateTime.now(),
+              selectionColor: primaryColor,
+              todayHighlightColor: accentPrimaryColor,
+              startRangeSelectionColor: primaryColor,
+              endRangeSelectionColor: primaryColor,
+              rangeSelectionColor: accentPrimaryColor,
+              initialDisplayDate: bookingState.startDateTime,
+              initialSelectedRange: rangeDate
+                  ? PickerDateRange(
+                      bookingState.startDateTime,
+                      bookingState.endDateTime ?? DateTime.now(),
+                    )
+                  : null,
+              monthViewSettings: DateRangePickerMonthViewSettings(
+                viewHeaderStyle: DateRangePickerViewHeaderStyle(
+                    textStyle: blackTextStyle.copyWith(
+                      fontSize: body1,
+                      fontWeight: FontWeight.bold,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    backgroundColor: CupertinoColors.white),
+              ),
+              onSelectionChanged: (DateRangePickerSelectionChangedArgs args) {
+                final date = args.value;
+                if (date is DateTime) {
+                  final localizedDate = dateFormat.format(date);
+                  bookingState.startDateTime = date;
+                  _startDateController.text = localizedDate;
+                } else if (date is PickerDateRange) {
+                  final localizedStartDate =
+                      dateFormat.format(date.startDate ?? DateTime.now());
+                  final localizedEndDate = date.endDate != null
+                      ? dateFormat.format(date.endDate!)
+                      : "";
+                  bookingState.startDateTime =
+                      date.startDate ?? bookingState.startDateTime;
+                  bookingState.endDateTime = date.endDate;
+                  _startDateController.text =
+                      "${localizedStartDate.toString()} - ${localizedEndDate.toString()}";
+                }
+              },
+              selectionMode: rangeDate
+                  ? DateRangePickerSelectionMode.range
+                  : DateRangePickerSelectionMode.single,
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  void _showPersonSelector(ProductDetailEntity data) {
     showCupertinoModalPopup(
         context: context,
         builder: (BuildContext context) {
           return PersonCounterWidget(
             controller: _personController,
             onSubmit: (value) {
-              _state.person = int.parse(_personController.text);
-              _viewModel.setDate(_dateController.text);
-              _viewModel.submitOrder(context, data);
+              bookingState.totalPersons = _personController.text;
+              _onSubmit(data);
             },
           );
         });
@@ -64,9 +137,9 @@ class _DetailPageState extends ConsumerState<ProductDetailPage> {
 
   @override
   Widget build(BuildContext context) {
-    _state = ref.watch(orderViewModelProvider);
+    bookingState = ref.watch(bookingFormViewModelProvider);
     final currentProduct = ref.watch(productDetailViewModelProvider);
-    ;
+
     return CupertinoPageScaffold(
         navigationBar: const CupertinoNavigationBar(
           middle: Text('Detail Trip'),
@@ -80,7 +153,7 @@ class _DetailPageState extends ConsumerState<ProductDetailPage> {
                     widget.category,
                     widget.id,
                   );
-              await Future.delayed(Duration(seconds: 1));
+              await Future.delayed(const Duration(seconds: 1));
             },
             child: currentProduct.when(
               error: (error, stackTrace) => Center(
@@ -97,12 +170,16 @@ class _DetailPageState extends ConsumerState<ProductDetailPage> {
                       child: Column(
                         children: [
                           _Header(
-                              title: data.title ?? "Title not found",
-                              imgUrl: data.imgs ?? "",
-                              location: data.location ?? "",
-                              rating: data.rating ?? "-.-",
-                              rangePricing: data.rangePricing,
-                              tripDuration: data.tripDuration ?? "N/a"),
+                            productId: data.id,
+                            initialLikeStatus: data.isFavorited,
+                            title: data.title ?? "Title not found",
+                            imgUrl: data.thumbnail ?? "",
+                            location: data.location ?? "",
+                            rating: data.rating ?? "-.-",
+                            avaiable: data.status ?? false,
+                            rangePricing: data.rangePricing,
+                            tripDuration: data.tripDuration ?? "N/a",
+                          ),
                           Padding(
                             padding:
                                 const EdgeInsets.symmetric(horizontal: 16.0),
@@ -110,81 +187,66 @@ class _DetailPageState extends ConsumerState<ProductDetailPage> {
                               description: KVDetailDescriptionWidget(
                                 kvChildren: [
                                   KVContentWidget(
-                                      title: "Description",
-                                      content: Text(
-                                        data.description ??
+                                    title: "Description",
+                                    content: MarkdownBody(
+                                        data: data.description ??
                                             "No description provided",
-                                        style: blackTextStyle.copyWith(
-                                          fontSize: body2,
-                                        ),
-                                      )),
+                                        styleSheetTheme:
+                                            MarkdownStyleSheetBaseTheme
+                                                .cupertino,
+                                        styleSheet: MarkdownStyleSheet(
+                                          p: TextStyle(
+                                              fontSize: body1, height: 1.2),
+                                        )),
+                                  ),
                                   KVContentWidget(
-                                      title: "AddOn",
-                                      content: data.addOn != null &&
-                                              data.addOn!.isNotEmpty
-                                          ? Column(
-                                              children: List.generate(
-                                                  data.addOn!.length, (index) {
-                                                final current =
-                                                    data.addOn![index];
-                                                final currentSelected = _state
-                                                    .addOn
-                                                    .contains(current);
-                                                return Tooltip(
-                                                  message: current,
-                                                  child: AddOnWidget(
-                                                    name: current,
-                                                    selected: currentSelected,
-                                                    onChanged:
-                                                        (value, isSelected) {
-                                                      if (isSelected) {
-                                                        setState(() {
-                                                          _viewModel
-                                                              .removeAddon(
-                                                                  current);
-                                                        });
-                                                        return;
-                                                      }
-                                                      setState(() {
-                                                        _viewModel
-                                                            .addAddon(current);
-                                                      });
-                                                    },
-                                                  ),
-                                                );
-                                              }),
-                                            )
-                                          : const Text(
-                                              "Add On unavailable for this package")),
+                                    title: "Note",
+                                    content: MarkdownBody(
+                                      data: data.note ?? "No note provided",
+                                      styleSheetTheme:
+                                          MarkdownStyleSheetBaseTheme.cupertino,
+                                    ),
+                                  ),
+                                  KVContentWidget(
+                                    title: "AddOn",
+                                    content: AddOnWidgetWrapper(
+                                      addOns: data.addOns ?? [],
+                                      selectedAddOns: bookingState.addOns,
+                                      onSelected: (value) {
+                                        setState(() {
+                                          bookingNotifier.toggleAddon(value);
+                                        });
+                                      },
+                                    ),
+                                  ),
                                   KVContentWidget(
                                     title: "Date and Time",
                                     content: Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        DatePickerWidget(
-                                          initialDate: _viewModel.getDate(),
-                                          onChange: (dateVal) {
-                                            _dateController.text =
-                                                dateVal ?? "";
-                                            setState(() {
-                                              _viewModel.setDate(dateVal);
-                                            });
-                                          },
+                                        GestureDetector(
+                                          behavior: HitTestBehavior.translucent,
+                                          onTap: () => _showDatePicker(
+                                              data.includeEndDate ?? false),
+                                          child: InputField(
+                                            controller: _startDateController,
+                                            enabled: false,
+                                          ),
                                         ),
                                         const SizedBox(
                                           height: 8,
                                         ),
                                         TimeList(
                                             selectedTimeListData:
-                                                _state.time.toList(),
+                                                bookingState.time.toList(),
                                             timeListData:
                                                 data.timeList24H ?? [],
                                             onTimeListTap: (value, isSelected) {
                                               if (isSelected) {
-                                                _state.time.add(value);
+                                                bookingState.time.add(value);
                                               } else {
-                                                _state.time.remove(value);
+                                                bookingState.time.remove(value);
                                               }
                                             }),
                                       ],
@@ -198,24 +260,30 @@ class _DetailPageState extends ConsumerState<ProductDetailPage> {
                                         style: const TextStyle(fontSize: 16),
                                       )),
                                   const KVContentWidget(
-                                      title: "Reviews",
-                                      content: ReviewWidgetMock()),
+                                    title: "Reviews",
+                                    content: ReviewWidgetWrapper(
+                                      reviews: [],
+                                    ),
+                                  ),
                                   KVContentWidget(
                                     title: "Buy Product",
                                     content: PrimaryButton(
-                                        // isDisabled: true,
-                                        isDisabled: (data.status == false),
-                                        onPressed: () => _showModalPopup(data),
-                                        child: Text(
-                                          'Buy Product',
-                                          style: whiteTextStyle.copyWith(
-                                              fontSize: 16),
-                                        )),
+                                      // isDisabled: true,
+                                      isDisabled: (data.status == false),
+                                      onPressed: () =>
+                                          _showPersonSelector(data),
+                                      child: Text(
+                                        'Buy Product',
+                                        style: whiteTextStyle.copyWith(
+                                            fontSize: 16),
+                                      ),
+                                    ),
                                   )
                                 ],
                               ),
                               initenary: DetailIniteraryWidget(
-                                  initenaryList: data.initenaryList ?? []),
+                                initenaryList: data.facilities ?? [],
+                              ),
                             ),
                           ),
                         ],
@@ -227,15 +295,22 @@ class _DetailPageState extends ConsumerState<ProductDetailPage> {
   }
 }
 
-class _Header extends StatelessWidget {
+class _Header extends ConsumerWidget {
+  final String productId;
   final String title;
   final String imgUrl;
   final String location;
   final String rating;
   final String rangePricing;
   final String tripDuration;
+  final bool avaiable;
+  final bool? initialLikeStatus;
+
   const _Header(
       {super.key,
+      required this.productId,
+      this.initialLikeStatus,
+      this.avaiable = false,
       this.title = "Title not found",
       this.imgUrl = "",
       this.location = "",
@@ -244,18 +319,26 @@ class _Header extends StatelessWidget {
       this.tripDuration = "N/a"});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, ref) {
+    final likeStatus = ref.watch(favoriteViewModelProvider);
     return Padding(
       padding: const EdgeInsets.only(bottom: 16.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Container(
-            width: double.infinity,
-            height: 241,
-            decoration: BoxDecoration(
+          CachedNetworkImage(
+            imageUrl: imgUrl,
+            errorWidget: (context, url, error) => const Icon(Icons.error),
+            imageBuilder: (context, imageProvider) => Container(
+              width: double.infinity,
+              height: 241,
+              decoration: BoxDecoration(
                 image: DecorationImage(
-                    fit: BoxFit.cover, image: NetworkImage(imgUrl))),
+                  image: imageProvider,
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
           ),
           const SizedBox(
             height: 16,
@@ -281,9 +364,10 @@ class _Header extends StatelessWidget {
                       ),
                     ),
                     const Spacer(),
-                    const Status(
-                      status: StatusColor.available,
-                      text: "Available",
+                    Status(
+                      status:
+                          avaiable ? StatusColor.available : StatusColor.error,
+                      text: avaiable ? "Avaiable" : "Not Avaiable",
                     )
                   ],
                 ),
@@ -320,7 +404,26 @@ class _Header extends StatelessWidget {
                           fontSize: 16, fontWeight: semibold),
                     ),
                     const Spacer(),
-                    const LikeButton()
+                    initialLikeStatus == null
+                        ? Container(
+                            child: Text("not avaiable"),
+                          )
+                        : likeStatus.maybeWhen(
+                            data: (data) => LikeButton(
+                                  isLiked:
+                                      likeStatus.value ?? initialLikeStatus,
+                                  onTap: (status) async {
+                                    await ref
+                                        .read(
+                                            favoriteViewModelProvider.notifier)
+                                        .toggleFavorite(productId);
+                                    return ref
+                                            .read(favoriteViewModelProvider)
+                                            .value ??
+                                        false;
+                                  },
+                                ),
+                            orElse: () => Container()),
                   ],
                 ),
                 const SizedBox(

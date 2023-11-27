@@ -10,6 +10,7 @@ import 'package:rinjani_visitor/page/auth/forgot_password.dart';
 import 'package:rinjani_visitor/page/booking/booking_detail_page.dart';
 import 'package:rinjani_visitor/page/account/settings/change_email_page.dart';
 import 'package:rinjani_visitor/page/account/settings/change_pass_page.dart';
+import 'package:rinjani_visitor/page/booking/booking_status_page.dart';
 import 'package:rinjani_visitor/page/booking/continue_payment_page.dart';
 import 'package:rinjani_visitor/page/main/event/event_detail_page.dart';
 import 'package:rinjani_visitor/page/auth/login_page.dart';
@@ -19,7 +20,6 @@ import 'package:rinjani_visitor/page/account/personal_info_page.dart';
 import 'package:rinjani_visitor/page/auth/register_page.dart';
 import 'package:rinjani_visitor/page/main/search_page.dart';
 import 'package:rinjani_visitor/page/splash_screen.dart';
-import 'package:rinjani_visitor/page/booking/booking_status_page.dart';
 import 'package:rinjani_visitor/page/booking/offer_status_page.dart';
 import 'package:rinjani_visitor/page/account/account_settings_page.dart';
 
@@ -71,8 +71,8 @@ class MyApp extends StatelessWidget {
         '/personal/pass': (context) => const ChangePassPage(),
         '/personal/email': (context) => const ChangeEmailPage(),
         '/booking/detail': (context) => const BookingDetailPage(),
-        '/booking/history': (context) => const BookingHistoryPage(),
-        '/booking/status': (context) => BookingStatusPage(),
+        '/booking/submit': (context) => const BookingStatusPage(),
+        '/booking/history': (context) => const OrderHistoryPage(),
         '/booking/offer': (context) => const OfferStatusPage(),
         '/booking/payment': (context) => const ContinuePaymentPage(),
       },

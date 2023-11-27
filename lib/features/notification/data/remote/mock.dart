@@ -1,5 +1,5 @@
 import 'package:rinjani_visitor/features/notification/data/models/notification_model.dart';
-import 'package:rinjani_visitor/widget/status.dart';
+import 'package:rinjani_visitor/core/widget/status.dart';
 
 class NotificationMock {
   Future<List<NotificationModel>> getNotification(

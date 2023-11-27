@@ -1,11 +1,21 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:rinjani_visitor/core/presentation/theme/theme.dart';
 import 'package:rinjani_visitor/core/presentation/services/camera_service.dart';
-import 'package:rinjani_visitor/widget/button/primary_button.dart';
-import 'package:rinjani_visitor/widget/form/upload_button.dart';
-import 'package:rinjani_visitor/widget/input_field.dart';
+import 'package:rinjani_visitor/core/widget/button/primary_button.dart';
+import 'package:rinjani_visitor/core/widget/form/upload_button.dart';
+import 'package:rinjani_visitor/core/widget/form/input_field.dart';
+import 'package:rinjani_visitor/features/order/domain/entity/payment_method.dart';
+import 'package:rinjani_visitor/features/order/presentation/payment.dart';
+
+const label = [
+  {"field1": "email", "field2": "account name"},
+  {"field1": "bank name", "field2": "account name"}
+];
 
 class ContinuePaymentPage extends ConsumerStatefulWidget {
   const ContinuePaymentPage({super.key});
@@ -16,7 +26,9 @@ class ContinuePaymentPage extends ConsumerStatefulWidget {
 }
 
 class _ContinuePaymentPageState extends ConsumerState<ContinuePaymentPage> {
-  // File? selectedImage;
+  File? selectedImage;
+  final TextEditingController _field1Controller = TextEditingController();
+  final TextEditingController _field2Controller = TextEditingController();
 
   // === functions === //
 
@@ -30,15 +42,15 @@ class _ContinuePaymentPageState extends ConsumerState<ContinuePaymentPage> {
             child: const Text("Cancel")),
         actions: [
           CupertinoActionSheetAction(
-              onPressed: () {
+              onPressed: () async {
                 Navigator.pop(context);
-                camNotifier.openCamera();
+                selectedImage = await camNotifier.openCamera();
               },
               child: const Text("Open Camera")),
           CupertinoActionSheetAction(
-              onPressed: () {
+              onPressed: () async {
                 Navigator.pop(context);
-                camNotifier.openImagePicker();
+                selectedImage = await camNotifier.openImagePicker();
               },
               child: const Text("Open Gallery")),
           ref.watch(cameraServiceProvider) != null
@@ -47,6 +59,7 @@ class _ContinuePaymentPageState extends ConsumerState<ContinuePaymentPage> {
                   onPressed: () {
                     Navigator.pop(context);
                     camNotifier.discardCurrentFile();
+                    selectedImage = null;
                   },
                   child: const Text("Delete"))
               : Container()
@@ -58,6 +71,9 @@ class _ContinuePaymentPageState extends ConsumerState<ContinuePaymentPage> {
   @override
   Widget build(BuildContext context) {
     final fileImage = ref.watch(cameraServiceProvider);
+    final payment = ref.watch(orderPaymentViewModelProvider);
+    final isWise = payment.paymentMethod is WisePaymentMethod;
+    final texts = isWise ? label[0] : label[1];
     return CupertinoPageScaffold(
         backgroundColor: backgroundColor,
         navigationBar: const CupertinoNavigationBar(
@@ -85,10 +101,12 @@ class _ContinuePaymentPageState extends ConsumerState<ContinuePaymentPage> {
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(8),
                               border: Border.all(color: lightGray)),
-                          child: const Padding(
-                            padding: EdgeInsets.all(8.0),
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
                             child: Image(
-                                image: AssetImage('assets/wise-logo.png')),
+                                image: AssetImage(isWise
+                                    ? 'assets/wise-logo.png'
+                                    : 'assets/bank-ntb-syariah.png')),
                           )),
                       const SizedBox(
                         width: 12,
@@ -98,23 +116,14 @@ class _ContinuePaymentPageState extends ConsumerState<ContinuePaymentPage> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "Name",
+                            "You choose",
                             style: blackTextStyle,
                           ),
                           Text(
-                            "put name here",
+                            isWise ? "Wise Provider" : "Bank NTB Syariah",
                             style: blackTextStyle.copyWith(
                                 fontWeight: FontWeight.bold),
                           ),
-                          Text(
-                            "Account Number",
-                            style: blackTextStyle,
-                          ),
-                          Text(
-                            "123456789",
-                            style: blackTextStyle.copyWith(
-                                fontWeight: FontWeight.bold),
-                          )
                         ],
                       ))
                     ],
@@ -126,15 +135,19 @@ class _ContinuePaymentPageState extends ConsumerState<ContinuePaymentPage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "Your full name",
+                        texts["field1"]!,
                         style: blackTextStyle.copyWith(fontSize: subtitle1),
                       ),
-                      InputFormField(),
+                      InputFormField(
+                        controller: _field1Controller,
+                      ),
                       Text(
-                        "Your registration",
+                        texts["field2"]!,
                         style: blackTextStyle.copyWith(fontSize: subtitle1),
                       ),
-                      InputFormField(),
+                      InputFormField(
+                        controller: _field2Controller,
+                      ),
                       Text(
                         "Upload your payment proof",
                         style: blackTextStyle.copyWith(fontSize: subtitle1),
@@ -154,7 +167,21 @@ class _ContinuePaymentPageState extends ConsumerState<ContinuePaymentPage> {
                     height: 32,
                   ),
                   PrimaryButton(
-                      child: const Text("Send Payments"), onPressed: () {})
+                      child: const Text("Send Payments"),
+                      onPressed: () {
+                        ref
+                            .read(orderPaymentViewModelProvider.notifier)
+                            .finalizePaymentMethod(_field1Controller.text,
+                                _field2Controller.text, selectedImage);
+                        ref
+                            .read(orderPaymentViewModelProvider.notifier)
+                            .sendOrder(() {
+                          Navigator.popUntil(
+                              context, ModalRoute.withName('/home'));
+                        }, (message) {
+                          Fluttertoast.showToast(msg: message);
+                        });
+                      })
                 ],
               ),
             ),

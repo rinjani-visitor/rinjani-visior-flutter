@@ -95,39 +95,4 @@ class MockProductRepositoryImpl extends _i1.Mock
         ),
         returnValue: _i4.Future<_i5.ProductDetailEntity?>.value(),
       ) as _i4.Future<_i5.ProductDetailEntity?>);
-
-  @override
-  _i4.Future<_i5.ProductDetailEntity?> bookingPackage(
-    String? token, {
-    required String? packageId,
-    List<String>? addOns,
-    String? paymentMethod,
-  }) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #bookingPackage,
-          [token],
-          {
-            #packageId: packageId,
-            #addOns: addOns,
-            #paymentMethod: paymentMethod,
-          },
-        ),
-        returnValue: _i4.Future<_i5.ProductDetailEntity?>.value(),
-      ) as _i4.Future<_i5.ProductDetailEntity?>);
-
-  @override
-  _i4.Future<void> cancelPackage(
-    String? token, {
-    required String? packageId,
-  }) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #cancelPackage,
-          [token],
-          {#packageId: packageId},
-        ),
-        returnValue: _i4.Future<void>.value(),
-        returnValueForMissingStub: _i4.Future<void>.value(),
-      ) as _i4.Future<void>);
 }

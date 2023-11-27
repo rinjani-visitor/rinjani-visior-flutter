@@ -1,9 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:retrofit/http.dart';
 import 'package:rinjani_visitor/core/constant/network.dart';
-import 'package:rinjani_visitor/features/product/data/models/response.dart';
-
-import '../models/product_detail_response.dart';
+import 'package:rinjani_visitor/features/product/data/models/response/response.dart';
 
 part 'remote.g.dart';
 
@@ -15,7 +13,7 @@ abstract class ProductRemoteSource {
   @GET("/api/products")
   Future<ProductResponse> getProducts({
     @Header("Authorization") required String token,
-    @Query("query") String? query,
+    @Query("title") String? title,
     @Query("status") String? status,
     @Query("category") String? category,
     @Query("rating") String? rating,

@@ -4,10 +4,10 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:async' as _i5;
+import 'dart:io' as _i8;
 
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:rinjani_visitor/features/authentication/data/auth_repository_impl.dart'
-    as _i4;
+import 'package:rinjani_visitor/features/authentication/data/repo.dart' as _i4;
 import 'package:rinjani_visitor/features/authentication/data/source/local.dart'
     as _i2;
 import 'package:rinjani_visitor/features/authentication/data/source/remote.dart'
@@ -150,14 +150,14 @@ class MockAuthRepositoryImpl extends _i1.Mock
   @override
   _i5.Future<_i7.AuthDetailEntity?> getUserDetail(
     String? accessToken,
-    String? id,
+    String? userId,
   ) =>
       (super.noSuchMethod(
         Invocation.method(
           #getUserDetail,
           [
             accessToken,
-            id,
+            userId,
           ],
         ),
         returnValue: _i5.Future<_i7.AuthDetailEntity?>.value(),
@@ -173,4 +173,45 @@ class MockAuthRepositoryImpl extends _i1.Mock
         ),
         returnValue: _i5.Future<String?>.value(),
       ) as _i5.Future<String?>);
+
+  @override
+  _i5.Future<bool?> uploadAvatar(
+    String? accessToken,
+    _i8.File? file,
+  ) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #uploadAvatar,
+          [
+            accessToken,
+            file,
+          ],
+        ),
+        returnValue: _i5.Future<bool?>.value(),
+      ) as _i5.Future<bool?>);
+
+  @override
+  _i5.Future<void> updateUserDetail(
+    String? accessToken,
+    String? userId, {
+    String? phoneNumber,
+    String? password,
+    String? confirmPassword,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #updateUserDetail,
+          [
+            accessToken,
+            userId,
+          ],
+          {
+            #phoneNumber: phoneNumber,
+            #password: password,
+            #confirmPassword: confirmPassword,
+          },
+        ),
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
 }

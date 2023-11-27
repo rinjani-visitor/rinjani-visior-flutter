@@ -12,13 +12,13 @@ final productSearchViewModelProvider =
         () => ProductSearchViewModel());
 
 class ProductSearchViewModel extends AsyncNotifier<List<ProductEntity>> {
-  late final ProductRespository productRepository;
+  ProductRespository get repository => ref.read(productRepositoryProvider);
+  AuthViewModel get authData => ref.read(authViewModelProvider.notifier);
 
   @override
   FutureOr<List<ProductEntity>> build() async {
-    productRepository = ref.read(productRepositoryProvider);
-    final data = await productRepository.getProducts(
-        ref.read(authViewModelProvider).value!.toAccessTokenAuthorization());
+    final data = await repository
+        .getProducts(authData.state.value!.toAccessTokenAuthorization());
     debugPrint("Search Data: ${data.length}");
     return data;
   }
@@ -27,9 +27,8 @@ class ProductSearchViewModel extends AsyncNotifier<List<ProductEntity>> {
     debugPrint("Search Data: $name");
     state = const AsyncLoading();
 
-    state = await AsyncValue.guard(() async =>
-        await productRepository.getProducts(
-            ref.read(authViewModelProvider).value!.toAccessTokenAuthorization(),
-            query: name));
+    state = await AsyncValue.guard(() async => await repository.getProducts(
+        authData.state.value!.toAccessTokenAuthorization(),
+        query: name));
   }
 }

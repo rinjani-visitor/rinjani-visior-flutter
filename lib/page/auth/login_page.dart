@@ -6,8 +6,8 @@ import 'package:rinjani_visitor/core/exception/exception.dart';
 import 'package:rinjani_visitor/core/extension/validator.dart';
 import 'package:rinjani_visitor/features/authentication/presentation/view_model/auth.dart';
 import 'package:rinjani_visitor/core/presentation/theme/theme.dart';
-import 'package:rinjani_visitor/widget/input_field.dart';
-import 'package:rinjani_visitor/widget/button/primary_button.dart';
+import 'package:rinjani_visitor/core/widget/form/input_field.dart';
+import 'package:rinjani_visitor/core/widget/button/primary_button.dart';
 
 class LoginPage extends ConsumerStatefulWidget {
   const LoginPage({super.key});
@@ -82,7 +82,10 @@ class _LoginPageState extends ConsumerState<LoginPage> {
               height: 16,
             ),
             Column(
-              children: [googleLogin(), _signUpButton()],
+              children: [
+                // googleLogin(),
+                _signUpButton(),
+              ],
             ),
             const Spacer(),
             PrimaryButton(
@@ -189,34 +192,34 @@ class _LoginPageState extends ConsumerState<LoginPage> {
     );
   }
 
-  Widget googleLogin() {
-    return Container(
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(smallRadius),
-            color: mediumGray,
-            border: Border.all(color: lightGray, width: 1)),
-        child: TextButton(
-          onPressed: () {},
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                width: 36,
-                height: 36,
-                decoration: const BoxDecoration(
-                    image: DecorationImage(
-                        image: AssetImage('assets/Google.png'))),
-              ),
-              const SizedBox(
-                width: 16,
-              ),
-              Text(
-                'Login with Google',
-                style:
-                    blackTextStyle.copyWith(fontSize: 14, fontWeight: semibold),
-              )
-            ],
-          ),
-        ));
-  }
+  // Widget googleLogin() {
+  //   return Container(
+  //       decoration: BoxDecoration(
+  //           borderRadius: BorderRadius.circular(smallRadius),
+  //           color: mediumGray,
+  //           border: Border.all(color: lightGray, width: 1)),
+  //       child: TextButton(
+  //         onPressed: () {},
+  //         child: Row(
+  //           mainAxisAlignment: MainAxisAlignment.center,
+  //           children: [
+  //             Container(
+  //               width: 36,
+  //               height: 36,
+  //               decoration: const BoxDecoration(
+  //                   image: DecorationImage(
+  //                       image: AssetImage('assets/Google.png'))),
+  //             ),
+  //             const SizedBox(
+  //               width: 16,
+  //             ),
+  //             Text(
+  //               'Login with Google',
+  //               style:
+  //                   blackTextStyle.copyWith(fontSize: 14, fontWeight: semibold),
+  //             )
+  //           ],
+  //         ),
+  //       ));
+  // }
 }

@@ -13,7 +13,7 @@ class _ProductRemoteSource implements ProductRemoteSource {
     this._dio, {
     this.baseUrl,
   }) {
-    baseUrl ??= 'https://rinjani-api-v1-tpe6yyswta-as.a.run.app';
+    baseUrl ??= 'https://test.rinjanivisitor.com';
   }
 
   final Dio _dio;
@@ -23,14 +23,14 @@ class _ProductRemoteSource implements ProductRemoteSource {
   @override
   Future<ProductResponse> getProducts({
     required String token,
-    String? query,
+    String? title,
     String? status,
     String? category,
     String? rating,
   }) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
-      r'query': query,
+      r'title': title,
       r'status': status,
       r'category': category,
       r'rating': rating,

@@ -8,29 +8,29 @@ class CameraService extends StateNotifier<File?> {
   CameraService() : super(null);
 
   Future<File?> openCamera() async {
-    if (await Permission.camera.request().isGranted) {
-      final picker = ImagePicker();
-      final takedImage = await picker.pickImage(source: ImageSource.camera);
-      if (takedImage == null) return null;
-      state = File(takedImage.path);
-      return File(takedImage.path);
+    if (await Permission.camera.request().isDenied) {
+      return null;
     }
-    return null;
+    final picker = ImagePicker();
+    final takedImage = await picker.pickImage(source: ImageSource.camera);
+    if (takedImage == null) return null;
+    state = File(takedImage.path);
+    return File(takedImage.path);
   }
 
   Future<File?> openImagePicker() async {
-    if (await Permission.photos.request().isGranted) {
-      final picker = ImagePicker();
-      final pickedImage = await picker.pickImage(source: ImageSource.gallery);
-      if (pickedImage == null) return null;
-      state = File(pickedImage.path);
-      return File(pickedImage.path);
+    if (await Permission.camera.request().isDenied) {
+      return null;
     }
-    return null;
+    final picker = ImagePicker();
+    final pickedImage = await picker.pickImage(source: ImageSource.gallery);
+    if (pickedImage == null) return null;
+    state = File(pickedImage.path);
+    return File(pickedImage.path);
   }
 
   void discardCurrentFile() async {
-    // create fake await
+    // create fake await, fix janky ui shift
     await Future.delayed(const Duration(milliseconds: 500));
     state = null;
   }
@@ -38,5 +38,4 @@ class CameraService extends StateNotifier<File?> {
 
 /// provide list of avaiable camera that ready to use
 final cameraServiceProvider =
-    AutoDisposeStateNotifierProvider<CameraService, File?>(
-        (ref) => CameraService());
+    StateNotifierProvider<CameraService, File?>((ref) => CameraService());

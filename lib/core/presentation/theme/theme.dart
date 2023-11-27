@@ -31,19 +31,20 @@ double textLink1 = 14.0;
 double textLink2 = 12.0;
 
 //color style
-Color primaryColor = const Color(0xff32823a);
-Color whiteColor = const Color(0xffFCFCFD);
-Color blackColor = const Color(0xff101828);
-Color backgroundColor = const Color(0xffF2F4F7);
-Color lightGray = const Color(0xff98A2B3);
-Color gray = const Color(0xffF2F4F7);
-Color mediumGray = const Color(0xffF9FAFB);
-Color darkGray = const Color(0xff475467);
-Color successGreen = const Color(0xff039855);
-Color warningYellow = const Color(0xffDC6803);
-Color infoBlue = const Color(0xff026AA2);
-Color errorRed = const Color(0xffD92D20);
-Color statusBrown = const Color(0xff934400);
+const Color primaryColor = Color(0xff32823a);
+const Color accentPrimaryColor = Color(0xff00a652);
+const Color whiteColor = Color(0xffFCFCFD);
+const Color blackColor = Color(0xff101828);
+const Color backgroundColor = Color(0xffF2F4F7);
+const Color lightGray = Color(0xff98A2B3);
+const Color gray = Color(0xffF2F4F7);
+const Color mediumGray = Color(0xffF9FAFB);
+const Color darkGray = Color(0xff475467);
+const Color successGreen = Color(0xff039855);
+const Color warningYellow = Color(0xffDC6803);
+const Color infoBlue = Color(0xff026AA2);
+const Color errorRed = Color(0xffD92D20);
+const Color statusBrown = Color(0xff934400);
 
 //text style
 TextStyle whiteTextStyle = GoogleFonts.poppins(color: whiteColor);
