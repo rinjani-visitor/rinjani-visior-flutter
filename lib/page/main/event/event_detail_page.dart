@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:rinjani_visitor/core/constant/constant.dart';
 import 'package:rinjani_visitor/core/presentation/utils/internationalization.dart';
 import 'package:rinjani_visitor/features/event/domain/entity/event.dart';
 import 'package:rinjani_visitor/page/product/product_detail_page.dart';
@@ -10,7 +11,7 @@ import 'package:rinjani_visitor/core/widget/status.dart';
 // mock data about lombok festival
 final mockdata = EventEntity(
     name: "Lombok Festival",
-    imgUrl: "assets/rinjani.jpeg",
+    imgUrl: "assets/Google.jpeg",
     date: DateTime.now(),
     description: "",
     products: []);
@@ -31,7 +32,7 @@ class _EventDetailPageState extends State<EventDetailPage> {
       height: 241,
       decoration: const BoxDecoration(
           image: DecorationImage(
-              fit: BoxFit.fill, image: AssetImage('assets/event.jpeg'))),
+              fit: BoxFit.fill, image: NetworkImage(IMG_PLACEHOLDER))),
     );
   }
 

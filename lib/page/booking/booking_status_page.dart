@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rinjani_visitor/core/presentation/theme/theme.dart';
 import 'package:rinjani_visitor/core/widget/button/primary_button.dart';
+import 'package:rinjani_visitor/features/booking/presentation/view_model/booking.dart';
 
 const bookingStatus = [
   {
@@ -18,11 +20,14 @@ const bookingStatus = [
   }
 ];
 
-class BookingStatusPage extends StatelessWidget {
-  final bool isSuccess;
-  final String? error;
-  const BookingStatusPage({super.key, required this.isSuccess, this.error});
+class BookingStatusPage extends ConsumerStatefulWidget {
+  const BookingStatusPage({super.key});
 
+  @override
+  ConsumerState<BookingStatusPage> createState() => _BookingStatusPageState();
+}
+
+class _BookingStatusPageState extends ConsumerState<BookingStatusPage> {
   void _backToHome(BuildContext context) {
     Navigator.popUntil(
       context,
@@ -32,7 +37,8 @@ class BookingStatusPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    late final data = isSuccess ? bookingStatus[0] : bookingStatus[1];
+    final bookingStatus = ref.watch(bookingViewModelProvider);
+    // late final data = isSuccess ? bookingStatus[0] : bookingStatus[1];
     return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
         automaticallyImplyLeading: false,

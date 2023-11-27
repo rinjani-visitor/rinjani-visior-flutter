@@ -17,7 +17,7 @@ class EventCard extends StatelessWidget {
         height: 181,
         decoration: BoxDecoration(
             image: const DecorationImage(
-                fit: BoxFit.fill, image: AssetImage('assets/event.jpeg')),
+                fit: BoxFit.fill, image: AssetImage('assets/Google.png')),
             borderRadius: BorderRadius.circular(8)),
       );
     }

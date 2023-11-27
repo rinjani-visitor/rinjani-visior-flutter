@@ -48,7 +48,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
               width: 148,
               height: 66,
               decoration: const BoxDecoration(
-                  image: DecorationImage(image: AssetImage('assets/logo.png'))),
+                  image: DecorationImage(image: AssetImage('assets/icon.png'))),
             ),
             Text("RINJANI VISITOR",
                 style: whiteTextStyle.copyWith(

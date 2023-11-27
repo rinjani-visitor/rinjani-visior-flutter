@@ -37,7 +37,7 @@ class _BookingDetailPageState extends ConsumerState<BookingDetailPage> {
                 borderRadius: BorderRadius.circular(smallRadius),
                 image: const DecorationImage(
                     fit: BoxFit.cover,
-                    image: AssetImage('assets/rinjani.jpeg'))),
+                    image: AssetImage('assets/Google.jpeg'))),
           ),
           const SizedBox(
             width: 16,
@@ -201,7 +201,7 @@ class _BookingDetailPageState extends ConsumerState<BookingDetailPage> {
               },
               label: 'Enter your price offer',
               secureText: false,
-              placeholder: 'should not be too lower than estimated',
+              placeholder: 'put your price offer here',
               inputFormatters: [FilteringTextInputFormatter.digitsOnly],
               keyboardType: TextInputType.number,
             ),
@@ -217,9 +217,7 @@ class _BookingDetailPageState extends ConsumerState<BookingDetailPage> {
                   Navigator.push(
                       context,
                       CupertinoPageRoute(
-                          builder: (context) => const BookingStatusPage(
-                                isSuccess: true,
-                              )));
+                          builder: (context) => const BookingStatusPage()));
                 })
           ],
         ),

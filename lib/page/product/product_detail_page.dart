@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:like_button/like_button.dart';
 import 'package:rinjani_visitor/core/presentation/utils/internationalization.dart';
@@ -70,6 +71,7 @@ class _DetailPageState extends ConsumerState<ProductDetailPage> {
             child: SfDateRangePicker(
               minDate: DateTime.now(),
               selectionColor: primaryColor,
+              todayHighlightColor: accentPrimaryColor,
               startRangeSelectionColor: primaryColor,
               endRangeSelectionColor: primaryColor,
               rangeSelectionColor: accentPrimaryColor,
@@ -83,8 +85,9 @@ class _DetailPageState extends ConsumerState<ProductDetailPage> {
               monthViewSettings: DateRangePickerMonthViewSettings(
                 viewHeaderStyle: DateRangePickerViewHeaderStyle(
                     textStyle: blackTextStyle.copyWith(
-                      fontSize: heading5,
-                      fontWeight: semibold,
+                      fontSize: body1,
+                      fontWeight: FontWeight.bold,
+                      overflow: TextOverflow.ellipsis,
                     ),
                     backgroundColor: CupertinoColors.white),
               ),
@@ -184,18 +187,23 @@ class _DetailPageState extends ConsumerState<ProductDetailPage> {
                                 kvChildren: [
                                   KVContentWidget(
                                     title: "Description",
-                                    content: Text(
-                                      data.description ??
-                                          "No description provided",
-                                      style: blackTextStyle.copyWith(
-                                        fontSize: body1,
-                                      ),
-                                    ),
+                                    content: MarkdownBody(
+                                        data: data.description ??
+                                            "No description provided",
+                                        styleSheetTheme:
+                                            MarkdownStyleSheetBaseTheme
+                                                .cupertino,
+                                        styleSheet: MarkdownStyleSheet(
+                                          p: TextStyle(
+                                              fontSize: body1, height: 1.2),
+                                        )),
                                   ),
                                   KVContentWidget(
                                     title: "Note",
-                                    content: Text(
-                                      data.note ?? "No note provided",
+                                    content: MarkdownBody(
+                                      data: data.note ?? "No note provided",
+                                      styleSheetTheme:
+                                          MarkdownStyleSheetBaseTheme.cupertino,
                                     ),
                                   ),
                                   KVContentWidget(
@@ -399,18 +407,22 @@ class _Header extends ConsumerWidget {
                         ? Container(
                             child: Text("not avaiable"),
                           )
-                        : LikeButton(
-                            isLiked: likeStatus.value ?? false,
-                            onTap: (status) async {
-                              await ref
-                                  .read(favoriteViewModelProvider.notifier)
-                                  .toggleFavorite(productId);
-                              return ref
-                                      .read(favoriteViewModelProvider)
-                                      .value ??
-                                  false;
-                            },
-                          )
+                        : likeStatus.maybeWhen(
+                            data: (data) => LikeButton(
+                                  isLiked:
+                                      likeStatus.value ?? initialLikeStatus,
+                                  onTap: (status) async {
+                                    await ref
+                                        .read(
+                                            favoriteViewModelProvider.notifier)
+                                        .toggleFavorite(productId);
+                                    return ref
+                                            .read(favoriteViewModelProvider)
+                                            .value ??
+                                        false;
+                                  },
+                                ),
+                            orElse: () => Container()),
                   ],
                 ),
                 const SizedBox(

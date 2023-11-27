@@ -47,7 +47,7 @@ class SmallProductCard extends StatelessWidget {
                   borderRadius: BorderRadius.circular(9),
                   child: loading
                       ? Image.asset(
-                          "assets/rinjani.jpeg",
+                          "assets/Google.png",
                           fit: BoxFit.cover,
                         )
                       : CachedNetworkImage(
