@@ -3,10 +3,12 @@ import 'package:rinjani_visitor/features/authentication/data/models/request/rese
 
 part 'post_booking.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false)
 class PostBookingRequest {
   @JsonKey(name: 'productId')
   final String productId;
+  @JsonKey(name: 'userId')
+  final String userId;
   @JsonKey(name: 'startDateTime')
   final String startDateTime;
   @JsonKey(name: 'endDateTime')
@@ -20,6 +22,7 @@ class PostBookingRequest {
 
   PostBookingRequest({
     required this.productId,
+    required this.userId,
     required this.startDateTime,
     this.endDateTime,
     required this.addOns,

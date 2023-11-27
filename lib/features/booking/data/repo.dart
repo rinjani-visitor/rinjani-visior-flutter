@@ -6,6 +6,7 @@ import 'package:rinjani_visitor/features/booking/data/source/remote.dart';
 import 'package:rinjani_visitor/features/booking/domain/entitiy/booking.dart';
 
 import 'package:rinjani_visitor/features/booking/domain/entitiy/booking_form.dart';
+import 'package:rinjani_visitor/features/booking/domain/entitiy/booking_form_status.dart';
 
 import '../domain/repository/booking.dart';
 
@@ -18,18 +19,23 @@ class BookingRepositoryImpl implements BookingRepository {
   RemoteBookingDataSource remote;
   BookingRepositoryImpl({required this.remote});
   @override
-  Future<bool> createBooking(String token, BookingFormEntity booking) async {
+  Future<BookingFormStatus> createBooking(
+      String token, String userId, BookingFormEntity booking) async {
     try {
       final body = PostBookingRequest(
-        productId: booking.productId,
+        productId: booking.product!.id,
+        userId: userId,
         startDateTime: booking.startDateTime.toIso8601String(),
         endDateTime: booking.endDateTime?.toIso8601String(),
-        addOns: booking.addOns.toString(),
+        addOns: booking.addOns.join(', '),
         offeringPrice: booking.offeringPrice.toString(),
         totalPersons: booking.totalPersons,
       );
-      final result = await remote.createBooking(body);
-      final response = result.errors != null ? false : true;
+      final result = await remote.createBooking(token, body);
+      final response = BookingFormStatus(
+        status: result.errors != null || result.errors!.isNotEmpty,
+        message: result.message,
+      );
       return response;
     } catch (e) {
       throw ExtException.fromDioException(e);
@@ -43,15 +49,19 @@ class BookingRepositoryImpl implements BookingRepository {
   }
 
   @override
-  Future<Booking> getBookingDetail(String token, String id) {
+  Future<BookingDetailEntity> getBookingDetail(String token, String id) {
     // TODO: implement getBookingDetail
     throw UnimplementedError();
   }
 
   @override
-  Future<List<Booking>> getBookings(String token) {
-    // TODO: implement getBookings
-    throw UnimplementedError();
+  Future<List<BookingEntity>> getBookings(String token) async {
+    try {
+      final result = await remote.getBookings(token);
+      return result.toEntity() ?? [];
+    } catch (e) {
+      throw ExtException.fromDioException(e);
+    }
   }
 
   @override

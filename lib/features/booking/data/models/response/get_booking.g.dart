@@ -25,10 +25,24 @@ Map<String, dynamic> _$GetBookingResponseToJson(GetBookingResponse instance) =>
 
 GetBookingBody _$GetBookingBodyFromJson(Map<String, dynamic> json) =>
     GetBookingBody(
-      id: json['id'] as String,
+      bookingId: json['bookingId'] as String,
+      bookingDate: json['bookingDate'] as String,
+      title: json['title'] as String,
+      bookingStatus: json['bookingStatus'] as String,
+      bookingNote: json['bookingNote'] as String?,
+      rating: json['rating'] as int?,
+      location: json['location'] as String?,
+      thumbnail: json['thumbnail'] as String?,
     );
 
 Map<String, dynamic> _$GetBookingBodyToJson(GetBookingBody instance) =>
     <String, dynamic>{
-      'id': instance.id,
+      'bookingId': instance.bookingId,
+      'bookingDate': instance.bookingDate,
+      'title': instance.title,
+      'bookingStatus': instance.bookingStatus,
+      'bookingNote': instance.bookingNote,
+      'rating': instance.rating,
+      'location': instance.location,
+      'thumbnail': instance.thumbnail,
     };

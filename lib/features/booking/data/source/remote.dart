@@ -13,6 +13,7 @@ abstract class RemoteBookingDataSource {
 
   @POST("/api/booking")
   Future<CreateBookingResponse> createBooking(
+      @Header("Authorization") String token,
       @Body() PostBookingRequest booking);
   @GET("/api/booking")
   Future<GetBookingResponse> getBookings(

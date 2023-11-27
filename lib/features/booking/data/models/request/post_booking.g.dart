@@ -9,6 +9,7 @@ part of 'post_booking.dart';
 PostBookingRequest _$PostBookingRequestFromJson(Map<String, dynamic> json) =>
     PostBookingRequest(
       productId: json['productId'] as String,
+      userId: json['userId'] as String,
       startDateTime: json['startDateTime'] as String,
       endDateTime: json['endDateTime'] as String?,
       addOns: json['addOns'] as String,
@@ -16,12 +17,22 @@ PostBookingRequest _$PostBookingRequestFromJson(Map<String, dynamic> json) =>
       totalPersons: json['totalPersons'] as String,
     );
 
-Map<String, dynamic> _$PostBookingRequestToJson(PostBookingRequest instance) =>
-    <String, dynamic>{
-      'productId': instance.productId,
-      'startDateTime': instance.startDateTime,
-      'endDateTime': instance.endDateTime,
-      'addOns': instance.addOns,
-      'offeringPrice': instance.offeringPrice,
-      'totalPersons': instance.totalPersons,
-    };
+Map<String, dynamic> _$PostBookingRequestToJson(PostBookingRequest instance) {
+  final val = <String, dynamic>{
+    'productId': instance.productId,
+    'userId': instance.userId,
+    'startDateTime': instance.startDateTime,
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('endDateTime', instance.endDateTime);
+  val['addOns'] = instance.addOns;
+  val['offeringPrice'] = instance.offeringPrice;
+  val['totalPersons'] = instance.totalPersons;
+  return val;
+}
