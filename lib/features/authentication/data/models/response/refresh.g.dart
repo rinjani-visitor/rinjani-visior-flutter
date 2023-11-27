@@ -14,8 +14,8 @@ RefreshResponse _$RefreshResponseFromJson(Map<String, dynamic> json) =>
       data: json['data'] == null
           ? null
           : RefreshResponseBody.fromJson(json['data'] as Map<String, dynamic>),
-      accessToken: json['acessToken'] as String,
-      refreshToken: json['refreshToken'] as String,
+      accessToken: json['accessToken'] as String?,
+      refreshToken: json['refreshToken'] as String?,
     );
 
 Map<String, dynamic> _$RefreshResponseToJson(RefreshResponse instance) =>
@@ -23,7 +23,7 @@ Map<String, dynamic> _$RefreshResponseToJson(RefreshResponse instance) =>
       'errors': instance.errors,
       'message': instance.message,
       'data': instance.data,
-      'acessToken': instance.accessToken,
+      'accessToken': instance.accessToken,
       'refreshToken': instance.refreshToken,
     };
 

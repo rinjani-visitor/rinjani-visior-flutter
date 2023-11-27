@@ -28,7 +28,7 @@ ProductDetailBody _$ProductDetailBodyFromJson(Map<String, dynamic> json) =>
       productId: json['productId'] as String,
       title: json['title'] as String?,
       status: json['status'] as bool?,
-      includeEndDate: json['includeEndDate'] as bool?,
+      includeEndDateTime: json['includeEndDateTime'] as bool?,
       rating: (json['rating'] as num?)?.toDouble(),
       location: json['location'] as String?,
       lowestPrice: json['lowestPrice'] as int?,
@@ -45,7 +45,7 @@ ProductDetailBody _$ProductDetailBodyFromJson(Map<String, dynamic> json) =>
       note: json['note'] as String?,
       createdAt: json['createdAt'] as String?,
       updatedAt: json['updatedAt'] as String?,
-      userFavorited: json['user_favorited'] as bool?,
+      userFavorited: json['userFavorited'] as bool?,
       fotos: (json['fotos'] as List<dynamic>?)
           ?.map((e) => Fotos.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -57,8 +57,8 @@ ProductDetailBody _$ProductDetailBodyFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$ProductDetailBodyToJson(ProductDetailBody instance) =>
     <String, dynamic>{
       'productId': instance.productId,
-      'user_favorited': instance.userFavorited,
-      'includeEndDate': instance.includeEndDate,
+      'userFavorited': instance.userFavorited,
+      'includeEndDateTime': instance.includeEndDateTime,
       'title': instance.title,
       'status': instance.status,
       'rating': instance.rating,

@@ -37,7 +37,7 @@ class _DetailPageState extends ConsumerState<ProductDetailPage> {
       ref.read(bookingViewModelProvider.notifier);
 
   late final _startDateController = TextEditingController(
-      text: dateFormat.format(DateTime.parse(bookingState.startDateTime)));
+      text: dateFormat.format(bookingState.startDateTime));
   late final _personController =
       TextEditingController(text: bookingState.totalPersons.toString());
 
@@ -73,17 +73,11 @@ class _DetailPageState extends ConsumerState<ProductDetailPage> {
               startRangeSelectionColor: primaryColor,
               endRangeSelectionColor: primaryColor,
               rangeSelectionColor: accentPrimaryColor,
-              initialDisplayDate: bookingState.startDateTime.isNotEmpty
-                  ? DateTime.parse(bookingState.startDateTime)
-                  : DateTime.now(),
+              initialDisplayDate: bookingState.startDateTime,
               initialSelectedRange: rangeDate
                   ? PickerDateRange(
-                      bookingState.startDateTime.isNotEmpty
-                          ? DateTime.parse(bookingState.startDateTime)
-                          : DateTime.now(),
-                      bookingState.endDateTime.isNotEmpty
-                          ? DateTime.parse(bookingState.endDateTime)
-                          : DateTime.now(),
+                      bookingState.startDateTime,
+                      bookingState.endDateTime ?? DateTime.now(),
                     )
                   : null,
               monthViewSettings: DateRangePickerMonthViewSettings(
@@ -98,7 +92,7 @@ class _DetailPageState extends ConsumerState<ProductDetailPage> {
                 final date = args.value;
                 if (date is DateTime) {
                   final localizedDate = dateFormat.format(date);
-                  bookingState.startDateTime = date.toString();
+                  bookingState.startDateTime = date;
                   _startDateController.text = localizedDate;
                 } else if (date is PickerDateRange) {
                   final localizedStartDate =
@@ -106,8 +100,9 @@ class _DetailPageState extends ConsumerState<ProductDetailPage> {
                   final localizedEndDate = date.endDate != null
                       ? dateFormat.format(date.endDate!)
                       : "";
-                  bookingState.startDateTime = date.startDate.toString();
-                  bookingState.endDateTime = date.endDate.toString();
+                  bookingState.startDateTime =
+                      date.startDate ?? bookingState.startDateTime;
+                  bookingState.endDateTime = date.endDate;
                   _startDateController.text =
                       "${localizedStartDate.toString()} - ${localizedEndDate.toString()}";
                 }
@@ -172,6 +167,7 @@ class _DetailPageState extends ConsumerState<ProductDetailPage> {
                         children: [
                           _Header(
                             productId: data.id,
+                            initialLikeStatus: data.isFavorited,
                             title: data.title ?? "Title not found",
                             imgUrl: data.thumbnail ?? "",
                             location: data.location ?? "",
@@ -299,10 +295,12 @@ class _Header extends ConsumerWidget {
   final String rangePricing;
   final String tripDuration;
   final bool avaiable;
+  final bool? initialLikeStatus;
 
   const _Header(
       {super.key,
       required this.productId,
+      this.initialLikeStatus,
       this.avaiable = false,
       this.title = "Title not found",
       this.imgUrl = "",
@@ -397,8 +395,10 @@ class _Header extends ConsumerWidget {
                           fontSize: 16, fontWeight: semibold),
                     ),
                     const Spacer(),
-                    likeStatus.value == null
-                        ? Container()
+                    initialLikeStatus == null
+                        ? Container(
+                            child: Text("not avaiable"),
+                          )
                         : LikeButton(
                             isLiked: likeStatus.value ?? false,
                             onTap: (status) async {

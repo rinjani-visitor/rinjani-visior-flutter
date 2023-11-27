@@ -1,5 +1,3 @@
-
-
 import 'package:dio/dio.dart';
 import 'package:retrofit/http.dart';
 import 'package:rinjani_visitor/core/constant/network.dart';
@@ -11,14 +9,15 @@ part 'remote.g.dart';
 
 @RestApi(baseUrl: restApiBaseUrl)
 abstract class RemoteFavoriteSource {
-  factory RemoteFavoriteSource(Dio dio, {String? baseUrl}) = _RemoteFavoriteSource;
+  factory RemoteFavoriteSource(Dio dio, {String? baseUrl}) =
+      _RemoteFavoriteSource;
 
-  @GET("/api/users/{userId}/favorite")
+  @GET("/api/users/favorite")
   Future<GetFavoriteResponse> getFavorites({
     @Header("Authorization") required String token,
   });
 
-  @POST("/api/users/{userId}/favorite")
+  @POST("/api/users/favorite")
   Future<ToggleFavoriteResponse> toggleFavourites({
     @Header("Authorization") required String token,
     @Body() required ToggleFavoriteRequest body,

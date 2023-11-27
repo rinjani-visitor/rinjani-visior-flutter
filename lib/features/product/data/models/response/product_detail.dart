@@ -22,7 +22,7 @@ class ProductDetailResponse extends BaseResponse<ProductDetailBody> {
       title: data.title,
       status: data.status,
       isFavorited: data.userFavorited,
-      includeEndDate: data.includeEndDate,
+      includeEndDate: data.includeEndDateTime,
       description: data.description,
       thumbnail: data.thumbnail,
       images: data.fotos?.map((e) => e.url!).toList(),
@@ -45,9 +45,8 @@ class ProductDetailResponse extends BaseResponse<ProductDetailBody> {
 @JsonSerializable()
 class ProductDetailBody {
   final String productId;
-  @JsonKey(name: "user_favorited")
   bool? userFavorited;
-  bool? includeEndDate;
+  bool? includeEndDateTime;
   String? title;
   bool? status;
   double? rating;
@@ -72,7 +71,7 @@ class ProductDetailBody {
       {required this.productId,
       this.title,
       this.status,
-      this.includeEndDate,
+      this.includeEndDateTime,
       this.rating,
       this.location,
       this.lowestPrice,

@@ -3,19 +3,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rinjani_visitor/core/presentation/theme/theme.dart';
 import 'package:rinjani_visitor/core/presentation/utils/internationalization.dart';
-import 'package:rinjani_visitor/features/booking/domain/entitiy/booking_history.dart';
+import 'package:rinjani_visitor/features/booking/domain/entitiy/booking.dart';
 import 'package:rinjani_visitor/features/booking/domain/enum/history_status.dart';
 import 'package:rinjani_visitor/page/review/write_review_page.dart';
 import 'package:rinjani_visitor/core/widget/button/primary_button.dart';
 import 'package:rinjani_visitor/core/widget/status.dart';
 
-final List<BookingHistoryEntity> mockData = [
-  BookingHistoryEntity(
+final List<Booking> mockData = [
+  Booking(
       id: "dfakdj",
       title: "Rinjani Summit",
       dateTime: DateTime.now(),
       status: "not started"),
-  BookingHistoryEntity(
+  Booking(
       id: "dfakdja",
       title: "Booking 1",
       dateTime: DateTime.now(),

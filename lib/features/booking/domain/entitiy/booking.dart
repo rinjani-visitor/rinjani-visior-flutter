@@ -1,28 +1,26 @@
-import 'package:rinjani_visitor/features/product/domain/entity/product.dart';
+import 'package:rinjani_visitor/features/booking/domain/enum/history_status.dart';
 
-class BookingEntity {
-  ProductDetailEntity? product;
-  String userId;
-  String productId;
-  String startDateTime;
-  String endDateTime;
-  List<String> addOns;
-  List<String> time = [];
-  int get offeringPrice => product!.lowestPrice ?? 0;
-  String totalPersons;
-  BookingEntity({
-    required this.userId,
-    required this.productId,
-    required this.startDateTime,
-    required this.endDateTime,
-    required this.addOns,
-    required this.totalPersons,
+const bookingHistoryStatus = [
+  'Offering',
+  'Waiting for Payment',
+  'Declined',
+  'Payment Reviewing',
+  'Payment Failed',
+  'Success',
+];
+
+class Booking {
+  final String id;
+  final String title;
+  final DateTime dateTime;
+  final String status;
+  final HistoryStatus? historyStatus;
+
+  Booking({
+    required this.id,
+    this.historyStatus,
+    required this.title,
+    required this.dateTime,
+    required this.status,
   });
-  addOnToString() {
-    String addOnString = "";
-    for (var element in addOns) {
-      addOnString += "$element,";
-    }
-    return addOnString.substring(0, addOnString.length - 1);
-  }
 }

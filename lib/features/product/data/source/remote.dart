@@ -25,7 +25,4 @@ abstract class ProductRemoteSource {
     @Path("category") required String category,
     @Path("id") required String id,
   });
-
-  //TODO: GANTI ENPOINTNYA, TUNGGU KONFIRMASI DARI TIM BACKEND
-
 }

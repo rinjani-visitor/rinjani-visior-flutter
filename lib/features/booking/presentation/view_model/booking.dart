@@ -1,26 +1,25 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rinjani_visitor/core/presentation/utils/internationalization.dart';
-import 'package:rinjani_visitor/features/booking/domain/entitiy/booking.dart';
+import 'package:rinjani_visitor/features/booking/domain/entitiy/booking_form.dart';
 import 'package:rinjani_visitor/features/product/data/product_repository_impl.dart';
 import 'package:rinjani_visitor/features/product/domain/entity/product.dart';
 import 'package:rinjani_visitor/features/product/domain/product_repository.dart';
 
 final bookingViewModelProvider =
-    AutoDisposeNotifierProvider<BookingViewModel, BookingEntity>(
+    AutoDisposeNotifierProvider<BookingViewModel, BookingFormEntity>(
         () => BookingViewModel());
 
-class BookingViewModel extends AutoDisposeNotifier<BookingEntity> {
+class BookingViewModel extends AutoDisposeNotifier<BookingFormEntity> {
   // ignore: unused_field
   late final ProductRespository _productRepository;
 
   @override
-  BookingEntity build() {
+  BookingFormEntity build() {
     _productRepository = ref.watch(productRepositoryProvider);
-    return BookingEntity(
+    return BookingFormEntity(
       addOns: [],
-      startDateTime: DateTime.timestamp().toIso8601String(),
-      endDateTime: "",
+      startDateTime: DateTime.now(),
       productId: "",
       totalPersons: "",
       userId: "",
@@ -28,10 +27,9 @@ class BookingViewModel extends AutoDisposeNotifier<BookingEntity> {
   }
 
   void reset() {
-    state = BookingEntity(
+    state = BookingFormEntity(
       addOns: [],
-      startDateTime: DateTime.timestamp().toIso8601String(),
-      endDateTime: "",
+      startDateTime: DateTime.now(),
       productId: "",
       totalPersons: "",
       userId: "",
@@ -42,7 +40,7 @@ class BookingViewModel extends AutoDisposeNotifier<BookingEntity> {
     state.productId = packageId;
   }
 
-  void setDate(String? date) {
+  void setDate(DateTime? date) {
     if (date == null) {
       return;
     }
@@ -51,18 +49,14 @@ class BookingViewModel extends AutoDisposeNotifier<BookingEntity> {
   }
 
   DateTime getDate() {
-    final parsedDate = DateTime.parse(state.startDateTime);
-    debugPrint("OrderRiverpod: $parsedDate");
-    return DateTime.parse(state.startDateTime);
+    return state.startDateTime;
   }
 
   String getLocalizedDate() {
-    final parsedStartDate = DateTime.parse(state.startDateTime);
-    if (state.endDateTime.isEmpty) {
-      return dateFormat.format(parsedStartDate);
+    if (state.endDateTime == null) {
+      return dateFormat.format(state.startDateTime);
     }
-    final parsedEndDate = DateTime.parse(state.endDateTime);
-    return "${dateFormat.format(parsedStartDate)} - ${dateFormat.format(parsedEndDate)}";
+    return "${dateFormat.format(state.startDateTime)} - ${dateFormat.format(state.endDateTime!)}";
   }
 
   void addTime(String time24H) {

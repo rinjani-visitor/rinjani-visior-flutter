@@ -6,21 +6,20 @@ part 'login.g.dart';
 
 @JsonSerializable()
 class LoginResponse extends BaseResponse<LoginResponseBody?> {
-  @JsonKey(name: "acessToken")
-  final String accessToken;
-  final String refreshToken;
+  String? accessToken;
+  String? refreshToken;
 
   LoginResponse(
       {required super.errors,
       required super.message,
       required super.data,
-      required this.accessToken,
-      required this.refreshToken});
+      this.accessToken,
+      this.refreshToken});
 
   factory LoginResponse.fromJson(Map<String, dynamic> json) =>
       _$LoginResponseFromJson(json);
 
-  Map<String, dynamic> toJson()=> _$LoginResponseToJson(this);
+  Map<String, dynamic> toJson() => _$LoginResponseToJson(this);
 
   AuthEntity toEntity() => AuthEntity(
       username: data?.name,
@@ -35,9 +34,11 @@ class LoginResponseBody {
   final String? userId;
   final String? name;
   final String? email;
+  final String? password;
   final String? role;
 
-  LoginResponseBody({this.userId, this.email, this.name, this.role});
+  LoginResponseBody(
+      {this.userId, this.email, this.name, this.role, this.password});
 
   factory LoginResponseBody.fromJson(Map<String, dynamic> json) =>
       _$LoginResponseBodyFromJson(json);

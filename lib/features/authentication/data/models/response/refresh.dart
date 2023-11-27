@@ -6,9 +6,9 @@ part 'refresh.g.dart';
 
 @JsonSerializable()
 class RefreshResponse extends BaseResponse<RefreshResponseBody?> {
-  @JsonKey(name: "acessToken")
-  final String accessToken;
-  final String refreshToken;
+  @JsonKey(name: "accessToken")
+  String? accessToken;
+  String? refreshToken;
   RefreshResponse(
       {required super.errors,
       required super.message,
