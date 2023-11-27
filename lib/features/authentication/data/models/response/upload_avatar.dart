@@ -1,5 +1,4 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:rinjani_visitor/core/domain/entity/base_response.dart';
 
 part 'upload_avatar.g.dart';
 

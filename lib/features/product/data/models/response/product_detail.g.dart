@@ -28,6 +28,7 @@ ProductDetailBody _$ProductDetailBodyFromJson(Map<String, dynamic> json) =>
       productId: json['productId'] as String,
       title: json['title'] as String?,
       status: json['status'] as bool?,
+      includeEndDate: json['includeEndDate'] as bool?,
       rating: (json['rating'] as num?)?.toDouble(),
       location: json['location'] as String?,
       lowestPrice: json['lowestPrice'] as int?,
@@ -57,6 +58,7 @@ Map<String, dynamic> _$ProductDetailBodyToJson(ProductDetailBody instance) =>
     <String, dynamic>{
       'productId': instance.productId,
       'user_favorited': instance.userFavorited,
+      'includeEndDate': instance.includeEndDate,
       'title': instance.title,
       'status': instance.status,
       'rating': instance.rating,

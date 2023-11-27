@@ -32,7 +32,7 @@ double textLink2 = 12.0;
 
 //color style
 Color primaryColor = const Color(0xff32823a);
-Color accentPrimaryColor = Color.fromARGB(255, 125, 209, 133);
+Color accentPrimaryColor = const Color.fromARGB(255, 125, 209, 133);
 Color whiteColor = const Color(0xffFCFCFD);
 Color blackColor = const Color(0xff101828);
 Color backgroundColor = const Color(0xffF2F4F7);

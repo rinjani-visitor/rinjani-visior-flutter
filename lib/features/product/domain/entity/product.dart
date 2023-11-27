@@ -33,6 +33,7 @@ class ProductDetailEntity {
     required this.id,
     required this.title,
     this.status,
+    this.isFavorited,
     this.includeEndDate,
     this.rating,
     this.location,
@@ -61,6 +62,7 @@ class ProductDetailEntity {
   final String id;
   String? title;
   bool? status;
+  bool? isFavorited;
   bool? includeEndDate;
   String? rating;
   String? location;

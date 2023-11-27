@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:rinjani_visitor/features/product/domain/entity/review.dart';
 import 'package:rinjani_visitor/widget/review_card_widget.dart';
 
 class ReviewWidgetMock extends StatelessWidget {
@@ -21,8 +22,29 @@ class ReviewWidgetMock extends StatelessWidget {
   }
 }
 
+class ReviewWidgetWrapper extends StatelessWidget {
+  final List<ReviewEntity> reviews;
+
+  const ReviewWidgetWrapper({super.key, required this.reviews});
+
+  @override
+  Widget build(BuildContext context) {
+    return ReviewWidget(
+      reviewChildren: List.generate(
+        reviews.length,
+        (index) => ReviewCardWidget(
+          name: reviews[index].username,
+          createdTime: reviews[index].localizedDateTime,
+          message: reviews[index].review,
+        ),
+      ),
+    );
+  }
+}
+
 class ReviewWidget extends StatelessWidget {
   final List<Widget> reviewChildren;
+
   const ReviewWidget({super.key, required this.reviewChildren});
 
   @override

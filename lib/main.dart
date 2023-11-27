@@ -19,7 +19,6 @@ import 'package:rinjani_visitor/page/account/personal_info_page.dart';
 import 'package:rinjani_visitor/page/auth/register_page.dart';
 import 'package:rinjani_visitor/page/main/search_page.dart';
 import 'package:rinjani_visitor/page/splash_screen.dart';
-import 'package:rinjani_visitor/page/booking/booking_status_page.dart';
 import 'package:rinjani_visitor/page/booking/offer_status_page.dart';
 import 'package:rinjani_visitor/page/account/account_settings_page.dart';
 

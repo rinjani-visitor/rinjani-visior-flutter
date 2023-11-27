@@ -3,12 +3,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:rinjani_visitor/core/constant/country.dart';
 import 'package:rinjani_visitor/core/extension/validator.dart';
 import 'package:rinjani_visitor/features/authentication/presentation/view_model/auth.dart';
 import 'package:rinjani_visitor/core/presentation/theme/theme.dart';
 import 'package:rinjani_visitor/widget/button/primary_button.dart';
-import 'package:rinjani_visitor/widget/form/dropdown_textfield.dart';
 import 'package:rinjani_visitor/widget/input_field.dart';
 
 class RegisterPage extends ConsumerStatefulWidget {

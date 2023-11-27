@@ -18,6 +18,7 @@ class ForgotPasswordPage extends ConsumerStatefulWidget {
 class _ForgotPasswordPageState extends ConsumerState<ForgotPasswordPage> {
   final _formKey = GlobalKey<FormState>();
   final _textController = TextEditingController();
+
   void pop() {
     Navigator.pop(context);
   }
@@ -93,6 +94,5 @@ class _ForgotPasswordPageState extends ConsumerState<ForgotPasswordPage> {
         ),
       )),
     );
-    ;
   }
 }

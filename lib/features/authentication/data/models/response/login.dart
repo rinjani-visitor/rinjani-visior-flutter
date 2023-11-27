@@ -20,6 +20,8 @@ class LoginResponse extends BaseResponse<LoginResponseBody?> {
   factory LoginResponse.fromJson(Map<String, dynamic> json) =>
       _$LoginResponseFromJson(json);
 
+  Map<String, dynamic> toJson()=> _$LoginResponseToJson(this);
+
   AuthEntity toEntity() => AuthEntity(
       username: data?.name,
       userId: data?.userId,

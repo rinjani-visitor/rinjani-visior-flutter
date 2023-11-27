@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rinjani_visitor/core/presentation/services/camera_service.dart';
 import 'package:rinjani_visitor/core/presentation/theme/theme.dart';
-import 'package:rinjani_visitor/features/authentication/presentation/view_model/auth.dart';
 import 'package:rinjani_visitor/features/authentication/presentation/view_model/auth_detail.dart';
 
 class AccountPage extends ConsumerStatefulWidget {

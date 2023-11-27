@@ -12,6 +12,7 @@ class ProductDetailResponse extends BaseResponse<ProductDetailBody> {
 
   factory ProductDetailResponse.fromJson(Map<String, dynamic> json) =>
       _$ProductDetailResponseFromJson(json);
+
   Map<String, dynamic> toJson() => _$ProductDetailResponseToJson(this);
 
   ProductDetailEntity toEntity() => ProductDetailEntity(
@@ -20,6 +21,8 @@ class ProductDetailResponse extends BaseResponse<ProductDetailBody> {
       accomodation: null,
       title: data.title,
       status: data.status,
+      isFavorited: data.userFavorited,
+      includeEndDate: data.includeEndDate,
       description: data.description,
       thumbnail: data.thumbnail,
       images: data.fotos?.map((e) => e.url!).toList(),
@@ -44,6 +47,7 @@ class ProductDetailBody {
   final String productId;
   @JsonKey(name: "user_favorited")
   bool? userFavorited;
+  bool? includeEndDate;
   String? title;
   bool? status;
   double? rating;
@@ -68,6 +72,7 @@ class ProductDetailBody {
       {required this.productId,
       this.title,
       this.status,
+      this.includeEndDate,
       this.rating,
       this.location,
       this.lowestPrice,
@@ -88,6 +93,7 @@ class ProductDetailBody {
 
   factory ProductDetailBody.fromJson(Map<String, dynamic> json) =>
       _$ProductDetailBodyFromJson(json);
+
   Map<String, dynamic> toJson() => _$ProductDetailBodyToJson(this);
 }
 
@@ -101,5 +107,6 @@ class Fotos {
   Fotos({this.fotoId, this.url, this.originalName, this.productId});
 
   factory Fotos.fromJson(Map<String, dynamic> json) => _$FotosFromJson(json);
+
   Map<String, dynamic> toJson() => _$FotosToJson(this);
 }

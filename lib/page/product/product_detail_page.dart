@@ -2,16 +2,15 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:like_button/like_button.dart';
 import 'package:rinjani_visitor/core/presentation/utils/internationalization.dart';
 import 'package:rinjani_visitor/features/booking/presentation/view_model/booking.dart';
 import 'package:rinjani_visitor/core/presentation/theme/theme.dart';
+import 'package:rinjani_visitor/features/favorite/presentation/view_model/favorite.dart';
 import 'package:rinjani_visitor/features/product/domain/entity/product.dart';
 import 'package:rinjani_visitor/features/product/presentation/view_model/product_detail.dart';
 import 'package:rinjani_visitor/widget/add_on_widget.dart';
 import 'package:rinjani_visitor/widget/button/primary_button.dart';
-import 'package:rinjani_visitor/widget/date_picker_widget.dart';
 import 'package:rinjani_visitor/widget/input_field.dart';
 import 'package:rinjani_visitor/widget/person_counter_widget.dart';
 import 'package:rinjani_visitor/widget/rating_widget.dart';
@@ -33,6 +32,7 @@ class ProductDetailPage extends ConsumerStatefulWidget {
 
 class _DetailPageState extends ConsumerState<ProductDetailPage> {
   late var bookingState = ref.read(bookingViewModelProvider);
+
   BookingViewModel get bookingNotifier =>
       ref.read(bookingViewModelProvider.notifier);
 
@@ -171,6 +171,7 @@ class _DetailPageState extends ConsumerState<ProductDetailPage> {
                       child: Column(
                         children: [
                           _Header(
+                            productId: data.id,
                             title: data.title ?? "Title not found",
                             imgUrl: data.thumbnail ?? "",
                             location: data.location ?? "",
@@ -254,25 +255,30 @@ class _DetailPageState extends ConsumerState<ProductDetailPage> {
                                         style: const TextStyle(fontSize: 16),
                                       )),
                                   const KVContentWidget(
-                                      title: "Reviews",
-                                      content: ReviewWidgetMock()),
+                                    title: "Reviews",
+                                    content: ReviewWidgetWrapper(
+                                      reviews: [],
+                                    ),
+                                  ),
                                   KVContentWidget(
                                     title: "Buy Product",
                                     content: PrimaryButton(
-                                        // isDisabled: true,
-                                        isDisabled: (data.status == false),
-                                        onPressed: () =>
-                                            _showPersonSelector(data),
-                                        child: Text(
-                                          'Buy Product',
-                                          style: whiteTextStyle.copyWith(
-                                              fontSize: 16),
-                                        )),
+                                      // isDisabled: true,
+                                      isDisabled: (data.status == false),
+                                      onPressed: () =>
+                                          _showPersonSelector(data),
+                                      child: Text(
+                                        'Buy Product',
+                                        style: whiteTextStyle.copyWith(
+                                            fontSize: 16),
+                                      ),
+                                    ),
                                   )
                                 ],
                               ),
                               initenary: DetailIniteraryWidget(
-                                  initenaryList: data.facilities ?? []),
+                                initenaryList: data.facilities ?? [],
+                              ),
                             ),
                           ),
                         ],
@@ -284,7 +290,8 @@ class _DetailPageState extends ConsumerState<ProductDetailPage> {
   }
 }
 
-class _Header extends StatelessWidget {
+class _Header extends ConsumerWidget {
+  final String productId;
   final String title;
   final String imgUrl;
   final String location;
@@ -292,8 +299,10 @@ class _Header extends StatelessWidget {
   final String rangePricing;
   final String tripDuration;
   final bool avaiable;
+
   const _Header(
       {super.key,
+      required this.productId,
       this.avaiable = false,
       this.title = "Title not found",
       this.imgUrl = "",
@@ -303,7 +312,8 @@ class _Header extends StatelessWidget {
       this.tripDuration = "N/a"});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, ref) {
+    final likeStatus = ref.watch(favoriteViewModelProvider);
     return Padding(
       padding: const EdgeInsets.only(bottom: 16.0),
       child: Column(
@@ -387,12 +397,20 @@ class _Header extends StatelessWidget {
                           fontSize: 16, fontWeight: semibold),
                     ),
                     const Spacer(),
-                    LikeButton(
-                      onTap: (status) {
-                        debugPrint("Like button tapped");
-                        return Future(() => false);
-                      },
-                    )
+                    likeStatus.value == null
+                        ? Container()
+                        : LikeButton(
+                            isLiked: likeStatus.value ?? false,
+                            onTap: (status) async {
+                              await ref
+                                  .read(favoriteViewModelProvider.notifier)
+                                  .toggleFavorite(productId);
+                              return ref
+                                      .read(favoriteViewModelProvider)
+                                      .value ??
+                                  false;
+                            },
+                          )
                   ],
                 ),
                 const SizedBox(

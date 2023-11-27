@@ -7,10 +7,8 @@ final notificationRepositoryProvider = Provider((ref) =>
     NotificationRepositoryImpl(notificationRemote: NotificationMock()));
 
 class NotificationRepositoryImpl implements NotificationRepository {
-  final NotificationMock _notificationRemote;
 
-  NotificationRepositoryImpl({required NotificationMock notificationRemote})
-      : _notificationRemote = notificationRemote;
+  NotificationRepositoryImpl({required NotificationMock notificationRemote});
 
   @override
   Future<NotificationEntity> getNotification() {
@@ -20,8 +18,6 @@ class NotificationRepositoryImpl implements NotificationRepository {
 
   @override
   Future<List<NotificationEntity>> getNotifications() async {
-    final notifications = await _notificationRemote.getNotification();
-    final entity = notifications.map((e) => e.toEntity()).toList();
     return [];
   }
 

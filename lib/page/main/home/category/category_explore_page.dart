@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rinjani_visitor/core/exception/exception.dart';
-import 'package:rinjani_visitor/features/product/domain/category_enum.dart';
 import 'package:rinjani_visitor/features/product/presentation/view_model/category.dart';
 import 'package:rinjani_visitor/page/product/product_detail_page.dart';
 import 'package:rinjani_visitor/core/presentation/theme/theme.dart';
