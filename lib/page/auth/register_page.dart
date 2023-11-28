@@ -43,12 +43,13 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
 
   void _onFormSubmit() async {
     await authNotifier.register(
-        _usernameTxtController.text,
-        _emailTxtController.text,
-        _countryTxtController.text,
-        _phoneNumberTxtController.text,
-        _passwordTxtController.text,
-        _confirmPasswordTxtController.text);
+      _usernameTxtController.text,
+      _emailTxtController.text,
+      _countryTxtController.text,
+      _phoneNumberTxtController.text,
+      _passwordTxtController.text,
+      _confirmPasswordTxtController.text,
+    );
 
     final state = ref.read(authViewModelProvider);
 
@@ -173,13 +174,13 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
                         label: 'Confirm password',
                         secureText: true,
                         textInputAction: TextInputAction.done,
-                        controller: _passwordTxtController,
+                        controller: _confirmPasswordTxtController,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return "Password required";
                           }
                           if (value != _passwordTxtController.text) {
-                            return "Password shoulsd be same";
+                            return "Password should be same";
                           }
                           return null;
                         },
