@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:developer' as developer;
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rinjani_visitor/features/authentication/presentation/view_model/auth.dart';
 import 'package:rinjani_visitor/features/product/data/product_repository_impl.dart';
@@ -14,8 +15,8 @@ class RecommendedProductViewModel extends AsyncNotifier<List<ProductEntity>> {
   ProductRespository get repository => ref.read(productRepositoryProvider);
   AuthViewModel get authData => ref.read(authViewModelProvider.notifier);
 
-  Future<List<ProductEntity>> get _getProducts async => await repository
-      .getProducts(authData.state.value!.toAccessTokenAuthorization());
+  Future<List<ProductEntity>> get _getProducts async =>
+      await repository.getProducts(authData.getAccessToken()!);
   @override
   FutureOr<List<ProductEntity>> build() async {
     final packages = await _getProducts;

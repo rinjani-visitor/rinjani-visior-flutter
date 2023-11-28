@@ -1,18 +1,19 @@
 // ignore_for_file: constant_identifier_names
 import 'dart:developer' as developer;
 import 'dart:io';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rinjani_visitor/core/exception/exception.dart';
 import 'package:rinjani_visitor/core/presentation/services/dio_service.dart';
+import 'package:rinjani_visitor/features/authentication/data/models/request/login.dart';
+import 'package:rinjani_visitor/features/authentication/data/models/request/register.dart';
 import 'package:rinjani_visitor/features/authentication/data/models/request/reset.dart';
 import 'package:rinjani_visitor/features/authentication/data/models/request/update_user_detail.dart';
 import 'package:rinjani_visitor/features/authentication/data/source/local.dart';
 import 'package:rinjani_visitor/features/authentication/data/source/remote.dart';
-import 'package:rinjani_visitor/features/authentication/data/models/request/login.dart';
-import 'package:rinjani_visitor/features/authentication/data/models/request/register.dart';
-import 'package:rinjani_visitor/features/authentication/domain/entity/auth_detail.dart';
-import 'package:rinjani_visitor/features/authentication/domain/repo/auth_repository.dart';
 import 'package:rinjani_visitor/features/authentication/domain/entity/auth.dart';
+import 'package:rinjani_visitor/features/authentication/domain/entity/auth_detail.dart';
+import 'package:rinjani_visitor/features/authentication/domain/repo/auth.dart';
 
 final authRepositoryProvider = Provider((ref) => AuthRepositoryImpl(
     localSource: ref.read(authLocalSourceProvider),

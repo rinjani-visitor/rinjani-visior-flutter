@@ -1,9 +1,10 @@
 import 'dart:async';
 import 'dart:developer' as developer;
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rinjani_visitor/features/authentication/data/repo.dart';
-import 'package:rinjani_visitor/features/authentication/domain/repo/auth_repository.dart';
 import 'package:rinjani_visitor/features/authentication/domain/entity/auth.dart';
+import 'package:rinjani_visitor/features/authentication/domain/repo/auth.dart';
 
 final authViewModelProvider =
     AsyncNotifierProvider<AuthViewModel, AuthEntity?>(() => AuthViewModel());
@@ -61,5 +62,13 @@ class AuthViewModel extends AsyncNotifier<AuthEntity?> {
     final data = await repository.resetPassword(email: email);
     state = temp;
     return data;
+  }
+
+  /// get access token from authViewModel for any provider that can't access
+  /// into [AsyncValue] state data
+  ///
+  /// this function with return "Bearer accessToken" if token exist
+  String? getAccessToken() {
+    return state.value?.toAccessTokenAuthorization();
   }
 }

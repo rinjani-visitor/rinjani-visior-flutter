@@ -1,11 +1,8 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
-import 'package:http_parser/http_parser.dart';
 import 'package:retrofit/http.dart';
 import 'package:rinjani_visitor/core/constant/network.dart';
-import 'package:rinjani_visitor/features/order/data/models/request/set_payment_method.dart';
-import 'package:rinjani_visitor/features/order/data/models/response/booking.dart';
 import 'package:rinjani_visitor/features/order/data/models/response/order.dart';
 import 'package:rinjani_visitor/features/order/data/models/response/update_payment.dart';
 import 'package:rinjani_visitor/features/order/data/models/response/upload_payment.dart';
@@ -44,6 +41,7 @@ abstract class RemoteOrderSource {
 
   @GET("/api/order")
   Future<OrderResponse> getOrders(@Header("Authorization") String token);
+
   @PATCH("/api/order/{orderId}")
   Future<OrderResponse> cancelOrder(
     @Header("Authorization") String token,

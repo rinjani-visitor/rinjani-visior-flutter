@@ -1,22 +1,22 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:rinjani_visitor/core/exception/exception.dart';
 import 'package:rinjani_visitor/core/presentation/utils/internationalization.dart';
 import 'package:rinjani_visitor/features/authentication/presentation/view_model/auth.dart';
 import 'package:rinjani_visitor/features/booking/data/repo.dart';
 import 'package:rinjani_visitor/features/booking/domain/entitiy/booking_form.dart';
-import 'package:rinjani_visitor/features/booking/domain/entitiy/booking_form_status.dart';
 import 'package:rinjani_visitor/features/booking/domain/repository/booking.dart';
 import 'package:rinjani_visitor/features/product/domain/entity/product.dart';
 
 final bookingFormViewModelProvider =
     AutoDisposeNotifierProvider<BookingFormViewModel, BookingFormEntity>(
-        () => BookingFormViewModel());
+  BookingFormViewModel.new,
+);
 
 class BookingFormViewModel extends AutoDisposeNotifier<BookingFormEntity> {
-  // ignore: unused_field
-  BookingRepository get bookingRepository =>
-      ref.read(bookingRepositoryProvider);
+  BookingRepository get bookingRepository => ref.read(
+        bookingRepositoryProvider,
+      );
+
   AuthViewModel get authData => ref.read(authViewModelProvider.notifier);
 
   @override
@@ -28,6 +28,20 @@ class BookingFormViewModel extends AutoDisposeNotifier<BookingFormEntity> {
       totalPersons: "",
       userId: "",
     );
+  }
+
+  void setupEditBooking(String bookingId) async {
+    final token = authData.getAccessToken();
+    final bookingDetail =
+        await bookingRepository.getBookingDetail(token!, bookingId);
+    final form = BookingFormEntity(
+      userId: bookingDetail.userId,
+      productId: bookingDetail.productId,
+      startDateTime: bookingDetail.startDateTime ?? DateTime.now(),
+      addOns: bookingDetail.addOns?.split(",") ?? [],
+      totalPersons: bookingDetail.totalPersons.toString() ?? "",
+    );
+    state = form;
   }
 
   void reset() {

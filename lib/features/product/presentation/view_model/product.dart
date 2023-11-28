@@ -15,8 +15,7 @@ class ProductViewModel extends AutoDisposeAsyncNotifier<List<ProductEntity>> {
   AuthViewModel get authData => ref.read(authViewModelProvider.notifier);
   @override
   FutureOr<List<ProductEntity>> build() async {
-    final packages = await repository
-        .getProducts(authData.state.value!.toAccessTokenAuthorization());
+    final packages = await repository.getProducts(authData.getAccessToken()!);
     return packages;
   }
 }

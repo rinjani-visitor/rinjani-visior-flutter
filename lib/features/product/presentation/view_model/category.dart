@@ -22,7 +22,6 @@ class ProductCategoryViewModel
   FutureOr<void> getProductCategory(String category) async {
     state = const AsyncLoading();
     state = await AsyncValue.guard(() async => await repository.getProducts(
-        authData.state.value!.toAccessTokenAuthorization(),
-        category: category));
+        authData.getAccessToken()!, category: category));
   }
 }
