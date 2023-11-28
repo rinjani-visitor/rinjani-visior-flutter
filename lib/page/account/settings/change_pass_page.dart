@@ -33,7 +33,7 @@ class _ChangePassPageState extends ConsumerState<ChangePassPage> {
             child: Column(
               children: [
                 const Text(
-                  'Enter your email to change your password',
+                  'Enter your new password to change your password',
                 ),
                 SizedBox(
                   width: double.infinity,
@@ -58,6 +58,18 @@ class _ChangePassPageState extends ConsumerState<ChangePassPage> {
                     secureText: true,
                   ),
                 ),
+                InputFormField(
+                  controller: _confirmPasswordController,
+                  label: "Confirm Password",
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'Confirm Password cannot be empty';
+                    } else if (value != _passwordController.text) {
+                      return 'Confirm Password must be same with Password';
+                    }
+                    return null;
+                  },
+                ),
                 const Spacer(),
                 TextButton(
                     onPressed: () {
@@ -65,7 +77,7 @@ class _ChangePassPageState extends ConsumerState<ChangePassPage> {
                           .read(authDetailViewModelProvider.notifier)
                           .updateUserDetail(
                             password: _passwordController.text,
-                            confirmPassword: _passwordController.text,
+                            confirmPassword: _confirmPasswordController.text,
                           );
                       Navigator.pop(context);
                     },
