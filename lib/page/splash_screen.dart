@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:rinjani_visitor/features/authentication/presentation/view_model/auth.dart';
 import 'package:rinjani_visitor/core/presentation/theme/theme.dart';
 
@@ -36,6 +37,11 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
     if (_state is AsyncData) {
       WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
         syncToken();
+      });
+    } else if (_state is AsyncError) {
+      WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+        Fluttertoast.showToast(msg: (_state as AsyncError).error.toString());
+        Navigator.pushReplacementNamed(context, '/login');
       });
     }
     return Scaffold(
