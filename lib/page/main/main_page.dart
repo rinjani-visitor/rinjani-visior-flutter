@@ -12,43 +12,44 @@ class MainPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CupertinoTabScaffold(
-        tabBar: CupertinoTabBar(
-            inactiveColor: lightGray,
-            activeColor: primaryColor,
-            items: const [
-              BottomNavigationBarItem(
-                icon: Icon(
-                  Icons.home,
-                ),
-                label: 'home',
+      tabBar: CupertinoTabBar(
+          inactiveColor: lightGray,
+          activeColor: primaryColor,
+          items: const [
+            BottomNavigationBarItem(
+              icon: Icon(
+                Icons.home,
               ),
-              BottomNavigationBarItem(
-                  icon: Icon(
-                    Icons.calendar_month,
-                  ),
-                  label: 'Events'),
-              BottomNavigationBarItem(
-                  icon: Icon(
-                    Icons.favorite_border,
-                  ),
-                  label: 'Wishlist'),
-              BottomNavigationBarItem(
-                  icon: Icon(
-                    Icons.person,
-                  ),
-                  label: 'Account'),
-            ]),
-        tabBuilder: (context, index) {
-          switch (index) {
-            case 1:
-              return const EventPage();
-            case 2:
-              return const WishlistPage();
-            case 3:
-              return const AccountPage();
-            default:
-              return const HomePage();
-          }
-        });
+              label: 'home',
+            ),
+            BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.calendar_month,
+                ),
+                label: 'Events'),
+            BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.favorite_border,
+                ),
+                label: 'Wishlist'),
+            BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.person,
+                ),
+                label: 'Account'),
+          ]),
+      tabBuilder: (context, index) {
+        switch (index) {
+          case 1:
+            return const EventPage();
+          case 2:
+            return const WishlistPage();
+          case 3:
+            return const AccountPage();
+          default:
+            return const HomePage();
+        }
+      },
+    );
   }
 }

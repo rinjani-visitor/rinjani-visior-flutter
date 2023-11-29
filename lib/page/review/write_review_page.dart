@@ -44,10 +44,10 @@ class _WriteReviewPageState extends ConsumerState<WriteReviewPage> {
                 ),
                 RatingSelector(
                     rating: 5,
-                    currentRating: review.reviewScore ?? 0,
+                    currentRating: review.rating ?? 0,
                     onStarTapped: (val) {
                       setState(() {
-                        review.reviewScore = val;
+                        review.rating = val;
                       });
                     }),
                 const SizedBox(height: 16.0),
@@ -58,7 +58,7 @@ class _WriteReviewPageState extends ConsumerState<WriteReviewPage> {
                 PrimaryButton(
                     child: const Text("Submit Review"),
                     onPressed: () {
-                      review.content = _reviewController.text;
+                      review.messageReview = _reviewController.text;
                       ref
                           .read(writeReviewViewModelProvider.notifier)
                           .sendReview();
