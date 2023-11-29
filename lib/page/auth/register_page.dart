@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:country_picker/country_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -199,7 +201,7 @@ class _FormBodyState extends ConsumerState<_FormBody> {
               if (value == null || value.isEmpty) {
                 return "Password required";
               }
-              if (value != _passwordTxtController.text) {
+              if (_passwordTxtController.text.compareTo(value) != 0) {
                 return "Password should be same";
               }
               return null;
