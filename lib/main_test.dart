@@ -37,7 +37,7 @@ class MyApp extends StatelessWidget {
       theme: CupertinoThemeData(
         brightness: Brightness.light,
       ),
-      home: WriteReviewPage(),
+      home: WriteReviewPage(""),
     );
   }
 }

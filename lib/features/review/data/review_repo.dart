@@ -18,7 +18,7 @@ class ReviewRepositoryImpl implements ReviewRepository {
 
   ReviewRepositoryImpl({required this.remote});
   @override
-  Future<void> createReview(String token, ReviewForm entity) async {
+  Future<String?> createReview(String token, ReviewForm entity) async {
     try {
       final request = PostReviewRequest(
         orderId: entity.orderId,
@@ -26,6 +26,7 @@ class ReviewRepositoryImpl implements ReviewRepository {
         rating: entity.rating.toString(),
       );
       final result = await remote.postReview(token, request);
+      return result.message;
     } on Exception catch (e) {
       throw ExtException.fromDioException(e);
     }

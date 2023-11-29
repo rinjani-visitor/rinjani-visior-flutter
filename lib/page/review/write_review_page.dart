@@ -8,7 +8,8 @@ import 'package:rinjani_visitor/core/widget/form/input_field.dart';
 import '_widgets/rating.dart';
 
 class WriteReviewPage extends ConsumerStatefulWidget {
-  const WriteReviewPage({super.key});
+  final String orderId;
+  const WriteReviewPage(this.orderId, {super.key});
 
   @override
   ConsumerState<WriteReviewPage> createState() => _WriteReviewPageState();
@@ -25,7 +26,7 @@ class _WriteReviewPageState extends ConsumerState<WriteReviewPage> {
 
   @override
   Widget build(BuildContext context) {
-    final review = ref.watch(writeReviewViewModelProvider);
+    final review = ref.watch(reviewFormViewModelProvider);
     return CupertinoPageScaffold(
         backgroundColor: CupertinoColors.systemGrey6,
         navigationBar: const CupertinoNavigationBar(
@@ -44,7 +45,7 @@ class _WriteReviewPageState extends ConsumerState<WriteReviewPage> {
                 ),
                 RatingSelector(
                     rating: 5,
-                    currentRating: review.rating ?? 0,
+                    currentRating: review.rating,
                     onStarTapped: (val) {
                       setState(() {
                         review.rating = val;
@@ -53,6 +54,12 @@ class _WriteReviewPageState extends ConsumerState<WriteReviewPage> {
                 const SizedBox(height: 16.0),
                 InputFormField(
                   controller: _reviewController,
+                  validator: (val) {
+                    if (val!.isEmpty) {
+                      return "Please write your review";
+                    }
+                    return null;
+                  },
                   label: "Write your review here",
                 ),
                 PrimaryButton(
@@ -60,7 +67,7 @@ class _WriteReviewPageState extends ConsumerState<WriteReviewPage> {
                     onPressed: () {
                       review.messageReview = _reviewController.text;
                       ref
-                          .read(writeReviewViewModelProvider.notifier)
+                          .read(reviewFormViewModelProvider.notifier)
                           .sendReview();
                       Navigator.pop(context);
                     })
