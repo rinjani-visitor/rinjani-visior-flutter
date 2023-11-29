@@ -76,10 +76,12 @@ class ExtException implements Exception {
       if (exception is DioException) {
         // parse errors from List<String> to "string, string2, etc"
         final errors =
-            List<String>.from(exception.response?.data["errors"] ?? []);
-        final errorsFull = errors != null ? errors.join(", ") : "";
+            (exception.response?.data["errors"] as List<dynamic>?);
+            final stringifyErrors = errors?.map((e) => e.toString()).toList();
+        final errorsFull = stringifyErrors != null ? stringifyErrors.join(", ") : "";
         String errorMessage = errorsFull;
-
+        developer.log(errorMessage,
+            name: "ExtException.fromDioException", error: exception);
         var code = exception.response?.statusCode;
         ExceptionType exceptionType = ExceptionType.unrecognizedException;
         switch (exception.type) {
@@ -100,12 +102,9 @@ class ExtException implements Exception {
             exceptionType = ExceptionType.socketException;
             break;
           case DioExceptionType.badResponse:
-            errorMessage =
-                "Bad response, ${exception.response?.data["message"].toString()}";
             exceptionType = ExceptionType.badResponseException;
             break;
           case DioExceptionType.cancel:
-            errorMessage += "${exception.message}";
             exceptionType = ExceptionType.cancelException;
             break;
           case DioExceptionType.badCertificate:
@@ -120,8 +119,8 @@ class ExtException implements Exception {
             }
             break;
           default:
-            errorMessage += "${exception.response?.data["message"].toString()}";
             exceptionType = ExceptionType.unrecognizedException;
+            break;
         }
         return ExtException(
             exceptionType: exceptionType,
