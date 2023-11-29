@@ -39,7 +39,7 @@ class BookingFormViewModel extends AutoDisposeNotifier<BookingFormEntity> {
       productId: bookingDetail.productId,
       startDateTime: bookingDetail.startDateTime ?? DateTime.now(),
       addOns: bookingDetail.addOns?.split(",") ?? [],
-      totalPersons: bookingDetail.totalPersons.toString() ?? "",
+      totalPersons: bookingDetail.totalPersons.toString(),
     );
     state = form;
   }

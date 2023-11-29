@@ -12,11 +12,10 @@ final authViewModelProvider =
 class AuthViewModel extends AsyncNotifier<AuthEntity?> {
   // ignore: constant_identifier_names
   static const NAME = "AuthRiverpod";
-  late final AuthRepository repository;
+  AuthRepository get repository => ref.read(authRepositoryProvider);
 
   @override
   FutureOr<AuthEntity?> build() async {
-    repository = ref.read(authRepositoryProvider);
     final authEntity = await repository.getSavedSession();
     developer.log("auth entity: ${authEntity.toString()}");
     if (authEntity == null) {
@@ -55,13 +54,19 @@ class AuthViewModel extends AsyncNotifier<AuthEntity?> {
     developer.log("value ${state.asData?.value.toString()}");
   }
 
-  FutureOr<String?> resetPassword(String email) async {
+  Future<String?> resetPassword(String email) async {
     final temp = state;
     state = const AsyncLoading();
     developer.log("$NAME : Reset Password emitted");
-    final data = await repository.resetPassword(email: email);
-    state = temp;
-    return data;
+    try {
+      final data = await repository.resetPassword(email: email);
+      state = temp;
+      return data;
+    } catch (e) {
+      developer.log("error: ${e.toString()}");
+      state = temp;
+      return e.toString();
+    }
   }
 
   /// get access token from authViewModel for any provider that can't access

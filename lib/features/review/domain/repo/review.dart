@@ -1,9 +1,6 @@
 import 'package:rinjani_visitor/features/review/domain/entity/review.dart';
+import 'package:rinjani_visitor/features/review/domain/entity/review_form.dart';
 
 abstract class ReviewRepository {
-  Future<void> createReview(ReviewEntity entity);
-  Future<ReviewEntity> getReview(String reviewId);
-  Future<ReviewEntity> getReviews(String packageId);
-  Future<ReviewEntity> deleteReview(String reviewId);
-  Future<void> changeReview(ReviewEntity modifiedReview);
+  Future<void> createReview(String token, ReviewForm entity);
 }

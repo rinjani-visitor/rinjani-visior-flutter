@@ -5,7 +5,7 @@ part 'register.g.dart';
 @JsonSerializable()
 class RegisterRequest {
   final String? email;
-  final String? username;
+  final String? name;
   final String? password;
   final String? confirmPassword;
   final String? phone;
@@ -13,7 +13,7 @@ class RegisterRequest {
 
   const RegisterRequest(
       {this.email,
-      this.username,
+      this.name,
       this.password,
       this.phone,
       this.country,

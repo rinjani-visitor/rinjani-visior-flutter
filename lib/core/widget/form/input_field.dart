@@ -80,6 +80,7 @@ class InputFormField extends FormField<String> {
       String? label,
       String super.initialValue = "",
       bool secureText = false,
+      bool? enabled,
       String? placeholder,
       TextEditingController? controller,
       List<TextInputFormatter>? inputFormatters,
@@ -109,6 +110,7 @@ class InputFormField extends FormField<String> {
                 autoFillHints: autoFillHints,
                 textInputAction: textInputAction,
                 inputFormatters: inputFormatters,
+                enabled: enabled,
               ),
               Text(
                 (state.hasError ? state.errorText : "") ?? "",

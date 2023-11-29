@@ -4,8 +4,8 @@ part 'reset.g.dart';
 
 @JsonSerializable()
 class ResetResponse {
-  final List<String> errors;
-  final String message;
+  final List<String>? errors;
+  final String? message;
   ResetResponse({required this.errors, required this.message});
 
   factory ResetResponse.fromJson(Map<String, dynamic> json) =>

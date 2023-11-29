@@ -45,7 +45,7 @@ class AuthRepositoryImpl implements AuthRepository {
       developer.log(
           "values: email - $email, country - $country, phone - $phone, password - ${password.isNotEmpty}");
       final request = RegisterRequest(
-          username: username,
+          name: username,
           email: email,
           country: country,
           password: password,

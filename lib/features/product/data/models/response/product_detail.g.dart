@@ -80,6 +80,24 @@ Map<String, dynamic> _$ProductDetailBodyToJson(ProductDetailBody instance) =>
       'reviews': instance.reviews,
     };
 
+ReviewResBody _$ReviewResBodyFromJson(Map<String, dynamic> json) =>
+    ReviewResBody(
+      messageReview: json['messageReview'] as String?,
+      rating: json['rating'] as String?,
+      createdAt: json['createdAt'] as String?,
+      name: json['name'] as String?,
+      profilPicture: json['profilPicture'] as String?,
+    );
+
+Map<String, dynamic> _$ReviewResBodyToJson(ReviewResBody instance) =>
+    <String, dynamic>{
+      'messageReview': instance.messageReview,
+      'rating': instance.rating,
+      'createdAt': instance.createdAt,
+      'name': instance.name,
+      'profilPicture': instance.profilPicture,
+    };
+
 Fotos _$FotosFromJson(Map<String, dynamic> json) => Fotos(
       fotoId: json['fotoId'] as int?,
       url: json['url'] as String?,

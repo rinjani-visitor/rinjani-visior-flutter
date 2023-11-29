@@ -97,6 +97,27 @@ class ProductDetailBody {
 }
 
 @JsonSerializable()
+class ReviewResBody {
+  final String? messageReview;
+  final String? rating;
+  final String? createdAt;
+  final String? name;
+  final String? profilPicture;
+  ReviewResBody({
+    this.messageReview,
+    this.rating,
+    this.createdAt,
+    this.name,
+    this.profilPicture,
+  });
+
+  factory ReviewResBody.fromJson(Map<String, dynamic> json) =>
+      _$ReviewResBodyFromJson(json);
+
+  Map<String, dynamic> toJson() => _$ReviewResBodyToJson(this);
+}
+
+@JsonSerializable()
 class Fotos {
   int? fotoId;
   String? url;
