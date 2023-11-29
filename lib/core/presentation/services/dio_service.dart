@@ -25,8 +25,8 @@ final _logInterceptor = InterceptorsWrapper(
   },
   onError: (e, handler) {
     developer.log(
-        "ERROR[${e.response?.statusCode}] => PATH: ${e.requestOptions.path}");
-    developer.log("BODY[${e.response?.data.toString()}]");
+        "ERROR[${e.response?.statusCode}]");
+    developer.log("BODY = ${e.response?.data.toString()}");
 
     return handler.next(ExtException.fromDioException(e));
   },

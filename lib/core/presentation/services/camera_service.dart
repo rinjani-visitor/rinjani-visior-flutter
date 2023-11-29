@@ -4,8 +4,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
 
-class CameraService extends StateNotifier<File?> {
-  CameraService() : super(null);
+class CameraService extends Notifier<File?> {
+  @override
+  File? build() {
+    return null;
+  }
 
   Future<File?> openCamera() async {
     if (await Permission.camera.request().isDenied) {
@@ -38,4 +41,4 @@ class CameraService extends StateNotifier<File?> {
 
 /// provide list of avaiable camera that ready to use
 final cameraServiceProvider =
-    StateNotifierProvider<CameraService, File?>((ref) => CameraService());
+    NotifierProvider<CameraService, File?>(CameraService.new);
