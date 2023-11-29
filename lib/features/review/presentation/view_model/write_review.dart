@@ -1,7 +1,7 @@
 import 'dart:developer' as developer;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rinjani_visitor/features/authentication/presentation/view_model/auth.dart';
-import 'package:rinjani_visitor/features/review/data/review_repo.dart';
+import 'package:rinjani_visitor/features/review/data/repository_impl.dart';
 import 'package:rinjani_visitor/features/review/domain/entity/review_form.dart';
 import 'package:rinjani_visitor/features/review/domain/repo/review.dart';
 

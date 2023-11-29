@@ -1,6 +1,6 @@
 import 'dart:developer' as developer;
 import 'package:dio/dio.dart';
-import 'package:flutter/foundation.dart';
+import 'package:image_picker/image_picker.dart';
 
 enum ExceptionType {
   /// The exception for a bad response from the api.
@@ -42,7 +42,7 @@ enum ExceptionType {
 }
 
 /// Extended exception, this should be used instead of generic exception
-class ExtException implements Exception {
+class ExtException extends DioException {
   final String? message;
   final String? errorMessage;
   final int? code;
@@ -53,6 +53,7 @@ class ExtException implements Exception {
     this.message,
     this.errorMessage,
     this.code,
+    required super.requestOptions,
   });
 
   @override
@@ -68,81 +69,65 @@ class ExtException implements Exception {
   /// message when convert using `toString` method. this class is really useful for
   /// create error message at flutter pages / screen using toast or equivalent
   /// without default "Exception:" text _shenaigans_.
-  factory ExtException.fromDioException(Object exception) {
+  factory ExtException.fromDioException(DioException ex) {
     developer.log("Raw Error Catched",
-        name: "ExtException.fromDioException", error: exception);
+        name: "ExtException.fromDioException", error: ex);
     var message = "";
-    try {
-      if (exception is DioException) {
-        // parse errors from List<String> to "string, string2, etc"
-        final errors =
-            (exception.response?.data["errors"] as List<dynamic>?);
-            final stringifyErrors = errors?.map((e) => e.toString()).toList();
-        final errorsFull = stringifyErrors != null ? stringifyErrors.join(", ") : "";
-        String errorMessage = errorsFull;
-        developer.log(errorMessage,
-            name: "ExtException.fromDioException", error: exception);
-        var code = exception.response?.statusCode;
-        ExceptionType exceptionType = ExceptionType.unrecognizedException;
-        switch (exception.type) {
-          case DioExceptionType.connectionTimeout:
-            errorMessage += "Connection Timeout, cant reach server";
-            exceptionType = ExceptionType.connectTimeoutException;
-            break;
-          case DioExceptionType.receiveTimeout:
-            errorMessage += "Receive Timeout, it might be server problem";
-            exceptionType = ExceptionType.receiveTimeoutException;
-            break;
-          case DioExceptionType.sendTimeout:
-            errorMessage += "Send Timeout";
-            exceptionType = ExceptionType.sendTimeoutException;
-            break;
-          case DioExceptionType.connectionError:
-            errorMessage += "Connection Error, Device is Offline";
-            exceptionType = ExceptionType.socketException;
-            break;
-          case DioExceptionType.badResponse:
-            exceptionType = ExceptionType.badResponseException;
-            break;
-          case DioExceptionType.cancel:
-            exceptionType = ExceptionType.cancelException;
-            break;
-          case DioExceptionType.badCertificate:
-            errorMessage += "Bad Certificate (?)";
-            exceptionType = ExceptionType.unrecognizedException;
-            break;
-          case DioExceptionType.unknown:
-            if (exception.response?.headers.value("code") == null) {
-              errorMessage +=
-                  exception.response?.data["message"].toString() ?? 'Unknown';
-              exceptionType = ExceptionType.unrecognizedException;
-            }
-            break;
-          default:
-            exceptionType = ExceptionType.unrecognizedException;
-            break;
+    // parse errors from List<String> to "string, string2, etc"
+    final errors = (ex.response?.data["errors"] as List<dynamic>?);
+    final stringifyErrors = errors != null ? errors.map((e) => e.toString()).toList() : null;
+    final errorsFull =
+        stringifyErrors != null ? stringifyErrors.join(", ") : "";
+    String errorMessage = errorsFull;
+    developer.log(errorMessage, name: "ExtException.fromDioException");
+    var code = ex.response?.statusCode;
+    ExceptionType exceptionType = ExceptionType.unrecognizedException;
+    switch (ex.type) {
+      case DioExceptionType.connectionTimeout:
+        errorMessage += "Connection Timeout, cant reach server";
+        exceptionType = ExceptionType.connectTimeoutException;
+        break;
+      case DioExceptionType.receiveTimeout:
+        errorMessage += "Receive Timeout, it might be server problem";
+        exceptionType = ExceptionType.receiveTimeoutException;
+        break;
+      case DioExceptionType.sendTimeout:
+        errorMessage += "Send Timeout";
+        exceptionType = ExceptionType.sendTimeoutException;
+        break;
+      case DioExceptionType.connectionError:
+        errorMessage += "Connection Error, Device is Offline";
+        exceptionType = ExceptionType.socketException;
+        break;
+      case DioExceptionType.badResponse:
+        exceptionType = ExceptionType.badResponseException;
+        break;
+      case DioExceptionType.cancel:
+        exceptionType = ExceptionType.cancelException;
+        break;
+      case DioExceptionType.badCertificate:
+        errorMessage += "Bad Certificate (?)";
+        exceptionType = ExceptionType.unrecognizedException;
+        break;
+      case DioExceptionType.unknown:
+        if (ex.response?.headers.value("code") == null) {
+          errorMessage += ex.response?.data["message"].toString() ?? 'Unknown';
+          exceptionType = ExceptionType.unrecognizedException;
         }
-        return ExtException(
-            exceptionType: exceptionType,
-            message: message,
-            errorMessage: errorMessage,
-            code: code);
-      }
-    } on Exception catch (e) {
-      developer.log("Exception Catched",
-          name: "ExtException.fromDioException", error: e);
-      return ExtException(
-          exceptionType: ExceptionType.unrecognizedException,
-          message: e.toString());
+        else if (ex.response?.statusCode == 200) {
+          errorMessage += "Unknown Error from API";
+          exceptionType = ExceptionType.tokenExpiredException;
+        }
+        break;
+      default:
+        exceptionType = ExceptionType.unrecognizedException;
+        break;
     }
     return ExtException(
-        exceptionType: ExceptionType.unrecognizedException,
-        message: exception.toString());
-  }
-
-  factory ExtException.fromParsingException(Exception error) {
-    return ExtException(
-        exceptionType: ExceptionType.serializationException,
-        message: "Failed to parse data, ${error.toString()}");
+        exceptionType: exceptionType,
+        message: message,
+        errorMessage: errorMessage,
+        requestOptions: ex.requestOptions,
+        code: code);
   }
 }

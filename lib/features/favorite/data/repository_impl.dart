@@ -14,28 +14,20 @@ class FavoriteRepositoryImpl extends FavoriteRepository {
   @override
   Future<List<FavoriteEntity>> getFavorites(String token) async {
     developer.log("Get Favorites", name: runtimeType.toString());
-    try {
       final result = await remote.getFavorites(token: token);
       if(result.data == null) return [];
       final list = result.data!.map((e) => e.toEntity()).toList();
       return list;
-    } catch(e) {
-      throw ExtException.fromDioException(e);
-    }
   }
 
   @override
   Future<bool?> toggleFavorite(String token, String productId) async {
-  try {
     final body = ToggleFavoriteRequest(productId: productId);
     final result = await remote.toggleFavourites(token: token, body: body);
     if(result.data != null) {
         return true;
       }
       return false;
-  } catch(e) {
-    throw ExtException.fromDioException(e);
-  }
   }
 }
 

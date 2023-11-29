@@ -21,25 +21,21 @@ class BookingRepositoryImpl implements BookingRepository {
   @override
   Future<BookingFormStatus> createBooking(
       String token, String userId, BookingFormEntity booking) async {
-    try {
-      final body = PostBookingRequest(
-        productId: booking.product!.id,
-        userId: userId,
-        startDateTime: booking.startDateTime.toIso8601String(),
-        endDateTime: booking.endDateTime?.toIso8601String(),
-        addOns: booking.addOns.join(', '),
-        offeringPrice: booking.offeringPrice.toString(),
-        totalPersons: booking.totalPersons,
-      );
-      final result = await remote.createBooking(token, body);
-      final response = BookingFormStatus(
-        status: result.errors != null || result.errors!.isNotEmpty,
-        message: result.message,
-      );
-      return response;
-    } catch (e) {
-      throw ExtException.fromDioException(e);
-    }
+    final body = PostBookingRequest(
+      productId: booking.product!.id,
+      userId: userId,
+      startDateTime: booking.startDateTime.toIso8601String(),
+      endDateTime: booking.endDateTime?.toIso8601String(),
+      addOns: booking.addOns.join(', '),
+      offeringPrice: booking.offeringPrice.toString(),
+      totalPersons: booking.totalPersons,
+    );
+    final result = await remote.createBooking(token, body);
+    final response = BookingFormStatus(
+      status: result.errors != null || result.errors!.isNotEmpty,
+      message: result.message,
+    );
+    return response;
   }
 
   @override
@@ -50,22 +46,14 @@ class BookingRepositoryImpl implements BookingRepository {
 
   @override
   Future<BookingDetailEntity> getBookingDetail(String token, String id) async {
-    try {
-      final result = await remote.getBookingDetail(token, id);
-      return result.toEntity();
-    } catch (e) {
-      throw ExtException.fromDioException(e);
-    }
+    final result = await remote.getBookingDetail(token, id);
+    return result.toEntity();
   }
 
   @override
   Future<List<BookingEntity>> getBookings(String token) async {
-    try {
-      final result = await remote.getBookings(token);
-      return result.toEntity() ?? [];
-    } catch (e) {
-      throw ExtException.fromDioException(e);
-    }
+    final result = await remote.getBookings(token);
+    return result.toEntity() ?? [];
   }
 
   @override

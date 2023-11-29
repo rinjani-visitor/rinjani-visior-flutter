@@ -4,7 +4,7 @@ import 'dart:io';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:rinjani_visitor/features/authentication/data/repo.dart';
+import 'package:rinjani_visitor/features/authentication/data/repository_impl.dart';
 import 'package:rinjani_visitor/features/authentication/domain/entity/auth_detail.dart';
 import 'package:rinjani_visitor/features/authentication/domain/repo/auth.dart';
 import 'package:rinjani_visitor/features/authentication/presentation/view_model/auth.dart';

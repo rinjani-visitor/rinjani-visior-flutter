@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rinjani_visitor/core/presentation/utils/internationalization.dart';
 import 'package:rinjani_visitor/features/authentication/presentation/view_model/auth.dart';
-import 'package:rinjani_visitor/features/booking/data/repo.dart';
+import 'package:rinjani_visitor/features/booking/data/repository_impl.dart';
 import 'package:rinjani_visitor/features/booking/domain/entitiy/booking_form.dart';
 import 'package:rinjani_visitor/features/booking/domain/repository/booking.dart';
 import 'package:rinjani_visitor/features/product/domain/entity/product.dart';

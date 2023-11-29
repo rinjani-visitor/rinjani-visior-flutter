@@ -2,6 +2,8 @@ import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'dart:developer' as developer;
 
+import 'package:rinjani_visitor/core/exception/exception.dart';
+
 final _baseOptions = BaseOptions(
   receiveTimeout: const Duration(seconds: 8),
   connectTimeout: const Duration(seconds: 8),
@@ -26,7 +28,7 @@ final _logInterceptor = InterceptorsWrapper(
         "ERROR[${e.response?.statusCode}] => PATH: ${e.requestOptions.path}");
     developer.log("BODY[${e.response?.data.toString()}]");
 
-    return handler.next(e);
+    return handler.next(ExtException.fromDioException(e));
   },
 );
 

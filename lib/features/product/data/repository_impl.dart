@@ -24,7 +24,6 @@ class ProductRepositoryImpl implements ProductRespository {
     String? query,
   }) async {
     developer.log("Get Product", name: runtimeType.toString());
-    try {
       final result = await remote.getProducts(
           token: token,
           title: query?.toString(),
@@ -33,9 +32,6 @@ class ProductRepositoryImpl implements ProductRespository {
           rating: rating?.toString());
       final list = result.data!.map((e) => e.toEntity()).toList();
       return list;
-    } catch (e) {
-      throw ExtException.fromDioException(e);
-    }
   }
 
   @override
@@ -46,16 +42,12 @@ class ProductRepositoryImpl implements ProductRespository {
   }) async {
     developer.log("Get Product Detail, $category $productId",
         name: runtimeType.toString());
-    try {
       final data = await remote.getProductDetail(
           token: token, category: category, id: productId);
       developer.log("Get Product Detail Done, ${data.data.title}",
           name: runtimeType.toString());
       final result = data.toEntity();
       return result;
-    } catch (e) {
-      throw ExtException.fromDioException(e);
-    }
   }
 
 }

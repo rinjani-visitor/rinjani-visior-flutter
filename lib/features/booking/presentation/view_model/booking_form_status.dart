@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:developer' as developer;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rinjani_visitor/features/authentication/presentation/view_model/auth.dart';
-import 'package:rinjani_visitor/features/booking/data/repo.dart';
+import 'package:rinjani_visitor/features/booking/data/repository_impl.dart';
 import 'package:rinjani_visitor/features/booking/domain/entitiy/booking_form.dart';
 import 'package:rinjani_visitor/features/booking/domain/entitiy/booking_form_status.dart';
 
