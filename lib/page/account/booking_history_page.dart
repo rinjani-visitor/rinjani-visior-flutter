@@ -10,15 +10,15 @@ import 'package:rinjani_visitor/page/review/write_review_page.dart';
 import 'package:rinjani_visitor/core/widget/button/primary_button.dart';
 import 'package:rinjani_visitor/core/widget/status.dart';
 
-class OrderHistoryPage extends ConsumerStatefulWidget {
-  const OrderHistoryPage({super.key});
+class BookingHistoryPage extends ConsumerStatefulWidget {
+  const BookingHistoryPage({super.key});
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
       _BookingHistoryPageState();
 }
 
-class _BookingHistoryPageState extends ConsumerState<OrderHistoryPage> {
+class _BookingHistoryPageState extends ConsumerState<BookingHistoryPage> {
   void _bookingHistoryTapped(String id) {}
 
   @override
@@ -35,7 +35,7 @@ class _BookingHistoryPageState extends ConsumerState<OrderHistoryPage> {
       child: SafeArea(
         child: RefreshIndicator.adaptive(
             onRefresh: () async {
-              await Future.delayed(const Duration(seconds: 2));
+              final result = await ref.refresh(bookingViewModelProvider);
             },
             child: switch (bookingData) {
               AsyncData(:final value) => ListView.builder(

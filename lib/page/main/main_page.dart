@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:rinjani_visitor/page/account/booking_history_page.dart';
 import 'package:rinjani_visitor/page/main/account/account_page.dart';
 import 'package:rinjani_visitor/page/main/event/event_page.dart';
 import 'package:rinjani_visitor/page/main/home/home_page.dart';
@@ -24,9 +25,9 @@ class MainPage extends StatelessWidget {
             ),
             BottomNavigationBarItem(
                 icon: Icon(
-                  Icons.calendar_month,
+                  Icons.list_alt_rounded,
                 ),
-                label: 'Events'),
+                label: 'Your Booking'),
             BottomNavigationBarItem(
                 icon: Icon(
                   Icons.favorite_border,
@@ -41,7 +42,7 @@ class MainPage extends StatelessWidget {
       tabBuilder: (context, index) {
         switch (index) {
           case 1:
-            return const EventPage();
+            return const BookingHistoryPage();
           case 2:
             return const WishlistPage();
           case 3:
