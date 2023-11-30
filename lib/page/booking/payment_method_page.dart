@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rinjani_visitor/core/presentation/theme/theme.dart';
 import 'package:rinjani_visitor/features/booking/presentation/view_model/booking_detail.dart';
 import 'package:rinjani_visitor/features/order/domain/entity/payment_method.dart';
-import 'package:rinjani_visitor/features/order/presentation/payment.dart';
+import 'package:rinjani_visitor/features/order/presentation/view_model/payment.dart';
 
 final paymentMethod = [
   {

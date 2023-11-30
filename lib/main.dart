@@ -2,9 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:rinjani_visitor/page/account/order_history.dart';
 import 'package:rinjani_visitor/page/main/booking/booking_history_page.dart';
 import 'package:rinjani_visitor/page/auth/forgot_password.dart';
 import 'package:rinjani_visitor/page/booking/booking_detail_page.dart';
@@ -75,6 +75,7 @@ class MyApp extends StatelessWidget {
         '/booking/history': (context) => const BookingHistoryPage(),
         '/booking/offer': (context) => const OfferStatusPage(),
         '/booking/payment': (context) => const ContinuePaymentPage(),
+        '/order': (context) => const OrderHistoryPage(),
       },
     );
   }
