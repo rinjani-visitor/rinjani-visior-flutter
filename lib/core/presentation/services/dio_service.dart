@@ -1,8 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'dart:developer' as developer;
 
-import 'package:rinjani_visitor/core/exception/exception.dart';
+import 'package:rinjani_visitor/core/presentation/interceptors/exception.dart';
+import 'package:rinjani_visitor/core/presentation/interceptors/logger.dart';
 
 final _baseOptions = BaseOptions(
   receiveTimeout: const Duration(seconds: 8),
@@ -10,30 +10,17 @@ final _baseOptions = BaseOptions(
   sendTimeout: const Duration(seconds: 8),
 );
 
-final _logInterceptor = InterceptorsWrapper(
-  onRequest: (options, handler) {
-    developer.log(
-        "REQUEST[${options.method}] => PATH: ${options.path}, ${options.data}");
-    developer.log("Authorization: ${options.headers["Authorization"]}");
-    return handler.next(options);
-  },
-  onResponse: (response, handler) {
-    developer.log(
-        "RESPONSE[${response.statusCode}] => PATH: ${response.requestOptions.path}");
-    developer.log("BODY[${response.data.toString()}]");
-    return handler.next(response);
-  },
-  onError: (e, handler) {
-    developer.log(
-        "ERROR[${e.response?.statusCode}]");
-    developer.log("BODY = ${e.response?.data.toString()}");
-
-    return handler.next(ExtException.fromDioException(e));
-  },
-);
-
 final dioServiceProvider = Provider((ref) {
   final dio = Dio(_baseOptions);
-  dio.interceptors.add(_logInterceptor);
+  dio.interceptors.add(LoggerInterceptor());
+  // dio.interceptors.add(ref.read(refreshTokenInterceptor));
+  dio.interceptors.add(ExceptionInterceptor());
+  return dio;
+});
+
+final authDioServiceProvider = Provider((ref) {
+  final dio = Dio(_baseOptions);
+  dio.interceptors.add(LoggerInterceptor());
+  dio.interceptors.add(ExceptionInterceptor());
   return dio;
 });

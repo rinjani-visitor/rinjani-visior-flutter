@@ -25,6 +25,19 @@ class AuthViewModel extends AsyncNotifier<AuthEntity?> {
     return data;
   }
 
+  FutureOr<void> refresh() async {
+    state = const AsyncLoading();
+    developer.log("$NAME : Refresh emitted");
+    state = await AsyncValue.guard(() async {
+      final data = await repository.refresh(state.value!);
+      return data;
+    });
+    developer.log("AuthEntity: ${state.asData.toString()}");
+    if (state.hasError) {
+      state = const AsyncData(null);
+    }
+  }
+
   FutureOr<void> logIn(String email, String password) async {
     state = const AsyncLoading();
     developer.log("$NAME : Login emitted");
@@ -75,5 +88,9 @@ class AuthViewModel extends AsyncNotifier<AuthEntity?> {
   /// this function with return "Bearer accessToken" if token exist
   String? getAccessToken() {
     return state.value?.toAccessTokenAuthorization();
+  }
+
+  String? getRefreshToken() {
+    return state.value?.toRefreshTokenAuthorization();
   }
 }
