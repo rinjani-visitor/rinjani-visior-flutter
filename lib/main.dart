@@ -5,7 +5,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:rinjani_visitor/page/account/booking_history_page.dart';
+import 'package:rinjani_visitor/page/main/booking/booking_history_page.dart';
 import 'package:rinjani_visitor/page/auth/forgot_password.dart';
 import 'package:rinjani_visitor/page/booking/booking_detail_page.dart';
 import 'package:rinjani_visitor/page/account/settings/change_email_page.dart';

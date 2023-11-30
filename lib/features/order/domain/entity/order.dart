@@ -1,23 +1,17 @@
 import 'package:rinjani_visitor/features/product/domain/entity/product.dart';
 
 class OrderEntity {
+  final String id;
+  final String title;
+  final int rating;
+  final String status;
+  final DateTime approvedAt;
+
   OrderEntity({
-    required this.date,
-    required this.time,
-    required this.addOn,
-    required this.person,
-    this.packageId,
-    this.product,
-    this.proofOfPayment,
+    required this.id,
+    required this.title,
+    required this.rating,
+    required this.status,
+    required this.approvedAt,
   });
-
-  int get totalPrice => (product?.lowestPrice ?? 1 * person);
-
-  String? packageId;
-  ProductDetailEntity? product;
-  int person;
-  String? proofOfPayment;
-  String date;
-  Set<String> time;
-  Set<String> addOn;
 }

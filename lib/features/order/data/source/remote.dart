@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:retrofit/http.dart';
 import 'package:rinjani_visitor/core/constant/network.dart';
-import 'package:rinjani_visitor/features/order/data/models/response/order.dart';
+import 'package:rinjani_visitor/features/order/data/models/response/get_order.dart';
 import 'package:rinjani_visitor/features/order/data/models/response/update_payment.dart';
 import 'package:rinjani_visitor/features/order/data/models/response/upload_payment.dart';
 
