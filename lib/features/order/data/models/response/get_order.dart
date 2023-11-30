@@ -41,6 +41,7 @@ class OrderResponseBody {
         title: title ?? "",
         rating: rating ?? 0,
         status: status ?? "",
+        location: location,
         approvedAt: DateTime.parse(
           orderApproveDate ?? "",
         ));

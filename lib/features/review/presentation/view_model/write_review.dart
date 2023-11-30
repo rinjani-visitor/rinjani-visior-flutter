@@ -6,8 +6,7 @@ import 'package:rinjani_visitor/features/review/domain/entity/review_form.dart';
 import 'package:rinjani_visitor/features/review/domain/repo/review.dart';
 
 final reviewFormViewModelProvider =
-    NotifierProvider<ReviewFormViewModel, ReviewForm>(
-        ReviewFormViewModel.new);
+    NotifierProvider<ReviewFormViewModel, ReviewForm>(ReviewFormViewModel.new);
 
 class ReviewFormViewModel extends Notifier<ReviewForm> {
   ReviewRepository get repository => ref.read(reviewRepositoryProvider);
@@ -35,7 +34,7 @@ class ReviewFormViewModel extends Notifier<ReviewForm> {
     );
   }
 
-  Future<String?> sendReview() async  {
+  Future<String?> sendReview() async {
     developer.log("sendReview", name: "ReviewFormViewModel");
     final token = authViewModel.getAccessToken();
     final result = await repository.createReview(token!, state);

@@ -18,7 +18,7 @@ import 'package:rinjani_visitor/features/authentication/domain/repo/auth.dart';
 
 final authRepositoryProvider = Provider((ref) => AuthRepositoryImpl(
     local: ref.read(authLocalSourceProvider),
-    remote: AuthRemoteSource(ref.read(dioServiceProvider))));
+    remote: AuthRemoteSource(ref.read(authDioServiceProvider))));
 
 class AuthRepositoryImpl implements AuthRepository {
   final AuthLocalSource local;
@@ -62,8 +62,8 @@ class AuthRepositoryImpl implements AuthRepository {
       {required String email, required String password}) async {
     developer.log("$NAME: Login..., email $email password $password");
 
-    final response = await remote
-        .logIn(LoginRequest(password: password, email: email));
+    final response =
+        await remote.logIn(LoginRequest(password: password, email: email));
     developer.log("Repository: new data from remote: ${response.toString()}");
     final result = response.toEntity();
     developer.log("Repository: entity: ${result.toString()}");
