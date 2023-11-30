@@ -20,7 +20,7 @@ class ProductDetailViewModel
 
   Future<void> getProductDetail(String category, String productId) async {
     state = const AsyncLoading();
-    state = await AsyncValue.guard(() async => await repository.getProductDetail(authData.getAccessToken()!,
-            category: category, productId: productId));
+    state = await AsyncValue.guard(() async => await repository
+        .getProductDetail(authData.getAccessToken()!, productId: productId));
   }
 }

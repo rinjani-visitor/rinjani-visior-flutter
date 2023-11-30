@@ -19,10 +19,9 @@ abstract class ProductRemoteSource {
     @Query("rating") String? rating,
   });
 
-  @GET("/api/products/{category}/{id}")
+  @GET("/api/products/{id}")
   Future<ProductDetailResponse> getProductDetail({
     @Header("Authorization") required String token,
-    @Path("category") required String category,
     @Path("id") required String id,
   });
 }

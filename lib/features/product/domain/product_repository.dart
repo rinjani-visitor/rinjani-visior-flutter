@@ -7,5 +7,5 @@ abstract class ProductRespository {
 
   /// get package detail, with addons avaiable, etc.
   Future<ProductDetailEntity?> getProductDetail(String token,
-      {required String productId, required String category});
+      {required String productId});
 }
