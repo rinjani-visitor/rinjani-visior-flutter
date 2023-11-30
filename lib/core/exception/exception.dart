@@ -1,6 +1,5 @@
 import 'dart:developer' as developer;
 import 'package:dio/dio.dart';
-import 'package:image_picker/image_picker.dart';
 
 enum ExceptionType {
   /// The exception for a bad response from the api.
@@ -43,14 +42,13 @@ enum ExceptionType {
 
 /// Extended exception, this should be used instead of generic exception
 class ExtException extends DioException {
-  final String? message;
   final String? errorMessage;
   final int? code;
   final ExceptionType exceptionType;
 
   ExtException({
     required this.exceptionType,
-    this.message,
+    super.message,
     this.errorMessage,
     this.code,
     required super.requestOptions,
@@ -75,7 +73,7 @@ class ExtException extends DioException {
     var message = "";
     // parse errors from List<String> to "string, string2, etc"
     final errors = (ex.response?.data["errors"] as List<dynamic>?);
-    final stringifyErrors = errors != null ? errors.map((e) => e.toString()).toList() : null;
+    final stringifyErrors = errors?.map((e) => e.toString()).toList();
     final errorsFull =
         stringifyErrors != null ? stringifyErrors.join(", ") : "";
     String errorMessage = errorsFull;
@@ -113,8 +111,7 @@ class ExtException extends DioException {
         if (ex.response?.headers.value("code") == null) {
           errorMessage += ex.response?.data["message"].toString() ?? 'Unknown';
           exceptionType = ExceptionType.unrecognizedException;
-        }
-        else if (ex.response?.statusCode == 200) {
+        } else if (ex.response?.statusCode == 200) {
           errorMessage += "Unknown Error from API";
           exceptionType = ExceptionType.tokenExpiredException;
         }
