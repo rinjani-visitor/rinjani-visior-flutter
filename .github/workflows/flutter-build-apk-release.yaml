@@ -9,6 +9,7 @@ on:
       - "v*.*.*"
 jobs:
   build:
+    name: APK Release
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -18,9 +19,11 @@ jobs:
           channel: 'stable'
       - name: Get packages
         run: flutter pub get
+      - name: Generate code generation ♻️
+        run: dart run build_runner build --delete-conflicting-outputs
       - name: Build APK Release
         run: flutter build apk --release
-      - name: Release APK
+      - name: Release APK 🚀
         uses: softprops/action-gh-release@v1
         with:
           files: build/app/outputs/flutter-apk/app-release.apk
