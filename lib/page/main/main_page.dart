@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:rinjani_visitor/page/account/booking_history_page.dart';
+import 'package:rinjani_visitor/page/main/booking/booking_history_page.dart';
 import 'package:rinjani_visitor/page/main/account/account_page.dart';
 import 'package:rinjani_visitor/page/main/event/event_page.dart';
 import 'package:rinjani_visitor/page/main/home/home_page.dart';
