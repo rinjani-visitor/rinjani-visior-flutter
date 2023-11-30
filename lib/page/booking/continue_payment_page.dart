@@ -10,7 +10,7 @@ import 'package:rinjani_visitor/core/widget/button/primary_button.dart';
 import 'package:rinjani_visitor/core/widget/form/upload_button.dart';
 import 'package:rinjani_visitor/core/widget/form/input_field.dart';
 import 'package:rinjani_visitor/features/order/domain/entity/payment_method.dart';
-import 'package:rinjani_visitor/features/order/presentation/payment.dart';
+import 'package:rinjani_visitor/features/order/presentation/view_model/payment.dart';
 
 const label = [
   {"field1": "email", "field2": "account name"},

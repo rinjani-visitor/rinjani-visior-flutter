@@ -11,7 +11,7 @@ abstract class RemoteReviewDataSource {
   factory RemoteReviewDataSource(Dio dio, {String? baseUrl}) =
       _RemoteReviewDataSource;
 
-  @POST("/api/review")
+  @POST("/api/reviews")
   Future<PostReviewResponse> postReview(
     @Header("Authorization") String token,
     @Body() PostReviewRequest body,

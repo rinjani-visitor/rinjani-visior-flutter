@@ -139,15 +139,14 @@ class _AccountPageState extends ConsumerState<AccountPage> {
                                 ),
                                 CupertinoListTile(
                                   onTap: () {
-                                    Navigator.pushNamed(
-                                        context, '/booking/history');
+                                    Navigator.pushNamed(context, '/order');
                                   },
                                   padding: const EdgeInsets.all(0),
                                   leading: Icon(
                                     Icons.history,
                                     color: blackColor,
                                   ),
-                                  title: const Text('Booking History'),
+                                  title: const Text('Order History'),
                                   trailing: Icon(
                                     Icons.chevron_right,
                                     color: blackColor,

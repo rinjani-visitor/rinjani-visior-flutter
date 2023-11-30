@@ -13,4 +13,7 @@ class PostReviewRequest {
     required this.messageReview,
     required this.rating,
   });
+  factory PostReviewRequest.fromJson(Map<String, dynamic> json) =>
+      _$PostReviewRequestFromJson(json);
+  Map<String, dynamic> toJson() => _$PostReviewRequestToJson(this);
 }
