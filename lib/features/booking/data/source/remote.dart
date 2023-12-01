@@ -26,6 +26,7 @@ abstract class RemoteBookingDataSource {
   );
   @PATCH("/api/booking")
   Future<UpdateBookingResponse> updateBooking(PostBookingRequest booking);
+
   @DELETE("/api/booking/{id}")
   Future<void> deleteBooking(
     @Header("Authorization") String token,
