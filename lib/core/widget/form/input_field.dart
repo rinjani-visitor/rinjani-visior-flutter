@@ -6,6 +6,8 @@ class InputField extends StatelessWidget {
   final String? label;
   final String? placeholder;
   final String? errorText;
+  final Widget? prefix;
+  final Widget? suffix;
   final Iterable<String>? autoFillHints;
   final TextInputType? keyboardType;
   final TextInputAction? textInputAction;
@@ -16,20 +18,23 @@ class InputField extends StatelessWidget {
   final bool secureText;
   final bool? enabled;
 
-  const InputField(
-      {super.key,
-      this.label,
-      this.secureText = false,
-      this.placeholder,
-      this.controller,
-      this.onChanged,
-      this.keyboardType,
-      this.autoFillHints,
-      this.onTap,
-      this.errorText,
-      this.textInputAction,
-      this.inputFormatters,
-      this.enabled});
+  const InputField({
+    super.key,
+    this.label,
+    this.secureText = false,
+    this.placeholder,
+    this.controller,
+    this.onChanged,
+    this.keyboardType,
+    this.autoFillHints,
+    this.onTap,
+    this.errorText,
+    this.textInputAction,
+    this.inputFormatters,
+    this.enabled,
+    this.prefix,
+    this.suffix,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -68,6 +73,8 @@ class InputField extends StatelessWidget {
           inputFormatters: inputFormatters,
           onTap: onTap,
           enabled: enabled ?? true,
+          prefix: prefix,
+          suffix: suffix,
         ),
       ],
     );
