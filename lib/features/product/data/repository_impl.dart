@@ -29,8 +29,8 @@ class ProductRepositoryImpl implements ProductRespository {
         category: category?.toString(),
         status: avaiable?.toString(),
         rating: rating?.toString());
-    final list = result.data!.map((e) => e.toEntity()).toList();
-    return list;
+    final list = result.data?.map((e) => e.toEntity()).toList();
+    return list ?? [];
   }
 
   @override
