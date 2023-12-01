@@ -26,7 +26,6 @@ class _ChangePassPageState extends ConsumerState<ChangePassPage> {
           child: Container(
             margin: const EdgeInsets.all(16),
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-            height: 200,
             decoration: BoxDecoration(
                 color: whiteColor,
                 borderRadius: BorderRadius.circular(smallRadius)),
@@ -70,7 +69,6 @@ class _ChangePassPageState extends ConsumerState<ChangePassPage> {
                     return null;
                   },
                 ),
-                const Spacer(),
                 TextButton(
                     onPressed: () {
                       ref

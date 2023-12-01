@@ -22,42 +22,32 @@ class _PersonalInfoPageState extends ConsumerState<PersonalInfoPage> {
       TextEditingController(text: _initState.asData?.value?.phoneNumber ?? "");
   late final TextEditingController _countryController =
       TextEditingController(text: _initState.asData?.value?.country ?? "");
-  Widget userInfo(String label, String info) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              label,
-              style:
-                  blackTextStyle.copyWith(fontSize: 16, fontWeight: semibold),
+
+  void _showEditNameDialog() {
+    showCupertinoDialog(
+        context: context,
+        builder: (context) {
+          return CupertinoAlertDialog(
+            title: const Text('Edit'),
+            content: CupertinoTextField(
+              controller: _nameController,
             ),
-            const SizedBox(
-              height: 8,
-            ),
-            Container(
-                width: double.infinity,
-                padding: const EdgeInsets.all(8),
-                margin: const EdgeInsets.only(bottom: 8),
-                height: 43,
-                decoration: BoxDecoration(
-                    color: whiteColor,
-                    borderRadius: BorderRadius.circular(smallRadius)),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      info,
-                    ),
-                  ],
-                ))
-          ],
-        )
-      ],
-    );
+            actions: [
+              CupertinoDialogAction(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: const Text('Cancel'),
+              ),
+              CupertinoDialogAction(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: const Text('Save'),
+              ),
+            ],
+          );
+        });
   }
 
   @override
@@ -76,9 +66,11 @@ class _PersonalInfoPageState extends ConsumerState<PersonalInfoPage> {
                     InputField(
                       controller: _nameController,
                       label: 'Name',
-                      enabled: false,
+                      enabled: true,
                       suffix: CupertinoButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          _showEditNameDialog();
+                        },
                         child: const Text('Edit'),
                       ),
                     ),
@@ -91,7 +83,6 @@ class _PersonalInfoPageState extends ConsumerState<PersonalInfoPage> {
                       enabled: false,
                       suffix: CupertinoButton(
                         onPressed: () {},
-                        
                         child: const Text(""),
                       ),
                     ),

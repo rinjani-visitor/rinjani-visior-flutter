@@ -42,27 +42,27 @@ class _UserSettingPageState extends ConsumerState<UserSettingPage> {
                   Navigator.pushNamed(context, '/personal/pass');
                 },
                 backgroundColor: whiteColor,
-                leading: Icon(
+                leading: const Icon(
                   Icons.lock,
                   color: blackColor,
                 ),
                 title: const Text('Change password'),
-                trailing: Icon(
+                trailing: const Icon(
                   Icons.chevron_right,
                   color: blackColor,
                 ),
               ),
               CupertinoListTile(
                 onTap: () {
-                  Navigator.pushNamed(context, '/personal/pass');
+                  Navigator.pushNamed(context, '/personal/email');
                 },
                 backgroundColor: whiteColor,
-                leading: Icon(
+                leading: const Icon(
                   Icons.mail,
                   color: blackColor,
                 ),
                 title: const Text('Change Email'),
-                trailing: Icon(
+                trailing: const Icon(
                   Icons.chevron_right,
                   color: blackColor,
                 ),
@@ -101,7 +101,7 @@ class _UserSettingPageState extends ConsumerState<UserSettingPage> {
                         );
                       });
                 },
-                child: Text(
+                child: const Text(
                   'Log out',
                   style: TextStyle(
                       decoration: TextDecoration.underline,
