@@ -32,9 +32,13 @@ class AuthLocalSource {
     await storage.write(key: SESSION_KEY, value: jsonEncode(tokens.toJson()));
   }
 
-  Future<void> setSession(String accessToken, String refreshToken) async {
-    await setSessionModel(
-        TokenModel(refreshToken: refreshToken, accessToken: accessToken));
+  Future<void> setSession(String accessToken, String refreshToken,
+      DateTime accessExpriredAt) async {
+    await setSessionModel(TokenModel(
+      refreshToken: refreshToken,
+      accessToken: accessToken,
+      accessExpiredAt: accessExpriredAt.toIso8601String(),
+    ));
   }
 
   Future<void> clearSession() async {

@@ -93,4 +93,12 @@ class AuthViewModel extends AsyncNotifier<AuthEntity?> {
   String? getRefreshToken() {
     return state.value?.toRefreshTokenAuthorization();
   }
+
+  bool get isAccessTokenIsNotExpired => !isAccessTokenExpired;
+
+  bool get isAccessTokenExpired => state.value?.accessExpiredAt != null
+      // return true if current date is after expired date,
+      // otherwise, return false
+      ? DateTime.now().isAfter(state.value!.accessExpiredAt!)
+      : false;
 }

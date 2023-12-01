@@ -66,8 +66,10 @@ class AuthRepositoryImpl implements AuthRepository {
         await remote.logIn(LoginRequest(password: password, email: email));
     developer.log("Repository: new data from remote: ${response.toString()}");
     final result = response.toEntity();
+    result.accessExpiredAt = DateTime.now().add(const Duration(minutes: 20));
     developer.log("Repository: entity: ${result.toString()}");
-    await local.setSession(result.accessToken!, result.refreshToken!);
+    await local.setSession(
+        result.accessToken!, result.refreshToken!, result.accessExpiredAt!);
     return result;
   }
 
@@ -93,10 +95,10 @@ class AuthRepositoryImpl implements AuthRepository {
     developer.log("NewAccessToken : ${response.accessToken}",
         name: runtimeType.toString());
     authdata.accessToken = response.accessToken;
-    developer.log("authEntity : ${authdata.toString()}",
-        name: runtimeType.toString());
-    await local.setSession(response.accessToken!, response.refreshToken!);
     final data = response.toEntity();
+    data.accessExpiredAt = DateTime.now().add(const Duration(minutes: 20));
+    await local.setSession(
+        response.accessToken!, response.refreshToken!, data.accessExpiredAt!);
     return data;
   }
 
