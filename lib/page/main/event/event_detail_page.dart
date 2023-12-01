@@ -5,8 +5,8 @@ import 'package:rinjani_visitor/core/presentation/utils/internationalization.dar
 import 'package:rinjani_visitor/features/event/domain/entity/event.dart';
 import 'package:rinjani_visitor/page/product/product_detail_page.dart';
 import 'package:rinjani_visitor/core/presentation/theme/theme.dart';
-import 'package:rinjani_visitor/core/widget/product/big_card.dart';
-import 'package:rinjani_visitor/core/widget/status.dart';
+import 'package:rinjani_visitor/core/presentation/widget/product/big_card.dart';
+import 'package:rinjani_visitor/core/presentation/widget/status.dart';
 
 // mock data about lombok festival
 final mockdata = EventEntity(

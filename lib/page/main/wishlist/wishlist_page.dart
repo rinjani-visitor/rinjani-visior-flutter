@@ -6,8 +6,8 @@ import 'package:rinjani_visitor/core/constant/constant.dart';
 import 'package:rinjani_visitor/core/presentation/theme/theme.dart';
 import 'package:rinjani_visitor/features/favorite/presentation/view_model/favorite_list.dart';
 import 'package:rinjani_visitor/page/product/product_detail_page.dart';
-import 'package:rinjani_visitor/core/widget/product/big_card.dart';
-import 'package:rinjani_visitor/core/widget/status.dart';
+import 'package:rinjani_visitor/core/presentation/widget/product/big_card.dart';
+import 'package:rinjani_visitor/core/presentation/widget/status.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 class WishlistPage extends ConsumerStatefulWidget {

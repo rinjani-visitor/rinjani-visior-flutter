@@ -3,8 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rinjani_visitor/core/presentation/theme/theme.dart';
 import 'package:rinjani_visitor/features/order/presentation/view_model/order_list.dart';
 import 'package:rinjani_visitor/features/review/presentation/view_model/write_review.dart';
-import 'package:rinjani_visitor/core/widget/button/primary_button.dart';
-import 'package:rinjani_visitor/core/widget/form/input_field.dart';
+import 'package:rinjani_visitor/core/presentation/widget/button/primary_button.dart';
+import 'package:rinjani_visitor/core/presentation/widget/form/input_field.dart';
 
 import '_widgets/rating.dart';
 

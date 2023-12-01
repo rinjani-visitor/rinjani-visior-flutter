@@ -1,4 +1,4 @@
-import 'package:rinjani_visitor/core/widget/status.dart';
+import 'package:rinjani_visitor/core/presentation/widget/status.dart';
 
 class NotificationEntity {
   final String id;

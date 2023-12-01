@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rinjani_visitor/core/presentation/theme/theme.dart';
-import 'package:rinjani_visitor/core/widget/button/primary_button.dart';
+import 'package:rinjani_visitor/core/presentation/widget/button/primary_button.dart';
 import 'package:rinjani_visitor/features/booking/data/repository_impl.dart';
 import 'package:rinjani_visitor/features/booking/domain/entitiy/booking_form.dart';
 import 'package:rinjani_visitor/features/booking/presentation/view_model/booking_form.dart';
