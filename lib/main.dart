@@ -23,6 +23,8 @@ import 'package:rinjani_visitor/page/splash_screen.dart';
 import 'package:rinjani_visitor/page/booking/offer_status_page.dart';
 import 'package:rinjani_visitor/page/account/account_settings_page.dart';
 
+final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+
 void main() {
   // Force google font to use offline fonts instead of re-downloading again
   GoogleFonts.config.allowRuntimeFetching = false;
@@ -41,11 +43,11 @@ void main() {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return CupertinoApp(
+      navigatorKey: navigatorKey,
       debugShowCheckedModeBanner: false,
       title: "Rinjani Visitor",
       localizationsDelegates: const [
