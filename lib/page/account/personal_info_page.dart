@@ -77,11 +77,23 @@ class _PersonalInfoPageState extends ConsumerState<PersonalInfoPage> {
                       controller: _nameController,
                       label: 'Name',
                       enabled: false,
+                      suffix: CupertinoButton(
+                        onPressed: () {},
+                        child: const Text('Edit'),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 16,
                     ),
                     InputField(
                       controller: _emailController,
                       label: 'Email',
                       enabled: false,
+                      suffix: CupertinoButton(
+                        onPressed: () {},
+                        
+                        child: const Text(""),
+                      ),
                     ),
                     const SizedBox(
                       height: 16,
@@ -90,11 +102,22 @@ class _PersonalInfoPageState extends ConsumerState<PersonalInfoPage> {
                       controller: _phoneController,
                       label: 'Phone Number',
                       enabled: false,
+                      suffix: CupertinoButton(
+                        onPressed: () {},
+                        child: const Text('Edit'),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 16,
                     ),
                     InputField(
                       controller: _countryController,
                       label: 'Country',
                       enabled: false,
+                      suffix: CupertinoButton(
+                        onPressed: () {},
+                        child: const Text('Edit'),
+                      ),
                     ),
                   ],
                 ))));

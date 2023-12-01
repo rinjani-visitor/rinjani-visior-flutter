@@ -56,11 +56,24 @@ class _AccountPageState extends ConsumerState<AccountPage> {
         ),
         GestureDetector(
           onTap: () => showOptions(),
-          child: CircleAvatar(
-            backgroundColor: lightGray,
-            radius: 80,
-            backgroundImage: CachedNetworkImageProvider(imgUrl),
-          ),
+          child: CachedNetworkImage(
+              imageUrl: imgUrl,
+              fit: BoxFit.cover,
+              imageBuilder: (context, provider) {
+                return CircleAvatar(
+                  backgroundImage: provider,
+                  backgroundColor: lightGray,
+                  radius: 64,
+                );
+              },
+              placeholder: (context, url) => const CircleAvatar(
+                    backgroundColor: lightGray,
+                    radius: 64,
+                  ),
+              errorWidget: (context, url, error) => const CircleAvatar(
+                    backgroundColor: lightGray,
+                    radius: 64,
+                  )),
         ),
         const SizedBox(
           height: 8,

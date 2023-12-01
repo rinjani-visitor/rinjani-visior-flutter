@@ -230,6 +230,14 @@ class _DetailPageState extends ConsumerState<ProductDetailPage> {
                                           onTap: () => _showDatePicker(
                                               data.includeEndDate ?? false),
                                           child: InputField(
+                                            prefix: const Padding(
+                                                padding: EdgeInsets.only(
+                                                  left: 12.0,
+                                                ),
+                                                child: Icon(
+                                                  Icons.calendar_today,
+                                                  color: lightGray,
+                                                )),
                                             controller: _startDateController,
                                             enabled: false,
                                           ),

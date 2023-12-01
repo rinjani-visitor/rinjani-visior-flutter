@@ -147,7 +147,7 @@ class _EventDetailPageState extends State<EventDetailPage> {
                                     category: current.category ?? "",
                                   )));
                     },
-                    image: NetworkImage(current.thumbnail ?? ""),
+                    imgUrl: current.thumbnail ?? "",
                     title: current.title ?? "No title found",
                     price: current.rangePricing,
                     status: StatusColor.available,

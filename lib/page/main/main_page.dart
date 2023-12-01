@@ -32,7 +32,7 @@ class MainPage extends StatelessWidget {
                 icon: Icon(
                   Icons.favorite_border,
                 ),
-                label: 'Wishlist'),
+                label: 'Favorites'),
             BottomNavigationBarItem(
                 icon: Icon(
                   Icons.person,
