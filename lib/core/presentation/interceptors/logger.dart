@@ -20,6 +20,8 @@ class LoggerInterceptor extends InterceptorsWrapper {
       "RESPONSE[${response.statusCode}] => PATH: ${response.requestOptions.path}",
       name: runtimeType.toString(),
     );
+    developer.log("BODY: ${response.data.toString()}",
+        name: runtimeType.toString());
     super.onResponse(response, handler);
   }
 
