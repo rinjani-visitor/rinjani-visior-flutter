@@ -6,7 +6,7 @@ import '../models/request/post_booking.dart';
 
 part 'remote.g.dart';
 
-@RestApi(baseUrl: restApiBaseUrl)
+@RestApi(baseUrl: BASE_URL)
 abstract class RemoteBookingDataSource {
   factory RemoteBookingDataSource(Dio dio, {String? baseUrl}) =
       _RemoteBookingDataSource;

@@ -10,7 +10,7 @@ import 'package:rinjani_visitor/features/authentication/data/models/response/res
 
 part 'remote.g.dart';
 
-@RestApi(baseUrl: restApiBaseUrl)
+@RestApi(baseUrl: BASE_URL)
 abstract class AuthRemoteSource {
   factory AuthRemoteSource(Dio dio, {String? baseUrl}) = _AuthRemoteSource;
 

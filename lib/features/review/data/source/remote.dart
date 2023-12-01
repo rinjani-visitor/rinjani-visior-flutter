@@ -6,7 +6,7 @@ import 'package:rinjani_visitor/features/review/data/models/response/post_review
 
 part 'remote.g.dart';
 
-@RestApi(baseUrl: restApiBaseUrl)
+@RestApi(baseUrl: BASE_URL)
 abstract class RemoteReviewDataSource {
   factory RemoteReviewDataSource(Dio dio, {String? baseUrl}) =
       _RemoteReviewDataSource;

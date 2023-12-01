@@ -11,7 +11,7 @@ import '../models/request/set_payment_method.dart';
 
 part "remote.g.dart";
 
-@RestApi(baseUrl: restApiBaseUrl)
+@RestApi(baseUrl: BASE_URL)
 abstract class RemoteOrderSource {
   factory RemoteOrderSource(Dio dio, {String? baseUrl}) = _RemoteOrderSource;
 
