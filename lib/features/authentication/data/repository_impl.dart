@@ -135,6 +135,7 @@ class AuthRepositoryImpl implements AuthRepository {
     String accessToken,
     String userId, {
     String? phoneNumber,
+    String? email,
     String? password,
     String? confirmPassword,
   }) async {

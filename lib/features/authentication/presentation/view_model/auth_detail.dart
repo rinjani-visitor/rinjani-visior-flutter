@@ -61,6 +61,7 @@ class AuthDetailViewModel extends AutoDisposeAsyncNotifier<AuthDetailEntity?> {
         confirmPassword: confirmPassword,
       );
       refresh();
+      return;
     } catch (e) {
       Fluttertoast.showToast(msg: e.toString());
     }
