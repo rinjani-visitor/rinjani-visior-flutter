@@ -13,6 +13,7 @@ class InputField extends StatelessWidget {
   final TextInputAction? textInputAction;
   final TextEditingController? controller;
   final void Function(String value)? onChanged;
+  final void Function(String value)? onSubmitted;
   final void Function()? onTap;
   final List<TextInputFormatter>? inputFormatters;
   final bool secureText;
@@ -34,6 +35,7 @@ class InputField extends StatelessWidget {
     this.enabled,
     this.prefix,
     this.suffix,
+    this.onSubmitted,
   });
 
   @override
@@ -71,6 +73,7 @@ class InputField extends StatelessWidget {
           autofillHints: autoFillHints,
           textInputAction: textInputAction,
           inputFormatters: inputFormatters,
+          onSubmitted: onSubmitted,
           onTap: onTap,
           enabled: enabled ?? true,
           prefix: prefix,
