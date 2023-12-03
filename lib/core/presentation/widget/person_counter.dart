@@ -76,7 +76,7 @@ class _PersonCounterWidgetState extends State<PersonCounterWidget> {
             ],
           ),
           TextButton(
-              style: ButtonStyle(
+              style: const ButtonStyle(
                   backgroundColor: MaterialStatePropertyAll(primaryColor)),
               onPressed: () {
                 Navigator.pop(context);

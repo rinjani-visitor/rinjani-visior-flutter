@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:rinjani_visitor/core/presentation/theme/theme.dart';
-import 'package:rinjani_visitor/core/widget/event_card.dart';
+import 'package:rinjani_visitor/core/presentation/widget/event_card.dart';
 
 class EventPage extends StatelessWidget {
   const EventPage({super.key});

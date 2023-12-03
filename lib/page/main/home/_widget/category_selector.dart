@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rinjani_visitor/core/presentation/theme/theme.dart';
 import 'package:rinjani_visitor/page/main/home/category/category_explore_page.dart';
-import 'package:rinjani_visitor/core/widget/category_item.dart';
+import 'package:rinjani_visitor/core/presentation/widget/category_item.dart';
 
 class CategorySelector extends ConsumerWidget {
   const CategorySelector({super.key});

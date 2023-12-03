@@ -6,30 +6,39 @@ class InputField extends StatelessWidget {
   final String? label;
   final String? placeholder;
   final String? errorText;
+  final Widget? prefix;
+  final Widget? suffix;
   final Iterable<String>? autoFillHints;
   final TextInputType? keyboardType;
   final TextInputAction? textInputAction;
   final TextEditingController? controller;
   final void Function(String value)? onChanged;
+  final void Function(String value)? onSubmitted;
   final void Function()? onTap;
   final List<TextInputFormatter>? inputFormatters;
   final bool secureText;
   final bool? enabled;
+  final bool? readOnly;
 
-  const InputField(
-      {super.key,
-      this.label,
-      this.secureText = false,
-      this.placeholder,
-      this.controller,
-      this.onChanged,
-      this.keyboardType,
-      this.autoFillHints,
-      this.onTap,
-      this.errorText,
-      this.textInputAction,
-      this.inputFormatters,
-      this.enabled});
+  const InputField({
+    super.key,
+    this.label,
+    this.secureText = false,
+    this.placeholder,
+    this.controller,
+    this.onChanged,
+    this.keyboardType,
+    this.autoFillHints,
+    this.onTap,
+    this.errorText,
+    this.textInputAction,
+    this.inputFormatters,
+    this.enabled,
+    this.prefix,
+    this.suffix,
+    this.onSubmitted,
+    this.readOnly,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -66,8 +75,12 @@ class InputField extends StatelessWidget {
           autofillHints: autoFillHints,
           textInputAction: textInputAction,
           inputFormatters: inputFormatters,
+          onSubmitted: onSubmitted,
           onTap: onTap,
           enabled: enabled ?? true,
+          prefix: prefix,
+          suffix: suffix,
+          readOnly: readOnly ?? false,
         ),
       ],
     );

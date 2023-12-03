@@ -1,14 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:rinjani_visitor/core/presentation/theme/theme.dart';
 import 'package:rinjani_visitor/core/presentation/utils/internationalization.dart';
 import 'package:rinjani_visitor/features/booking/domain/enum/history_status.dart';
-import 'package:rinjani_visitor/features/booking/presentation/view_model/booking.dart';
+import 'package:rinjani_visitor/features/booking/presentation/view_model/booking_list.dart';
 import 'package:rinjani_visitor/page/booking/payment_method_page.dart';
 import 'package:rinjani_visitor/page/review/write_review_dialog.dart';
-import 'package:rinjani_visitor/core/widget/button/primary_button.dart';
-import 'package:rinjani_visitor/core/widget/status.dart';
+import 'package:rinjani_visitor/core/presentation/widget/button/primary_button.dart';
+import 'package:rinjani_visitor/core/presentation/widget/status.dart';
 
 class BookingHistoryPage extends ConsumerStatefulWidget {
   const BookingHistoryPage({super.key});
@@ -19,11 +20,19 @@ class BookingHistoryPage extends ConsumerStatefulWidget {
 }
 
 class _BookingHistoryPageState extends ConsumerState<BookingHistoryPage> {
+  Future<void>? _deleteStatus;
   void _bookingHistoryTapped(String id) {}
+  void _deleteBooking(String id) async {
+    _deleteStatus =
+        ref.read(bookingListViewModelProvider.notifier).deleteBooking(id);
+    _deleteStatus?.whenComplete(() {
+      final _ = ref.refresh(bookingListViewModelProvider);
+    }).catchError((e) => Fluttertoast.showToast(msg: e.toString()));
+  }
 
   @override
   Widget build(BuildContext context) {
-    final bookingData = ref.watch(bookingViewModelProvider);
+    final bookingData = ref.watch(bookingListViewModelProvider);
     return CupertinoPageScaffold(
       backgroundColor: CupertinoColors.systemGrey6,
       navigationBar: CupertinoNavigationBar(
@@ -35,7 +44,7 @@ class _BookingHistoryPageState extends ConsumerState<BookingHistoryPage> {
       child: SafeArea(
         child: RefreshIndicator.adaptive(
             onRefresh: () async {
-              final result = await ref.refresh(bookingViewModelProvider);
+              ref.refresh(bookingListViewModelProvider);
             },
             child: switch (bookingData) {
               AsyncData(:final value) => ListView.builder(
@@ -66,7 +75,8 @@ class _BookingHistoryPageState extends ConsumerState<BookingHistoryPage> {
                                   context,
                                   CupertinoPageRoute(
                                     builder: (context) => PaymentMethodPage(
-                                        bookingId: current.bookingId),
+                                      bookingId: current.bookingId,
+                                    ),
                                   ),
                                 );
                               },
@@ -92,6 +102,7 @@ class _BookingHistoryPageState extends ConsumerState<BookingHistoryPage> {
                                           CupertinoDialogAction(
                                             onPressed: () {
                                               Navigator.of(context).pop();
+                                              _deleteBooking(current.bookingId);
                                             },
                                             child: Text("Yes"),
                                           ),

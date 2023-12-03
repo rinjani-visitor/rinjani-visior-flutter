@@ -1,34 +1,63 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rinjani_visitor/core/presentation/theme/theme.dart';
-import 'package:rinjani_visitor/core/widget/rating_widget.dart';
-import 'package:rinjani_visitor/core/widget/status.dart';
+import 'package:rinjani_visitor/core/presentation/widget/rating_widget.dart';
+import 'package:rinjani_visitor/core/presentation/widget/status.dart';
 
 class BigProductCard extends StatelessWidget {
-  final ImageProvider image;
+  final String imgUrl;
   final String title;
   final StatusColor status;
   final String price;
   final String? rating;
   final void Function()? onTap;
-  const BigProductCard(
-      {super.key,
-      required this.image,
-      required this.title,
-      required this.status,
-      required this.price,
-      this.rating,
-      this.onTap});
+  const BigProductCard({
+    super.key,
+    required this.title,
+    required this.status,
+    required this.price,
+    this.rating,
+    this.onTap,
+    required this.imgUrl,
+  });
   Widget _imageContainer() {
-    return Container(
-      width: 108,
-      height: 136,
-      decoration: BoxDecoration(
-          image: DecorationImage(fit: BoxFit.cover, image: image),
-          borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(bigRadius),
-              bottomLeft: Radius.circular(bigRadius))),
-    );
+    return CachedNetworkImage(
+        imageUrl: imgUrl,
+        fit: BoxFit.cover,
+        imageBuilder: (context, provider) => Container(
+              width: 108,
+              height: 136,
+              decoration: BoxDecoration(
+                image: DecorationImage(fit: BoxFit.cover, image: provider),
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(bigRadius),
+                  bottomLeft: Radius.circular(bigRadius),
+                ),
+              ),
+            ),
+        placeholder: (context, url) => Container(
+              width: 108,
+              height: 136,
+              decoration: BoxDecoration(
+                color: CupertinoColors.systemGrey3,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(bigRadius),
+                  bottomLeft: Radius.circular(bigRadius),
+                ),
+              ),
+            ),
+        errorWidget: (context, url, error) => Container(
+              width: 108,
+              height: 136,
+              decoration: BoxDecoration(
+                color: CupertinoColors.systemGrey3,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(bigRadius),
+                  bottomLeft: Radius.circular(bigRadius),
+                ),
+              ),
+            ));
   }
 
   Widget _information() {

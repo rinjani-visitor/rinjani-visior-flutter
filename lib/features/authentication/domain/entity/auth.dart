@@ -5,6 +5,7 @@ class AuthEntity {
   String? role;
   String? accessToken;
   String? refreshToken;
+  DateTime? accessExpiredAt;
   AuthEntity(
       {this.userId,
       this.username,

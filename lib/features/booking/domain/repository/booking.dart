@@ -4,10 +4,19 @@ import 'package:rinjani_visitor/features/booking/domain/entitiy/booking_form_sta
 
 abstract class BookingRepository {
   Future<BookingFormStatus> createBooking(
-      String token, String userId, BookingFormEntity booking);
+    String token,
+    String userId,
+    BookingFormEntity booking,
+  );
+
   Future<List<BookingEntity>> getBookings(String token);
+
   Future<BookingDetailEntity> getBookingDetail(String token, String id);
+
   Future<BookingFormEntity> updateBooking(
-      String token, BookingFormEntity booking);
+    String token,
+    BookingFormEntity booking,
+  );
+
   Future<void> deleteBooking(String token, String id);
 }

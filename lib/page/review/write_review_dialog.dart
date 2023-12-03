@@ -1,9 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rinjani_visitor/core/presentation/theme/theme.dart';
+import 'package:rinjani_visitor/features/order/presentation/view_model/order_list.dart';
 import 'package:rinjani_visitor/features/review/presentation/view_model/write_review.dart';
-import 'package:rinjani_visitor/core/widget/button/primary_button.dart';
-import 'package:rinjani_visitor/core/widget/form/input_field.dart';
+import 'package:rinjani_visitor/core/presentation/widget/button/primary_button.dart';
+import 'package:rinjani_visitor/core/presentation/widget/form/input_field.dart';
 
 import '_widgets/rating.dart';
 
@@ -17,7 +18,7 @@ class WriteReviewPage extends ConsumerStatefulWidget {
 
 class _WriteReviewPageState extends ConsumerState<WriteReviewPage> {
   final _reviewController = TextEditingController();
-
+  Future<String?>? _future;
   @override
   void dispose() {
     _reviewController.dispose();
@@ -33,6 +34,24 @@ class _WriteReviewPageState extends ConsumerState<WriteReviewPage> {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          FutureBuilder(
+              future: _future,
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.done) {
+                  if (snapshot.hasError) {
+                    return Text(
+                      snapshot.error.toString(),
+                      style: redTextStyle,
+                    );
+                  }
+                  final _ = ref.refresh(orderListViewModelProvider);
+                  return Text(snapshot.data ?? "");
+                } else if (snapshot.connectionState ==
+                    ConnectionState.waiting) {
+                  return const CupertinoActivityIndicator();
+                }
+                return const SizedBox();
+              }),
           Text(
             "Your Rating",
             style: blackTextStyle.copyWith(fontSize: heading4),
@@ -67,8 +86,8 @@ class _WriteReviewPageState extends ConsumerState<WriteReviewPage> {
                       _reviewController.text,
                       review.rating,
                     );
-                ref.read(reviewFormViewModelProvider.notifier).sendReview();
-                Navigator.pop(context);
+                _future =
+                    ref.read(reviewFormViewModelProvider.notifier).sendReview();
               })
         ],
       ),

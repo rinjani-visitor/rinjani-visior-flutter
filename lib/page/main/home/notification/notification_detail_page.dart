@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:rinjani_visitor/core/presentation/theme/theme.dart';
 import 'package:rinjani_visitor/features/notification/domain/entity/notification.dart';
-import 'package:rinjani_visitor/core/widget/status.dart';
+import 'package:rinjani_visitor/core/presentation/widget/status.dart';
 
 class NotificationDetailPage extends StatelessWidget {
   /// change status

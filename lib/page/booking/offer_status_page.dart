@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:rinjani_visitor/core/presentation/theme/theme.dart';
-import 'package:rinjani_visitor/core/widget/button/primary_button.dart';
+import 'package:rinjani_visitor/core/presentation/widget/button/primary_button.dart';
 
 const bookingStatus = [
   {

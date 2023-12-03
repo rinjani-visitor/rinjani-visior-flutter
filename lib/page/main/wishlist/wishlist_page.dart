@@ -6,8 +6,8 @@ import 'package:rinjani_visitor/core/constant/constant.dart';
 import 'package:rinjani_visitor/core/presentation/theme/theme.dart';
 import 'package:rinjani_visitor/features/favorite/presentation/view_model/favorite_list.dart';
 import 'package:rinjani_visitor/page/product/product_detail_page.dart';
-import 'package:rinjani_visitor/core/widget/product/big_card.dart';
-import 'package:rinjani_visitor/core/widget/status.dart';
+import 'package:rinjani_visitor/core/presentation/widget/product/big_card.dart';
+import 'package:rinjani_visitor/core/presentation/widget/status.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 class WishlistPage extends ConsumerStatefulWidget {
@@ -23,18 +23,34 @@ class _WishlistPageState extends ConsumerState<WishlistPage> {
     final favoriteList = ref.watch(favoriteListViewModelProvider);
     return CupertinoPageScaffold(
       backgroundColor: backgroundColor,
+      navigationBar: CupertinoNavigationBar(
+        middle: Text(
+          "Favorites",
+          style: blackTextStyle.copyWith(fontWeight: FontWeight.bold),
+        ),
+      ),
       child: SafeArea(
         child: RefreshIndicator.adaptive(
           onRefresh: () async {
-            ref.refresh(favoriteListViewModelProvider.notifier);
-            await Future.delayed(const Duration(seconds: 2));
+            final _ = ref.refresh(favoriteListViewModelProvider);
+            await Future.delayed(const Duration(seconds: 1));
           },
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
             child: favoriteList.when(
               error: (error, _) {
-                return Center(
-                  child: Text(error.toString()),
+                return LayoutBuilder(
+                  builder: (context, constraints) => ListView(
+                    children: [
+                      Container(
+                        constraints:
+                            BoxConstraints(minHeight: constraints.maxHeight),
+                        child: Center(
+                          child: Text("${error.toString()}}"),
+                        ),
+                      )
+                    ],
+                  ),
                 );
               },
               loading: () {
@@ -43,7 +59,7 @@ class _WishlistPageState extends ConsumerState<WishlistPage> {
                     itemBuilder: (_, __) {
                       return const Skeletonizer(
                         child: BigProductCard(
-                          image: CachedNetworkImageProvider(IMG_PLACEHOLDER),
+                          imgUrl: IMG_PLACEHOLDER,
                           title: "",
                           status: StatusColor.init,
                           price: "",
@@ -52,9 +68,19 @@ class _WishlistPageState extends ConsumerState<WishlistPage> {
                     });
               },
               data: (data) {
-                if (data == null) {
-                  return const Center(
-                    child: Text("Favorite is empty"),
+                if (data == null || data.isEmpty) {
+                  return LayoutBuilder(
+                    builder: (context, constraints) => ListView(
+                      children: [
+                        Container(
+                          constraints:
+                              BoxConstraints(minHeight: constraints.maxHeight),
+                          child: const Center(
+                            child: Text("Favorite is empty"),
+                          ),
+                        )
+                      ],
+                    ),
                   );
                 }
                 return ListView.builder(
@@ -71,8 +97,7 @@ class _WishlistPageState extends ConsumerState<WishlistPage> {
                                   category: current.category ?? "",
                                   id: current.productId)),
                         ),
-                        image: CachedNetworkImageProvider(
-                            current.thumbnail ?? IMG_PLACEHOLDER),
+                        imgUrl: current.thumbnail ?? IMG_PLACEHOLDER,
                         title: current.title ?? "No title",
                         status: current.avaiable != null && current.avaiable!
                             ? StatusColor.available

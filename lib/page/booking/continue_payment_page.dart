@@ -6,9 +6,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:rinjani_visitor/core/presentation/theme/theme.dart';
 import 'package:rinjani_visitor/core/presentation/services/camera_service.dart';
-import 'package:rinjani_visitor/core/widget/button/primary_button.dart';
-import 'package:rinjani_visitor/core/widget/form/upload_button.dart';
-import 'package:rinjani_visitor/core/widget/form/input_field.dart';
+import 'package:rinjani_visitor/core/presentation/widget/button/primary_button.dart';
+import 'package:rinjani_visitor/core/presentation/widget/form/upload_button.dart';
+import 'package:rinjani_visitor/core/presentation/widget/form/input_field.dart';
 import 'package:rinjani_visitor/features/order/domain/entity/payment_method.dart';
 import 'package:rinjani_visitor/features/order/presentation/view_model/payment.dart';
 

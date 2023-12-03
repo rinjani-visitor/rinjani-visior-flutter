@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rinjani_visitor/core/presentation/theme/theme.dart';
-import 'package:rinjani_visitor/core/widget/form/input_field.dart';
+import 'package:rinjani_visitor/core/presentation/widget/form/input_field.dart';
 import 'package:rinjani_visitor/features/authentication/presentation/view_model/auth_detail.dart';
 
 class ChangePassPage extends ConsumerStatefulWidget {
@@ -26,7 +26,6 @@ class _ChangePassPageState extends ConsumerState<ChangePassPage> {
           child: Container(
             margin: const EdgeInsets.all(16),
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-            height: 200,
             decoration: BoxDecoration(
                 color: whiteColor,
                 borderRadius: BorderRadius.circular(smallRadius)),
@@ -70,7 +69,6 @@ class _ChangePassPageState extends ConsumerState<ChangePassPage> {
                     return null;
                   },
                 ),
-                const Spacer(),
                 TextButton(
                     onPressed: () {
                       ref

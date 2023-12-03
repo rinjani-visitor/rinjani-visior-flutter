@@ -7,7 +7,7 @@ import 'package:rinjani_visitor/features/favorite/data/models/response/response.
 
 part 'remote.g.dart';
 
-@RestApi(baseUrl: restApiBaseUrl)
+@RestApi(baseUrl: BASE_URL)
 abstract class RemoteFavoriteSource {
   factory RemoteFavoriteSource(Dio dio, {String? baseUrl}) =
       _RemoteFavoriteSource;

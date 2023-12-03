@@ -39,9 +39,9 @@ class BookingRepositoryImpl implements BookingRepository {
   }
 
   @override
-  Future<void> deleteBooking(String token, String id) {
-    // TODO: implement deleteBooking
-    throw UnimplementedError();
+  Future<void> deleteBooking(String token, String id) async {
+    final result = await remote.deleteBooking(token, id);
+    return;
   }
 
   @override

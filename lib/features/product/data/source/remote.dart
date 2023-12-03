@@ -5,7 +5,7 @@ import 'package:rinjani_visitor/features/product/data/models/response/response.d
 
 part 'remote.g.dart';
 
-@RestApi(baseUrl: restApiBaseUrl)
+@RestApi(baseUrl: BASE_URL)
 abstract class ProductRemoteSource {
   factory ProductRemoteSource(Dio dio, {String? baseUrl}) =
       _ProductRemoteSource;

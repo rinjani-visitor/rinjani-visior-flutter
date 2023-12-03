@@ -49,7 +49,11 @@ class AuthDetailViewModel extends AutoDisposeAsyncNotifier<AuthDetailEntity?> {
   }
 
   Future<void> updateUserDetail(
-      {String? phoneNumber, String? password, String? confirmPassword}) async {
+      {String? name,
+      String? phoneNumber,
+      String? country,
+      String? password,
+      String? confirmPassword}) async {
     final token = authViewModel.state.value!.toAccessTokenAuthorization();
     final userId = authViewModel.state.value!.userId!;
     try {
@@ -57,12 +61,17 @@ class AuthDetailViewModel extends AutoDisposeAsyncNotifier<AuthDetailEntity?> {
         token,
         userId,
         phoneNumber: phoneNumber,
+        name: name,
         password: password,
         confirmPassword: confirmPassword,
+        country: country,
       );
+      Fluttertoast.showToast(msg: "Update success");
       refresh();
+      return;
     } catch (e) {
       Fluttertoast.showToast(msg: e.toString());
+      refresh();
     }
   }
 }

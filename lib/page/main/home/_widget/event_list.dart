@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rinjani_visitor/core/constant/constant.dart';
 import 'package:rinjani_visitor/core/presentation/theme/theme.dart';
-import 'package:rinjani_visitor/core/widget/product/big_card.dart';
-import 'package:rinjani_visitor/core/widget/status.dart';
+import 'package:rinjani_visitor/core/presentation/widget/product/big_card.dart';
+import 'package:rinjani_visitor/core/presentation/widget/status.dart';
 
 class EventList extends ConsumerWidget {
   const EventList({super.key});
@@ -37,7 +37,7 @@ class EventList extends ConsumerWidget {
               return Padding(
                 padding: const EdgeInsets.only(bottom: 8, left: 16, right: 16),
                 child: BigProductCard(
-                    image: const NetworkImage(IMG_PLACEHOLDER),
+                    imgUrl: IMG_PLACEHOLDER,
                     title: "Lombok Festival",
                     price: "\$80 - \$90 - Person",
                     status: StatusColor.available,

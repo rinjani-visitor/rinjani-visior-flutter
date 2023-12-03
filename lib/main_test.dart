@@ -7,7 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rinjani_visitor/core/constant/country.dart';
 import 'package:rinjani_visitor/page/review/write_review_dialog.dart';
-import 'package:rinjani_visitor/core/widget/form/dropdown_textfield.dart';
+import 'package:rinjani_visitor/core/presentation/widget/form/dropdown_textfield.dart';
 
 void main() {
   // Force google font to use offline fonts instead of re-downloading again

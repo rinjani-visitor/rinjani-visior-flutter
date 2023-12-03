@@ -6,7 +6,12 @@ part 'token.g.dart';
 class TokenModel {
   String accessToken;
   String refreshToken;
-  TokenModel({required this.refreshToken, required this.accessToken});
+  String accessExpiredAt;
+  TokenModel({
+    required this.refreshToken,
+    required this.accessToken,
+    required this.accessExpiredAt,
+  });
 
   factory TokenModel.fromJson(Map<String, dynamic> json) =>
       _$TokenModelFromJson(json);

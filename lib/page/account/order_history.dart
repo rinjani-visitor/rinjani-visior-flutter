@@ -20,12 +20,9 @@ class _OrderHistoryPageState extends ConsumerState<OrderHistoryPage> {
     return CupertinoPageScaffold(
         backgroundColor: CupertinoColors.systemGrey6,
         navigationBar: CupertinoNavigationBar(
-          middle: Text("Order History",
-              style: blackTextStyle.copyWith(fontWeight: FontWeight.bold)),
-          trailing: GestureDetector(
-            onTap: () {
-              Navigator.pop(context);
-            },
+          middle: Text(
+            "Order history",
+            style: blackTextStyle.copyWith(fontWeight: FontWeight.bold),
           ),
         ),
         child: SafeArea(

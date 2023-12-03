@@ -6,7 +6,7 @@ import '../models/request/post_booking.dart';
 
 part 'remote.g.dart';
 
-@RestApi(baseUrl: restApiBaseUrl)
+@RestApi(baseUrl: BASE_URL)
 abstract class RemoteBookingDataSource {
   factory RemoteBookingDataSource(Dio dio, {String? baseUrl}) =
       _RemoteBookingDataSource;
@@ -26,6 +26,7 @@ abstract class RemoteBookingDataSource {
   );
   @PATCH("/api/booking")
   Future<UpdateBookingResponse> updateBooking(PostBookingRequest booking);
+
   @DELETE("/api/booking/{id}")
   Future<void> deleteBooking(
     @Header("Authorization") String token,

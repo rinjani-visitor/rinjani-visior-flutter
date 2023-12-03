@@ -10,14 +10,14 @@ import 'package:rinjani_visitor/core/presentation/theme/theme.dart';
 import 'package:rinjani_visitor/features/favorite/presentation/view_model/favorite.dart';
 import 'package:rinjani_visitor/features/product/domain/entity/product.dart';
 import 'package:rinjani_visitor/features/product/presentation/view_model/product_detail.dart';
-import 'package:rinjani_visitor/core/widget/add_on.dart';
-import 'package:rinjani_visitor/core/widget/button/primary_button.dart';
-import 'package:rinjani_visitor/core/widget/form/input_field.dart';
-import 'package:rinjani_visitor/core/widget/person_counter.dart';
-import 'package:rinjani_visitor/core/widget/rating_widget.dart';
-import 'package:rinjani_visitor/core/widget/review_widget.dart';
-import 'package:rinjani_visitor/core/widget/segmented_widget.dart';
-import 'package:rinjani_visitor/core/widget/status.dart';
+import 'package:rinjani_visitor/core/presentation/widget/add_on.dart';
+import 'package:rinjani_visitor/core/presentation/widget/button/primary_button.dart';
+import 'package:rinjani_visitor/core/presentation/widget/form/input_field.dart';
+import 'package:rinjani_visitor/core/presentation/widget/person_counter.dart';
+import 'package:rinjani_visitor/core/presentation/widget/rating_widget.dart';
+import 'package:rinjani_visitor/core/presentation/widget/review_widget.dart';
+import 'package:rinjani_visitor/core/presentation/widget/segmented_widget.dart';
+import 'package:rinjani_visitor/core/presentation/widget/status.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
 class ProductDetailPage extends ConsumerStatefulWidget {
@@ -230,6 +230,14 @@ class _DetailPageState extends ConsumerState<ProductDetailPage> {
                                           onTap: () => _showDatePicker(
                                               data.includeEndDate ?? false),
                                           child: InputField(
+                                            prefix: const Padding(
+                                                padding: EdgeInsets.only(
+                                                  left: 12.0,
+                                                ),
+                                                child: Icon(
+                                                  Icons.calendar_today,
+                                                  color: lightGray,
+                                                )),
                                             controller: _startDateController,
                                             enabled: false,
                                           ),
