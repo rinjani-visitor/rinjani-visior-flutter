@@ -6,6 +6,7 @@ part 'update_user_detail.g.dart';
 class UpdateUserDetailRequest {
   String? name;
   String? email;
+  String? country;
   String? phoneNumber;
   String? password;
   String? confirmPassword;
@@ -16,6 +17,7 @@ class UpdateUserDetailRequest {
     this.phoneNumber,
     this.password,
     this.confirmPassword,
+    this.country,
   });
   factory UpdateUserDetailRequest.fromJson(Map<String, dynamic> json) =>
       _$UpdateUserDetailRequestFromJson(json);

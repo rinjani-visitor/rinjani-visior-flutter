@@ -1,7 +1,9 @@
+import 'package:country_picker/country_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rinjani_visitor/core/presentation/theme/theme.dart';
 import 'package:rinjani_visitor/core/presentation/widget/form/input_field.dart';
+import 'package:rinjani_visitor/features/authentication/domain/entity/auth_detail.dart';
 import 'package:rinjani_visitor/features/authentication/presentation/view_model/auth_detail.dart';
 
 class PersonalInfoPage extends ConsumerStatefulWidget {
@@ -22,6 +24,12 @@ class _PersonalInfoPageState extends ConsumerState<PersonalInfoPage> {
       TextEditingController(text: _initState.asData?.value?.phoneNumber ?? "");
   late final TextEditingController _countryController =
       TextEditingController(text: _initState.asData?.value?.country ?? "");
+  void _setTextControllers(AuthDetailEntity? authDetail) {
+    _nameController.text = authDetail?.name ?? "";
+    _emailController.text = authDetail?.email ?? "";
+    _phoneController.text = authDetail?.phoneNumber ?? "";
+    _countryController.text = authDetail?.country ?? "";
+  }
 
   void _showEditNameDialog() {
     showCupertinoDialog(
@@ -31,6 +39,7 @@ class _PersonalInfoPageState extends ConsumerState<PersonalInfoPage> {
             title: const Text('Edit'),
             content: CupertinoTextField(
               controller: _nameController,
+              padding: const EdgeInsets.all(8),
             ),
             actions: [
               CupertinoDialogAction(
@@ -41,6 +50,88 @@ class _PersonalInfoPageState extends ConsumerState<PersonalInfoPage> {
               ),
               CupertinoDialogAction(
                 onPressed: () {
+                  ref
+                      .read(authDetailViewModelProvider.notifier)
+                      .updateUserDetail(
+                        name: _nameController.text,
+                      );
+                  Navigator.pop(context);
+                },
+                child: const Text('Save'),
+              ),
+            ],
+          );
+        });
+  }
+
+  void _showEditPhoneNumberDialog() {
+    showCupertinoDialog(
+        context: context,
+        builder: (context) {
+          return CupertinoAlertDialog(
+            title: const Text('Edit'),
+            content: CupertinoTextField(
+              controller: _phoneController,
+              keyboardType: TextInputType.phone,
+              textInputAction: TextInputAction.send,
+              padding: const EdgeInsets.all(8),
+            ),
+            actions: [
+              CupertinoDialogAction(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: const Text('Cancel'),
+              ),
+              CupertinoDialogAction(
+                onPressed: () {
+                  ref
+                      .read(authDetailViewModelProvider.notifier)
+                      .updateUserDetail(
+                        phoneNumber: _phoneController.text,
+                      );
+                  Navigator.pop(context);
+                },
+                child: const Text('Save'),
+              ),
+            ],
+          );
+        });
+  }
+
+  void _showEditCountryDialog() {
+    showCupertinoDialog(
+        context: context,
+        builder: (context) {
+          return CupertinoAlertDialog(
+            title: const Text('Edit'),
+            content: CupertinoTextField(
+              controller: _countryController,
+              readOnly: true,
+              onTap: () {
+                showCountryPicker(
+                    context: context,
+                    showSearch: false,
+                    onSelect: (country) {
+                      _countryController.text = country.name;
+                    });
+              },
+              padding: const EdgeInsets.all(8),
+            ),
+            actions: [
+              CupertinoDialogAction(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: const Text('Cancel'),
+              ),
+              CupertinoDialogAction(
+                onPressed: () {
+                  ref
+                      .read(authDetailViewModelProvider.notifier)
+                      .updateUserDetail(
+                        country: _countryController.text,
+                      );
                   Navigator.pop(context);
                 },
                 child: const Text('Save'),
@@ -53,6 +144,9 @@ class _PersonalInfoPageState extends ConsumerState<PersonalInfoPage> {
   @override
   Widget build(BuildContext context) {
     final state = ref.watch(authDetailViewModelProvider);
+    state.whenData((data) {
+      _setTextControllers(data);
+    });
     return CupertinoPageScaffold(
         backgroundColor: backgroundColor,
         navigationBar: const CupertinoNavigationBar(
@@ -66,7 +160,7 @@ class _PersonalInfoPageState extends ConsumerState<PersonalInfoPage> {
                     InputField(
                       controller: _nameController,
                       label: 'Name',
-                      enabled: true,
+                      readOnly: true,
                       suffix: CupertinoButton(
                         onPressed: () {
                           _showEditNameDialog();
@@ -92,9 +186,11 @@ class _PersonalInfoPageState extends ConsumerState<PersonalInfoPage> {
                     InputField(
                       controller: _phoneController,
                       label: 'Phone Number',
-                      enabled: false,
+                      readOnly: true,
                       suffix: CupertinoButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          _showEditPhoneNumberDialog();
+                        },
                         child: const Text('Edit'),
                       ),
                     ),
@@ -104,9 +200,11 @@ class _PersonalInfoPageState extends ConsumerState<PersonalInfoPage> {
                     InputField(
                       controller: _countryController,
                       label: 'Country',
-                      enabled: false,
+                      readOnly: true,
                       suffix: CupertinoButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          _showEditCountryDialog();
+                        },
                         child: const Text('Edit'),
                       ),
                     ),

@@ -18,6 +18,7 @@ class InputField extends StatelessWidget {
   final List<TextInputFormatter>? inputFormatters;
   final bool secureText;
   final bool? enabled;
+  final bool? readOnly;
 
   const InputField({
     super.key,
@@ -36,6 +37,7 @@ class InputField extends StatelessWidget {
     this.prefix,
     this.suffix,
     this.onSubmitted,
+    this.readOnly,
   });
 
   @override
@@ -78,6 +80,7 @@ class InputField extends StatelessWidget {
           enabled: enabled ?? true,
           prefix: prefix,
           suffix: suffix,
+          readOnly: readOnly ?? false,
         ),
       ],
     );

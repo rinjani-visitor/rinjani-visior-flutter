@@ -134,14 +134,18 @@ class AuthRepositoryImpl implements AuthRepository {
   Future<void> updateUserDetail(
     String accessToken,
     String userId, {
+    String? name,
     String? phoneNumber,
+    String? country,
     String? email,
     String? password,
     String? confirmPassword,
   }) async {
     final body = UpdateUserDetailRequest(
       phoneNumber: phoneNumber,
+      name: name,
       password: password,
+      country: country,
       confirmPassword: confirmPassword,
     );
     final data = await remote.updateUserDetail(accessToken, body);

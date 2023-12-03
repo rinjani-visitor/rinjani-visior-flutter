@@ -17,6 +17,8 @@ abstract class AuthRepository {
     String accessToken,
     String userId, {
     String? phoneNumber,
+    String? name,
+    String? country,
     String? email,
     String? password,
     String? confirmPassword,
