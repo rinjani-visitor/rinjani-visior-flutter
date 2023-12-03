@@ -52,21 +52,6 @@ class _UserSettingPageState extends ConsumerState<UserSettingPage> {
                   color: blackColor,
                 ),
               ),
-              CupertinoListTile(
-                onTap: () {
-                  Navigator.pushNamed(context, '/personal/email');
-                },
-                backgroundColor: whiteColor,
-                leading: const Icon(
-                  Icons.mail,
-                  color: blackColor,
-                ),
-                title: const Text('Change Email'),
-                trailing: const Icon(
-                  Icons.chevron_right,
-                  color: blackColor,
-                ),
-              ),
               const Spacer(),
               TextButton(
                 onPressed: () {
