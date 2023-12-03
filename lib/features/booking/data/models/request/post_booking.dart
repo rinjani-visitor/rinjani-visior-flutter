@@ -1,5 +1,4 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:rinjani_visitor/features/authentication/data/models/request/reset.dart';
 
 part 'post_booking.g.dart';
 

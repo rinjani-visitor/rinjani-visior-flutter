@@ -1,7 +1,6 @@
 import 'dart:developer' as developer;
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:rinjani_visitor/core/exception/exception.dart';
 import 'package:rinjani_visitor/core/presentation/services/dio_service.dart';
 import 'package:rinjani_visitor/features/order/data/models/request/set_payment_method.dart';
 import 'package:rinjani_visitor/features/order/data/source/remote.dart';

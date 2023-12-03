@@ -33,7 +33,6 @@ class _PaymentMethodPageState extends ConsumerState<PaymentMethodPage> {
 
   @override
   Widget build(BuildContext context) {
-    final paymentWatch = ref.watch(orderPaymentViewModelProvider);
     final bookingDetail = ref.watch(bookingDetailViewModelProvider);
     return CupertinoPageScaffold(
       navigationBar: const CupertinoNavigationBar(

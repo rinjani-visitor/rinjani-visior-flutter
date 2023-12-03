@@ -7,7 +7,6 @@ import 'package:rinjani_visitor/core/presentation/utils/internationalization.dar
 import 'package:rinjani_visitor/features/booking/domain/enum/history_status.dart';
 import 'package:rinjani_visitor/features/booking/presentation/view_model/booking_list.dart';
 import 'package:rinjani_visitor/page/booking/payment_method_page.dart';
-import 'package:rinjani_visitor/page/review/write_review_dialog.dart';
 import 'package:rinjani_visitor/core/presentation/widget/button/primary_button.dart';
 import 'package:rinjani_visitor/core/presentation/widget/status.dart';
 
@@ -44,7 +43,7 @@ class _BookingHistoryPageState extends ConsumerState<BookingHistoryPage> {
       child: SafeArea(
         child: RefreshIndicator.adaptive(
             onRefresh: () async {
-              ref.refresh(bookingListViewModelProvider);
+              final _ = ref.refresh(bookingListViewModelProvider);
             },
             child: switch (bookingData) {
               AsyncData(:final value) => ListView.builder(
@@ -119,7 +118,10 @@ class _BookingHistoryPageState extends ConsumerState<BookingHistoryPage> {
                     );
                   },
                 ),
-              AsyncError(:final error, :final stackTrace) => Center(
+              AsyncError(
+                :final error,
+              ) =>
+                Center(
                   child: Text(error.toString()),
                 ),
               _ => const Center(

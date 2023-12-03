@@ -2,9 +2,7 @@
 import 'dart:developer' as developer;
 import 'dart:io';
 
-import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:rinjani_visitor/core/exception/exception.dart';
 import 'package:rinjani_visitor/core/presentation/services/dio_service.dart';
 import 'package:rinjani_visitor/features/authentication/data/models/request/login.dart';
 import 'package:rinjani_visitor/features/authentication/data/models/request/register.dart';
@@ -148,6 +146,6 @@ class AuthRepositoryImpl implements AuthRepository {
       country: country,
       confirmPassword: confirmPassword,
     );
-    final data = await remote.updateUserDetail(accessToken, body);
+    final _ = await remote.updateUserDetail(accessToken, body);
   }
 }

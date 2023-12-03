@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:country_picker/country_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -105,38 +103,35 @@ class _FormBodyState extends ConsumerState<_FormBody> {
             behavior: HitTestBehavior.translucent,
             onTap: () {
               showCountryPicker(
-                    showSearch: false,
-                    countryListTheme: CountryListThemeData(
-                      bottomSheetHeight: 400,
-                      inputDecoration: InputDecoration(
-                          labelText: 'Search',
-                          hintText: 'Start typing to search',
-                          fillColor: mediumGray,
-                          hoverColor: mediumGray,
-                          focusColor: mediumGray,
-                          prefixIcon: const Icon(Icons.search),
-                          contentPadding: const EdgeInsets.all(4),
-                          border: OutlineInputBorder(
-                            gapPadding: 0,
-                            borderRadius: BorderRadius.circular(smallRadius),
-                            borderSide: const BorderSide(
-                              color: lightGray,
-                            ),
-                          )),
-                    ),
-                    context: context,
-                    onSelect: (country) {
-                      _countryTxtController.text = country.name;
-                    });
+                  showSearch: false,
+                  countryListTheme: CountryListThemeData(
+                    bottomSheetHeight: 400,
+                    inputDecoration: InputDecoration(
+                        labelText: 'Search',
+                        hintText: 'Start typing to search',
+                        fillColor: mediumGray,
+                        hoverColor: mediumGray,
+                        focusColor: mediumGray,
+                        prefixIcon: const Icon(Icons.search),
+                        contentPadding: const EdgeInsets.all(4),
+                        border: OutlineInputBorder(
+                          gapPadding: 0,
+                          borderRadius: BorderRadius.circular(smallRadius),
+                          borderSide: const BorderSide(
+                            color: lightGray,
+                          ),
+                        )),
+                  ),
+                  context: context,
+                  onSelect: (country) {
+                    _countryTxtController.text = country.name;
+                  });
             },
-            
             child: InputFormField(
               label: "Country",
               controller: _countryTxtController,
               enabled: false,
-              onTap: () {
-                
-              },
+              onTap: () {},
               textInputAction: TextInputAction.next,
               placeholder: "Eg: Vatikan",
             ),

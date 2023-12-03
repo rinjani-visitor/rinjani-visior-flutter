@@ -1,6 +1,5 @@
 import 'dart:developer' as developer;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:rinjani_visitor/core/exception/exception.dart';
 import 'package:rinjani_visitor/core/presentation/services/dio_service.dart';
 import 'package:rinjani_visitor/features/favorite/data/models/request/request.dart';
 import 'package:rinjani_visitor/features/favorite/data/source/remote.dart';

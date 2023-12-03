@@ -1,4 +1,3 @@
-import 'package:rinjani_visitor/features/product/domain/entity/product.dart';
 
 class OrderEntity {
   final String id;

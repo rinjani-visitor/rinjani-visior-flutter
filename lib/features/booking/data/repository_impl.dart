@@ -1,5 +1,4 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:rinjani_visitor/core/exception/exception.dart';
 import 'package:rinjani_visitor/core/presentation/services/dio_service.dart';
 import 'package:rinjani_visitor/features/booking/data/models/request/post_booking.dart';
 import 'package:rinjani_visitor/features/booking/data/source/remote.dart';
@@ -40,7 +39,7 @@ class BookingRepositoryImpl implements BookingRepository {
 
   @override
   Future<void> deleteBooking(String token, String id) async {
-    final result = await remote.deleteBooking(token, id);
+    final _ = await remote.deleteBooking(token, id);
     return;
   }
 

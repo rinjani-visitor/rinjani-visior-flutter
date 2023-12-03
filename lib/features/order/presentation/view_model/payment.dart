@@ -11,8 +11,8 @@ import 'package:rinjani_visitor/features/order/domain/entity/payment_method.dart
 import 'package:rinjani_visitor/features/order/domain/order_repository.dart';
 
 final orderPaymentViewModelProvider =
-NotifierProvider<OrderPaymentViewModel, OrderFormEntity>(
-    OrderPaymentViewModel.new);
+    NotifierProvider<OrderPaymentViewModel, OrderFormEntity>(
+        OrderPaymentViewModel.new);
 
 class OrderPaymentViewModel extends Notifier<OrderFormEntity> {
   OrderRepository get _orderRepository => ref.read(orderRepositoryProvider);
@@ -59,11 +59,12 @@ class OrderPaymentViewModel extends Notifier<OrderFormEntity> {
     state = temp;
   }
 
-  void sendOrder(void Function() onSuccess, void Function(String message) onError) async {
+  void sendOrder(
+      void Function() onSuccess, void Function(String message) onError) async {
     final token =
-    ref.read(authViewModelProvider).value!.toAccessTokenAuthorization();
+        ref.read(authViewModelProvider).value!.toAccessTokenAuthorization();
     try {
-      final response = await _orderRepository.sendOrder(token, state);
+      await _orderRepository.sendOrder(token, state);
       onSuccess();
     } catch (e) {
       Fluttertoast.showToast(msg: e.toString());

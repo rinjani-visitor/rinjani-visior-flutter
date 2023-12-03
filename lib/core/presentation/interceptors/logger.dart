@@ -1,8 +1,6 @@
 import 'package:dio/dio.dart';
 import 'dart:developer' as developer;
 
-import 'package:dio/dio.dart';
-
 /// my custom logger interceptor. this should be placed before any interceptors
 class LoggerInterceptor extends InterceptorsWrapper {
   @override
