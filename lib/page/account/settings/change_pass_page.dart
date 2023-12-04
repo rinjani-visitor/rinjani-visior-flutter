@@ -15,6 +15,8 @@ class ChangePassPage extends ConsumerStatefulWidget {
 class _ChangePassPageState extends ConsumerState<ChangePassPage> {
   late final _passwordController = TextEditingController();
   late final _confirmPasswordController = TextEditingController();
+  bool _isPasswordVisible = false;
+  bool _isConfirmPasswordVisible = false;
   @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
@@ -54,12 +56,39 @@ class _ChangePassPageState extends ConsumerState<ChangePassPage> {
                       }
                       return null;
                     },
-                    secureText: true,
+                    suffix: IconButton(
+                      onPressed: () {
+                        setState(() {
+                          _isPasswordVisible = !_isPasswordVisible;
+                        });
+                      },
+                      icon: Icon(
+                        !_isPasswordVisible
+                            ? CupertinoIcons.eye_slash
+                            : CupertinoIcons.eye,
+                        color: lightGray,
+                      ),
+                    ),
+                    secureText: !_isPasswordVisible,
                   ),
                 ),
                 InputFormField(
                   controller: _confirmPasswordController,
                   label: "Confirm Password",
+                  suffix: IconButton(
+                    onPressed: () {
+                      setState(() {
+                        _isConfirmPasswordVisible = !_isConfirmPasswordVisible;
+                      });
+                    },
+                    icon: Icon(
+                      !_isConfirmPasswordVisible
+                          ? CupertinoIcons.eye_slash
+                          : CupertinoIcons.eye,
+                      color: lightGray,
+                    ),
+                  ),
+                  secureText: !_isConfirmPasswordVisible,
                   validator: (value) {
                     if (value!.isEmpty) {
                       return 'Confirm Password cannot be empty';

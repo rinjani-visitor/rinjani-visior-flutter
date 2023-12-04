@@ -91,6 +91,8 @@ class InputFormField extends FormField<String> {
   InputFormField(
       {super.key,
       String? label,
+      Widget? prefix,
+      Widget? suffix,
       String super.initialValue = "",
       bool secureText = false,
       bool? enabled,
@@ -124,6 +126,8 @@ class InputFormField extends FormField<String> {
                 textInputAction: textInputAction,
                 inputFormatters: inputFormatters,
                 enabled: enabled,
+                prefix: prefix,
+                suffix: suffix,
               ),
               Text(
                 (state.hasError ? state.errorText : "") ?? "",

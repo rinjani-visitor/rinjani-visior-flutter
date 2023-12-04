@@ -20,6 +20,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
   final _formKey = GlobalKey<FormState>();
 
   late final notifier = ref.read(authViewModelProvider.notifier);
+  bool _isPasswordVisible = false;
 
   bool isLoading = false;
   final emailTxtController = TextEditingController();
@@ -140,7 +141,20 @@ class _LoginPageState extends ConsumerState<LoginPage> {
             InputFormField(
               controller: passwordTxtController,
               label: 'Password',
-              secureText: true,
+              secureText: !_isPasswordVisible,
+              suffix: IconButton(
+                icon: Icon(
+                  _isPasswordVisible
+                      ? CupertinoIcons.eye
+                      : CupertinoIcons.eye_slash,
+                  color: blackColor,
+                ),
+                onPressed: () {
+                  setState(() {
+                    _isPasswordVisible = !_isPasswordVisible;
+                  });
+                },
+              ),
               keyboardType: TextInputType.text,
               textInputAction: TextInputAction.done,
               autoFillHints: const [AutofillHints.password],
