@@ -267,10 +267,10 @@ class _DetailPageState extends ConsumerState<ProductDetailPage> {
                                             "No accomodation provided",
                                         style: const TextStyle(fontSize: 16),
                                       )),
-                                  const KVContentWidget(
+                                  KVContentWidget(
                                     title: "Reviews",
                                     content: ReviewWidgetWrapper(
-                                      reviews: [],
+                                      reviews: data.reviews ?? [],
                                     ),
                                   ),
                                   KVContentWidget(
@@ -345,6 +345,14 @@ class _Header extends ConsumerWidget {
                   image: imageProvider,
                   fit: BoxFit.cover,
                 ),
+              ),
+            ),
+            placeholder: (context, url) => Container(
+              width: double.infinity,
+              height: 241,
+              color: CupertinoColors.systemGrey5,
+              child: const Center(
+                child: CupertinoActivityIndicator(),
               ),
             ),
           ),

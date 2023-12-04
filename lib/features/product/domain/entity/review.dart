@@ -2,14 +2,14 @@ import 'package:rinjani_visitor/core/presentation/utils/internationalization.dar
 
 class ReviewEntity {
   final String id;
-  final String username;
-  final String review;
+  final String name;
+  final String content;
   final DateTime dateTime;
 
   ReviewEntity({
     required this.id,
-    required this.username,
-    required this.review,
+    required this.name,
+    required this.content,
     required this.dateTime,
   });
 

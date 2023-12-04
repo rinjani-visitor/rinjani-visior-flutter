@@ -29,13 +29,19 @@ class ReviewWidgetWrapper extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (reviews.isEmpty) {
+      return const SizedBox(
+        height: 50,
+        child: Text("No reviews yet"),
+      );
+    }
     return ReviewWidget(
       reviewChildren: List.generate(
         reviews.length,
         (index) => ReviewCardWidget(
-          name: reviews[index].username,
+          name: reviews[index].name,
           createdTime: reviews[index].localizedDateTime,
-          message: reviews[index].review,
+          message: reviews[index].content,
         ),
       ),
     );

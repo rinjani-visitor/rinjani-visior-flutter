@@ -11,9 +11,9 @@ class CameraService extends Notifier<File?> {
   }
 
   Future<File?> openCamera() async {
-    if (await Permission.camera.request().isDenied) {
-      return null;
-    }
+    // if (await Permission.camera.request().isDenied) {
+    //   return null;
+    // }
     final picker = ImagePicker();
     final takedImage = await picker.pickImage(source: ImageSource.camera);
     if (takedImage == null) return null;
@@ -22,9 +22,9 @@ class CameraService extends Notifier<File?> {
   }
 
   Future<File?> openImagePicker() async {
-    if (await Permission.camera.request().isDenied) {
-      return null;
-    }
+    // if (await Permission.camera.request().isDenied) {
+    //   return null;
+    // }
     final picker = ImagePicker();
     final pickedImage = await picker.pickImage(source: ImageSource.gallery);
     if (pickedImage == null) return null;

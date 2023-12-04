@@ -1,4 +1,5 @@
 import 'package:rinjani_visitor/features/product/domain/entity/addon.dart';
+import 'package:rinjani_visitor/features/product/domain/entity/review.dart';
 
 class ProductEntity {
   final String productId;
@@ -83,5 +84,5 @@ class ProductDetailEntity {
   List<String>? facilities;
   List<String>? timeList24H;
   List<AddonEntity>? addOns;
-  List<String>? reviews;
+  List<ReviewEntity>? reviews;
 }

@@ -2,6 +2,7 @@ import 'package:json_annotation/json_annotation.dart';
 import 'package:rinjani_visitor/core/domain/entity/base_response.dart';
 import 'package:rinjani_visitor/features/product/domain/entity/addon.dart';
 import 'package:rinjani_visitor/features/product/domain/entity/product.dart';
+import 'package:rinjani_visitor/features/product/domain/entity/review.dart';
 
 part 'product_detail.g.dart';
 
@@ -37,7 +38,13 @@ class ProductDetailResponse extends BaseResponse<ProductDetailBody> {
       locationUrl: "",
       timeList24H: [],
       favoritedCount: data.favoritedCount.toString(),
-      reviews: data.reviews,
+      reviews: data.reviews
+          ?.map((e) => ReviewEntity(
+              content: e.messageReview ?? "",
+              dateTime: DateTime.parse(e.createdAt!).toLocal(),
+              id: e.name ?? "",
+              name: e.name ?? ""))
+          .toList(),
       note: data.note,
       subCategory: data.subCategory);
 }
@@ -65,7 +72,7 @@ class ProductDetailBody {
   String? createdAt;
   String? updatedAt;
   List<Fotos>? fotos;
-  List<String>? reviews;
+  List<ReviewResBody>? reviews;
 
   ProductDetailBody(
       {required this.productId,
@@ -102,9 +109,11 @@ class ReviewResBody {
   final String? rating;
   final String? createdAt;
   final String? name;
+  final String? country;
   final String? profilPicture;
   ReviewResBody({
     this.messageReview,
+    this.country,
     this.rating,
     this.createdAt,
     this.name,
