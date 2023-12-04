@@ -21,7 +21,7 @@ class OrderRepositoryImpl implements OrderRepository {
   Future<String?> sendOrder(String token, OrderFormEntity order) async {
     final payment = order.paymentMethod;
     switch (payment.runtimeType) {
-      case WisePaymentMethod _:
+      case const (WisePaymentMethod):
         payment as WisePaymentMethod;
         developer.log("update to wise payment");
         await remote.setPaymentMethod(token,
@@ -37,7 +37,7 @@ class OrderRepositoryImpl implements OrderRepository {
             wiseAccountName: payment.name!,
             imageProofTransfer: payment.proofOfPayment!);
         return result.message;
-      case BankPaymentMethod _:
+      case const (BankPaymentMethod):
         payment as BankPaymentMethod;
         developer.log("update to bank payment");
         await remote.setPaymentMethod(token,

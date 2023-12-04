@@ -65,6 +65,7 @@ class OrderPaymentViewModel extends Notifier<OrderFormEntity> {
         ref.read(authViewModelProvider).value!.toAccessTokenAuthorization();
     try {
       await _orderRepository.sendOrder(token, state);
+      Fluttertoast.showToast(msg: "Payment success");
       onSuccess();
     } catch (e) {
       Fluttertoast.showToast(msg: e.toString());

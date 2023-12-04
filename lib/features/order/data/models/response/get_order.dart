@@ -44,6 +44,6 @@ class OrderResponseBody {
         location: location,
         approvedAt: DateTime.parse(
           orderApproveDate ?? "",
-        ));
+        ).toLocal());
   }
 }
