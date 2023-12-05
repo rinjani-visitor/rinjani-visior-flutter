@@ -6,6 +6,7 @@ import 'package:rinjani_visitor/core/presentation/theme/theme.dart';
 import 'package:rinjani_visitor/core/presentation/widget/product/big_card.dart';
 import 'package:rinjani_visitor/core/presentation/widget/status.dart';
 import 'package:rinjani_visitor/features/product/presentation/view_model/event.dart';
+import 'package:rinjani_visitor/page/product/product_detail_page.dart';
 
 class EventList extends ConsumerStatefulWidget {
   const EventList({super.key});
@@ -50,10 +51,18 @@ class _EventListState extends ConsumerState<EventList>
                     child: BigProductCard(
                         imgUrl: IMG_PLACEHOLDER,
                         title: value[index].title ?? "",
-                        price: "\$80 - \$90 - Person",
+                        price: "${value[index].lowestPrice}\$",
                         status: StatusColor.available,
                         onTap: () {
-                          Navigator.pushNamed(context, "/event/detail");
+                          Navigator.push(
+                            context,
+                            CupertinoPageRoute(
+                              builder: (context) => ProductDetailPage(
+                                id: value[index].productId,
+                                category: "event",
+                              ),
+                            ),
+                          );
                         },
                         rating: value[index].ratingString),
                   );
