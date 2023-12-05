@@ -6,6 +6,7 @@ import 'package:rinjani_visitor/features/booking/domain/entitiy/booking.dart';
 
 import 'package:rinjani_visitor/features/booking/domain/entitiy/booking_form.dart';
 import 'package:rinjani_visitor/features/booking/domain/entitiy/booking_form_status.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../domain/repository/booking.dart';
 
@@ -60,5 +61,22 @@ class BookingRepositoryImpl implements BookingRepository {
       String token, BookingFormEntity booking) {
     // TODO: implement updateBooking
     throw UnimplementedError();
+  }
+
+  @override
+  Future<bool> updateBookingVisitedStatus(
+      List<BookingEntity> currentBookingList) async {
+    final sharedPreference = await SharedPreferences.getInstance();
+    final listOfStatus =
+        currentBookingList.map((e) => e.bookingStatus.name).toList();
+    final savedHash = await sharedPreference.get("booking_list_hash");
+    if (savedHash == null) {
+      await sharedPreference.setString(
+        "booking_list_hash",
+        "hashData".toString(),
+      );
+      return false;
+    }
+    return true;
   }
 }

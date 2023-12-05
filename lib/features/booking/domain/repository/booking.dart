@@ -19,4 +19,8 @@ abstract class BookingRepository {
   );
 
   Future<void> deleteBooking(String token, String id);
+
+  /// this function will return true if booking list has been visited
+  Future<bool> updateBookingVisitedStatus(
+      List<BookingEntity> currentBookingList);
 }
