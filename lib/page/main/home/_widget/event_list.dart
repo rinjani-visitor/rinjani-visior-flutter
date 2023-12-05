@@ -4,12 +4,18 @@ import 'package:rinjani_visitor/core/constant/constant.dart';
 import 'package:rinjani_visitor/core/presentation/theme/theme.dart';
 import 'package:rinjani_visitor/core/presentation/widget/product/big_card.dart';
 import 'package:rinjani_visitor/core/presentation/widget/status.dart';
+import 'package:rinjani_visitor/features/product/presentation/view_model/category.dart';
 
 class EventList extends ConsumerWidget {
   const EventList({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final data = ref.watch(productCategoryViewModelProvider);
+    ref
+        .read(productCategoryViewModelProvider.notifier)
+        .getProductCategory("event");
+
     return Padding(
       padding: const EdgeInsets.only(bottom: 16),
       child: Column(
