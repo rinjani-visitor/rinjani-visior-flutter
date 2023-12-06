@@ -1,9 +1,11 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rinjani_visitor/core/presentation/services/dio_service.dart';
+import 'package:rinjani_visitor/core/presentation/utils/crypto.dart';
 import 'package:rinjani_visitor/features/booking/data/models/request/post_booking.dart';
+import 'package:rinjani_visitor/features/booking/data/source/local.dart';
 import 'package:rinjani_visitor/features/booking/data/source/remote.dart';
 import 'package:rinjani_visitor/features/booking/domain/entitiy/booking.dart';
-
+import "package:crypto/crypto.dart";
 import 'package:rinjani_visitor/features/booking/domain/entitiy/booking_form.dart';
 import 'package:rinjani_visitor/features/booking/domain/entitiy/booking_form_status.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -64,19 +66,47 @@ class BookingRepositoryImpl implements BookingRepository {
   }
 
   @override
-  Future<bool> updateBookingVisitedStatus(
+  Future<bool> isBookingHaveNewEntryStatus(
       List<BookingEntity> currentBookingList) async {
     final sharedPreference = await SharedPreferences.getInstance();
-    final listOfStatus =
-        currentBookingList.map((e) => e.bookingStatus.name).toList();
-    final savedHash = await sharedPreference.get("booking_list_hash");
+
+    // create MD5 hash string from status and id value at booking list
+    // please do not add any other value to this conversion process
+    final currentHash = Crypto.toMd5(
+      currentBookingList
+          .map((e) => "${e.bookingStatus.name}${e.bookingId}")
+          .toList()
+          .join(''),
+    );
+
+    final savedHash =
+        sharedPreference.getString(LocalBookingSource.BOOKING_NOTIFICATION_KEY);
     if (savedHash == null) {
-      await sharedPreference.setString(
-        "booking_list_hash",
-        "hashData".toString(),
-      );
-      return false;
+      return true;
     }
-    return true;
+    if (savedHash != currentHash) {
+      return true;
+    }
+    return false;
+  }
+
+  @override
+  Future<void> updateBookingNewEntryStatus(
+    List<BookingEntity> currentBookingList,
+  ) async {
+    final sharedPreference = await SharedPreferences.getInstance();
+
+    // create MD5 hash string from status and id value at booking list
+    // please do not add any other value to this conversion process
+    final currentHash = Crypto.toMd5(
+      currentBookingList
+          .map((e) => "${e.bookingStatus.name}${e.bookingId}")
+          .toList()
+          .join(''),
+    );
+    await sharedPreference.setString(
+      LocalBookingSource.BOOKING_NOTIFICATION_KEY,
+      currentHash,
+    );
   }
 }
