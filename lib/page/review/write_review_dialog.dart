@@ -29,8 +29,8 @@ class _WriteReviewPageState extends ConsumerState<WriteReviewPage> {
   Widget build(BuildContext context) {
     final review = ref.watch(reviewFormViewModelProvider);
     return CupertinoPageScaffold(
-      navigationBar: CupertinoNavigationBar(
-        middle: const Text("Write Review"),
+      navigationBar: const CupertinoNavigationBar(
+        middle: Text("Write Review"),
       ),
       child: Padding(
         padding: const EdgeInsets.all(16.0),
