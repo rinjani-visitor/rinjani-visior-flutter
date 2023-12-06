@@ -96,12 +96,13 @@ class _WishlistPageState extends ConsumerState<WishlistPage> {
                                   category: current.category ?? "",
                                   id: current.productId)),
                         ),
+                        rating: current.ratingString,
                         imgUrl: current.thumbnail ?? IMG_PLACEHOLDER,
                         title: current.title ?? "No title",
                         status: current.avaiable != null && current.avaiable!
                             ? StatusColor.available
                             : StatusColor.error,
-                        price: current.lowestPrice.toString(),
+                        price: "${current.lowestPrice}\$",
                       ),
                     );
                   },

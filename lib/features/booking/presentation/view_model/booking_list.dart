@@ -21,9 +21,13 @@ class BookingListViewModel
       ref.read(bookingNotificationViewModelProvider.notifier);
 
   @override
-  FutureOr<List<BookingEntity>> build() {
+  FutureOr<List<BookingEntity>> build() async {
     final token = auth.getAccessToken();
-    return bookingRepository.getBookings(token!);
+    final lists = await bookingRepository.getBookings(token!);
+    ref
+        .read(bookingNotificationViewModelProvider.notifier)
+        .getNotificationStatus(lists: lists);
+    return lists;
   }
 
   Future<void> deleteBooking(String id) async {

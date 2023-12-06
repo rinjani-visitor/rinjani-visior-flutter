@@ -24,6 +24,7 @@ abstract class BookingRepository {
   Future<bool> isBookingHaveNewEntryStatus(
     List<BookingEntity> currentBookingList,
   );
+
   Future<void> updateBookingNewEntryStatus(
       List<BookingEntity> currentBookingList);
 }

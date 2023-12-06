@@ -30,9 +30,10 @@ class ReviewWidgetWrapper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (reviews.isEmpty) {
-      return const SizedBox(
-        height: 50,
-        child: Text("No reviews yet"),
+      return const Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [Text("No reviews"),]
       );
     }
     return ReviewWidget(

@@ -106,7 +106,7 @@ class ProductDetailBody {
 @JsonSerializable()
 class ReviewResBody {
   final String? messageReview;
-  final String? rating;
+  final double? rating;
   final String? createdAt;
   final String? name;
   final String? country;
