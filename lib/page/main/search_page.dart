@@ -44,7 +44,8 @@ class _SearchPageState extends ConsumerState<SearchPage> {
                 .searchPackage(searchController.text);
           },
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            padding:
+                const EdgeInsets.symmetric(horizontal: LIST_HORIZONTAL_PADDING),
             child: searchData.when(
               data: (data) => data.isNotEmpty
                   ? ListView.builder(

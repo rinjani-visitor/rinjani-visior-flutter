@@ -51,7 +51,8 @@ class _CategoryExplorePageState extends ConsumerState<CategoryExplorePage> {
         ),
         child: SafeArea(
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 12.0),
+            padding:
+                const EdgeInsets.symmetric(horizontal: LIST_HORIZONTAL_PADDING),
             child: RefreshIndicator.adaptive(
               onRefresh: () async {
                 await ref

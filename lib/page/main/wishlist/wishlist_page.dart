@@ -35,7 +35,8 @@ class _WishlistPageState extends ConsumerState<WishlistPage> {
             await Future.delayed(const Duration(seconds: 1));
           },
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+            padding:
+                const EdgeInsets.symmetric(horizontal: LIST_HORIZONTAL_PADDING),
             child: favoriteList.when(
               error: (error, _) {
                 return LayoutBuilder(

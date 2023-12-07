@@ -175,7 +175,7 @@ class _ContinuePaymentPageState extends ConsumerState<ContinuePaymentPage> {
                                 _field2Controller.text, selectedImage);
                         ref
                             .read(orderPaymentViewModelProvider.notifier)
-                            .sendOrder(() {
+                            .sendPayment(() {
                           Navigator.popUntil(
                               context, ModalRoute.withName('/home'));
                         }, (message) {
