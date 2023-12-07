@@ -60,7 +60,8 @@ class OrderPaymentViewModel extends Notifier<OrderFormEntity> {
     state = temp;
   }
 
-  void sendOrder(
+  /// initiate and send payment to Rinjani Visitor API
+  void sendPayment(
       void Function() onSuccess, void Function(String message) onError) async {
     final token =
         ref.read(authViewModelProvider).value!.toAccessTokenAuthorization();
