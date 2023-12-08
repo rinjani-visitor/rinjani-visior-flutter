@@ -30,13 +30,14 @@ class SliverHomeAppbarDelegate extends SliverPersistentHeaderDelegate {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             _topWidget(),
-            const SizedBox(height: 8,),
+            const SizedBox(
+              height: 8,
+            ),
             Expanded(
                 child: Stack(
               alignment: Alignment.bottomCenter,
               clipBehavior: Clip.none,
               children: [
-
                 if (shrinkPercentage != 1)
                   Opacity(
                     opacity: 1.0 - shrinkPercentage,
@@ -55,7 +56,7 @@ class SliverHomeAppbarDelegate extends SliverPersistentHeaderDelegate {
   double get maxExtent => 220;
 
   @override
-  double get minExtent => 175;
+  double get minExtent => 160;
 
   @override
   bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) {
@@ -64,17 +65,27 @@ class SliverHomeAppbarDelegate extends SliverPersistentHeaderDelegate {
 
   Widget _topWidget() {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        FittedBox(
-          fit: BoxFit.fitWidth,
-          child: Text(
-            'Hi, $title',
-            style:
-                whiteTextStyle.copyWith(fontSize: heading3, fontWeight: bold),
+        Expanded(
+          child: FittedBox(
+            fit: BoxFit.scaleDown,
+            alignment: Alignment.centerLeft,
+            child: Text(
+              'Hi, $title',
+              style:
+                  whiteTextStyle.copyWith(fontSize: heading3, fontWeight: bold),
+            ),
           ),
         ),
-        leading ?? const SizedBox(),
+        Row(
+          children: [
+            const SizedBox(
+              width: 24,
+            ),
+            leading ?? const SizedBox()
+          ],
+        )
       ],
     );
   }
@@ -100,7 +111,10 @@ class SliverHomeAppbarDelegate extends SliverPersistentHeaderDelegate {
           "Explore",
           style: whiteTextStyle.copyWith(fontWeight: FontWeight.bold),
         ),
-        Text("Find your suitable trip", style: whiteTextStyle,)
+        Text(
+          "Find your suitable trip",
+          style: whiteTextStyle,
+        )
       ],
     );
   }

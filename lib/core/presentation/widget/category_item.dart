@@ -27,7 +27,7 @@ class CategoryItem extends StatelessWidget {
             decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 color: mediumGray,
-                border: Border.all(color: lightGray)),
+                border: Border.all(color: CupertinoColors.systemGrey5)),
             child: Icon(
               iconName,
               color: primaryColor,

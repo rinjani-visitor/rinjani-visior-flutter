@@ -35,8 +35,11 @@ class _WishlistPageState extends ConsumerState<WishlistPage> {
             await Future.delayed(const Duration(seconds: 1));
           },
           child: Padding(
-            padding:
-                const EdgeInsets.symmetric(horizontal: LIST_HORIZONTAL_PADDING),
+            padding: const EdgeInsets.only(
+              left: LIST_HORIZONTAL_PADDING,
+              right: LIST_HORIZONTAL_PADDING,
+              top: LIST_VERTICAL_PADDING,
+            ),
             child: favoriteList.when(
               error: (error, _) {
                 return LayoutBuilder(
@@ -88,7 +91,7 @@ class _WishlistPageState extends ConsumerState<WishlistPage> {
                   itemBuilder: (context, index) {
                     final current = data[index];
                     return Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 8),
+                      padding: const EdgeInsets.only(bottom: 8),
                       child: BigProductCard(
                         onTap: () => Navigator.push(
                           context,

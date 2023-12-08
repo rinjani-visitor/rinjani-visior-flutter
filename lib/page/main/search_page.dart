@@ -18,18 +18,17 @@ class SearchPage extends ConsumerStatefulWidget {
 
 class _SearchPageState extends ConsumerState<SearchPage> {
   final searchController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     final searchData = ref.watch(productSearchViewModelProvider);
     return CupertinoPageScaffold(
       backgroundColor: backgroundColor,
       navigationBar: CupertinoNavigationBar(
-        automaticallyImplyLeading: false,
         padding: const EdgeInsetsDirectional.only(bottom: 2, top: 2),
         middle: CupertinoSearchTextField(
           onSubmitted: (text) {
             searchController.text = text;
-
             ref
                 .read(productSearchViewModelProvider.notifier)
                 .searchPackage(text);
@@ -44,8 +43,10 @@ class _SearchPageState extends ConsumerState<SearchPage> {
                 .searchPackage(searchController.text);
           },
           child: Padding(
-            padding:
-                const EdgeInsets.symmetric(horizontal: LIST_HORIZONTAL_PADDING),
+            padding: const EdgeInsets.only(
+                left: LIST_HORIZONTAL_PADDING,
+                right: LIST_HORIZONTAL_PADDING,
+                top: 8.0),
             child: searchData.when(
               data: (data) => data.isNotEmpty
                   ? ListView.builder(
