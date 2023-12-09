@@ -1,5 +1,5 @@
 import 'dart:async';
-
+import 'dart:developer' as developer;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rinjani_visitor/features/authentication/presentation/view_model/auth.dart';
 import 'package:rinjani_visitor/features/booking/data/repository_impl.dart';
@@ -14,6 +14,7 @@ final bookingListViewModelProvider =
 class BookingListViewModel
     extends AutoDisposeAsyncNotifier<List<BookingEntity>> {
   AuthViewModel get auth => ref.read(authViewModelProvider.notifier);
+
   BookingRepository get bookingRepository =>
       ref.read(bookingRepositoryProvider);
 
@@ -28,6 +29,21 @@ class BookingListViewModel
         .read(bookingNotificationViewModelProvider.notifier)
         .getNotificationStatus(lists: lists);
     return lists;
+  }
+
+  void onPageRefresh() async {
+    developer.log("Refresh Emit", name: runtimeType.toString());
+    final token = auth.getAccessToken();
+    final lists = await AsyncValue.guard(
+        () async => await bookingRepository.getBookings(token!));
+    ref
+        .read(bookingNotificationViewModelProvider.notifier)
+        .getNotificationStatus(
+          lists: lists.value,
+          updateEntry: true,
+        );
+    final value = lists.value;
+    state = value != null ? lists : state;
   }
 
   Future<void> deleteBooking(String id) async {

@@ -53,7 +53,7 @@ class GetBookingBody {
   BookingEntity toEntity() {
     return BookingEntity(
       bookingId: bookingId,
-      bookingDate: DateTime.parse(bookingDate).toLocal(),
+      bookingDate: DateTime.parse("${bookingDate}Z").toLocal(),
       title: title,
       bookingStatus: BookingStatus.fromString(bookingStatus),
       bookingNote: bookingNote,

@@ -53,9 +53,7 @@ class MainPage extends ConsumerWidget with WidgetsBindingObserver {
       tabBuilder: (context, index) {
         switch (index) {
           case 1:
-            ref
-                .read(bookingNotificationViewModelProvider.notifier)
-                .getNotificationStatus(updateEntry: true);
+            ref.read(bookingListViewModelProvider.notifier).onPageRefresh();
             return const BookingHistoryPage();
           case 2:
             return const WishlistPage();

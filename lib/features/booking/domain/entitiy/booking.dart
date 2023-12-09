@@ -11,6 +11,7 @@ const bookingHistoryStatus = [
 
 class BookingEntity {
   final String bookingId;
+  /// date when booking is recorded, in local time
   final DateTime bookingDate;
   final String title;
   final BookingStatus bookingStatus;

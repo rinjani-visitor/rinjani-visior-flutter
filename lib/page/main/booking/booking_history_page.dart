@@ -5,6 +5,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:rinjani_visitor/core/constant/constant.dart';
 import 'package:rinjani_visitor/core/presentation/theme/theme.dart';
 import 'package:rinjani_visitor/core/presentation/utils/internationalization.dart';
+import 'package:rinjani_visitor/features/booking/domain/entitiy/booking.dart';
 import 'package:rinjani_visitor/features/booking/domain/enum/history_status.dart';
 import 'package:rinjani_visitor/features/booking/presentation/view_model/booking_list.dart';
 import 'package:rinjani_visitor/page/booking/payment_method_page.dart';
@@ -22,7 +23,76 @@ class BookingHistoryPage extends ConsumerStatefulWidget {
 class _BookingHistoryPageState extends ConsumerState<BookingHistoryPage> {
   Future<void>? _deleteStatus;
 
-  // void _bookingHistoryTapped(String id) {}
+  void _bookingHistoryTapped(BookingEntity entity) {
+    showGeneralDialog(
+      context: context,
+      barrierDismissible: true,
+      barrierLabel: "Barrier",
+      pageBuilder: (context, animation, secondaryAnimation) {
+        return Center(
+          child: Container(
+            height: 300,
+            padding: EdgeInsets.all(12),
+            margin: const EdgeInsets.symmetric(horizontal: 20),
+            decoration: BoxDecoration(
+                color: CupertinoColors.systemGrey6,
+                borderRadius: BorderRadius.circular(12)),
+            child: SizedBox.expand(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [const Text("ID:"), Text(entity.bookingId)],
+                  ),
+                  // Row(
+                  //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //   children: [
+                  //     const Text("UTC:"),
+                  //     Text(entity.bookingDate.timeZoneName.toString())
+                  //   ],
+                  // ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text("DATE:"),
+                      Row(
+                        children: [
+                          Text(
+                            dateFormat.format(
+                              entity.bookingDate,
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 4,
+                          ),
+                          Text(
+                            timeFormat.format(
+                            entity.bookingDate,
+                            )
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 12,
+                  ),
+                  Text(
+                    entity.title,
+                    style: blackTextStyle.copyWith(
+                        fontSize: heading4, fontWeight: FontWeight.bold),
+                  ),
+                  Text("Note: "),
+                  Text(entity.bookingNote.toString())
+                ],
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
 
   void _deleteBooking(String id) async {
     _deleteStatus =
@@ -69,7 +139,9 @@ class _BookingHistoryPageState extends ConsumerState<BookingHistoryPage> {
                           imgUrl: "",
                           status: current.bookingStatus,
                           dateTime: current.bookingDate,
-                          onTap: () {},
+                          onTap: () {
+                            _bookingHistoryTapped(current);
+                          },
                           action: switch (current.bookingStatus) {
                             BookingStatus.success => PrimaryButton(
                                 child: Text("Go to order"),
