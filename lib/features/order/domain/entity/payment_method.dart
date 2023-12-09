@@ -1,25 +1,7 @@
 import 'dart:io';
 
-abstract class PaymentMethod {}
-
-class WisePaymentMethod implements PaymentMethod {
-  final String bookingId;
-  String? email;
-  String? name;
-  File? proofOfPayment;
-
-  WisePaymentMethod(
-    this.bookingId,
-  );
+abstract class PaymentMethod {
+  void fillData({String? field1, String? field2, File? file});
 }
 
-class BankPaymentMethod implements PaymentMethod {
-  final String bookingId;
-  String? bankName;
-  String? name;
-  File? proofOfPayment;
 
-  BankPaymentMethod(
-    this.bookingId,
-  );
-}

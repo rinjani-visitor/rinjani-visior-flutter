@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rinjani_visitor/core/presentation/theme/theme.dart';
 import 'package:rinjani_visitor/features/booking/presentation/view_model/booking_detail.dart';
+import 'package:rinjani_visitor/features/order/data/adapter/payment.dart';
 import 'package:rinjani_visitor/features/order/domain/entity/payment_method.dart';
 import 'package:rinjani_visitor/features/order/presentation/view_model/payment.dart';
 
@@ -15,6 +16,7 @@ final paymentMethod = [
 
 class PaymentMethodPage extends ConsumerStatefulWidget {
   final String bookingId;
+
   const PaymentMethodPage({super.key, required this.bookingId});
 
   @override
@@ -24,11 +26,17 @@ class PaymentMethodPage extends ConsumerStatefulWidget {
 class _PaymentMethodPageState extends ConsumerState<PaymentMethodPage> {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       ref.read(bookingDetailViewModelProvider.notifier).get(widget.bookingId);
     });
+  }
+
+  void _selectPaymentMethod(PaymentMethod method) {
+    ref.read(orderPaymentViewModelProvider.notifier).addPaymentMethod(
+          method,
+        );
+    Navigator.pushNamed(context, "/booking/payment");
   }
 
   @override
@@ -89,19 +97,10 @@ class _PaymentMethodPageState extends ConsumerState<PaymentMethodPage> {
                         behavior: HitTestBehavior.opaque,
                         onTap: () {
                           final bookingId = bookingDetail.value?.bookingId;
-                          isWise
-                              ? ref
-                                  .read(orderPaymentViewModelProvider.notifier)
-                                  .addWisePaymentMethod(
-                                      WisePaymentMethod(bookingId!))
-                              : ref
-                                  .read(orderPaymentViewModelProvider.notifier)
-                                  .addBankPaymentMethod(
-                                      BankPaymentMethod(bookingId!));
-                          ref
-                              .read(orderPaymentViewModelProvider.notifier)
-                              .setBookingId(bookingDetail.value!);
-                          Navigator.pushNamed(context, "/booking/payment");
+                          final paymentMethod = isWise
+                              ? WisePaymentMethod(bookingId!)
+                              : BankPaymentMethod(bookingId!);
+                          _selectPaymentMethod(paymentMethod);
                         },
                         child: Container(
                           decoration: BoxDecoration(

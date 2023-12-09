@@ -18,6 +18,8 @@ final orderPaymentViewModelProvider =
 class OrderPaymentViewModel extends Notifier<OrderFormEntity> {
   OrderRepository get _orderRepository => ref.read(orderRepositoryProvider);
 
+  AuthViewModel get _authData => ref.read(authViewModelProvider.notifier);
+
   @override
   OrderFormEntity build() {
     return OrderFormEntity();
@@ -27,13 +29,7 @@ class OrderPaymentViewModel extends Notifier<OrderFormEntity> {
     state.bookingDetail = booking;
   }
 
-  void addWisePaymentMethod(WisePaymentMethod paymentMethod) {
-    state.paymentMethod = paymentMethod;
-  }
-
-  void addBankPaymentMethod(BankPaymentMethod paymentMethod) {
-    developer.log("${state.bookingDetail?.bookingId}",
-        name: runtimeType.toString());
+  void addPaymentMethod(PaymentMethod paymentMethod) {
     state = OrderFormEntity(paymentMethod: paymentMethod);
   }
 
@@ -43,28 +39,18 @@ class OrderPaymentViewModel extends Notifier<OrderFormEntity> {
   /// [paymentMethod] should be set first before run this function
   void finalizePaymentMethod(String field1, String field2, File? file) {
     final temp = state;
-    if (temp.paymentMethod is WisePaymentMethod) {
-      final wisePaymentMethod = temp.paymentMethod as WisePaymentMethod;
-      wisePaymentMethod.email = field1;
-      wisePaymentMethod.name = field2;
-      wisePaymentMethod.proofOfPayment = file;
-      temp.paymentMethod = wisePaymentMethod;
-    }
-    if (temp.paymentMethod is BankPaymentMethod) {
-      final bankPaymentMethod = temp.paymentMethod as BankPaymentMethod;
-      bankPaymentMethod.bankName = field1;
-      bankPaymentMethod.name = field2;
-      bankPaymentMethod.proofOfPayment = file;
-      temp.paymentMethod = bankPaymentMethod;
-    }
+    temp.paymentMethod?.fillData(
+      field1: field1,
+      field2: field2,
+      file: file,
+    );
     state = temp;
   }
 
   /// initiate and send payment to Rinjani Visitor API
   void sendPayment(
       void Function() onSuccess, void Function(String message) onError) async {
-    final token =
-        ref.read(authViewModelProvider).value!.toAccessTokenAuthorization();
+    final token = _authData.getAccessToken()!;
     try {
       await _orderRepository.sendOrder(token, state);
       Fluttertoast.showToast(msg: "Payment success");
