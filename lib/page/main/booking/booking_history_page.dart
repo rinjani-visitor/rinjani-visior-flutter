@@ -49,7 +49,10 @@ class _BookingHistoryPageState extends ConsumerState<BookingHistoryPage> {
               final _ = ref.refresh(bookingListViewModelProvider);
             },
             child: Padding(
-              padding: const EdgeInsets.only(left: LIST_HORIZONTAL_PADDING, right: LIST_HORIZONTAL_PADDING, top: LIST_VERTICAL_PADDING),
+              padding: const EdgeInsets.only(
+                  left: LIST_HORIZONTAL_PADDING,
+                  right: LIST_HORIZONTAL_PADDING,
+                  top: LIST_VERTICAL_PADDING),
               child: switch (bookingData) {
                 AsyncData(:final value) => ListView.builder(
                     itemCount: value.length,
@@ -107,7 +110,8 @@ class _BookingHistoryPageState extends ConsumerState<BookingHistoryPage> {
                                             CupertinoDialogAction(
                                               onPressed: () {
                                                 Navigator.of(context).pop();
-                                                _deleteBooking(current.bookingId);
+                                                _deleteBooking(
+                                                    current.bookingId);
                                               },
                                               child: Text("Yes"),
                                             ),

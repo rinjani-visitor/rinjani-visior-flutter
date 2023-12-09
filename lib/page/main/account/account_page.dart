@@ -91,6 +91,7 @@ class _AccountPageState extends ConsumerState<AccountPage> {
   Widget build(BuildContext context) {
     final userDetail = ref.watch(authDetailViewModelProvider);
     return CupertinoPageScaffold(
+      backgroundColor: CupertinoColors.systemGrey6,
         child: RefreshIndicator.adaptive(
             onRefresh: () async {
               await ref.read(authDetailViewModelProvider.notifier).refresh();

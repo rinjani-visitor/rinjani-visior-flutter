@@ -148,7 +148,7 @@ class _PersonalInfoPageState extends ConsumerState<PersonalInfoPage> {
       _setTextControllers(data);
     });
     return CupertinoPageScaffold(
-        backgroundColor: backgroundColor,
+        backgroundColor: CupertinoColors.systemGrey6,
         navigationBar: const CupertinoNavigationBar(
           middle: Text('Personal Information'),
         ),

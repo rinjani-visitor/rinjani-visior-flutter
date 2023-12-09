@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rinjani_visitor/core/constant/constant.dart';
 import 'package:rinjani_visitor/features/authentication/presentation/view_model/auth.dart';
@@ -26,43 +27,46 @@ class HomePage extends ConsumerWidget {
 
     final userDetail = ref.watch(authDetailViewModelProvider);
     final username = ref.watch(authViewModelProvider).value?.username ?? "User";
-    return CupertinoPageScaffold(
-      backgroundColor: backgroundColor,
-      child: NestedScrollView(
-        headerSliverBuilder: (context, innerBoxIsScrolled) => [
-          SliverPersistentHeader(
-            floating: true,
-            pinned: true,
-            delegate: SliverHomeAppbarDelegate(
-                title: userDetail.asData?.value?.name ?? username,
-                leading: CachedNetworkImage(
-                  imageUrl: userDetail.value?.profileImg ?? IMG_PLACEHOLDER,
-                  imageBuilder: (context, imageProvider) {
-                    return CircleAvatar(
-                      backgroundImage: imageProvider,
-                      radius: 20,
-                    );
-                  },
-                )),
-          ),
-        ],
-        body: RefreshIndicator.adaptive(
-          onRefresh: () async {
-            await refresh();
-          },
-          child: ListView(
-            padding: const EdgeInsets.symmetric(vertical: 16),
-            children: const [
-              CategorySelector(),
-              SizedBox(
-                height: 24,
-              ),
-              RecommendationList(),
-              SizedBox(
-                height: 24,
-              ),
-              EventList(),
-            ],
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value: SystemUiOverlayStyle.light,
+      child: CupertinoPageScaffold(
+        backgroundColor: backgroundColor,
+        child: NestedScrollView(
+          headerSliverBuilder: (context, innerBoxIsScrolled) => [
+            SliverPersistentHeader(
+              floating: true,
+              pinned: true,
+              delegate: SliverHomeAppbarDelegate(
+                  title: userDetail.asData?.value?.name ?? username,
+                  leading: CachedNetworkImage(
+                    imageUrl: userDetail.value?.profileImg ?? IMG_PLACEHOLDER,
+                    imageBuilder: (context, imageProvider) {
+                      return CircleAvatar(
+                        backgroundImage: imageProvider,
+                        radius: 20,
+                      );
+                    },
+                  )),
+            ),
+          ],
+          body: RefreshIndicator.adaptive(
+            onRefresh: () async {
+              await refresh();
+            },
+            child: ListView(
+              padding: const EdgeInsets.symmetric(vertical: 16),
+              children: const [
+                CategorySelector(),
+                SizedBox(
+                  height: 24,
+                ),
+                RecommendationList(),
+                SizedBox(
+                  height: 24,
+                ),
+                EventList(),
+              ],
+            ),
           ),
         ),
       ),
