@@ -16,54 +16,14 @@ final orderRepositoryProvider = Provider<OrderRepository>((ref) {
 
 class OrderRepositoryImpl implements OrderRepository {
   RemoteOrderSource remote;
+
   OrderRepositoryImpl(this.remote);
 
   @override
   Future<String?> sendOrder(String token, OrderFormEntity order) async {
     final payment = order.paymentMethod;
-
-    switch (payment.runtimeType) {
-      case const (WisePaymentMethod):
-        payment as WisePaymentMethod;
-        developer.log("update to wise payment");
-        await remote.setPaymentMethod(token,
-            SetPaymentMethod(bookingId: payment.bookingId, method: "Wise"));
-
-        developer.log("uploading wise payment");
-        developer.log("booking id ${payment.bookingId}");
-        developer.log("email ${payment.email}");
-        developer.log("name ${payment.name}");
-        developer.log("file ${payment.proofOfPayment?.path}");
-
-        final result = await remote.uploadWisePayment(token,
-            bookingId: payment.bookingId,
-            wiseEmail: payment.email!,
-            wiseAccountName: payment.name!,
-            imageProofTransfer: payment.proofOfPayment!);
-        return result.message;
-
-      case const (BankPaymentMethod):
-        payment as BankPaymentMethod;
-        developer.log("update to bank payment");
-        await remote.setPaymentMethod(token,
-            SetPaymentMethod(bookingId: payment.bookingId, method: "Bank"));
-
-        developer.log("uploading bank payment");
-        developer.log("booking id ${payment.bookingId}");
-        developer.log("bank name ${payment.bankName}");
-        developer.log("name ${payment.name}");
-        developer.log("file ${payment.proofOfPayment?.path}");
-
-        final result = await remote.uploadBankPayment(
-          token,
-          bookingId: payment.bookingId,
-          bankName: payment.bankName!,
-          bankAccountName: payment.name!,
-          imageProofTransfer: payment.proofOfPayment!,
-        );
-        return result.message;
-    }
-    return null;
+    final result = await payment?.submit(remote, token);
+    return result;
   }
 
   @override
