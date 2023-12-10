@@ -32,7 +32,7 @@ class _BookingHistoryPageState extends ConsumerState<BookingHistoryPage> {
         return Center(
           child: Container(
             height: 300,
-            padding: EdgeInsets.all(12),
+            padding: EdgeInsets.all(24),
             margin: const EdgeInsets.symmetric(horizontal: 20),
             decoration: BoxDecoration(
                 color: CupertinoColors.systemGrey6,
@@ -43,7 +43,7 @@ class _BookingHistoryPageState extends ConsumerState<BookingHistoryPage> {
                 children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [const Text("ID:"), Text(entity.bookingId)],
+                    children: [const Text("Status:"), Text(entity.bookingStatus.name)],
                   ),
                   // Row(
                   //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -55,7 +55,7 @@ class _BookingHistoryPageState extends ConsumerState<BookingHistoryPage> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Text("DATE:"),
+                      const Text("Date:"),
                       Row(
                         children: [
                           Text(
@@ -83,7 +83,8 @@ class _BookingHistoryPageState extends ConsumerState<BookingHistoryPage> {
                     style: blackTextStyle.copyWith(
                         fontSize: heading4, fontWeight: FontWeight.bold),
                   ),
-                  Text("Note: "),
+                  const SizedBox(height: 12),
+                  const Text("Note from admin: "),
                   Text(entity.bookingNote.toString())
                 ],
               ),
