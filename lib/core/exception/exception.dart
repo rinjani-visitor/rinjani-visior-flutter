@@ -68,10 +68,16 @@ class ExtException extends DioException {
   /// create error message at flutter pages / screen using toast or equivalent
   /// without default "Exception:" text _shenaigans_.
   factory ExtException.fromDioException(DioException ex) {
-    developer.log("Raw Error Catched",
-        name: "ExtException.fromDioException", error: ex);
-    var message = "";
+    if (ex.type == DioExceptionType.badResponse) {
+      return ExtException(
+        exceptionType: ExceptionType.badResponseException,
+        requestOptions: ex.requestOptions,
+        errorMessage: "${ex.response?.statusCode}",
+        message: ex.message,
+      );
+    }
     // parse errors from List<String> to "string, string2, etc"
+    var message = "";
     final errors = (ex.response?.data["errors"] as List<dynamic>?);
     final stringifyErrors = errors?.map((e) => e.toString()).toList();
     final errorsFull =
@@ -114,7 +120,10 @@ class ExtException extends DioException {
         } else if (ex.response?.statusCode == 200) {
           errorMessage += "Unknown Error from API";
           exceptionType = ExceptionType.tokenExpiredException;
+        } else {
+          errorMessage = "${ex.response?.statusCode} - ${ex.response}";
         }
+        developer.log(errorMessage);
         break;
       default:
         exceptionType = ExceptionType.unrecognizedException;
