@@ -31,7 +31,7 @@ class _BookingHistoryPageState extends ConsumerState<BookingHistoryPage> {
       pageBuilder: (context, animation, secondaryAnimation) {
         return Center(
           child: Container(
-            height: 300,
+            height: MediaQuery.of(context).size.height * 0.75, // 80% height
             padding: EdgeInsets.all(24),
             margin: const EdgeInsets.symmetric(horizontal: 20),
             decoration: BoxDecoration(
@@ -84,7 +84,7 @@ class _BookingHistoryPageState extends ConsumerState<BookingHistoryPage> {
                         fontSize: heading4, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 12),
-                  const Text("Note from admin: "),
+                  Text("Note from admin: ", style: blackTextStyle.copyWith(fontWeight: FontWeight.bold),),
                   Text(entity.bookingNote.toString())
                 ],
               ),
