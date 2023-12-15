@@ -70,6 +70,8 @@ dependencies:
   # data & bussiness related
   json_annotation: ^4.8.1
   flutter_image_compress: ^2.1.0
+  firebase_storage: ^11.5.6
+  firebase_core: ^2.24.2
 
 
 dev_dependencies:
