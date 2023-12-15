@@ -103,9 +103,6 @@ class ExtException extends DioException {
         errorMessage += "Connection Error, Device is Offline";
         exceptionType = ExceptionType.socketException;
         break;
-      case DioExceptionType.badResponse:
-        exceptionType = ExceptionType.badResponseException;
-        break;
       case DioExceptionType.cancel:
         exceptionType = ExceptionType.cancelException;
         break;
