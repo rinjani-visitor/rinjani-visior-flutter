@@ -62,9 +62,16 @@ class _AddOnWidgetState extends State<_AddOnWidget> {
       padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 8.0),
       child: Row(
         children: [
-          Icon(
-            Icons.add_outlined,
-            color: blackColor,
+          GestureDetector(
+            onTap: () {
+              if (widget.onChanged != null) {
+                widget.onChanged!(widget.selected, widget.selected);
+              }
+            },
+            child: Icon(
+              widget.selected ? Icons.add_box : Icons.add_box_outlined,
+              color: blackColor,
+            ),
           ),
           const SizedBox(
             width: 12,
@@ -86,9 +93,9 @@ class _AddOnWidgetState extends State<_AddOnWidget> {
             width: 24,
             height: 24,
             child: CupertinoCheckbox(
-              onChanged: (value) {
+              onChanged: (_) {
                 if (widget.onChanged != null) {
-                  widget.onChanged!(value, widget.selected);
+                  widget.onChanged!(widget.selected, widget.selected);
                 }
               },
               value: widget.selected,

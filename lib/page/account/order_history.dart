@@ -42,25 +42,29 @@ class _OrderHistoryPageState extends ConsumerState<OrderHistoryPage> {
                         itemCount: orders.length,
                         itemBuilder: (context, index) {
                           final order = orders[index];
-                          return OrderListItem(
-                            orderId: order.id,
-                            title: order.title,
-                            location: order.location ?? "",
-                            status: order.status,
-                            date: order.approvedAt,
-                            onTap: () {
-                              showCupertinoDialog(
-                                  context: context,
-                                  builder: (context) {
-                                    return ConstrainedBox(
-                                      constraints:
-                                          const BoxConstraints(maxHeight: 300),
-                                      child: CupertinoPageScaffold(
-                                        child: WriteReviewPage(order.id),
-                                      ),
-                                    );
-                                  });
-                            },
+                          return Padding(
+                            padding: const EdgeInsets.only(
+                                bottom: LIST_VERTICAL_PADDING),
+                            child: OrderListItem(
+                              orderId: order.id,
+                              title: order.title,
+                              location: order.location ?? "",
+                              status: order.status,
+                              date: order.approvedAt,
+                              onTap: () {
+                                showCupertinoDialog(
+                                    context: context,
+                                    builder: (context) {
+                                      return ConstrainedBox(
+                                        constraints: const BoxConstraints(
+                                            maxHeight: 300),
+                                        child: CupertinoPageScaffold(
+                                          child: WriteReviewPage(order.id),
+                                        ),
+                                      );
+                                    });
+                              },
+                            ),
                           );
                         },
                       )
