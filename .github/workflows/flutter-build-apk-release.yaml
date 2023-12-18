@@ -18,10 +18,10 @@ jobs:
         with:
           channel: 'stable'
       - name: Make env file 🗒️
-          uses: SpicyPizza/create-envfile@v2.0
-          with:
-            envkey_IMGUR_CLIENT_ID: ${{ secrets.IMGUR_CLIENT_ID }}
-            filename: .env
+        uses: SpicyPizza/create-envfile@v2.0
+        with:
+          envkey_IMGUR_CLIENT_ID: ${{ secrets.IMGUR_CLIENT_ID }}
+          filename: .env
       - name: Get packages
         run: flutter pub get
       - name: Generate code generation ♻️
