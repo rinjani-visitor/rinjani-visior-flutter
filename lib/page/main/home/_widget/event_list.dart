@@ -52,7 +52,7 @@ class _EventListState extends ConsumerState<EventList>
                     child: BigProductCard(
                         imgUrl: value[index].thumbnail ?? IMG_PLACEHOLDER,
                         title: value[index].title ?? "",
-                        price: "${value[index].lowestPrice}\$",
+                        price: "from ${value[index].lowestPrice}\$",
                         status: StatusColor.available,
                         onTap: () {
                           Navigator.push(
@@ -70,29 +70,29 @@ class _EventListState extends ConsumerState<EventList>
                 },
               ),
             _ => ListView.builder(
-              physics: const NeverScrollableScrollPhysics(),
-              shrinkWrap: true,
-              padding: EdgeInsets.zero,
-              itemCount: 3,
-              itemBuilder: (context, index) {
-                return Padding(
-                  padding: const EdgeInsets.only(bottom: 8, left: 16, right: 16),
-                  child: Skeletonizer(
-                    child: BigProductCard(
-                        imgUrl: IMG_PLACEHOLDER,
-                        title: "Lombok Festival",
-                        price: "\$80 - \$90 - Person",
-                        status: StatusColor.available,
-                        onTap: () {
-                          Navigator.pushNamed(context, "/event/detail");
-                        },
-                        rating: "4.9"),
-                  ),
-                );
-              },
-            ),
+                physics: const NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                padding: EdgeInsets.zero,
+                itemCount: 3,
+                itemBuilder: (context, index) {
+                  return Padding(
+                    padding:
+                        const EdgeInsets.only(bottom: 8, left: 16, right: 16),
+                    child: Skeletonizer(
+                      child: BigProductCard(
+                          imgUrl: IMG_PLACEHOLDER,
+                          title: "Lombok Festival",
+                          price: "\$80 - \$90 - Person",
+                          status: StatusColor.available,
+                          onTap: () {
+                            Navigator.pushNamed(context, "/event/detail");
+                          },
+                          rating: "4.9"),
+                    ),
+                  );
+                },
+              ),
           },
-          
         ],
       ),
     );
