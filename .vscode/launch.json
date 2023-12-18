@@ -8,7 +8,10 @@
       "name": "rinjani-visitor (debug mode)",
       "request": "launch",
       "program": "lib/main.dart",
-      "type": "dart"
+      "type": "dart",
+      "args": [
+        "-v"
+      ]
     },
     {
       "name": "rinjani-visitor (profile mode)",
