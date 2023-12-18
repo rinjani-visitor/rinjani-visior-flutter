@@ -6,21 +6,6 @@ import 'package:rinjani_visitor/features/booking/domain/entitiy/booking_form.dar
 import 'package:rinjani_visitor/features/booking/presentation/view_model/booking_form.dart';
 import 'package:rinjani_visitor/features/booking/presentation/view_model/booking_form_status.dart';
 
-const textSuccess = {
-  "title": "Booking success",
-  "subtitle": "Your booking\nhas been requested",
-  "description":
-      "We will inform you via email or notification later, once the transaction has been accepted",
-  "image": "assets/booking-success.png",
-};
-
-const textFailed = {
-  "title": "Booking failed",
-  "subtitle": "Your booking has been failed to send",
-  "description": "there is something wrong,",
-  "image": "assets/booking-failed.png",
-};
-
 class BookingStatusPage extends ConsumerStatefulWidget {
   const BookingStatusPage({super.key});
 
@@ -41,89 +26,127 @@ class _BookingStatusPageState extends ConsumerState<BookingStatusPage> {
     final BookingFormEntity bookingForm =
         ref.read(bookingFormViewModelProvider);
     final bookingStatus = ref.watch(bookingFormStatusProvider(bookingForm));
+    return switch (bookingStatus) {
+      AsyncData(:final value) => SuccessStatusPage(
+          onNextPress: () => _backToHome(context),
+        ),
+      AsyncError(:final error,:final stackTrace) => FailedStatusPage(
+          onNextPress: () => _backToHome(context),
+          errorReason: error.toString(),
+        ),
+      (_) => const CupertinoPageScaffold(
+          child: Center(
+            child: CupertinoActivityIndicator(),
+          ),
+        )
+    };
+  }
+}
+
+class SuccessStatusPage extends StatelessWidget {
+  final void Function() onNextPress;
+
+  const SuccessStatusPage({super.key, required this.onNextPress});
+
+  @override
+  Widget build(BuildContext context) {
     return CupertinoPageScaffold(
-      navigationBar: CupertinoNavigationBar(
+      navigationBar: const CupertinoNavigationBar(
         automaticallyImplyLeading: false,
-        middle: Text(textSuccess["title"] ?? ""),
+        middle: Text("Booking success"),
       ),
       child: SafeArea(
-        child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
-            child: switch (bookingStatus) {
-              AsyncData() => Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      textSuccess["subtitle"] ?? "",
-                      style: blackTextStyle.copyWith(
-                          fontSize: 32, fontWeight: bold),
-                      textAlign: TextAlign.center,
-                    ),
-                    Image.asset(
-                      'assets/booking-success.png',
-                      height: 255,
-                    ),
-                    Text(
-                      textSuccess["description"] ?? "",
-                      style: blackTextStyle.copyWith(
-                        fontSize: 16,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                    Container(
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                            color: primaryColor,
-                            borderRadius: BorderRadius.circular(smallRadius)),
-                        child: PrimaryButton(
-                            onPressed: () {
-                              _backToHome(context);
-                            },
-                            child: const Text(
-                              "back to Homepage",
-                            )))
-                  ],
+          child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              "Your booking\nhas been requested",
+              style: blackTextStyle.copyWith(fontSize: 32, fontWeight: bold),
+              textAlign: TextAlign.center,
+            ),
+            Image.asset(
+              'assets/booking-success.png',
+              height: 255,
+            ),
+            Text(
+              "We will inform you via email or notification later, once the transaction has been accepted",
+              style: blackTextStyle.copyWith(
+                fontSize: 16,
+              ),
+              textAlign: TextAlign.center,
+            ),
+            Container(
+              width: double.infinity,
+              decoration: BoxDecoration(
+                  color: primaryColor,
+                  borderRadius: BorderRadius.circular(smallRadius)),
+              child: PrimaryButton(
+                onPressed: onNextPress,
+                child: const Text(
+                  "back to Homepage",
                 ),
-              AsyncError(
-                :final error,
-              ) =>
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      textFailed["subtitle"] ?? "",
-                      style: blackTextStyle.copyWith(
-                          fontSize: 32, fontWeight: bold),
-                      textAlign: TextAlign.center,
-                    ),
-                    Image.asset(
-                      'assets/booking-failed.png',
-                      height: 255,
-                    ),
-                    Text(
-                      error.toString(),
-                      style: blackTextStyle.copyWith(
-                        fontSize: 16,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                    Container(
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                            color: primaryColor,
-                            borderRadius: BorderRadius.circular(smallRadius)),
-                        child: PrimaryButton(
-                            onPressed: () {
-                              _backToHome(context);
-                            },
-                            child: const Text(
-                              "back to Homepage",
-                            )))
-                  ],
-                ),
-              _ => Center(child: const CupertinoActivityIndicator()),
-            }),
+              ),
+            )
+          ],
+        ),
+      )),
+    );
+  }
+}
+
+class FailedStatusPage extends StatelessWidget {
+  final String errorReason;
+  final void Function() onNextPress;
+
+  const FailedStatusPage(
+      {super.key, required this.onNextPress, required this.errorReason});
+
+  @override
+  Widget build(BuildContext context) {
+    return CupertinoPageScaffold(
+      navigationBar: const CupertinoNavigationBar(
+        automaticallyImplyLeading: false,
+        middle: Text("Booking failed"),
       ),
+      child: SafeArea(
+          child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              "Your booking has been failed to send",
+              style: blackTextStyle.copyWith(fontSize: 32, fontWeight: bold),
+              textAlign: TextAlign.center,
+            ),
+            Image.asset(
+              'assets/booking-failed.png',
+              height: 255,
+            ),
+            Text(
+              "there is something wrong, with this error:\n$errorReason",
+              style: blackTextStyle.copyWith(
+                fontSize: 16,
+              ),
+              textAlign: TextAlign.center,
+            ),
+            Container(
+              width: double.infinity,
+              decoration: BoxDecoration(
+                  color: primaryColor,
+                  borderRadius: BorderRadius.circular(smallRadius)),
+              child: PrimaryButton(
+                onPressed: onNextPress,
+                child: const Text(
+                  "back to Homepage",
+                ),
+              ),
+            )
+          ],
+        ),
+      )),
     );
   }
 }
