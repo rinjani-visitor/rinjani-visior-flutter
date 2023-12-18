@@ -7,6 +7,7 @@ class OrderListItem extends StatelessWidget {
   final String orderId;
   final String title;
   final String location;
+  final Widget? additional;
   final String status;
   final DateTime date;
   final void Function()? onTap;
@@ -17,7 +18,8 @@ class OrderListItem extends StatelessWidget {
       required this.location,
       required this.status,
       required this.date,
-      this.onTap});
+      this.onTap,
+      this.additional});
 
   @override
   Widget build(BuildContext context) {
@@ -62,7 +64,13 @@ class OrderListItem extends StatelessWidget {
                       style: grayTextStyle.copyWith(fontSize: body2),
                     ),
                     const SizedBox(height: 8),
-                    Status(status: StatusColor.available, text: status),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Status(status: StatusColor.available, text: status),
+                        additional ?? const SizedBox(),
+                      ],
+                    )
                   ]),
             ),
           ],

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:rinjani_visitor/core/constant/constant.dart';
@@ -11,6 +12,22 @@ import 'package:rinjani_visitor/features/booking/presentation/view_model/booking
 import 'package:rinjani_visitor/page/booking/payment_method_page.dart';
 import 'package:rinjani_visitor/core/presentation/widget/button/primary_button.dart';
 import 'package:rinjani_visitor/core/presentation/widget/status.dart';
+
+StatusColor _fromHistoryStatus(BookingStatus? status) {
+  switch (status) {
+    case BookingStatus.declined:
+    case BookingStatus.paymentFailed:
+      return StatusColor.error;
+    case BookingStatus.paymentReview:
+    case BookingStatus.offering:
+      return StatusColor.loading;
+    case BookingStatus.success:
+    case BookingStatus.waitingForPayment:
+      return StatusColor.success;
+    default:
+      return StatusColor.init;
+  }
+}
 
 class BookingHistoryPage extends ConsumerStatefulWidget {
   const BookingHistoryPage({super.key});
@@ -31,7 +48,7 @@ class _BookingHistoryPageState extends ConsumerState<BookingHistoryPage> {
       pageBuilder: (context, animation, secondaryAnimation) {
         return Center(
           child: Container(
-            height: MediaQuery.of(context).size.height * 0.75, // 80% height
+            height: MediaQuery.of(context).size.height * 0.5, // 50% height
             padding: EdgeInsets.all(24),
             margin: const EdgeInsets.symmetric(horizontal: 20),
             decoration: BoxDecoration(
@@ -41,51 +58,60 @@ class _BookingHistoryPageState extends ConsumerState<BookingHistoryPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [const Text("Status:"), Text(entity.bookingStatus.name)],
-                  ),
-                  // Row(
-                  //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  //   children: [
-                  //     const Text("UTC:"),
-                  //     Text(entity.bookingDate.timeZoneName.toString())
-                  //   ],
-                  // ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Text("Date:"),
-                      Row(
-                        children: [
-                          Text(
-                            dateFormat.format(
-                              entity.bookingDate,
-                            ),
-                          ),
-                          const SizedBox(
-                            width: 4,
-                          ),
-                          Text(
-                            timeFormat.format(
-                            entity.bookingDate,
-                            )
-                          ),
-                        ],
-                      )
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 12,
-                  ),
                   Text(
                     entity.title,
                     style: blackTextStyle.copyWith(
                         fontSize: heading4, fontWeight: FontWeight.bold),
                   ),
-                  const SizedBox(height: 12),
-                  Text("Note from admin: ", style: blackTextStyle.copyWith(fontWeight: FontWeight.bold),),
-                  Text(entity.bookingNote.toString())
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 8.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Status(
+                          text: entity.bookingStatus.name,
+                          status: _fromHistoryStatus(entity.bookingStatus),
+                        ),
+                        const SizedBox(
+                          width: 16,
+                        ),
+                        Row(
+                          children: [
+                            Icon(Icons.calendar_today_outlined,
+                                size: 16, color: CupertinoColors.black),
+                            const SizedBox(
+                              width: 4,
+                            ),
+                            Text(
+                              dateFormat.format(
+                                entity.bookingDate,
+                              ),
+                              style:
+                                  blackTextStyle.copyWith(fontSize: subtitle3),
+                            ),
+                            const SizedBox(
+                              width: 4,
+                            ),
+                            Text(
+                              timeFormat.format(
+                                entity.bookingDate,
+                              ),
+                              style:
+                                  blackTextStyle.copyWith(fontSize: subtitle3),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                  Text(
+                    "Note from admin: ",
+                    style: blackTextStyle.copyWith(fontWeight: FontWeight.bold),
+                  ),
+                  MarkdownBody(
+                    data: entity.bookingNote ?? "",
+                    styleSheetTheme: MarkdownStyleSheetBaseTheme.cupertino,
+                  ),
                 ],
               ),
             ),
@@ -238,22 +264,6 @@ class OrderHistoryCard extends StatelessWidget {
     required this.onTap,
     this.action,
   });
-
-  StatusColor _fromHistoryStatus(BookingStatus? status) {
-    switch (status) {
-      case BookingStatus.declined:
-      case BookingStatus.paymentFailed:
-        return StatusColor.error;
-      case BookingStatus.paymentReview:
-      case BookingStatus.offering:
-        return StatusColor.loading;
-      case BookingStatus.success:
-      case BookingStatus.waitingForPayment:
-        return StatusColor.success;
-      default:
-        return StatusColor.init;
-    }
-  }
 
   @override
   Widget build(BuildContext context) {

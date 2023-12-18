@@ -28,8 +28,10 @@ class _OrderHistoryPageState extends ConsumerState<OrderHistoryPage> {
         ),
         child: SafeArea(
           child: Padding(
-            padding:
-                const EdgeInsets.symmetric(horizontal: LIST_HORIZONTAL_PADDING),
+            padding: const EdgeInsets.only(
+                left: LIST_HORIZONTAL_PADDING,
+                right: LIST_HORIZONTAL_PADDING,
+                top: LIST_VERTICAL_PADDING),
             child: orderList.when(
                 loading: () => const Center(
                       child: CupertinoActivityIndicator(),
@@ -51,7 +53,24 @@ class _OrderHistoryPageState extends ConsumerState<OrderHistoryPage> {
                               location: order.location ?? "",
                               status: order.status,
                               date: order.approvedAt,
+                              additional: order.status.toLowerCase() ==
+                                      "on journey"
+                                  ? Container(
+                                      padding: EdgeInsets.all(4),
+                                      decoration: BoxDecoration(
+                                          color: CupertinoColors.systemGrey5,
+                                          borderRadius:
+                                              BorderRadius.circular(8)),
+                                      child: Text(
+                                        "Click to write review!",
+                                        style: blackTextStyle.copyWith(
+                                            fontSize: body3),
+                                      ),
+                                    )
+                                  : null,
                               onTap: () {
+                                if (order.status.toLowerCase() != "on journey")
+                                  return;
                                 showCupertinoDialog(
                                     context: context,
                                     builder: (context) {
