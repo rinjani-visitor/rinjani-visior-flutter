@@ -49,14 +49,15 @@ class _BookingHistoryPageState extends ConsumerState<BookingHistoryPage> {
         return Center(
           child: Container(
             height: MediaQuery.of(context).size.height * 0.5, // 50% height
-            padding: EdgeInsets.all(24),
+            padding: const EdgeInsets.all(24),
             margin: const EdgeInsets.symmetric(horizontal: 20),
             decoration: BoxDecoration(
                 color: CupertinoColors.systemGrey6,
                 borderRadius: BorderRadius.circular(12)),
             child: SizedBox.expand(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
+              child: ListView(
+                padding: const EdgeInsets.all(0),
+                physics: const ClampingScrollPhysics(),
                 children: [
                   Text(
                     entity.title,
@@ -77,7 +78,7 @@ class _BookingHistoryPageState extends ConsumerState<BookingHistoryPage> {
                         ),
                         Row(
                           children: [
-                            Icon(Icons.calendar_today_outlined,
+                            const Icon(Icons.calendar_today_outlined,
                                 size: 16, color: CupertinoColors.black),
                             const SizedBox(
                               width: 4,
@@ -103,10 +104,6 @@ class _BookingHistoryPageState extends ConsumerState<BookingHistoryPage> {
                         ),
                       ],
                     ),
-                  ),
-                  Text(
-                    "Note from admin: ",
-                    style: blackTextStyle.copyWith(fontWeight: FontWeight.bold),
                   ),
                   MarkdownBody(
                     data: entity.bookingNote ?? "",
