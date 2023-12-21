@@ -44,6 +44,7 @@ class OrderPaymentViewModel extends Notifier<OrderFormEntity> {
       field2: field2,
       file: file,
     );
+    developer.log("filename ${file?.path.toString()}");
     state = temp;
   }
 

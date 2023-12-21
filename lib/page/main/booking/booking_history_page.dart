@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
@@ -48,7 +49,8 @@ class _BookingHistoryPageState extends ConsumerState<BookingHistoryPage> {
       pageBuilder: (context, animation, secondaryAnimation) {
         return Center(
           child: Container(
-            height: MediaQuery.of(context).size.height * 0.5, // 50% height
+            height: MediaQuery.of(context).size.height * 0.5,
+            // 50% height
             padding: const EdgeInsets.all(24),
             margin: const EdgeInsets.symmetric(horizontal: 20),
             decoration: BoxDecoration(
@@ -70,7 +72,7 @@ class _BookingHistoryPageState extends ConsumerState<BookingHistoryPage> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Status(
-                          text: entity.bookingStatus.name,
+                          text: entity.bookingStatus.value,
                           status: _fromHistoryStatus(entity.bookingStatus),
                         ),
                         const SizedBox(
@@ -148,82 +150,99 @@ class _BookingHistoryPageState extends ConsumerState<BookingHistoryPage> {
                   right: LIST_HORIZONTAL_PADDING,
                   top: LIST_VERTICAL_PADDING),
               child: switch (bookingData) {
-                AsyncData(:final value) => ListView.builder(
-                    itemCount: value.length,
-                    itemBuilder: (context, index) {
-                      final current = value[index];
-                      return Padding(
-                        padding: const EdgeInsets.only(
-                          bottom: LIST_VERTICAL_PADDING,
-                        ),
-                        child: OrderHistoryCard(
-                          id: current.bookingId,
-                          title: current.title,
-                          note: current.bookingNote,
-                          imgUrl: "",
-                          status: current.bookingStatus,
-                          dateTime: current.bookingDate,
-                          onTap: () {
-                            _bookingHistoryTapped(current);
-                          },
-                          action: switch (current.bookingStatus) {
-                            BookingStatus.success => PrimaryButton(
-                                child: Text("Go to order"),
-                                onPressed: () {
-                                  Navigator.pushNamed(context, "/order");
-                                }),
-                            BookingStatus.waitingForPayment => PrimaryButton(
-                                child: Text("Send Proof of Payment"),
-                                onPressed: () {
-                                  Navigator.push(
-                                    context,
-                                    CupertinoPageRoute(
-                                      builder: (context) => PaymentMethodPage(
-                                        bookingId: current.bookingId,
-                                      ),
-                                    ),
-                                  );
-                                },
+                AsyncData(:final value) => value.isEmpty
+                    ? LayoutBuilder(
+                        builder: (context, constraints) => ListView(
+                          children: [
+                            Container(
+                              constraints: BoxConstraints(
+                                  minHeight: constraints.maxHeight),
+                              child: const Center(
+                                child: Text("Product is empty"),
                               ),
-                            BookingStatus.offering ||
-                            BookingStatus.declined =>
-                              PrimaryButton(
-                                onPressed: () {
-                                  showCupertinoDialog(
-                                      context: context,
-                                      builder: (context) {
-                                        return CupertinoAlertDialog(
-                                          title: const Text("Cancel Booking"),
-                                          content: const Text(
-                                              "Are you sure want to cancel this booking?"),
-                                          actions: [
-                                            CupertinoDialogAction(
-                                              onPressed: () {
-                                                Navigator.of(context).pop();
-                                              },
-                                              child: Text("No"),
-                                            ),
-                                            CupertinoDialogAction(
-                                              onPressed: () {
-                                                Navigator.of(context).pop();
-                                                _deleteBooking(
-                                                    current.bookingId);
-                                              },
-                                              child: Text("Yes"),
-                                            ),
-                                          ],
-                                        );
-                                      });
-                                },
-                                backgroundColor: CupertinoColors.systemGrey,
-                                child: Text("Cancel Booking"),
-                              ),
-                            _ => const SizedBox(),
-                          },
+                            )
+                          ],
                         ),
-                      );
-                    },
-                  ),
+                      )
+                    : ListView.builder(
+                        itemCount: value.length,
+                        itemBuilder: (context, index) {
+                          final current = value[index];
+                          return Padding(
+                            padding: const EdgeInsets.only(
+                              bottom: LIST_VERTICAL_PADDING,
+                            ),
+                            child: OrderHistoryCard(
+                              id: current.bookingId,
+                              title: current.title,
+                              note: current.bookingNote,
+                              imgUrl: current.imgUrl ?? "",
+                              status: current.bookingStatus,
+                              dateTime: current.bookingDate,
+                              onTap: () {
+                                _bookingHistoryTapped(current);
+                              },
+                              action: switch (current.bookingStatus) {
+                                BookingStatus.success => PrimaryButton(
+                                    child: Text("Go to order"),
+                                    onPressed: () {
+                                      Navigator.pushNamed(context, "/order");
+                                    }),
+                                BookingStatus.waitingForPayment =>
+                                  PrimaryButton(
+                                    child: Text("Send Proof of Payment"),
+                                    onPressed: () {
+                                      Navigator.push(
+                                        context,
+                                        CupertinoPageRoute(
+                                          builder: (context) =>
+                                              PaymentMethodPage(
+                                            bookingId: current.bookingId,
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                  ),
+                                BookingStatus.offering ||
+                                BookingStatus.declined =>
+                                  PrimaryButton(
+                                    onPressed: () {
+                                      showCupertinoDialog(
+                                          context: context,
+                                          builder: (context) {
+                                            return CupertinoAlertDialog(
+                                              title:
+                                                  const Text("Cancel Booking"),
+                                              content: const Text(
+                                                  "Are you sure want to cancel this booking?"),
+                                              actions: [
+                                                CupertinoDialogAction(
+                                                  onPressed: () {
+                                                    Navigator.of(context).pop();
+                                                  },
+                                                  child: Text("No"),
+                                                ),
+                                                CupertinoDialogAction(
+                                                  onPressed: () {
+                                                    Navigator.of(context).pop();
+                                                    _deleteBooking(
+                                                        current.bookingId);
+                                                  },
+                                                  child: Text("Yes"),
+                                                ),
+                                              ],
+                                            );
+                                          });
+                                    },
+                                    backgroundColor: CupertinoColors.systemGrey,
+                                    child: Text("Cancel Booking"),
+                                  ),
+                                _ => const SizedBox(),
+                              },
+                            ),
+                          );
+                        },
+                      ),
                 AsyncError(
                   :final error,
                 ) =>
@@ -276,15 +295,26 @@ class OrderHistoryCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // ClipRRect(
-            //     borderRadius: BorderRadius.circular(8),
-            //     child: CachedNetworkImage(
-            //         imageUrl: IMG_PLACEHOLDER, fit: BoxFit.fitWidth)),
-            // const SizedBox(height: 12),
-            Text(
-              "ID: $id",
-              style: grayTextStyle.copyWith(fontSize: body3),
-            ),
+            ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: CachedNetworkImage(
+                  imageUrl: imgUrl,
+                  fit: BoxFit.fitWidth,
+                  placeholder: (_, __) => Container(
+                    height: 100,
+                  ),
+                  imageBuilder: (context, provider) => Image(
+                    image: provider,
+                    height: 100,
+                    fit: BoxFit.fitWidth,
+                    width: MediaQuery.of(context).size.width,
+                  ),
+                )),
+            const SizedBox(height: 12),
+            // Text(
+            //   "ID: $id",
+            //   style: grayTextStyle.copyWith(fontSize: body3),
+            // ),
             Text(title,
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,

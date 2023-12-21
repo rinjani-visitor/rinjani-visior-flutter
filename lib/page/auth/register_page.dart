@@ -53,7 +53,6 @@ class _FormBodyState extends ConsumerState<_FormBody> {
   final _usernameTxtController = TextEditingController();
   final _emailTxtController = TextEditingController();
   final _countryTxtController = TextEditingController();
-  final _phoneNumberTxtController = TextEditingController();
   final _passwordTxtController = TextEditingController();
   final _confirmPasswordTxtController = TextEditingController();
   late final authNotifier = ref.read(authViewModelProvider.notifier);
@@ -62,7 +61,6 @@ class _FormBodyState extends ConsumerState<_FormBody> {
   void dispose() {
     _usernameTxtController.dispose();
     _emailTxtController.dispose();
-    _phoneNumberTxtController.dispose();
     _countryTxtController.dispose();
     _passwordTxtController.dispose();
     _confirmPasswordTxtController.dispose();
@@ -78,9 +76,8 @@ class _FormBodyState extends ConsumerState<_FormBody> {
       _usernameTxtController.text,
       _emailTxtController.text,
       _countryTxtController.text,
-      _phoneNumberTxtController.text,
       _passwordTxtController.text,
-      _confirmPasswordTxtController.text,
+      _confirmPasswordTxtController.text
     );
 
     final state = ref.read(authViewModelProvider);
@@ -158,19 +155,6 @@ class _FormBodyState extends ConsumerState<_FormBody> {
               }
               if (!value.isEmailValid()) {
                 return "Not valid email";
-              }
-              return null;
-            },
-          ),
-          InputFormField(
-            label: 'Phone number',
-            placeholder: "Same as your Whatsapp",
-            textInputAction: TextInputAction.next,
-            keyboardType: TextInputType.phone,
-            controller: _phoneNumberTxtController,
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return "Phone number required";
               }
               return null;
             },

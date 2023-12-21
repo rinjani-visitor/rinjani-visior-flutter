@@ -13,6 +13,8 @@ import 'package:rinjani_visitor/features/order/data/adapter/payment.dart';
 import 'package:rinjani_visitor/features/order/domain/entity/payment_method.dart';
 import 'package:rinjani_visitor/features/order/presentation/view_model/payment.dart';
 
+//TODO: this code section need huge refactor
+
 const label = [
   {"field1": "email", "field2": "account name"},
   {"field1": "bank name", "field2": "account name"}
@@ -28,8 +30,15 @@ class ContinuePaymentPage extends ConsumerStatefulWidget {
 
 class _ContinuePaymentPageState extends ConsumerState<ContinuePaymentPage> {
   File? selectedImage;
+  bool isLoading = false;
   final TextEditingController _field1Controller = TextEditingController();
   final TextEditingController _field2Controller = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    selectedImage = null;
+  }
 
   // === functions === //
 
@@ -71,7 +80,6 @@ class _ContinuePaymentPageState extends ConsumerState<ContinuePaymentPage> {
 
   @override
   Widget build(BuildContext context) {
-    final fileImage = ref.watch(cameraServiceProvider);
     final payment = ref.watch(orderPaymentViewModelProvider);
     final isWise = payment.paymentMethod is WisePaymentMethod;
     final texts = isWise ? label[0] : label[1];
@@ -160,7 +168,7 @@ class _ContinuePaymentPageState extends ConsumerState<ContinuePaymentPage> {
                         onPressed: () {
                           _showFileSelection();
                         },
-                        file: fileImage,
+                        file: selectedImage,
                       ),
                     ],
                   ),
@@ -168,8 +176,13 @@ class _ContinuePaymentPageState extends ConsumerState<ContinuePaymentPage> {
                     height: 32,
                   ),
                   PrimaryButton(
+                      isLoading: isLoading,
                       child: const Text("Send Payments"),
                       onPressed: () {
+                        setState(() {
+                          isLoading = true;
+                        });
+                        print("test");
                         ref
                             .read(orderPaymentViewModelProvider.notifier)
                             .finalizePaymentMethod(_field1Controller.text,
@@ -177,9 +190,15 @@ class _ContinuePaymentPageState extends ConsumerState<ContinuePaymentPage> {
                         ref
                             .read(orderPaymentViewModelProvider.notifier)
                             .sendPayment(() {
+                          setState(() {
+                            isLoading = false;
+                          });
                           Navigator.popUntil(
                               context, ModalRoute.withName('/home'));
                         }, (message) {
+                          setState(() {
+                            isLoading = false;
+                          });
                           Fluttertoast.showToast(msg: message);
                         });
                       })

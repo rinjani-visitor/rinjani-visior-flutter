@@ -11,7 +11,7 @@ import 'package:rinjani_visitor/page/booking/booking_detail_page.dart';
 import 'package:rinjani_visitor/page/account/settings/change_email_page.dart';
 import 'package:rinjani_visitor/page/account/settings/change_pass_page.dart';
 import 'package:rinjani_visitor/page/booking/booking_status_page.dart';
-import 'package:rinjani_visitor/page/booking/continue_payment_page.dart';
+import 'package:rinjani_visitor/page/booking/continue_payment/continue_payment_page.dart';
 import 'package:rinjani_visitor/page/auth/login_page.dart';
 import 'package:rinjani_visitor/page/main/main_page.dart';
 import 'package:rinjani_visitor/page/main/home/notification/notification_page.dart';
@@ -54,6 +54,7 @@ class MyApp extends StatelessWidget {
         GlobalWidgetsLocalizations.delegate,
         GlobalMaterialLocalizations.delegate
       ],
+
       supportedLocales: const [Locale("en"), Locale("id")],
       theme: const CupertinoThemeData(
         brightness: Brightness.light,

@@ -36,19 +36,17 @@ class AuthRepositoryImpl implements AuthRepository {
       {required String username,
       required String email,
       required String country,
-      required String phone,
       required String password}) async {
     developer.log("$NAME: Register...");
 
     developer.log(
-        "values: email - $email, country - $country, phone - $phone, password - ${password.isNotEmpty}");
+        "values: email - $email, country - $country, password - ${password.isNotEmpty}");
     final request = RegisterRequest(
         name: username,
         email: email,
         country: country,
         password: password,
-        confirmPassword: password,
-        phone: phone);
+        confirmPassword: password);
     final response = await remote.register(request);
     developer.log("Repository: data from remote: ${response.toString()}");
     if (response.data == null) return null;

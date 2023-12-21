@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:developer' as developer;
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:rinjani_visitor/features/authentication/data/repository_impl.dart';
 import 'package:rinjani_visitor/features/authentication/domain/entity/auth.dart';
 import 'package:rinjani_visitor/features/authentication/domain/repo/auth.dart';
@@ -55,16 +56,16 @@ class AuthViewModel extends AsyncNotifier<AuthEntity?> {
   }
 
   FutureOr<void> register(String username, String email, String country,
-      String phone, String password, String password2) async {
+      String password, String password2) async {
     state = const AsyncLoading();
     developer.log("$NAME : Register emitted");
     state = await AsyncValue.guard(() async => await repository.register(
         username: username,
         email: email,
         country: country,
-        phone: phone,
         password: password));
     developer.log("value ${state.asData?.value.toString()}");
+    Fluttertoast.showToast(msg: "User created, please check your email", toastLength: Toast.LENGTH_LONG);
   }
 
   Future<String?> resetPassword(String email) async {

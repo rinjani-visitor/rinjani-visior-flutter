@@ -16,7 +16,7 @@ class RecommendedProductViewModel extends AsyncNotifier<List<ProductEntity>> {
   AuthViewModel get authData => ref.read(authViewModelProvider.notifier);
 
   Future<List<ProductEntity>> get _getProducts async =>
-      await repository.getProducts(authData.getAccessToken()!);
+      await repository.getProducts(authData.getAccessToken()!, category: "rinjani");
   @override
   FutureOr<List<ProductEntity>> build() async {
     final packages = await _getProducts;

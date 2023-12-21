@@ -8,14 +8,12 @@ class RegisterRequest {
   final String? name;
   final String? password;
   final String? confirmPassword;
-  final String? phone;
   final String? country;
 
   const RegisterRequest(
       {this.email,
       this.name,
       this.password,
-      this.phone,
       this.country,
       this.confirmPassword});
 

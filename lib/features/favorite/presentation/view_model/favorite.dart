@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rinjani_visitor/features/authentication/presentation/view_model/auth.dart';
 import 'package:rinjani_visitor/features/favorite/data/repository_impl.dart';
 import 'package:rinjani_visitor/features/favorite/domain/wishlist_repository.dart';
+import 'package:rinjani_visitor/features/favorite/presentation/view_model/favorite_list.dart';
 
 final favoriteViewModelProvider =
     AutoDisposeAsyncNotifierProvider<FavoriteViewModel, bool?>(
@@ -25,5 +26,6 @@ class FavoriteViewModel extends AutoDisposeAsyncNotifier<bool?> {
         productId,
       );
     });
+    final _ = ref.refresh(favoriteListViewModelProvider);
   }
 }
