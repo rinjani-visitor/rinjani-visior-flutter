@@ -46,9 +46,11 @@ class OrderResponseBody {
       title: title ?? "",
       rating: rating,
       messageReview: messageReview,
-      reviewCreatedAt: DateTime.parse(
-        "${reviewCreatedAt}Z",
-      ).toLocal(),
+      reviewCreatedAt: reviewCreatedAt != null
+          ? DateTime.parse(
+              "${reviewCreatedAt}Z",
+            ).toLocal()
+          : null,
       status: status ?? "",
       location: location,
       approvedAt: DateTime.parse(
