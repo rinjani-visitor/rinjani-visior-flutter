@@ -85,7 +85,7 @@ class GetBookingDetailBody {
   @JsonKey(name: "title")
   final String title;
   @JsonKey(name: "rating")
-  final int rating;
+  final double rating;
   @JsonKey(name: "location")
   final String location;
   @JsonKey(name: "thumbnail")

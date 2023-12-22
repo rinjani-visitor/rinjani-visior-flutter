@@ -32,7 +32,7 @@ class GetBookingBody {
   @JsonKey(name: "bookingNote")
   final String? bookingNote;
   @JsonKey(name: "rating")
-  final int? rating;
+  final double? rating;
   @JsonKey(name: "location")
   final String? location;
   final String? thumbnail;

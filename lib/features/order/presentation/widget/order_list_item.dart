@@ -8,6 +8,7 @@ class OrderListItem extends StatelessWidget {
   final String title;
   final String location;
   final Widget? additional;
+  final Widget? rating;
   final String status;
   final DateTime date;
   final void Function()? onTap;
@@ -19,7 +20,8 @@ class OrderListItem extends StatelessWidget {
       required this.status,
       required this.date,
       this.onTap,
-      this.additional});
+      this.additional,
+      this.rating});
 
   @override
   Widget build(BuildContext context) {
@@ -63,6 +65,7 @@ class OrderListItem extends StatelessWidget {
                       location,
                       style: grayTextStyle.copyWith(fontSize: body2),
                     ),
+                    rating ?? const SizedBox(),
                     const SizedBox(height: 8),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,

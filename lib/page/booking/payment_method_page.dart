@@ -27,11 +27,12 @@ class _PaymentMethodPageState extends ConsumerState<PaymentMethodPage> {
   @override
   void initState() {
     super.initState();
+    print("bookingID : ${widget.bookingId}");
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       ref.read(bookingDetailViewModelProvider.notifier).get(widget.bookingId);
     });
   }
-  
+
   void _selectPaymentMethod(PaymentMethod method) {
     ref.read(orderPaymentViewModelProvider.notifier).addPaymentMethod(
           method,
@@ -91,15 +92,18 @@ class _PaymentMethodPageState extends ConsumerState<PaymentMethodPage> {
                   itemBuilder: (context, index) {
                     final currentData = paymentMethod[index];
                     final isWise = index == 0;
+                    print(bookingDetail.value?.createdAt.toString());
                     return Padding(
                       padding: const EdgeInsets.symmetric(vertical: 2.0),
                       child: GestureDetector(
                         behavior: HitTestBehavior.opaque,
                         onTap: () {
                           final bookingId = bookingDetail.value?.bookingId;
+                          print(bookingId);
+                          if (bookingId == null) return;
                           final paymentMethod = isWise
-                              ? WisePaymentMethod(bookingId!)
-                              : BankPaymentMethod(bookingId!);
+                              ? WisePaymentMethod(bookingId)
+                              : BankPaymentMethod(bookingId);
                           _selectPaymentMethod(paymentMethod);
                         },
                         child: Container(

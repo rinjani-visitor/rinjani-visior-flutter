@@ -29,7 +29,7 @@ class ProductDetailResponse extends BaseResponse<ProductDetailBody> {
       images: data.fotos?.map((e) => e.url!).toList(),
       location: data.location,
       lowestPrice: data.lowestPrice,
-      rating: data.rating?.toString(),
+      rating: data.rating?.toStringAsFixed(1),
       tripDuration: data.duration,
       program: data.program,
       reviewCount: data.favoritedCount,

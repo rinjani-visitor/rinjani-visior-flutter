@@ -53,6 +53,14 @@ class _OrderHistoryPageState extends ConsumerState<OrderHistoryPage> {
                               location: order.location ?? "",
                               status: order.status,
                               date: order.approvedAt,
+                              rating: order.rating != null
+                                  ? Column(children: [
+                                      Text(
+                                          "${order.messageReview} - ${order.rating.toString()} star",
+                                          style: blackTextStyle.copyWith(
+                                              fontSize: body1)),
+                                    ])
+                                  : null,
                               additional: order.status.toLowerCase() ==
                                       "on journey"
                                   ? Container(
@@ -78,7 +86,8 @@ class _OrderHistoryPageState extends ConsumerState<OrderHistoryPage> {
                                         constraints: const BoxConstraints(
                                             maxHeight: 300),
                                         child: CupertinoPageScaffold(
-                                          child: WriteReviewPage(order.id, onReviewSuccess: () {
+                                          child: WriteReviewPage(order.id,
+                                              onReviewSuccess: () {
                                             Navigator.pop(context);
                                           }),
                                         ),

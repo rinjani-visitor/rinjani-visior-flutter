@@ -14,7 +14,7 @@ class OrderResponse extends BaseResponse<List<OrderResponseBody>?> {
   Map<String, dynamic> toJson() => _$OrderResponseToJson(this);
 }
 
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false)
 class OrderResponseBody {
   final String? orderId;
   final String? orderApproveDate;
@@ -22,14 +22,19 @@ class OrderResponseBody {
   final int? rating;
   final String? location;
   final String? status;
+  final String? messageReview;
+  final String? reviewCreatedAt;
 
-  OrderResponseBody(
-      {required this.orderId,
-      required this.orderApproveDate,
-      required this.title,
-      required this.rating,
-      required this.location,
-      required this.status});
+  OrderResponseBody({
+    required this.orderId,
+    required this.orderApproveDate,
+    required this.title,
+    this.rating,
+    this.messageReview,
+    this.reviewCreatedAt,
+    required this.location,
+    required this.status,
+  });
 
   factory OrderResponseBody.fromJson(Map<String, dynamic> json) =>
       _$OrderResponseBodyFromJson(json);
@@ -37,13 +42,18 @@ class OrderResponseBody {
 
   OrderEntity toEntity() {
     return OrderEntity(
-        id: orderId ?? "",
-        title: title ?? "",
-        rating: rating ?? 0,
-        status: status ?? "",
-        location: location,
-        approvedAt: DateTime.parse(
-          orderApproveDate ?? "",
-        ).toLocal());
+      id: orderId ?? "",
+      title: title ?? "",
+      rating: rating,
+      messageReview: messageReview,
+      reviewCreatedAt: DateTime.parse(
+        "${reviewCreatedAt}Z",
+      ).toLocal(),
+      status: status ?? "",
+      location: location,
+      approvedAt: DateTime.parse(
+        "${orderApproveDate}Z",
+      ).toLocal(),
+    );
   }
 }

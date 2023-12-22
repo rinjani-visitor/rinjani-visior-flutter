@@ -39,7 +39,10 @@ class WisePaymentMethod implements PaymentMethod {
     String fileName = proofOfPayment!.path.split(Platform.pathSeparator).last;
     final instanceRef = instance.ref();
     final storageRef = instanceRef.child("payment/$bookingId/$fileName");
-    final imgUrl = await storageRef.putFile(proofOfPayment!);
+    final imgUrl = await storageRef.putFile(proofOfPayment!).catchError((e) {
+      developer.log(e.toString());
+      throw e;
+    });
     final url = await imgUrl.ref.getDownloadURL();
     final result = await remote.uploadWisePaymentJson(
       token,
@@ -90,7 +93,10 @@ class BankPaymentMethod implements PaymentMethod {
     String fileName = proofOfPayment!.path.split(Platform.pathSeparator).last;
     final instanceRef = instance.ref();
     final storageRef = instanceRef.child("payment/$bookingId/$fileName");
-    final imgUrl = await storageRef.putFile(proofOfPayment!);
+    final imgUrl = await storageRef.putFile(proofOfPayment!).catchError((e) {
+      developer.log(e.toString());
+      throw e;
+    });
     final url = await imgUrl.ref.getDownloadURL();
     final result = await remote.uploadBankPaymentJson(
       token,
