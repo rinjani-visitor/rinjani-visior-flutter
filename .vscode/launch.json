@@ -10,7 +10,6 @@
       "program": "lib/main.dart",
       "type": "dart",
       "args": [
-        "-v"
       ]
     },
     {

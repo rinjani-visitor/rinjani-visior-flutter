@@ -31,7 +31,7 @@ class _PaymentMethodPageState extends ConsumerState<PaymentMethodPage> {
       ref.read(bookingDetailViewModelProvider.notifier).get(widget.bookingId);
     });
   }
-
+  
   void _selectPaymentMethod(PaymentMethod method) {
     ref.read(orderPaymentViewModelProvider.notifier).addPaymentMethod(
           method,

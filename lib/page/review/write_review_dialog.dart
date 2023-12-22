@@ -34,76 +34,75 @@ class _WriteReviewPageState extends ConsumerState<WriteReviewPage> {
       navigationBar: const CupertinoNavigationBar(
         middle: Text("Write Review"),
       ),
+      resizeToAvoidBottomInset: false,
       child: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              FutureBuilder(
-                  future: _future,
-                  builder: (context, snapshot) {
-                    if (snapshot.connectionState == ConnectionState.done) {
-                      if (snapshot.hasError) {
-                        return Text(
-                          snapshot.error.toString(),
-                          style: redTextStyle,
-                        );
-                      }
-                      final _ = ref.refresh(orderListViewModelProvider);
-                      return Text(snapshot.data ?? "");
-                    } else if (snapshot.connectionState ==
-                        ConnectionState.waiting) {
-                      return const CupertinoActivityIndicator();
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            FutureBuilder(
+                future: _future,
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.done) {
+                    if (snapshot.hasError) {
+                      return Text(
+                        snapshot.error.toString(),
+                        style: redTextStyle,
+                      );
                     }
-                    return const SizedBox();
-                  }),
-              Text(
-                "Your Rating",
-                style: blackTextStyle.copyWith(fontSize: heading4),
-              ),
-              RatingSelector(
-                  rating: 5,
-                  currentRating: review.rating,
-                  onStarTapped: (val) {
-                    setState(() {
-                      review.rating = val;
-                    });
-                  }),
-              const SizedBox(height: 16.0),
-              InputFormField(
-                controller: _reviewController,
-                validator: (val) {
-                  if (val!.isEmpty) {
-                    return "Please write your review";
+                    final _ = ref.refresh(orderListViewModelProvider);
+                    return Text(snapshot.data ?? "");
+                  } else if (snapshot.connectionState ==
+                      ConnectionState.waiting) {
+                    return const CupertinoActivityIndicator();
                   }
-                  return null;
-                },
-                label: "Write your review here",
-              ),
-              PrimaryButton(
-                  child: const Text("Submit Review"),
-                  onPressed: () {
-                    review.messageReview = _reviewController.text;
-                    ref
-                        .read(reviewFormViewModelProvider.notifier)
-                        .finalizeReviewForm(
-                          widget.orderId,
-                          _reviewController.text,
-                          review.rating,
-                        );
-                    _future = ref
-                        .read(reviewFormViewModelProvider.notifier)
-                        .sendReview();
-                    _future
-                        ?.then((value) => widget.onReviewSuccess!())
-                        .catchError((e) {
-                      Fluttertoast.showToast(msg: e.toString());
-                    });
-                  })
-            ],
-          ),
+                  return const SizedBox();
+                }),
+            Text(
+              "Your Rating",
+              style: blackTextStyle.copyWith(fontSize: heading4),
+            ),
+            RatingSelector(
+                rating: 5,
+                currentRating: review.rating,
+                onStarTapped: (val) {
+                  setState(() {
+                    review.rating = val;
+                  });
+                }),
+            const SizedBox(height: 16.0),
+            InputFormField(
+              controller: _reviewController,
+              validator: (val) {
+                if (val!.isEmpty) {
+                  return "Please write your review";
+                }
+                return null;
+              },
+              label: "Write your review here",
+            ),
+            PrimaryButton(
+                child: const Text("Submit Review"),
+                onPressed: () {
+                  review.messageReview = _reviewController.text;
+                  ref
+                      .read(reviewFormViewModelProvider.notifier)
+                      .finalizeReviewForm(
+                        widget.orderId,
+                        _reviewController.text,
+                        review.rating,
+                      );
+                  _future = ref
+                      .read(reviewFormViewModelProvider.notifier)
+                      .sendReview();
+                  _future
+                      ?.then((value) => widget.onReviewSuccess!())
+                      .catchError((e) {
+                    Fluttertoast.showToast(msg: e.toString());
+                  });
+                })
+          ],
         ),
       ),
     );

@@ -1,9 +1,11 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:rinjani_visitor/firebase_options.dart';
 import 'package:rinjani_visitor/page/account/order_history.dart';
 import 'package:rinjani_visitor/page/main/booking/booking_history_page.dart';
 import 'package:rinjani_visitor/page/auth/forgot_password.dart';
@@ -24,14 +26,14 @@ import 'package:rinjani_visitor/page/account/account_settings_page.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
-void main() {
+void main() async {
   // Force google font to use offline fonts instead of re-downloading again
   GoogleFonts.config.allowRuntimeFetching = false;
 
   // Ensure that plugin services are initialized so that `availableCameras()`
   // can be called before `runApp()`
   WidgetsFlutterBinding.ensureInitialized();
-
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.android);
   // setup license fonts
   LicenseRegistry.addLicense(() async* {
     final license = await rootBundle.loadString('google_fonts/OFL.txt');
@@ -54,7 +56,6 @@ class MyApp extends StatelessWidget {
         GlobalWidgetsLocalizations.delegate,
         GlobalMaterialLocalizations.delegate
       ],
-
       supportedLocales: const [Locale("en"), Locale("id")],
       theme: const CupertinoThemeData(
         brightness: Brightness.light,

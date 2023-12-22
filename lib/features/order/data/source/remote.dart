@@ -3,6 +3,8 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:retrofit/http.dart';
 import 'package:rinjani_visitor/core/constant/network.dart';
+import 'package:rinjani_visitor/features/order/data/models/request/upload_bank_payment.dart';
+import 'package:rinjani_visitor/features/order/data/models/request/upload_wise_payment.dart';
 import 'package:rinjani_visitor/features/order/data/models/response/get_order.dart';
 import 'package:rinjani_visitor/features/order/data/models/response/update_payment.dart';
 import 'package:rinjani_visitor/features/order/data/models/response/upload_payment.dart';
@@ -31,6 +33,12 @@ abstract class RemoteOrderSource {
     @Part(name: "imageProofTransfer") required File imageProofTransfer,
   });
 
+  @POST("/api/payment/bank")
+  Future<UploadPaymentResponse> uploadBankPaymentJson(
+    @Header("Authorization") String token,
+    @Body() UploadBankPayment body,
+  );
+
   @MultiPart()
   @POST("/api/payment/wise")
   Future<UploadPaymentResponse> uploadWisePayment(
@@ -40,6 +48,12 @@ abstract class RemoteOrderSource {
     @Part(name: "wiseAccountName") required String wiseAccountName,
     @Part(name: "imageProofTransfer") required File imageProofTransfer,
   });
+
+  @POST("/api/payment/wise")
+  Future<UploadPaymentResponse> uploadWisePaymentJson(
+    @Header("Authorization") String token,
+    @Body() UploadWisePayment body,
+  );
 
   @GET("/api/order")
   Future<OrderResponse> getOrders(@Header("Authorization") String token);

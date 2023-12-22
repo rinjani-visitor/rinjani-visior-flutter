@@ -38,6 +38,7 @@ class OrderPaymentViewModel extends Notifier<OrderFormEntity> {
   ///
   /// [paymentMethod] should be set first before run this function
   void finalizePaymentMethod(String field1, String field2, File? file) {
+    developer.log("payment method ${state.paymentMethod.toString()}");
     final temp = state;
     temp.paymentMethod?.fillData(
       field1: field1,
@@ -52,13 +53,13 @@ class OrderPaymentViewModel extends Notifier<OrderFormEntity> {
   void sendPayment(
       void Function() onSuccess, void Function(String message) onError) async {
     final token = _authData.getAccessToken()!;
+    developer.log("send payment");
     try {
       await _orderRepository.sendOrder(token, state);
       Fluttertoast.showToast(msg: "Payment success");
       final _ = ref.refresh(bookingListViewModelProvider);
       onSuccess();
     } catch (e) {
-      Fluttertoast.showToast(msg: e.toString());
       onError(e.toString());
     }
   }

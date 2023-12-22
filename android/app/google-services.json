@@ -1,65 +1,26 @@
 {
   "project_info": {
-    "project_number": "378898543205",
-    "project_id": "sandbox-app-5a9af",
-    "storage_bucket": "sandbox-app-5a9af.appspot.com"
+    "project_number": "964128991708",
+    "project_id": "kasa-talk-storage",
+    "storage_bucket": "kasa-talk-storage.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:378898543205:android:168eeec53205845b1ccc8c",
-        "android_client_info": {
-          "package_name": "com.nekkiichi.composematerial3"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "378898543205-3094mjo5k7avoget4sdp19it5nkrh2eb.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyBj3mMWk2ZorZm0m_1iJtjS3aEq1C_zhjY"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "378898543205-3094mjo5k7avoget4sdp19it5nkrh2eb.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:378898543205:android:e51ac5ecf50aca331ccc8c",
+        "mobilesdk_app_id": "1:964128991708:android:aef8f088008feb150a8719",
         "android_client_info": {
           "package_name": "com.rinjanivisitor.rinjani_visitor"
         }
       },
-      "oauth_client": [
-        {
-          "client_id": "378898543205-3094mjo5k7avoget4sdp19it5nkrh2eb.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
+      "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyBj3mMWk2ZorZm0m_1iJtjS3aEq1C_zhjY"
+          "current_key": "AIzaSyCjbP6YG1yh8Q4KWYCddeY8c7Kg99Oaw0g"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "378898543205-3094mjo5k7avoget4sdp19it5nkrh2eb.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
+          "other_platform_oauth_client": []
         }
       }
     }

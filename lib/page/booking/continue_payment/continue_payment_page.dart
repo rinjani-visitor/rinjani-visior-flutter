@@ -40,6 +40,26 @@ class _ContinuePaymentPageState extends ConsumerState<ContinuePaymentPage> {
     selectedImage = null;
   }
 
+  void submit() {
+    setState(() {
+      isLoading = true;
+    });
+    print("test");
+    ref.read(orderPaymentViewModelProvider.notifier).finalizePaymentMethod(
+        _field1Controller.text, _field2Controller.text, selectedImage);
+    ref.read(orderPaymentViewModelProvider.notifier).sendPayment(() {
+      setState(() {
+        isLoading = false;
+      });
+      Navigator.popUntil(context, ModalRoute.withName('/home'));
+    }, (message) {
+      setState(() {
+        isLoading = false;
+      });
+      Fluttertoast.showToast(msg: message);
+    });
+  }
+
   // === functions === //
 
   void _showFileSelection() async {
@@ -179,28 +199,7 @@ class _ContinuePaymentPageState extends ConsumerState<ContinuePaymentPage> {
                       isLoading: isLoading,
                       child: const Text("Send Payments"),
                       onPressed: () {
-                        setState(() {
-                          isLoading = true;
-                        });
-                        print("test");
-                        ref
-                            .read(orderPaymentViewModelProvider.notifier)
-                            .finalizePaymentMethod(_field1Controller.text,
-                                _field2Controller.text, selectedImage);
-                        ref
-                            .read(orderPaymentViewModelProvider.notifier)
-                            .sendPayment(() {
-                          setState(() {
-                            isLoading = false;
-                          });
-                          Navigator.popUntil(
-                              context, ModalRoute.withName('/home'));
-                        }, (message) {
-                          setState(() {
-                            isLoading = false;
-                          });
-                          Fluttertoast.showToast(msg: message);
-                        });
+                        submit();
                       })
                 ],
               ),
