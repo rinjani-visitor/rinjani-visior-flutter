@@ -78,7 +78,9 @@ class _OrderHistoryPageState extends ConsumerState<OrderHistoryPage> {
                                         constraints: const BoxConstraints(
                                             maxHeight: 300),
                                         child: CupertinoPageScaffold(
-                                          child: WriteReviewPage(order.id),
+                                          child: WriteReviewPage(order.id, onReviewSuccess: () {
+                                            Navigator.pop(context);
+                                          }),
                                         ),
                                       );
                                     });
