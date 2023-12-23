@@ -53,7 +53,12 @@ class _EventListState extends ConsumerState<EventList>
                         imgUrl: value[index].thumbnail ?? IMG_PLACEHOLDER,
                         title: value[index].title ?? "",
                         price: "from ${value[index].lowestPrice}\$",
-                        status: StatusColor.available,
+                        statusName: (value[index].avaiable ?? false)
+                            ? "Available"
+                            : "Not Available",
+                        status: (value[index].avaiable ?? false)
+                            ? StatusColor.available
+                            : StatusColor.error,
                         onTap: () {
                           Navigator.push(
                             context,

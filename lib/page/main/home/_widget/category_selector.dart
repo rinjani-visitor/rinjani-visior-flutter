@@ -43,7 +43,7 @@ class CategorySelector extends ConsumerWidget {
               CategoryItem(
                 label: 'Home Stay',
                 iconName: Icons.hotel,
-                onTap: (label) => _toCategoryPage(context, label, "home-stay"),
+                onTap: (label) => _toCategoryPage(context, label, "homeStay"),
               ),
               CategoryItem(
                 label: 'Culture',

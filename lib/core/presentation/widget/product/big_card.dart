@@ -9,6 +9,7 @@ class BigProductCard extends StatelessWidget {
   final String imgUrl;
   final String title;
   final StatusColor status;
+  final String? statusName;
   final String price;
   final String? rating;
   final void Function()? onTap;
@@ -19,6 +20,7 @@ class BigProductCard extends StatelessWidget {
     required this.price,
     this.rating,
     this.onTap,
+    this.statusName,
     required this.imgUrl,
   });
   Widget _imageContainer() {
@@ -71,7 +73,7 @@ class BigProductCard extends StatelessWidget {
               children: [
                 Status(
                   status: status,
-                  text: status.name,
+                  text: statusName ?? status.name,
                 ),
                 const Spacer(),
                 RatingWidget(
