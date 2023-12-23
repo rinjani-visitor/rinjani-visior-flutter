@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'dart:developer' as developer;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rinjani_visitor/core/presentation/theme/theme.dart';
 import 'package:rinjani_visitor/features/booking/presentation/view_model/booking_detail.dart';
@@ -27,10 +28,8 @@ class _PaymentMethodPageState extends ConsumerState<PaymentMethodPage> {
   @override
   void initState() {
     super.initState();
-    print("bookingID : ${widget.bookingId}");
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      ref.read(bookingDetailViewModelProvider.notifier).get(widget.bookingId);
-    });
+    developer.log("Init State with id: ${widget.bookingId}",
+        name: runtimeType.toString());
   }
 
   void _selectPaymentMethod(PaymentMethod method) {
@@ -42,107 +41,116 @@ class _PaymentMethodPageState extends ConsumerState<PaymentMethodPage> {
 
   @override
   Widget build(BuildContext context) {
-    final bookingDetail = ref.watch(bookingDetailViewModelProvider);
+    final bookingDetail =
+        ref.watch(bookingDetailViewModelProvider(widget.bookingId));
+
     return CupertinoPageScaffold(
       navigationBar: const CupertinoNavigationBar(
         middle: Text("Select Payment"),
       ),
       child: SafeArea(
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const SizedBox(
-                  height: 16,
-                ),
-                Text(
-                  "Payment Transfer",
-                  style: blackTextStyle.copyWith(
-                      fontSize: heading4, fontWeight: FontWeight.bold),
-                ),
-                const SizedBox(
-                  height: 16,
-                ),
-                bookingDetail.maybeWhen(
-                    orElse: () => Text(""),
-                    data: (data) {
-                      return Text(
-                        "Total: ${data?.offeringPrice}\$",
+        child: bookingDetail.isLoading
+            ? Center(
+                child: CupertinoActivityIndicator(),
+              )
+            : SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const SizedBox(
+                        height: 16,
+                      ),
+                      Text(
+                        "Payment Transfer",
+                        style: blackTextStyle.copyWith(
+                            fontSize: heading4, fontWeight: FontWeight.bold),
+                      ),
+                      const SizedBox(
+                        height: 16,
+                      ),
+                      bookingDetail.maybeWhen(
+                          orElse: () => Text(""),
+                          data: (data) {
+                            return Text(
+                              "Total: ${data?.offeringPrice}\$",
+                              style: blackTextStyle.copyWith(
+                                  fontSize: subtitle1,
+                                  fontWeight: FontWeight.bold),
+                            );
+                          }),
+                      const SizedBox(
+                        height: 32,
+                      ),
+                      Text(
+                        "Select Payment Method",
                         style: blackTextStyle.copyWith(
                             fontSize: subtitle1, fontWeight: FontWeight.bold),
-                      );
-                    }),
-                const SizedBox(
-                  height: 32,
-                ),
-                Text(
-                  "Select Payment Method",
-                  style: blackTextStyle.copyWith(
-                      fontSize: subtitle1, fontWeight: FontWeight.bold),
-                ),
-                const SizedBox(
-                  height: 16,
-                ),
-                ListView.builder(
-                  physics: const NeverScrollableScrollPhysics(),
-                  shrinkWrap: true,
-                  itemCount: paymentMethod.length,
-                  itemBuilder: (context, index) {
-                    final currentData = paymentMethod[index];
-                    final isWise = index == 0;
-                    print(bookingDetail.value?.createdAt.toString());
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 2.0),
-                      child: GestureDetector(
-                        behavior: HitTestBehavior.opaque,
-                        onTap: () {
-                          final bookingId = bookingDetail.value?.bookingId;
-                          print(bookingId);
-                          if (bookingId == null) return;
-                          final paymentMethod = isWise
-                              ? WisePaymentMethod(bookingId)
-                              : BankPaymentMethod(bookingId);
-                          _selectPaymentMethod(paymentMethod);
-                        },
-                        child: Container(
-                          decoration: BoxDecoration(
-                              color: gray,
-                              borderRadius: BorderRadius.circular(8.0)),
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Row(
-                              children: [
-                                Container(
-                                  height: 40,
-                                  width: 40,
-                                  decoration: BoxDecoration(
-                                      color: whiteColor,
-                                      border: Border.all(
-                                          color: lightGray, width: 2.0),
-                                      borderRadius: BorderRadius.circular(8.0),
-                                      image: DecorationImage(
-                                          image: AssetImage(
-                                              "${currentData["imgSrc"]}"),
-                                          fit: BoxFit.contain)),
-                                ),
-                                const SizedBox(
-                                  width: 8,
-                                ),
-                                Expanded(child: Text("${currentData["name"]}")),
-                              ],
-                            ),
-                          ),
-                        ),
                       ),
-                    );
-                  },
-                )
-              ],
-            ),
-          ),
-        ),
+                      const SizedBox(
+                        height: 16,
+                      ),
+                      ListView.builder(
+                        physics: const NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        itemCount: paymentMethod.length,
+                        itemBuilder: (context, index) {
+                          final currentData = paymentMethod[index];
+                          final isWise = index == 0;
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 2.0),
+                            child: GestureDetector(
+                              behavior: HitTestBehavior.opaque,
+                              onTap: () {
+                                final bookingId =
+                                    bookingDetail.value?.bookingId;
+                                if (bookingId == null) return;
+                                final paymentMethod = isWise
+                                    ? WisePaymentMethod(bookingId)
+                                    : BankPaymentMethod(bookingId);
+                                _selectPaymentMethod(paymentMethod);
+                              },
+                              child: Container(
+                                decoration: BoxDecoration(
+                                    color: gray,
+                                    borderRadius: BorderRadius.circular(8.0)),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Row(
+                                    children: [
+                                      Container(
+                                        height: 40,
+                                        width: 40,
+                                        decoration: BoxDecoration(
+                                            color: whiteColor,
+                                            border: Border.all(
+                                                color: lightGray, width: 2.0),
+                                            borderRadius:
+                                                BorderRadius.circular(8.0),
+                                            image: DecorationImage(
+                                                image: AssetImage(
+                                                    "${currentData["imgSrc"]}"),
+                                                fit: BoxFit.contain)),
+                                      ),
+                                      const SizedBox(
+                                        width: 8,
+                                      ),
+                                      Expanded(
+                                          child:
+                                              Text("${currentData["name"]}")),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          );
+                        },
+                      )
+                    ],
+                  ),
+                ),
+              ),
       ),
     );
   }

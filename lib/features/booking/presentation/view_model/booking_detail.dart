@@ -6,28 +6,24 @@ import 'package:rinjani_visitor/features/booking/data/repository_impl.dart';
 import 'package:rinjani_visitor/features/booking/domain/entitiy/booking.dart';
 import 'package:rinjani_visitor/features/booking/domain/repository/booking.dart';
 
-final bookingDetailViewModelProvider =
-    AsyncNotifierProvider<BookingDetailViewModel, BookingDetailEntity?>(
-        BookingDetailViewModel.new);
+final bookingDetailViewModelProvider = AutoDisposeAsyncNotifierProvider.family<
+    BookingDetailViewModel,
+    BookingDetailEntity?,
+    String>(BookingDetailViewModel.new);
 
-class BookingDetailViewModel extends AsyncNotifier<BookingDetailEntity?> {
+class BookingDetailViewModel
+    extends AutoDisposeFamilyAsyncNotifier<BookingDetailEntity?, String> {
   BookingRepository get _bookingRepository =>
       ref.read(bookingRepositoryProvider);
 
   @override
-  FutureOr<BookingDetailEntity?> build() {
-    return null;
-  }
-
-  void get(String bookingId) async {
-    developer.log("get", name: runtimeType.toString());
-    if (state.value?.bookingId == bookingId) return;
-    state = const AsyncLoading();
+  FutureOr<BookingDetailEntity?> build(String arg) async {
+    developer.log("build $arg", name: runtimeType.toString());
     final token =
         ref.read(authViewModelProvider).value!.toAccessTokenAuthorization();
-    state = await AsyncValue.guard(() async =>
-        await _bookingRepository.getBookingDetail(token, bookingId));
-    developer.log("bookingID ${state.value?.bookingId}",
+    final result = await _bookingRepository.getBookingDetail(token, arg);
+    developer.log("bookingID ${result.bookingId}",
         name: runtimeType.toString());
+    return result;
   }
 }

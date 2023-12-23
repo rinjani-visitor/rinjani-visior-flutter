@@ -48,7 +48,10 @@ class BookingRepositoryImpl implements BookingRepository {
 
   @override
   Future<BookingDetailEntity> getBookingDetail(String token, String id) async {
+    developer.log("get detail by booking id $id", name: runtimeType.toString());
     final result = await remote.getBookingDetail(token, id);
+    final entity = result.toEntity();
+    developer.log("detail booking retrieved", name: runtimeType.toString());
     return result.toEntity();
   }
 
@@ -79,10 +82,6 @@ class BookingRepositoryImpl implements BookingRepository {
     if (savedHash == null) {
       return true;
     }
-    developer.log(
-      "local: ${savedHash} , remote: ${currentHash}",
-      name: runtimeType.toString(),
-    );
     if (savedHash != currentHash) {
       return true;
     }
@@ -93,7 +92,6 @@ class BookingRepositoryImpl implements BookingRepository {
   Future<void> updateBookingNewEntryStatus(
     List<BookingEntity> currentBookingList,
   ) async {
-    developer.log("update saved booking notification hash with new data", name: runtimeType.toString());
     final sharedPreference = await SharedPreferences.getInstance();
 
     // create MD5 hash string from status and id value at booking list

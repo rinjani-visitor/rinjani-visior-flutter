@@ -10,6 +10,7 @@ class UpdateUserDetailRequest {
   String? phoneNumber;
   String? password;
   String? confirmPassword;
+  String? profilPicture;
 
   UpdateUserDetailRequest({
     this.name,
@@ -18,6 +19,7 @@ class UpdateUserDetailRequest {
     this.password,
     this.confirmPassword,
     this.country,
+    this.profilPicture,
   });
   factory UpdateUserDetailRequest.fromJson(Map<String, dynamic> json) =>
       _$UpdateUserDetailRequestFromJson(json);

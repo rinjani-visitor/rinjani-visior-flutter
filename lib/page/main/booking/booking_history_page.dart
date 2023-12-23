@@ -1,3 +1,4 @@
+import 'dart:developer' as developer;
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -128,6 +129,18 @@ class _BookingHistoryPageState extends ConsumerState<BookingHistoryPage> {
     }).catchError((e) => Fluttertoast.showToast(msg: e.toString()));
   }
 
+  void _toPaymentMethodPage(String id) {
+    developer.log("To Payment Method Page $id", name: runtimeType.toString());
+    Navigator.push(
+      context,
+      CupertinoPageRoute(
+        builder: (context) => PaymentMethodPage(
+          bookingId: id,
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final bookingData = ref.watch(bookingListViewModelProvider);
@@ -192,15 +205,7 @@ class _BookingHistoryPageState extends ConsumerState<BookingHistoryPage> {
                                   PrimaryButton(
                                     child: Text("Send Proof of Payment"),
                                     onPressed: () {
-                                      Navigator.push(
-                                        context,
-                                        CupertinoPageRoute(
-                                          builder: (context) =>
-                                              PaymentMethodPage(
-                                            bookingId: current.bookingId,
-                                          ),
-                                        ),
-                                      );
+                                      _toPaymentMethodPage(current.bookingId);
                                     },
                                   ),
                                 BookingStatus.offering ||

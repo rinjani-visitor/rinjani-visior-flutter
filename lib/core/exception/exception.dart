@@ -68,14 +68,13 @@ class ExtException extends DioException {
   /// create error message at flutter pages / screen using toast or equivalent
   /// without default "Exception:" text _shenaigans_.
   factory ExtException.fromDioException(DioException ex) {
-
     // parse errors from List<String> to "string, string2, etc"
     var message = "";
     List<dynamic>? errors;
     try {
       final err = (ex.response?.data["errors"] as List<dynamic>?);
       errors = err;
-    } on Exception catch(e) {
+    } on Exception catch (_) {
       if (ex.type == DioExceptionType.badResponse) {
         return ExtException(
           exceptionType: ExceptionType.badResponseException,

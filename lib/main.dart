@@ -29,6 +29,14 @@ final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 void main() async {
   // Force google font to use offline fonts instead of re-downloading again
   GoogleFonts.config.allowRuntimeFetching = false;
+  FlutterError.onError = (FlutterErrorDetails details) {
+    if (details.library == 'image resource service' &&
+        details.exception.toString().contains('403')) {
+      print('Suppressed cachedNetworkImage Exception');
+      return;
+    }
+    FlutterError.presentError(details);
+  };
 
   // Ensure that plugin services are initialized so that `availableCameras()`
   // can be called before `runApp()`

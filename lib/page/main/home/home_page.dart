@@ -39,14 +39,21 @@ class HomePage extends ConsumerWidget {
               delegate: SliverHomeAppbarDelegate(
                   title: userDetail.asData?.value?.name ?? username,
                   leading: CachedNetworkImage(
-                    imageUrl: userDetail.value?.profileImg ?? IMG_PLACEHOLDER,
-                    imageBuilder: (context, imageProvider) {
-                      return CircleAvatar(
-                        backgroundImage: imageProvider,
-                        radius: 20,
-                      );
-                    },
-                  )),
+                      imageUrl: userDetail.value?.profileImg ?? IMG_PLACEHOLDER,
+                      imageBuilder: (context, imageProvider) {
+                        return CircleAvatar(
+                          backgroundImage: imageProvider,
+                          radius: 20,
+                        );
+                      },
+                      placeholder: (context, url) => const CircleAvatar(
+                            backgroundColor: CupertinoColors.systemGrey4,
+                            radius: 20,
+                          ),
+                      errorWidget: (context, url, error) => const CircleAvatar(
+                            backgroundColor: CupertinoColors.systemGrey4,
+                            radius: 20,
+                          ))),
             ),
           ],
           body: RefreshIndicator.adaptive(

@@ -1,7 +1,8 @@
 // ignore_for_file: constant_identifier_names
 import 'dart:developer' as developer;
 import 'dart:io';
-
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rinjani_visitor/core/presentation/services/dio_service.dart';
 import 'package:rinjani_visitor/features/authentication/data/models/request/login.dart';
@@ -117,9 +118,21 @@ class AuthRepositoryImpl implements AuthRepository {
 
   @override
   Future<bool?> uploadAvatar(String accessToken, File file) async {
-    developer.log("Upload avatar with file ${file.path}",
-        name: runtimeType.toString());
-    final result = await remote.uploadAvatar(accessToken, file);
+    developer.log(
+      "Upload avatar with file ${file.path}",
+      name: runtimeType.toString(),
+    );
+    final instanceRef = FirebaseStorage.instance.ref();
+    String fileName = file.path.split(Platform.pathSeparator).last;
+    final storageRef = instanceRef
+        .child("avatar-rinjani/${DateTime.now().toIso8601String()}$fileName");
+    final imgUrl = await storageRef.putFile(file);
+    final url = await imgUrl.ref.getDownloadURL();
+    final result = await remote.updateUserDetail(
+        accessToken,
+        UpdateUserDetailRequest(
+          profilPicture: url.toString(),
+        ));
     if (result.errors != null) {
       return true;
     }

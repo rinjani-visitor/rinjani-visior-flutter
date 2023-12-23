@@ -1,7 +1,5 @@
 import 'dart:io';
-import 'package:path/path.dart';
 import 'dart:developer' as developer;
-import 'package:flutter/foundation.dart';
 import 'package:rinjani_visitor/features/order/data/models/request/set_payment_method.dart';
 import 'package:rinjani_visitor/features/order/data/models/request/upload_bank_payment.dart';
 import 'package:rinjani_visitor/features/order/data/models/request/upload_wise_payment.dart';
@@ -92,7 +90,7 @@ class BankPaymentMethod implements PaymentMethod {
     final instance = FirebaseStorage.instance;
     String fileName = proofOfPayment!.path.split(Platform.pathSeparator).last;
     final instanceRef = instance.ref();
-    final storageRef = instanceRef.child("payment/$bookingId/$fileName");
+    final storageRef = instanceRef.child("payment/$bookingId-$fileName");
     final imgUrl = await storageRef.putFile(proofOfPayment!).catchError((e) {
       developer.log(e.toString());
       throw e;
