@@ -7,6 +7,19 @@ import 'package:rinjani_visitor/features/order/data/source/remote.dart';
 import 'package:rinjani_visitor/features/order/domain/entity/payment_method.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
+Future<String> _uploadPaymentAndGetUrl(String bookingId, File file) async {
+  String fileName = file.path.split(Platform.pathSeparator).last;
+  final instance = FirebaseStorage.instance;
+  final instanceRef = instance.ref();
+  final storageRef = instanceRef.child("payment/$bookingId/$fileName");
+  final imgUrl = await storageRef.putFile(file).catchError((e) {
+    developer.log(e.toString());
+    throw e;
+  });
+  final url = await imgUrl.ref.getDownloadURL();
+  return url;
+}
+
 class WisePaymentMethod implements PaymentMethod {
   @override
   final String bookingId;
@@ -31,17 +44,7 @@ class WisePaymentMethod implements PaymentMethod {
     developer.log("Submit", name: runtimeType.toString());
     await remote.setPaymentMethod(
         token, SetPaymentMethod(bookingId: bookingId, method: "Wise"));
-
-    final instance = FirebaseStorage.instance;
-
-    String fileName = proofOfPayment!.path.split(Platform.pathSeparator).last;
-    final instanceRef = instance.ref();
-    final storageRef = instanceRef.child("payment/$bookingId/$fileName");
-    final imgUrl = await storageRef.putFile(proofOfPayment!).catchError((e) {
-      developer.log(e.toString());
-      throw e;
-    });
-    final url = await imgUrl.ref.getDownloadURL();
+    final url = await _uploadPaymentAndGetUrl(bookingId, proofOfPayment!);
     final result = await remote.uploadWisePaymentJson(
       token,
       UploadWisePayment(
@@ -51,13 +54,7 @@ class WisePaymentMethod implements PaymentMethod {
         imageProofTransfer: url.toString(),
       ),
     );
-    // final result = await remote.uploadWisePayment(
-    //   token,
-    //   bookingId: bookingId,
-    //   wiseEmail: email!,
-    //   wiseAccountName: name!,
-    //   imageProofTransfer: proofOfPayment!,
-    // );
+
     return result.message;
   }
 }
@@ -87,15 +84,7 @@ class BankPaymentMethod implements PaymentMethod {
         token, SetPaymentMethod(bookingId: bookingId, method: "Bank"));
     developer.log("Submit", name: runtimeType.toString());
 
-    final instance = FirebaseStorage.instance;
-    String fileName = proofOfPayment!.path.split(Platform.pathSeparator).last;
-    final instanceRef = instance.ref();
-    final storageRef = instanceRef.child("payment/$bookingId-$fileName");
-    final imgUrl = await storageRef.putFile(proofOfPayment!).catchError((e) {
-      developer.log(e.toString());
-      throw e;
-    });
-    final url = await imgUrl.ref.getDownloadURL();
+    final url = await _uploadPaymentAndGetUrl(bookingId, proofOfPayment!);
     final result = await remote.uploadBankPaymentJson(
       token,
       UploadBankPayment(
