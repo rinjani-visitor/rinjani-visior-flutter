@@ -26,8 +26,8 @@ class BookingRepositoryImpl implements BookingRepository {
     final body = PostBookingRequest(
       productId: booking.product!.id,
       userId: userId,
-      startDateTime: booking.startDateTime.toIso8601String(),
-      endDateTime: booking.endDateTime?.toIso8601String(),
+      startDateTime: booking.startDateTime.toUtc().toIso8601String(),
+      endDateTime: booking.endDateTime?.toUtc().toIso8601String(),
       addOns: booking.addOns.join(', '),
       offeringPrice: booking.offeringPrice.toString(),
       totalPersons: booking.totalPersons,
