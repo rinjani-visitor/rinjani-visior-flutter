@@ -31,10 +31,11 @@ class ReviewWidgetWrapper extends StatelessWidget {
   Widget build(BuildContext context) {
     if (reviews.isEmpty) {
       return const Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [Text("No reviews"),]
-      );
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text("No reviews"),
+          ]);
     }
     return ReviewWidget(
       reviewChildren: List.generate(
@@ -43,6 +44,7 @@ class ReviewWidgetWrapper extends StatelessWidget {
           name: reviews[index].name,
           createdTime: reviews[index].localizedDateTime,
           message: reviews[index].content,
+          avatarUrl: reviews[index].avatarUrl,
         ),
       ),
     );

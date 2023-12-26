@@ -3,6 +3,7 @@ import 'package:rinjani_visitor/core/presentation/utils/internationalization.dar
 class ReviewEntity {
   final String id;
   final String name;
+  final String? avatarUrl;
   final String content;
   final DateTime dateTime;
 
@@ -11,6 +12,7 @@ class ReviewEntity {
     required this.name,
     required this.content,
     required this.dateTime,
+    this.avatarUrl,
   });
 
   String get localizedDateTime => dateFormat.format(dateTime);

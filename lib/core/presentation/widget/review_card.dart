@@ -1,15 +1,42 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:rinjani_visitor/core/presentation/theme/theme.dart';
 
 class ReviewCardWidget extends StatelessWidget {
   final String name;
+  final String? avatarUrl;
   final String createdTime;
   final String message;
   const ReviewCardWidget(
       {super.key,
       required this.name,
       required this.createdTime,
-      required this.message});
+      required this.message,
+      this.avatarUrl});
+
+  Widget avatar({double radius = 16.0}) {
+    final _radius = radius;
+    return CachedNetworkImage(
+      imageUrl: avatarUrl ?? "",
+      placeholder: (context, url) => CircleAvatar(
+        backgroundColor: CupertinoColors.systemGrey5,
+        radius: _radius,
+      ),
+      imageBuilder: (context, imageProvider) => CircleAvatar(
+        radius: _radius,
+        backgroundImage: imageProvider,
+      ),
+      errorWidget: (context, url, error) => CircleAvatar(
+        radius: _radius,
+        backgroundColor: CupertinoColors.systemGrey5,
+        child: Icon(
+          CupertinoIcons.person,
+          color: CupertinoColors.systemGrey,
+        ),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,17 +59,28 @@ class ReviewCardWidget extends StatelessWidget {
           const SizedBox(
             height: 4,
           ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          Row(
             children: [
-              Text(
-                name,
-                style:
-                    blackTextStyle.copyWith(fontSize: 16, fontWeight: semibold),
+              avatar(),
+              const SizedBox(
+                width: 4,
               ),
-              Text(
-                createdTime,
-                style: grayTextStyle.copyWith(fontSize: 10),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      name,
+                      style: blackTextStyle.copyWith(
+                          fontSize: 16, fontWeight: semibold),
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    Text(
+                      createdTime,
+                      style: grayTextStyle.copyWith(fontSize: 10),
+                    )
+                  ],
+                ),
               )
             ],
           )

@@ -40,10 +40,12 @@ class ProductDetailResponse extends BaseResponse<ProductDetailBody> {
       favoritedCount: data.favoritedCount.toString(),
       reviews: data.reviews
           ?.map((e) => ReviewEntity(
-              content: e.messageReview ?? "",
-              dateTime: DateTime.parse(e.createdAt!).toLocal(),
-              id: e.name ?? "",
-              name: e.name ?? ""))
+                content: e.messageReview ?? "",
+                dateTime: DateTime.parse(e.createdAt!).toLocal(),
+                id: e.name ?? "",
+                name: e.name ?? "",
+                avatarUrl: e.profilPicture ?? "",
+              ))
           .toList(),
       note: data.note,
       subCategory: data.subCategory);
