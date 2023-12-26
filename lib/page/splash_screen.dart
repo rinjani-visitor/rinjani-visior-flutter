@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:rinjani_visitor/core/constant/constant.dart';
 import 'package:rinjani_visitor/features/authentication/presentation/view_model/auth.dart';
 import 'package:rinjani_visitor/core/presentation/theme/theme.dart';
 
@@ -40,7 +41,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
       });
     } else if (_state is AsyncError) {
       WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-        Fluttertoast.showToast(msg: (_state as AsyncError).error.toString());
+        // Fluttertoast.showToast(msg: "Session expired");
         Navigator.pushReplacementNamed(context, '/login');
       });
     }
@@ -54,7 +55,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
               width: 148,
               height: 66,
               decoration: const BoxDecoration(
-                  image: DecorationImage(image: AssetImage('assets/icon.png'))),
+                  image: DecorationImage(image: AssetImage(IMG_ICON))),
             ),
             Text("RINJANI VISITOR",
                 style: whiteTextStyle.copyWith(
