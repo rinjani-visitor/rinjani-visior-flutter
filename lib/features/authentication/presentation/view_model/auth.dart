@@ -65,7 +65,12 @@ class AuthViewModel extends AsyncNotifier<AuthEntity?> {
         country: country,
         password: password));
     developer.log("value ${state.asData?.value.toString()}");
-    Fluttertoast.showToast(msg: "User created, please check your email", toastLength: Toast.LENGTH_LONG);
+    if (state is AsyncError) {
+      return;
+    }
+    Fluttertoast.showToast(
+        msg: "User created, please check your email",
+        toastLength: Toast.LENGTH_LONG);
   }
 
   Future<String?> resetPassword(String email) async {
