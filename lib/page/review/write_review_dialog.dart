@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:rinjani_visitor/core/presentation/theme/theme.dart';
@@ -73,6 +74,9 @@ class _WriteReviewPageState extends ConsumerState<WriteReviewPage> {
                 }),
             const SizedBox(height: 16.0),
             InputFormField(
+              inputFormatters: [
+                LengthLimitingTextInputFormatter(50),
+              ],
               controller: _reviewController,
               validator: (val) {
                 if (val!.isEmpty) {
