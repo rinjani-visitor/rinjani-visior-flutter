@@ -55,6 +55,9 @@ class _FormBodyState extends ConsumerState<_FormBody> {
   final _countryTxtController = TextEditingController();
   final _passwordTxtController = TextEditingController();
   final _confirmPasswordTxtController = TextEditingController();
+  bool _isPasswordVisible = false;
+  bool _isRepeatedPasswordVisible = false;
+
   late final authNotifier = ref.read(authViewModelProvider.notifier);
 
   @override
@@ -73,12 +76,11 @@ class _FormBodyState extends ConsumerState<_FormBody> {
 
   void _onFormSubmit() async {
     await authNotifier.register(
-      _usernameTxtController.text,
-      _emailTxtController.text,
-      _countryTxtController.text,
-      _passwordTxtController.text,
-      _confirmPasswordTxtController.text
-    );
+        _usernameTxtController.text,
+        _emailTxtController.text,
+        _countryTxtController.text,
+        _passwordTxtController.text,
+        _confirmPasswordTxtController.text);
 
     final state = ref.read(authViewModelProvider);
 
@@ -161,9 +163,22 @@ class _FormBodyState extends ConsumerState<_FormBody> {
           ),
           InputFormField(
             label: 'Password',
-            secureText: true,
+            secureText: !_isPasswordVisible,
             textInputAction: TextInputAction.done,
             controller: _passwordTxtController,
+            suffix: IconButton(
+              icon: Icon(
+                _isPasswordVisible
+                    ? CupertinoIcons.eye
+                    : CupertinoIcons.eye_slash,
+                color: blackColor,
+              ),
+              onPressed: () {
+                setState(() {
+                  _isPasswordVisible = !_isPasswordVisible;
+                });
+              },
+            ),
             validator: (value) {
               if (value!.isEmpty) {
                 return 'Password cannot be empty';
@@ -181,9 +196,22 @@ class _FormBodyState extends ConsumerState<_FormBody> {
           ),
           InputFormField(
             label: 'Confirm password',
-            secureText: true,
+            secureText: !_isRepeatedPasswordVisible,
             textInputAction: TextInputAction.done,
             controller: _confirmPasswordTxtController,
+            suffix: IconButton(
+              icon: Icon(
+                _isPasswordVisible
+                    ? CupertinoIcons.eye
+                    : CupertinoIcons.eye_slash,
+                color: blackColor,
+              ),
+              onPressed: () {
+                setState(() {
+                  _isRepeatedPasswordVisible = !_isRepeatedPasswordVisible;
+                });
+              },
+            ),
             validator: (value) {
               if (value == null || value.isEmpty) {
                 return "Password required";
