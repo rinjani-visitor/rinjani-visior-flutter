@@ -316,10 +316,10 @@ class OrderHistoryCard extends StatelessWidget {
                   ),
                 )),
             const SizedBox(height: 12),
-            // Text(
-            //   "ID: $id",
-            //   style: grayTextStyle.copyWith(fontSize: body3),
-            // ),
+            Text(
+              "ID: $id",
+              style: grayTextStyle.copyWith(fontSize: body3),
+            ),
             Text(title,
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
