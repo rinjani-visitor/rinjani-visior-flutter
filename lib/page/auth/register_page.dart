@@ -201,7 +201,7 @@ class _FormBodyState extends ConsumerState<_FormBody> {
             controller: _confirmPasswordTxtController,
             suffix: IconButton(
               icon: Icon(
-                _isPasswordVisible
+                _isRepeatedPasswordVisible
                     ? CupertinoIcons.eye
                     : CupertinoIcons.eye_slash,
                 color: blackColor,
