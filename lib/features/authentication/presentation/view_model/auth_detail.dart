@@ -54,17 +54,21 @@ class AuthDetailViewModel extends AutoDisposeAsyncNotifier<AuthDetailEntity?> {
       String? country,
       String? password,
       String? confirmPassword}) async {
+    state = const AsyncLoading();
     final token = authViewModel.state.value!.toAccessTokenAuthorization();
     final userId = authViewModel.state.value!.userId!;
     try {
       await authRepository.updateUserDetail(
         token,
         userId,
-        phoneNumber: phoneNumber,
-        name: name,
-        password: password,
-        confirmPassword: confirmPassword,
-        country: country,
+        phoneNumber:
+            phoneNumber != null && phoneNumber.isNotEmpty ? phoneNumber : null,
+        name: name != null && name.isNotEmpty ? name : null,
+        password: password != null && password.isNotEmpty ? password : null,
+        confirmPassword: confirmPassword != null && confirmPassword.isNotEmpty
+            ? confirmPassword
+            : null,
+        country: country != null && country.isNotEmpty ? country : null,
       );
       Fluttertoast.showToast(msg: "Update success");
       refresh();

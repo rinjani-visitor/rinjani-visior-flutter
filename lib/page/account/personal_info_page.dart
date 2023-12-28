@@ -144,77 +144,80 @@ class _PersonalInfoPageState extends ConsumerState<PersonalInfoPage> {
           middle: Text('Personal Information'),
         ),
         child: SafeArea(
-            child: Container(
-                margin: const EdgeInsets.all(16),
-                child: ListView(
-                  children: [
-                    InputField(
-                      controller: _nameController,
-                      label: 'Name',
-                      readOnly: true,
-                      suffix: CupertinoButton(
-                        onPressed: () {
-                          _showEditNameDialog();
-                        },
-                        child: const Text('Edit'),
-                      ),
+            child: SingleChildScrollView(
+          child: Container(
+              margin: const EdgeInsets.all(16),
+              child: Column(
+                children: [
+                  InputField(
+                    controller: _nameController,
+                    label: 'Name',
+                    readOnly: true,
+                    suffix: CupertinoButton(
+                      onPressed: () {
+                        _showEditNameDialog();
+                      },
+                      child: const Text('Edit'),
                     ),
-                    const SizedBox(
-                      height: 16,
+                  ),
+                  const SizedBox(
+                    height: 16,
+                  ),
+                  InputField(
+                    controller: _emailController,
+                    label: 'Email',
+                    enabled: false,
+                    suffix: CupertinoButton(
+                      onPressed: () {},
+                      child: const Text(""),
                     ),
-                    InputField(
-                      controller: _emailController,
-                      label: 'Email',
-                      enabled: false,
-                      suffix: CupertinoButton(
-                        onPressed: () {},
-                        child: const Text(""),
-                      ),
+                  ),
+                  const SizedBox(
+                    height: 16,
+                  ),
+                  InputField(
+                    controller: _phoneController,
+                    label: 'Phone Number',
+                    readOnly: true,
+                    suffix: CupertinoButton(
+                      onPressed: () {
+                        _showEditPhoneNumberDialog();
+                      },
+                      child: const Text('Edit'),
                     ),
-                    const SizedBox(
-                      height: 16,
+                  ),
+                  const SizedBox(
+                    height: 16,
+                  ),
+                  InputField(
+                    controller: _countryController,
+                    label: 'Country',
+                    readOnly: true,
+                    suffix: CupertinoButton(
+                      onPressed: () {
+                        _showEditCountryDialog();
+                      },
+                      child: const Text('Edit'),
                     ),
-                    InputField(
-                      controller: _phoneController,
-                      label: 'Phone Number',
-                      readOnly: true,
-                      suffix: CupertinoButton(
-                        onPressed: () {
-                          _showEditPhoneNumberDialog();
-                        },
-                        child: const Text('Edit'),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 16,
-                    ),
-                    InputField(
-                      controller: _countryController,
-                      label: 'Country',
-                      readOnly: true,
-                      suffix: CupertinoButton(
-                        onPressed: () {
-                          _showEditCountryDialog();
-                        },
-                        child: const Text('Edit'),
-                      ),
-                    ),
-                    _isChanged
-                        ? PrimaryButton(
-                            isLoading: state is AsyncLoading,
-                            onPressed: () {
-                              ref
-                                  .read(authDetailViewModelProvider.notifier)
-                                  .updateUserDetail(
-                                    name: _nameController.text,
-                                    phoneNumber: _phoneController.text,
-                                    country: _countryController.text,
-                                  );
-                            },
-                            child: const Text('Save'),
-                          )
-                        : const SizedBox.shrink(),
-                  ],
-                ))));
+                  ),
+                  const SizedBox(
+                    height: 32,
+                  ),
+                  PrimaryButton(
+                    isLoading: state is AsyncLoading,
+                    onPressed: () async {
+                      await ref
+                          .read(authDetailViewModelProvider.notifier)
+                          .updateUserDetail(
+                            name: _nameController.text,
+                            phoneNumber: _phoneController.text,
+                            country: _countryController.text,
+                          );
+                    },
+                    child: const Text('Save'),
+                  )
+                ],
+              )),
+        )));
   }
 }
