@@ -2,6 +2,7 @@ import 'package:country_picker/country_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rinjani_visitor/core/presentation/theme/theme.dart';
+import 'package:rinjani_visitor/core/presentation/widget/button/primary_button.dart';
 import 'package:rinjani_visitor/core/presentation/widget/form/input_field.dart';
 import 'package:rinjani_visitor/features/authentication/domain/entity/auth_detail.dart';
 import 'package:rinjani_visitor/features/authentication/presentation/view_model/auth_detail.dart';
@@ -24,6 +25,11 @@ class _PersonalInfoPageState extends ConsumerState<PersonalInfoPage> {
       TextEditingController(text: _initState.asData?.value?.phoneNumber ?? "");
   late final TextEditingController _countryController =
       TextEditingController(text: _initState.asData?.value?.country ?? "");
+
+  bool get _isChanged =>
+      _nameController.text != _initState.asData?.value?.name ||
+      _phoneController.text != _initState.asData?.value?.phoneNumber ||
+      _countryController.text != _initState.asData?.value?.country;
   void _setTextControllers(AuthDetailEntity? authDetail) {
     _nameController.text = authDetail?.name ?? "";
     _emailController.text = authDetail?.email ?? "";
@@ -50,11 +56,6 @@ class _PersonalInfoPageState extends ConsumerState<PersonalInfoPage> {
               ),
               CupertinoDialogAction(
                 onPressed: () {
-                  ref
-                      .read(authDetailViewModelProvider.notifier)
-                      .updateUserDetail(
-                        name: _nameController.text,
-                      );
                   Navigator.pop(context);
                 },
                 child: const Text('Save'),
@@ -85,11 +86,6 @@ class _PersonalInfoPageState extends ConsumerState<PersonalInfoPage> {
               ),
               CupertinoDialogAction(
                 onPressed: () {
-                  ref
-                      .read(authDetailViewModelProvider.notifier)
-                      .updateUserDetail(
-                        phoneNumber: _phoneController.text,
-                      );
                   Navigator.pop(context);
                 },
                 child: const Text('Save'),
@@ -127,11 +123,6 @@ class _PersonalInfoPageState extends ConsumerState<PersonalInfoPage> {
               ),
               CupertinoDialogAction(
                 onPressed: () {
-                  ref
-                      .read(authDetailViewModelProvider.notifier)
-                      .updateUserDetail(
-                        country: _countryController.text,
-                      );
                   Navigator.pop(context);
                 },
                 child: const Text('Save'),
@@ -208,6 +199,21 @@ class _PersonalInfoPageState extends ConsumerState<PersonalInfoPage> {
                         child: const Text('Edit'),
                       ),
                     ),
+                    _isChanged
+                        ? PrimaryButton(
+                            isLoading: state is AsyncLoading,
+                            onPressed: () {
+                              ref
+                                  .read(authDetailViewModelProvider.notifier)
+                                  .updateUserDetail(
+                                    name: _nameController.text,
+                                    phoneNumber: _phoneController.text,
+                                    country: _countryController.text,
+                                  );
+                            },
+                            child: const Text('Save'),
+                          )
+                        : const SizedBox.shrink(),
                   ],
                 ))));
   }
