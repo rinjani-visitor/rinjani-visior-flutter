@@ -20,7 +20,6 @@ Future<Uint8List> getImageToBytes(File imageFile) async {
 Future<File> reduceImageByteSize(File imageFile,
     {required int targetSizeInKB}) async {
   final bitmap = await getImageToBytes(imageFile);
-
   int quality = 100;
   int byteSize = bitmap.lengthInBytes;
   do {

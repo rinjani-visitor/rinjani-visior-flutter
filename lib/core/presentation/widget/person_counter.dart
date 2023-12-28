@@ -13,7 +13,11 @@ class PersonCounterWidget extends StatefulWidget {
 }
 
 class _PersonCounterWidgetState extends State<PersonCounterWidget> {
+  final int _min = 1;
+  final int _max = 25;
+
   void _increment() {
+    if (int.parse(widget.controller.text) >= _max) return;
     setState(() {
       widget.controller.text =
           (int.parse(widget.controller.text) + 1).toString();
@@ -21,6 +25,7 @@ class _PersonCounterWidgetState extends State<PersonCounterWidget> {
   }
 
   void _decrement() {
+    if (int.parse(widget.controller.text) <= _min) return;
     setState(() {
       widget.controller.text =
           (int.parse(widget.controller.text) - 1).toString();
@@ -49,7 +54,7 @@ class _PersonCounterWidgetState extends State<PersonCounterWidget> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Material(
-                  child: int.parse(widget.controller.text) > 1
+                  child: int.parse(widget.controller.text) > _min
                       ? IconButton(
                           onPressed: () => _decrement(),
                           icon: const Icon(Icons.remove),
@@ -68,11 +73,18 @@ class _PersonCounterWidgetState extends State<PersonCounterWidget> {
               ),
               const SizedBox(width: 20),
               Material(
-                child: IconButton(
-                  onPressed: () => _increment(),
-                  icon: const Icon(Icons.add),
-                ),
-              ),
+                  child: int.parse(widget.controller.text) < _max
+                      ? IconButton(
+                          onPressed: () => _increment(),
+                          icon: const Icon(Icons.add),
+                        )
+                      : const Padding(
+                          padding: EdgeInsets.all(12.0),
+                          child: Icon(
+                            Icons.add,
+                            color: Colors.grey,
+                          ),
+                        )),
             ],
           ),
           TextButton(
