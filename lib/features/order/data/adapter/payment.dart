@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'dart:developer' as developer;
+import 'package:rinjani_visitor/core/presentation/utils/image_parser.dart';
 import 'package:rinjani_visitor/features/order/data/models/request/set_payment_method.dart';
 import 'package:rinjani_visitor/features/order/data/models/request/upload_bank_payment.dart';
 import 'package:rinjani_visitor/features/order/data/models/request/upload_wise_payment.dart';
@@ -44,7 +45,9 @@ class WisePaymentMethod implements PaymentMethod {
     developer.log("Submit", name: runtimeType.toString());
     await remote.setPaymentMethod(
         token, SetPaymentMethod(bookingId: bookingId, method: "Wise"));
-    final url = await _uploadPaymentAndGetUrl(bookingId, proofOfPayment!);
+    final compressed =
+        await reduceImageByteSize(proofOfPayment!, targetSizeInKB: 5000);
+    final url = await _uploadPaymentAndGetUrl(bookingId, compressed);
     final result = await remote.uploadWisePaymentJson(
       token,
       UploadWisePayment(
@@ -84,8 +87,9 @@ class BankPaymentMethod implements PaymentMethod {
     await remote.setPaymentMethod(
         token, SetPaymentMethod(bookingId: bookingId, method: "Bank"));
     developer.log("Submit", name: runtimeType.toString());
-
-    final url = await _uploadPaymentAndGetUrl(bookingId, proofOfPayment!);
+    final compressed =
+        await reduceImageByteSize(proofOfPayment!, targetSizeInKB: 5000);
+    final url = await _uploadPaymentAndGetUrl(bookingId, compressed);
     final result = await remote.uploadBankPaymentJson(
       token,
       UploadBankPayment(
