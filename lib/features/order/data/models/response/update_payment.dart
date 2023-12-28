@@ -2,7 +2,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'update_payment.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false)
 class UpdatePaymentResponse {
   final List<String>? errors;
   final String? message;

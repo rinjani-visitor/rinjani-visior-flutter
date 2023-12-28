@@ -3,7 +3,7 @@ import 'package:rinjani_visitor/core/domain/entity/base_response.dart';
 import 'package:rinjani_visitor/features/product/domain/entity/product.dart';
 part 'product.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false)
 class ProductResponse extends BaseResponse<List<ProductResponseBody>?> {
   ProductResponse(
       {required super.errors, required super.message, required super.data});
@@ -13,7 +13,7 @@ class ProductResponse extends BaseResponse<List<ProductResponseBody>?> {
   Map<String, dynamic> toJson() => _$ProductResponseToJson(this);
 }
 
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false)
 class ProductResponseBody {
   String productId;
   String? title;

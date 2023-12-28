@@ -6,7 +6,7 @@ import 'package:rinjani_visitor/features/product/domain/entity/review.dart';
 
 part 'product_detail.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false)
 class ProductDetailResponse extends BaseResponse<ProductDetailBody> {
   ProductDetailResponse(
       {required super.errors, required super.message, required super.data});
@@ -51,7 +51,7 @@ class ProductDetailResponse extends BaseResponse<ProductDetailBody> {
       subCategory: data.subCategory);
 }
 
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false)
 class ProductDetailBody {
   final String productId;
   bool? userFavorited;
