@@ -2,7 +2,6 @@
 import 'dart:developer' as developer;
 import 'dart:io';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rinjani_visitor/core/presentation/services/dio_service.dart';
 import 'package:rinjani_visitor/features/authentication/data/models/request/login.dart';

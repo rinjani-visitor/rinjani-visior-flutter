@@ -103,7 +103,7 @@ class _CategoryExplorePageState extends ConsumerState<CategoryExplorePage> {
                           constraints:
                               BoxConstraints(minHeight: constraints.maxHeight),
                           child: Center(
-                            child: Text("${error.toString()}"),
+                            child: Text(error.toString()),
                           ),
                         )
                       ],

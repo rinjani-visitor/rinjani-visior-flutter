@@ -2,7 +2,6 @@ import 'package:dio/dio.dart';
 import 'package:retrofit/http.dart';
 import 'package:rinjani_visitor/core/constant/network.dart';
 import 'package:rinjani_visitor/features/favorite/data/models/request/request.dart';
-import 'package:rinjani_visitor/features/favorite/data/models/response/get_favorite.dart';
 import 'package:rinjani_visitor/features/favorite/data/models/response/response.dart';
 
 part 'remote.g.dart';

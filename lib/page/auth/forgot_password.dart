@@ -88,7 +88,7 @@ class _ForgotPasswordPageState extends ConsumerState<ForgotPasswordPage> {
             ),
             PrimaryButton(
                 isLoading: ref.watch(authViewModelProvider).isLoading,
-                child: Text("Send Link Request"),
+                child: const Text("Send Link Request"),
                 onPressed: () => _submitForm())
           ],
         ),

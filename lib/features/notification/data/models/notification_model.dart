@@ -27,6 +27,11 @@ class NotificationModel {
     this.status,
   });
 
+  factory NotificationModel.fromJson(Map<String, dynamic> json) =>
+      _$NotificationModelFromJson(json);
+
+  Map<String, dynamic> toJson() => _$NotificationModelToJson(this);
+
   NotificationEntity toEntity() => NotificationEntity(
       id: id,
       title: title,

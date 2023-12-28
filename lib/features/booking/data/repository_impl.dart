@@ -50,7 +50,6 @@ class BookingRepositoryImpl implements BookingRepository {
   Future<BookingDetailEntity> getBookingDetail(String token, String id) async {
     developer.log("get detail by booking id $id", name: runtimeType.toString());
     final result = await remote.getBookingDetail(token, id);
-    final entity = result.toEntity();
     developer.log("detail booking retrieved", name: runtimeType.toString());
     return result.toEntity();
   }
@@ -59,13 +58,6 @@ class BookingRepositoryImpl implements BookingRepository {
   Future<List<BookingEntity>> getBookings(String token) async {
     final result = await remote.getBookings(token);
     return result.toEntity() ?? [];
-  }
-
-  @override
-  Future<BookingFormEntity> updateBooking(
-      String token, BookingFormEntity booking) {
-    // TODO: implement updateBooking
-    throw UnimplementedError();
   }
 
   @override

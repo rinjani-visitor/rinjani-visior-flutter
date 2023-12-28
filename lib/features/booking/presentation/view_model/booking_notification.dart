@@ -43,7 +43,7 @@ class BookingNotificationViewModel extends Notifier<bool> {
     }
     final status =
         await bookingRepository.isBookingHaveNewEntryStatus(currentBookingList);
-    developer.log("status: ${status}", name: runtimeType.toString());
+    developer.log("status: $status", name: runtimeType.toString());
     state = status;
     return status;
   }

@@ -4,7 +4,7 @@ class FavoriteEntity {
   bool? avaiable;
   double? rating;
   String get ratingString =>
-      rating == null || rating == 0.0 ? "0.0" : this.rating.toString();
+      rating == null || rating == 0.0 ? "0.0" : rating.toString();
   String? category;
   String? location;
   String? thumbnail;

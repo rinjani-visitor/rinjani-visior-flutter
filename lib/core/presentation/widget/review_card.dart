@@ -16,21 +16,21 @@ class ReviewCardWidget extends StatelessWidget {
       this.avatarUrl});
 
   Widget avatar({double radius = 16.0}) {
-    final _radius = radius;
+    final finalRadius = radius;
     return CachedNetworkImage(
       imageUrl: avatarUrl ?? "",
       placeholder: (context, url) => CircleAvatar(
         backgroundColor: CupertinoColors.systemGrey5,
-        radius: _radius,
+        radius: finalRadius,
       ),
       imageBuilder: (context, imageProvider) => CircleAvatar(
-        radius: _radius,
+        radius: finalRadius,
         backgroundImage: imageProvider,
       ),
       errorWidget: (context, url, error) => CircleAvatar(
-        radius: _radius,
+        radius: finalRadius,
         backgroundColor: CupertinoColors.systemGrey5,
-        child: Icon(
+        child: const Icon(
           CupertinoIcons.person,
           color: CupertinoColors.systemGrey,
         ),

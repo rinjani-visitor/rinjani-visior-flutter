@@ -13,11 +13,6 @@ abstract class BookingRepository {
 
   Future<BookingDetailEntity> getBookingDetail(String token, String id);
 
-  Future<BookingFormEntity> updateBooking(
-    String token,
-    BookingFormEntity booking,
-  );
-
   Future<void> deleteBooking(String token, String id);
 
   /// this function will return true if booking list has been visited

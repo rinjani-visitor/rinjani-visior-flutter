@@ -60,6 +60,7 @@ class WisePaymentMethod implements PaymentMethod {
 }
 
 class BankPaymentMethod implements PaymentMethod {
+  @override
   final String bookingId;
   String? bankName;
   String? name;

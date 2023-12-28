@@ -41,7 +41,7 @@ class NotificationCardWidget extends StatelessWidget {
         ),
         subtitle: Text(subtitle),
         backgroundColor: whiteColor,
-        trailing: Icon(
+        trailing: const Icon(
           Icons.chevron_right,
           color: lightGray,
           size: 32,

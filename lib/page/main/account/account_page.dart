@@ -91,7 +91,7 @@ class _AccountPageState extends ConsumerState<AccountPage> {
   Widget build(BuildContext context) {
     final userDetail = ref.watch(authDetailViewModelProvider);
     return CupertinoPageScaffold(
-      backgroundColor: CupertinoColors.systemGrey6,
+        backgroundColor: CupertinoColors.systemGrey6,
         child: RefreshIndicator.adaptive(
             onRefresh: () async {
               await ref.read(authDetailViewModelProvider.notifier).refresh();
@@ -124,12 +124,12 @@ class _AccountPageState extends ConsumerState<AccountPage> {
                                     Navigator.pushNamed(context, '/personal');
                                   },
                                   padding: const EdgeInsets.all(0),
-                                  leading: Icon(
+                                  leading: const Icon(
                                     Icons.person,
                                     color: blackColor,
                                   ),
                                   title: const Text('Personal Information'),
-                                  trailing: Icon(
+                                  trailing: const Icon(
                                     Icons.chevron_right,
                                     color: blackColor,
                                     size: 32,
@@ -140,12 +140,12 @@ class _AccountPageState extends ConsumerState<AccountPage> {
                                     Navigator.pushNamed(context, '/settings');
                                   },
                                   padding: const EdgeInsets.all(0),
-                                  leading: Icon(
+                                  leading: const Icon(
                                     Icons.settings,
                                     color: blackColor,
                                   ),
                                   title: const Text('Account settings'),
-                                  trailing: Icon(
+                                  trailing: const Icon(
                                     Icons.chevron_right,
                                     color: blackColor,
                                     size: 32,
@@ -156,12 +156,12 @@ class _AccountPageState extends ConsumerState<AccountPage> {
                                     Navigator.pushNamed(context, '/order');
                                   },
                                   padding: const EdgeInsets.all(0),
-                                  leading: Icon(
+                                  leading: const Icon(
                                     Icons.history,
                                     color: blackColor,
                                   ),
                                   title: const Text('Order History'),
-                                  trailing: Icon(
+                                  trailing: const Icon(
                                     Icons.chevron_right,
                                     color: blackColor,
                                     size: 32,

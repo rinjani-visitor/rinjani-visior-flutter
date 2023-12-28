@@ -81,7 +81,7 @@ class _SearchPageState extends ConsumerState<SearchPage> {
                           Container(
                             constraints: BoxConstraints(
                                 minHeight: constraints.maxHeight),
-                            child: Center(
+                            child: const Center(
                               child: Text("No product found"),
                             ),
                           )
@@ -95,7 +95,7 @@ class _SearchPageState extends ConsumerState<SearchPage> {
                       constraints:
                           BoxConstraints(minHeight: constraints.maxHeight),
                       child: Center(
-                        child: Text("${error.toString()}"),
+                        child: Text(error.toString()),
                       ),
                     )
                   ],

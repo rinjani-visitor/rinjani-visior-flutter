@@ -32,7 +32,6 @@ void main() async {
   FlutterError.onError = (FlutterErrorDetails details) {
     if (details.library == 'image resource service' &&
         details.exception.toString().contains('403')) {
-      print('Suppressed cachedNetworkImage Exception');
       return;
     }
     FlutterError.presentError(details);

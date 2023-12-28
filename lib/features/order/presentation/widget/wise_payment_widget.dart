@@ -9,14 +9,15 @@ import 'package:rinjani_visitor/core/presentation/widget/form/input_field.dart';
 import 'package:rinjani_visitor/core/presentation/widget/form/upload_button.dart';
 import 'package:rinjani_visitor/features/order/presentation/view_model/payment.dart';
 
-
 class WisePaymentWidget extends ConsumerStatefulWidget {
   final TextEditingController field1Controller;
   final TextEditingController field2Controller;
   final File? file;
   final Function() onUploadPressed;
 
-  const WisePaymentWidget(this.field1Controller, this.field2Controller, this.file, this.onUploadPressed, {super.key});
+  const WisePaymentWidget(this.field1Controller, this.field2Controller,
+      this.file, this.onUploadPressed,
+      {super.key});
 
   @override
   ConsumerState<WisePaymentWidget> createState() => _WisePaymentWidgetState();
@@ -34,7 +35,7 @@ class _WisePaymentWidgetState extends ConsumerState<WisePaymentWidget> {
         Row(
           children: [
             Container(
-              constraints: BoxConstraints.expand(
+              constraints: const BoxConstraints.expand(
                 height: 96,
                 width: 96,
               ),

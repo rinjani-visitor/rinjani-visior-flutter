@@ -59,7 +59,7 @@ class RecommendationList extends ConsumerWidget {
             if (error is ExtException) {
               return Center(child: Text("${error.errorMessage}"));
             }
-            return Center(child: Text("error ${error}"));
+            return Center(child: Text("error $error"));
           },
           loading: () => SingleChildScrollView(
             scrollDirection: Axis.horizontal,

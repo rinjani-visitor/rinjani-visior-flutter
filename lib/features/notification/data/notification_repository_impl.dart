@@ -10,21 +10,10 @@ class NotificationRepositoryImpl implements NotificationRepository {
 
   NotificationRepositoryImpl({required NotificationMock notificationRemote});
 
-  @override
-  Future<NotificationEntity> getNotification() {
-    // TODO: implement getNotification
-    throw UnimplementedError();
-  }
 
   @override
   Future<List<NotificationEntity>> getNotifications() async {
     return [];
   }
 
-  @override
-  Future<void> setMarkCurrentNotification(
-      {required String notificationId, bool? viewed}) {
-    // TODO: implement setMarkCurrentNotification
-    throw UnimplementedError();
-  }
 }

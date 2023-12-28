@@ -103,7 +103,7 @@ class _BookingDetailPageState extends ConsumerState<BookingDetailPage> {
               CupertinoListTile(
                   leadingToTitle: 4,
                   padding: const EdgeInsets.all(0),
-                  leading: Icon(
+                  leading: const Icon(
                     Icons.calendar_month,
                     color: blackColor,
                   ),
@@ -119,7 +119,7 @@ class _BookingDetailPageState extends ConsumerState<BookingDetailPage> {
               CupertinoListTile(
                   leadingToTitle: 4,
                   padding: const EdgeInsets.all(0),
-                  leading: Icon(
+                  leading: const Icon(
                     Icons.access_time,
                     color: blackColor,
                   ),
@@ -135,7 +135,7 @@ class _BookingDetailPageState extends ConsumerState<BookingDetailPage> {
               CupertinoListTile(
                   leadingToTitle: 4,
                   padding: const EdgeInsets.all(0),
-                  leading: Icon(
+                  leading: const Icon(
                     Icons.person,
                     color: blackColor,
                   ),

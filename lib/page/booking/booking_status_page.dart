@@ -27,10 +27,13 @@ class _BookingStatusPageState extends ConsumerState<BookingStatusPage> {
         ref.read(bookingFormViewModelProvider);
     final bookingStatus = ref.watch(bookingFormStatusProvider(bookingForm));
     return switch (bookingStatus) {
-      AsyncData(:final value) => SuccessStatusPage(
+      AsyncData() => SuccessStatusPage(
           onNextPress: () => _backToHome(context),
         ),
-      AsyncError(:final error,:final stackTrace) => FailedStatusPage(
+      AsyncError(
+        :final error,
+      ) =>
+        FailedStatusPage(
           onNextPress: () => _backToHome(context),
           errorReason: error.toString(),
         ),

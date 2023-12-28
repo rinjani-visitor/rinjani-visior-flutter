@@ -44,10 +44,10 @@ class _AddOnWidget extends StatefulWidget {
   final bool selected;
   final void Function(bool? value, bool isSelected)? onChanged;
   const _AddOnWidget({
-    super.key,
     required this.name,
     required this.selected,
     required this.onChanged,
+    // ignore: unused_element
     this.description,
   });
 

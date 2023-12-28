@@ -315,8 +315,7 @@ class _Header extends ConsumerWidget {
   final bool? initialLikeStatus;
 
   const _Header(
-      {super.key,
-      required this.productId,
+      {required this.productId,
       this.initialLikeStatus,
       this.avaiable = false,
       this.title = "Title not found",
@@ -392,7 +391,7 @@ class _Header extends ConsumerWidget {
                 ),
                 Row(
                   children: [
-                    Icon(
+                    const Icon(
                       Icons.location_pin,
                       color: lightGray,
                     ),
@@ -421,9 +420,7 @@ class _Header extends ConsumerWidget {
                     ),
                     const Spacer(),
                     initialLikeStatus == null
-                        ? Container(
-                            child: Text("not avaiable"),
-                          )
+                        ? const Text("not avaiable")
                         : likeStatus.maybeWhen(
                             data: (data) => LikeButton(
                                   isLiked:
@@ -452,7 +449,7 @@ class _Header extends ConsumerWidget {
                   height: 8,
                 ),
                 Text(
-                  'Trip duration: ${tripDuration}',
+                  'Trip duration: $tripDuration',
                   style: blackTextStyle.copyWith(fontSize: 16),
                 ),
               ],

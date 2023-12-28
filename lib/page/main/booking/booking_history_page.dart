@@ -197,13 +197,13 @@ class _BookingHistoryPageState extends ConsumerState<BookingHistoryPage> {
                               },
                               action: switch (current.bookingStatus) {
                                 BookingStatus.success => PrimaryButton(
-                                    child: Text("Go to order"),
+                                    child: const Text("Go to order"),
                                     onPressed: () {
                                       Navigator.pushNamed(context, "/order");
                                     }),
                                 BookingStatus.waitingForPayment =>
                                   PrimaryButton(
-                                    child: Text("Send Proof of Payment"),
+                                    child: const Text("Send Proof of Payment"),
                                     onPressed: () {
                                       _toPaymentMethodPage(current.bookingId);
                                     },
@@ -225,7 +225,7 @@ class _BookingHistoryPageState extends ConsumerState<BookingHistoryPage> {
                                                   onPressed: () {
                                                     Navigator.of(context).pop();
                                                   },
-                                                  child: Text("No"),
+                                                  child: const Text("No"),
                                                 ),
                                                 CupertinoDialogAction(
                                                   onPressed: () {
@@ -233,14 +233,14 @@ class _BookingHistoryPageState extends ConsumerState<BookingHistoryPage> {
                                                     _deleteBooking(
                                                         current.bookingId);
                                                   },
-                                                  child: Text("Yes"),
+                                                  child: const Text("Yes"),
                                                 ),
                                               ],
                                             );
                                           });
                                     },
                                     backgroundColor: CupertinoColors.systemGrey,
-                                    child: Text("Cancel Booking"),
+                                    child: const Text("Cancel Booking"),
                                   ),
                                 _ => const SizedBox(),
                               },

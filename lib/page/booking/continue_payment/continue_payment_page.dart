@@ -10,7 +10,6 @@ import 'package:rinjani_visitor/core/presentation/widget/button/primary_button.d
 import 'package:rinjani_visitor/core/presentation/widget/form/upload_button.dart';
 import 'package:rinjani_visitor/core/presentation/widget/form/input_field.dart';
 import 'package:rinjani_visitor/features/order/data/adapter/payment.dart';
-import 'package:rinjani_visitor/features/order/domain/entity/payment_method.dart';
 import 'package:rinjani_visitor/features/order/presentation/view_model/payment.dart';
 
 //TODO: this code section need huge refactor
@@ -44,7 +43,6 @@ class _ContinuePaymentPageState extends ConsumerState<ContinuePaymentPage> {
     setState(() {
       isLoading = true;
     });
-    print("test");
     ref.read(orderPaymentViewModelProvider.notifier).finalizePaymentMethod(
         _field1Controller.text, _field2Controller.text, selectedImage);
     ref.read(orderPaymentViewModelProvider.notifier).sendPayment(() {

@@ -8,7 +8,7 @@ class ProductEntity {
   double? rating;
   String get ratingString => rating == null || rating == 0.0 || rating == null
       ? "-.-"
-      : this.rating!.toStringAsFixed(1);
+      : rating!.toStringAsFixed(1);
   String? category;
   String? location;
   String? thumbnail;

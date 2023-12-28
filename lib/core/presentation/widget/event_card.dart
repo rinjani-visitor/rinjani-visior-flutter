@@ -37,7 +37,7 @@ class EventCard extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  Icon(
+                  const Icon(
                     Icons.calendar_month,
                     color: lightGray,
                   ),
@@ -55,7 +55,7 @@ class EventCard extends StatelessWidget {
               ),
               Row(
                 children: [
-                  Icon(
+                  const Icon(
                     Icons.access_time,
                     color: lightGray,
                   ),

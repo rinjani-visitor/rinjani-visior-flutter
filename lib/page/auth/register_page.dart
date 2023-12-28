@@ -43,7 +43,7 @@ class RegisterPage extends StatelessWidget {
 }
 
 class _FormBody extends ConsumerStatefulWidget {
-  const _FormBody({super.key});
+  const _FormBody();
 
   @override
   ConsumerState<_FormBody> createState() => _FormBodyState();

@@ -64,7 +64,7 @@ class _OrderHistoryPageState extends ConsumerState<OrderHistoryPage> {
                               additional: order.status.toLowerCase() ==
                                       "on journey"
                                   ? Container(
-                                      padding: EdgeInsets.all(4),
+                                      padding: const EdgeInsets.all(4),
                                       decoration: BoxDecoration(
                                           color: CupertinoColors.systemGrey5,
                                           borderRadius:
@@ -77,8 +77,10 @@ class _OrderHistoryPageState extends ConsumerState<OrderHistoryPage> {
                                     )
                                   : null,
                               onTap: () {
-                                if (order.status.toLowerCase() != "on journey")
+                                if (order.status.toLowerCase() !=
+                                    "on journey") {
                                   return;
+                                }
                                 showCupertinoDialog(
                                     context: context,
                                     builder: (context) {

@@ -76,7 +76,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
           children: [
             header(),
             _inputSection(),
-            Divider(
+            const Divider(
               color: blackColor,
             ),
             const SizedBox(
