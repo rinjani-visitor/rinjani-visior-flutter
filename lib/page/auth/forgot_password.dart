@@ -44,6 +44,7 @@ class _ForgotPasswordPageState extends ConsumerState<ForgotPasswordPage> {
 
   @override
   Widget build(BuildContext context) {
+    final authViewModel = ref.watch(authViewModelProvider);
     return CupertinoPageScaffold(
       resizeToAvoidBottomInset: false,
       child: SafeArea(
@@ -86,8 +87,11 @@ class _ForgotPasswordPageState extends ConsumerState<ForgotPasswordPage> {
                   },
                   placeholder: ""),
             ),
+            authViewModel.hasError
+                ? Text("error ${authViewModel.error.toString()}")
+                : Container(),
             PrimaryButton(
-                isLoading: ref.watch(authViewModelProvider).isLoading,
+                isLoading: authViewModel.isLoading,
                 child: const Text("Send Link Request"),
                 onPressed: () => _submitForm())
           ],

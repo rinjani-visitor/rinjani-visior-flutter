@@ -211,6 +211,7 @@ class _BookingHistoryPageState extends ConsumerState<BookingHistoryPage> {
                                 BookingStatus.offering ||
                                 BookingStatus.declined =>
                                   PrimaryButton(
+                                    backgroundColor: CupertinoColors.systemRed,
                                     onPressed: () {
                                       showCupertinoDialog(
                                           context: context,
@@ -239,7 +240,6 @@ class _BookingHistoryPageState extends ConsumerState<BookingHistoryPage> {
                                             );
                                           });
                                     },
-                                    backgroundColor: CupertinoColors.systemGrey,
                                     child: const Text("Cancel Booking"),
                                   ),
                                 _ => const SizedBox(),

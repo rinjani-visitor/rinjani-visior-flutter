@@ -36,7 +36,9 @@ class _BankPaymentPageState extends ConsumerState<BankPaymentPage> {
   void clear() {
     final camNotifier = ref.read(cameraServiceProvider.notifier);
     camNotifier.discardCurrentFile();
-    selectedImage = null;
+    setState(() {
+      selectedImage = null;
+    });
   }
 
   void submit() {
@@ -72,13 +74,19 @@ class _BankPaymentPageState extends ConsumerState<BankPaymentPage> {
           CupertinoActionSheetAction(
               onPressed: () async {
                 Navigator.pop(context);
-                selectedImage = await camNotifier.openCamera();
+                final data = await camNotifier.openCamera();
+                setState(() {
+                  selectedImage = data;
+                });
               },
               child: const Text("Open Camera")),
           CupertinoActionSheetAction(
               onPressed: () async {
                 Navigator.pop(context);
-                selectedImage = await camNotifier.openImagePicker();
+                final data = await camNotifier.openImagePicker();
+                setState(() {
+                  selectedImage = data;
+                });
               },
               child: const Text("Open Gallery")),
           selectedImage != null

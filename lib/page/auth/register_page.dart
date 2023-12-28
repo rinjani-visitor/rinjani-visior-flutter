@@ -15,11 +15,10 @@ class RegisterPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
-      resizeToAvoidBottomInset: true,
       backgroundColor: whiteColor,
-      child: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        child: SafeArea(
           child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -50,6 +49,7 @@ class _FormBody extends ConsumerStatefulWidget {
 }
 
 class _FormBodyState extends ConsumerState<_FormBody> {
+  final formkey = GlobalKey<FormState>();
   final _usernameTxtController = TextEditingController();
   final _emailTxtController = TextEditingController();
   final _countryTxtController = TextEditingController();
@@ -75,6 +75,9 @@ class _FormBodyState extends ConsumerState<_FormBody> {
   }
 
   void _onFormSubmit() async {
+    if (!formkey.currentState!.validate()) {
+      return;
+    }
     await authNotifier.register(
         _usernameTxtController.text,
         _emailTxtController.text,
@@ -96,6 +99,7 @@ class _FormBodyState extends ConsumerState<_FormBody> {
     final state = ref.watch(authViewModelProvider);
 
     return Form(
+      key: formkey,
       child: Column(
         children: [
           GestureDetector(
@@ -183,13 +187,15 @@ class _FormBodyState extends ConsumerState<_FormBody> {
               if (value!.isEmpty) {
                 return 'Password cannot be empty';
               } else if (value.length < 8) {
-                return 'Password must be at least 8 characters';
+                return 'Password must be at least 8 characters, contain uppercase, lowercase, number, and special character';
               } else if (!value.contains(RegExp(r'[A-Z]'))) {
-                return 'Password must contain uppercase';
+                return 'Password must be at least 8 characters, contain uppercase, lowercase, number, and special character';
               } else if (!value.contains(RegExp(r'[a-z]'))) {
-                return 'Password must contain lowercase';
+                return 'Password must be at least 8 characters, contain uppercase, lowercase, number, and special character';
               } else if (!value.contains(RegExp(r'[0-9]'))) {
-                return 'Password must contain number';
+                return 'Password must be at least 8 characters, contain uppercase, lowercase, number, and special character';
+              } else if (!value.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'))) {
+                return 'Password must be at least 8 characters, contain uppercase, lowercase, number, and special character';
               }
               return null;
             },
