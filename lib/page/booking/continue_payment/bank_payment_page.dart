@@ -78,12 +78,18 @@ class _BankPaymentPageState extends ConsumerState<BankPaymentPage> {
                 setState(() {
                   selectedImage = data;
                 });
+                setState(() {
+                  selectedImage = data;
+                });
               },
               child: const Text("Open Camera")),
           CupertinoActionSheetAction(
               onPressed: () async {
                 Navigator.pop(context);
                 final data = await camNotifier.openImagePicker();
+                setState(() {
+                  selectedImage = data;
+                });
                 setState(() {
                   selectedImage = data;
                 });
