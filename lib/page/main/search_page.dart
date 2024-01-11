@@ -58,6 +58,7 @@ class _SearchPageState extends ConsumerState<SearchPage> {
                           style: blackTextStyle.copyWith(
                             fontSize: body1,
                           )),
+                      Spacer(),
                       CupertinoSwitch(
                         value: avaiable,
                         onChanged: (value) {
@@ -82,11 +83,18 @@ class _SearchPageState extends ConsumerState<SearchPage> {
                           style: blackTextStyle.copyWith(
                             fontSize: body1,
                           )),
+                      Spacer(),
                       GestureDetector(
-                          child: Text(category ?? "all",
-                              style: greenTextStyle.copyWith(
-                                fontSize: body1,
-                              )),
+                          child: Row(
+                            children: [
+                              Text(category ?? "all",
+                                  style: greenTextStyle.copyWith(
+                                    fontSize: body1,
+                                  )),
+                              const SizedBox(width: 8.0),
+                              Icon(CupertinoIcons.chevron_down, size: 16)
+                            ],
+                          ),
                           onTap: () {
                             showCupertinoModalPopup(
                               context: context,
