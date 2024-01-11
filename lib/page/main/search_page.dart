@@ -11,7 +11,7 @@ import 'package:skeletonizer/skeletonizer.dart';
 
 const List<String> categoryList = [
   "all",
-  "homestay",
+  "homeStay",
   "event",
   "rinjani",
   "culture",
