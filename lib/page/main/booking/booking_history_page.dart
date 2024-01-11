@@ -10,6 +10,7 @@ import 'package:rinjani_visitor/core/presentation/theme/theme.dart';
 import 'package:rinjani_visitor/core/presentation/utils/internationalization.dart';
 import 'package:rinjani_visitor/features/booking/domain/entitiy/booking.dart';
 import 'package:rinjani_visitor/features/booking/domain/enum/history_status.dart';
+import 'package:rinjani_visitor/features/booking/presentation/view_model/booking_detail.dart';
 import 'package:rinjani_visitor/features/booking/presentation/view_model/booking_list.dart';
 import 'package:rinjani_visitor/page/booking/payment_method_page.dart';
 import 'package:rinjani_visitor/core/presentation/widget/button/primary_button.dart';
@@ -42,82 +43,190 @@ class BookingHistoryPage extends ConsumerStatefulWidget {
 class _BookingHistoryPageState extends ConsumerState<BookingHistoryPage> {
   Future<void>? _deleteStatus;
 
-  void _bookingHistoryTapped(BookingEntity entity) {
+  void _bookingHistoryTapped(BookingEntity entity) async {
     showGeneralDialog(
       context: context,
       barrierDismissible: true,
-      barrierLabel: "Barrier",
-      pageBuilder: (context, animation, secondaryAnimation) {
-        return Center(
-          child: Container(
-            height: MediaQuery.of(context).size.height * 0.5,
-            // 50% height
-            padding: const EdgeInsets.all(24),
-            margin: const EdgeInsets.symmetric(horizontal: 20),
-            decoration: BoxDecoration(
-                color: CupertinoColors.systemGrey6,
-                borderRadius: BorderRadius.circular(12)),
-            child: SizedBox.expand(
-              child: ListView(
-                padding: const EdgeInsets.all(0),
-                physics: const ClampingScrollPhysics(),
-                children: [
-                  Text(
-                    entity.title,
-                    style: blackTextStyle.copyWith(
-                        fontSize: heading4, fontWeight: FontWeight.bold),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
+      barrierLabel: "Barrire",
+      transitionBuilder: (context, animation, secondaryAnimation, child) {
+        final easeScale = Curves.easeInOut.transform(animation.value);
+        return Transform.scale(
+          scale: easeScale,
+          child: child,
+        );
+      },
+      pageBuilder: (context, animation, secondaryAnimation) => Consumer(
+        builder: (context, ref, child) {
+          final bookingDetailState =
+              ref.watch(bookingDetailViewModelProvider(entity.bookingId));
+          return Center(
+            child: Container(
+              height: MediaQuery.of(context).size.height * 0.7,
+              // 50% height
+              padding: const EdgeInsets.all(24),
+              margin: const EdgeInsets.symmetric(horizontal: 20),
+              decoration: BoxDecoration(
+                  color: CupertinoColors.systemGrey6,
+                  borderRadius: BorderRadius.circular(12)),
+              child: SizedBox.expand(
+                child: ListView(
+                  padding: const EdgeInsets.all(0),
+                  physics: const ClampingScrollPhysics(),
+                  children: [
+                    CachedNetworkImage(
+                      imageUrl: entity.imgUrl ?? "",
+                      fit: BoxFit.fill,
+                      imageBuilder: (context, imageProvider) => Container(
+                        height: 100,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8),
+                          image: DecorationImage(
+                            image: imageProvider,
+                            fit: BoxFit.fitWidth,
+                          ),
+                        ),
+                      ),
+                      errorWidget: (context, url, error) => Container(
+                        height: 100,
+                        decoration: BoxDecoration(
+                          color: CupertinoColors.systemGrey5,
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 8,
+                    ),
+                    Text(
+                      entity.title,
+                      style: blackTextStyle.copyWith(
+                          fontSize: heading4, fontWeight: FontWeight.bold),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 8.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Status(
+                            text: entity.bookingStatus.value,
+                            status: _fromHistoryStatus(entity.bookingStatus),
+                          ),
+                          const SizedBox(
+                            width: 16,
+                          ),
+                          Row(
+                            children: [
+                              const Icon(Icons.calendar_today_outlined,
+                                  size: 16, color: CupertinoColors.black),
+                              const SizedBox(
+                                width: 4,
+                              ),
+                              Text(
+                                dateFormat.format(
+                                  entity.bookingDate,
+                                ),
+                                style: blackTextStyle.copyWith(
+                                    fontSize: subtitle3),
+                              ),
+                              const SizedBox(
+                                width: 4,
+                              ),
+                              Text(
+                                timeFormat.format(
+                                  entity.bookingDate,
+                                ),
+                                style: blackTextStyle.copyWith(
+                                    fontSize: subtitle3),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                    Row(
                       children: [
-                        Status(
-                          text: entity.bookingStatus.value,
-                          status: _fromHistoryStatus(entity.bookingStatus),
-                        ),
-                        const SizedBox(
-                          width: 16,
-                        ),
                         Row(
                           children: [
-                            const Icon(Icons.calendar_today_outlined,
-                                size: 16, color: CupertinoColors.black),
-                            const SizedBox(
-                              width: 4,
+                            const Icon(
+                              Icons.attach_money_outlined,
+                              color: primaryColor,
                             ),
+                            const SizedBox(width: 4),
                             Text(
-                              dateFormat.format(
-                                entity.bookingDate,
-                              ),
-                              style:
-                                  blackTextStyle.copyWith(fontSize: subtitle3),
-                            ),
-                            const SizedBox(
-                              width: 4,
-                            ),
+                                bookingDetailState.when(
+                                  data: (data) => "${data?.offeringPrice}\$",
+                                  error: (error, stackTrace) => "${error}",
+                                  loading: () => "Loading...",
+                                ),
+                                style: blackTextStyle.copyWith(
+                                    fontSize: subtitle1)),
+                          ],
+                        ),
+                        const SizedBox(width: 16),
+                        Row(
+                          children: [
+                            const Icon(Icons.group,
+                                color: CupertinoColors.black),
+                            const SizedBox(width: 4),
                             Text(
-                              timeFormat.format(
-                                entity.bookingDate,
+                              bookingDetailState.when(
+                                data: (data) => "${data?.totalPersons}",
+                                error: (error, _) => "$error",
+                                loading: () => "Loading",
                               ),
-                              style:
-                                  blackTextStyle.copyWith(fontSize: subtitle3),
-                            ),
+                            )
                           ],
                         ),
                       ],
                     ),
-                  ),
-                  MarkdownBody(
-                    data: entity.bookingNote ?? "",
-                    styleSheetTheme: MarkdownStyleSheetBaseTheme.cupertino,
-                  ),
-                ],
+                    const SizedBox(
+                      height: 8,
+                    ),
+                    Row(
+                      children: [
+                        Text("Start : ",
+                            style:
+                                blackTextStyle.copyWith(fontSize: subtitle1)),
+                        Text(
+                            bookingDetailState.hasValue
+                                ? "${dateFormat.format(bookingDetailState.value!.startDateTime!)} ${timeFormat.format(bookingDetailState.value!.startDateTime!)}"
+                                : "Loading...",
+                            style:
+                                blackTextStyle.copyWith(fontSize: subtitle1)),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Text("AddOn(s): ",
+                            style:
+                                blackTextStyle.copyWith(fontSize: subtitle1)),
+                        Expanded(
+                          child: Text(
+                            bookingDetailState.when(
+                              data: (data) =>
+                                  "${data?.addOns != null && data!.addOns!.isNotEmpty ? data.addOns : "empty"}",
+                              error: (error, _) => "$error",
+                              loading: () => "Loading",
+                            ),
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        )
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 8,
+                    ),
+                    MarkdownBody(
+                      data: entity.bookingNote ?? "",
+                      styleSheetTheme: MarkdownStyleSheetBaseTheme.cupertino,
+                    ),
+                  ],
+                ),
               ),
             ),
-          ),
-        );
-      },
+          );
+        },
+      ),
     );
   }
 

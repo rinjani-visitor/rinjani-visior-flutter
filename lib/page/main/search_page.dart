@@ -9,6 +9,15 @@ import 'package:rinjani_visitor/core/presentation/widget/product/big_card.dart';
 import 'package:rinjani_visitor/core/presentation/widget/status.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
+const List<String> categoryList = [
+  "all",
+  "homestay",
+  "event",
+  "rinjani",
+  "culture",
+  "landscape",
+];
+
 class SearchPage extends ConsumerStatefulWidget {
   const SearchPage({super.key});
 
@@ -18,6 +27,115 @@ class SearchPage extends ConsumerStatefulWidget {
 
 class _SearchPageState extends ConsumerState<SearchPage> {
   final searchController = TextEditingController();
+  String searchQuery = "";
+  String? category;
+  bool avaiable = true;
+  int? rating;
+
+  void _showDialog() {
+    showGeneralDialog(
+      context: context,
+      barrierDismissible: true,
+      barrierLabel: "filter",
+      pageBuilder: (context, animation, secondaryAnimation) {
+        return Center(
+          child: StatefulBuilder(
+            builder: (context, setState) => Container(
+              height: MediaQuery.of(context).size.height * 0.5,
+              padding: EdgeInsets.all(24),
+              margin: const EdgeInsets.symmetric(horizontal: 20),
+              decoration: BoxDecoration(
+                  color: CupertinoColors.systemGrey6,
+                  borderRadius: BorderRadius.circular(12)),
+              child: SizedBox.expand(
+                child: Column(children: [
+                  Text("Filter",
+                      style: blackTextStyle.copyWith(
+                          fontSize: heading4, fontWeight: FontWeight.bold)),
+                  Row(
+                    children: [
+                      Text("Avaiable: ",
+                          style: blackTextStyle.copyWith(
+                            fontSize: body1,
+                          )),
+                      CupertinoSwitch(
+                        value: avaiable,
+                        onChanged: (value) {
+                          setState(() {
+                            avaiable = value;
+                          });
+                          ref
+                              .read(productSearchViewModelProvider.notifier)
+                              .searchPackage(
+                                searchController.text,
+                                category: category == "all" ? null : category,
+                                avaiable: avaiable,
+                                rating: rating,
+                              );
+                        },
+                      )
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Text("Category: ",
+                          style: blackTextStyle.copyWith(
+                            fontSize: body1,
+                          )),
+                      GestureDetector(
+                          child: Text(category ?? "all",
+                              style: greenTextStyle.copyWith(
+                                fontSize: body1,
+                              )),
+                          onTap: () {
+                            showCupertinoModalPopup(
+                              context: context,
+                              builder: (context) {
+                                return Container(
+                                  height: 200,
+                                  padding: EdgeInsets.only(top: 6.0),
+                                  color: CupertinoColors.systemBackground
+                                      .resolveFrom(context),
+                                  child: CupertinoPicker(
+                                    itemExtent: 32.0,
+                                    scrollController:
+                                        FixedExtentScrollController(
+                                      initialItem: categoryList
+                                          .indexOf(category ?? categoryList[0]),
+                                    ),
+                                    onSelectedItemChanged: (value) {
+                                      setState(() {
+                                        category = categoryList[value];
+                                      });
+                                    },
+                                    children: List.generate(
+                                      categoryList.length,
+                                      (index) => Center(
+                                        child: Text(categoryList[index]),
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              },
+                            ).then((value) => ref
+                                .read(productSearchViewModelProvider.notifier)
+                                .searchPackage(
+                                  searchController.text,
+                                  category: category == "all" ? null : category,
+                                  avaiable: avaiable,
+                                  rating: rating,
+                                ));
+                          })
+                    ],
+                  ),
+                ]),
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,12 +145,17 @@ class _SearchPageState extends ConsumerState<SearchPage> {
       navigationBar: CupertinoNavigationBar(
         padding: const EdgeInsetsDirectional.only(bottom: 2, top: 2),
         middle: CupertinoSearchTextField(
+          controller: searchController,
           onSubmitted: (text) {
             searchController.text = text;
             ref
                 .read(productSearchViewModelProvider.notifier)
                 .searchPackage(text);
           },
+        ),
+        trailing: GestureDetector(
+          child: const Icon(Icons.more_vert),
+          onTap: () => _showDialog(),
         ),
       ),
       child: SafeArea(
@@ -61,6 +184,10 @@ class _SearchPageState extends ConsumerState<SearchPage> {
                               status: curr.avaiable != null && curr.avaiable!
                                   ? StatusColor.available
                                   : StatusColor.error,
+                              statusName:
+                                  curr.avaiable != null && curr.avaiable!
+                                      ? StatusColor.available.name
+                                      : "Not available",
                               rating: curr.ratingString,
                               onTap: () {
                                 Navigator.push(
