@@ -174,7 +174,7 @@ class _BookingDetailPageState extends ConsumerState<BookingDetailPage> {
             style: blackTextStyle.copyWith(fontSize: body1),
           ),
           Text(
-            '${_state.offeringPrice}\$',
+            '${(_state.lowestOfferingPrice * 8 / 10).round()}\$',
             style: greenTextStyle.copyWith(fontSize: heading5),
           )
         ],
@@ -196,7 +196,8 @@ class _BookingDetailPageState extends ConsumerState<BookingDetailPage> {
                 if (value == null || value.isEmpty) {
                   return "This field should not be empty";
                 }
-                if (int.parse(value) < _state.offeringPrice) {
+                if (int.parse(value) <
+                    (_state.lowestOfferingPrice * 8 / 10).round()) {
                   return "Price you offered is lower dan the lowest price we can offer";
                 }
                 return null;

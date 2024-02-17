@@ -25,7 +25,8 @@ class BookingFormViewModel extends AutoDisposeNotifier<BookingFormEntity> {
       addOns: [],
       startDateTime: DateTime.now(),
       productId: "",
-      totalPersons: "",
+      totalPersons: 1,
+      
       userId: "",
     );
   }
@@ -39,7 +40,7 @@ class BookingFormViewModel extends AutoDisposeNotifier<BookingFormEntity> {
       productId: bookingDetail.productId,
       startDateTime: bookingDetail.startDateTime ?? DateTime.now(),
       addOns: bookingDetail.addOns?.split(",") ?? [],
-      totalPersons: bookingDetail.totalPersons.toString(),
+      totalPersons: bookingDetail.totalPersons ?? 1,
     );
     state = form;
   }
@@ -49,7 +50,7 @@ class BookingFormViewModel extends AutoDisposeNotifier<BookingFormEntity> {
       addOns: [],
       startDateTime: DateTime.now(),
       productId: "",
-      totalPersons: "",
+      totalPersons: 1,
       userId: "",
     );
   }

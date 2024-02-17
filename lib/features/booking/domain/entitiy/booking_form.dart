@@ -9,7 +9,8 @@ class BookingFormEntity {
   List<String> addOns;
   List<String> time = [];
   int get offeringPrice => product!.lowestPrice ?? 0;
-  String totalPersons;
+  int get lowestOfferingPrice => (offeringPrice * totalPersons);
+  int totalPersons;
   BookingFormEntity({
     required this.userId,
     required this.productId,

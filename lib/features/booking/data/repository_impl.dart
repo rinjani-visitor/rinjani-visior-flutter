@@ -30,7 +30,7 @@ class BookingRepositoryImpl implements BookingRepository {
       endDateTime: booking.endDateTime?.toUtc().toIso8601String(),
       addOns: booking.addOns.join(', '),
       offeringPrice: booking.offeringPrice.toString(),
-      totalPersons: booking.totalPersons,
+      totalPersons: "${booking.totalPersons}",
     );
     final result = await remote.createBooking(token, body);
     final response = BookingFormStatus(

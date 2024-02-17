@@ -128,7 +128,8 @@ class _DetailPageState extends ConsumerState<ProductDetailPage> {
           return PersonCounterWidget(
             controller: _personController,
             onSubmit: (value) {
-              bookingState.totalPersons = _personController.text;
+              bookingState.totalPersons =
+                  int.tryParse(_personController.text) ?? 1;
               _onSubmit(data);
             },
           );
