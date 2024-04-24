@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:http_parser/http_parser.dart';
 
 import 'package:retrofit/http.dart';
 import 'package:rinjani_visitor/core/constant/network.dart';

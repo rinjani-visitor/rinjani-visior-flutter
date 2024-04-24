@@ -53,10 +53,11 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyCjbP6YG1yh8Q4KWYCddeY8c7Kg99Oaw0g',
-    appId: '1:964128991708:android:aef8f088008feb150a8719',
-    messagingSenderId: '964128991708',
-    projectId: 'kasa-talk-storage',
-    storageBucket: 'kasa-talk-storage.appspot.com',
-  );
+      apiKey: "AIzaSyAgYhGHibxb2F_RAhxMw6whDH2lFl4Ojrc",
+      authDomain: "rinjani-visitor-16c47.firebaseapp.com",
+      projectId: "rinjani-visitor-16c47",
+      storageBucket: "rinjani-visitor-16c47.appspot.com",
+      messagingSenderId: "595490795251",
+      appId: "1:595490795251:web:9b633e850f6a88cccf9186",
+      measurementId: "G-M8G46J4ZM6");
 }

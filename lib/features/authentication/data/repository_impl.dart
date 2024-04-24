@@ -121,17 +121,29 @@ class AuthRepositoryImpl implements AuthRepository {
       "Upload avatar with file ${file.path}",
       name: runtimeType.toString(),
     );
-    final instanceRef = FirebaseStorage.instance.ref();
-    String fileName = file.path.split(Platform.pathSeparator).last;
-    final storageRef = instanceRef
-        .child("avatar-rinjani/${DateTime.now().toIso8601String()}$fileName");
-    final imgUrl = await storageRef.putFile(file);
-    final url = await imgUrl.ref.getDownloadURL();
-    final result = await remote.updateUserDetail(
-        accessToken,
-        UpdateUserDetailRequest(
-          profilPicture: url.toString(),
-        ));
+
+    // == firebase related ==
+    // final instanceRef = FirebaseStorage.instance.ref();
+    // String fileName = file.path.split(Platform.pathSeparator).last;
+    // final storageRef = instanceRef
+    //     .child("avatar-rinjani/${DateTime.now().toIso8601String()}$fileName");
+    // final imgUrl = await storageRef.putFile(file);
+    // final url = await imgUrl.ref.getDownloadURL();
+    // final result = await remote.updateUserDetail(
+    //     accessToken,
+    //     UpdateUserDetailRequest(
+    //       profilPicture: url.toString(),
+    //     ));
+
+    // convert to jpg
+    final image = await file.readAsBytes();
+    final tempFile = File("${file.path}temp.PNG");
+    await tempFile.writeAsBytes(image);
+
+    developer.log("Temp file path: ${tempFile.path}",
+        name: runtimeType.toString());
+    
+    final result = await remote.uploadAvatar(accessToken, tempFile);
     if (result.errors != null) {
       return true;
     }

@@ -48,6 +48,7 @@ class WisePaymentMethod implements PaymentMethod {
     final compressed =
         await reduceImageByteSize(proofOfPayment!, targetSizeInKB: 5000);
     final url = await _uploadPaymentAndGetUrl(bookingId, compressed);
+    developer.log("IMG url: $url", name: runtimeType.toString());
     final result = await remote.uploadWisePaymentJson(
       token,
       UploadWisePayment(
