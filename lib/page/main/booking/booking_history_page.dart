@@ -310,7 +310,8 @@ class _BookingHistoryPageState extends ConsumerState<BookingHistoryPage> {
                                     onPressed: () {
                                       Navigator.pushNamed(context, "/order");
                                     }),
-                                BookingStatus.waitingForPayment =>
+                                BookingStatus.waitingForPayment ||
+                                BookingStatus.paymentFailed =>
                                   PrimaryButton(
                                     child: const Text("Send Proof of Payment"),
                                     onPressed: () {
