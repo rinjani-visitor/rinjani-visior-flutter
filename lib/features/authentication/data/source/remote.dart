@@ -40,6 +40,6 @@ abstract class AuthRemoteSource {
   @PATCH("/api/users/avatar")
   Future<UploadAvatarResponse> uploadAvatar(
     @Header("Authorization") String accessToken,
-    @Part(name: "avatar") File file,
+    @Part(name: "avatar") List<MultipartFile> file,
   );
 }

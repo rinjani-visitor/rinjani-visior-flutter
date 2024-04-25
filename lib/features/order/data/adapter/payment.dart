@@ -1,5 +1,7 @@
 import 'dart:io';
 import 'dart:developer' as developer;
+import 'package:dio/dio.dart';
+import 'package:http_parser/http_parser.dart';
 import 'package:rinjani_visitor/core/presentation/utils/image_parser.dart';
 import 'package:rinjani_visitor/features/order/data/models/request/set_payment_method.dart';
 import 'package:rinjani_visitor/features/order/data/models/request/upload_bank_payment.dart';
@@ -44,20 +46,44 @@ class WisePaymentMethod implements PaymentMethod {
   Future<String> submit(RemoteOrderSource remote, String token) async {
     developer.log("Submit", name: runtimeType.toString());
     await remote.setPaymentMethod(
-        token, SetPaymentMethod(bookingId: bookingId, method: "Wise"));
-    final compressed =
-        await reduceImageByteSize(proofOfPayment!, targetSizeInKB: 5000);
-    final url = await _uploadPaymentAndGetUrl(bookingId, compressed);
-    developer.log("IMG url: $url", name: runtimeType.toString());
-    final result = await remote.uploadWisePaymentJson(
       token,
-      UploadWisePayment(
+      SetPaymentMethod(
         bookingId: bookingId,
-        wiseEmail: email!,
-        wiseAccountName: name!,
-        imageProofTransfer: url.toString(),
+        method: "Wise",
       ),
     );
+    final compressedImage = await reduceImageByteSize(
+      proofOfPayment!,
+      targetSizeInKB: 5000,
+    );
+
+    final image = await compressedImage.readAsBytes();
+    final tempFile = File("${compressedImage.path}temp.PNG");
+    await tempFile.writeAsBytes(image);
+    // final url = await _uploadPaymentAndGetUrl(bookingId, compressed);
+    developer.log("IMG url: ${tempFile.path}", name: runtimeType.toString());
+
+    final multipartFile = MultipartFile.fromBytes(
+      await tempFile.readAsBytes(),
+      filename: tempFile.path.split('/').last,
+      contentType: MediaType("image", "png"),
+    );
+
+    final result = await remote.uploadWisePayment(token,
+        bookingId: bookingId,
+        wiseEmail: email ?? "",
+        wiseAccountName: name ?? "",
+        imageProofTransfer: [multipartFile]);
+
+    // final result = await remote.uploadWisePaymentJson(
+    //   token,
+    //   UploadWisePayment(
+    //     bookingId: bookingId,
+    //     wiseEmail: email!,
+    //     wiseAccountName: name!,
+    //     imageProofTransfer: url.toString(),
+    //   ),
+    // );
 
     return result.message;
   }
@@ -86,20 +112,48 @@ class BankPaymentMethod implements PaymentMethod {
   @override
   Future<String> submit(RemoteOrderSource remote, String token) async {
     await remote.setPaymentMethod(
-        token, SetPaymentMethod(bookingId: bookingId, method: "Bank"));
-    developer.log("Submit", name: runtimeType.toString());
-    final compressed =
-        await reduceImageByteSize(proofOfPayment!, targetSizeInKB: 5000);
-    final url = await _uploadPaymentAndGetUrl(bookingId, compressed);
-    final result = await remote.uploadBankPaymentJson(
       token,
-      UploadBankPayment(
+      SetPaymentMethod(
         bookingId: bookingId,
-        bankName: bankName!,
-        bankAccountName: name!,
-        imageProofTransfer: url.toString(),
+        method: "Bank",
       ),
     );
+
+    developer.log("Submit", name: runtimeType.toString());
+    final compressedImage = await reduceImageByteSize(
+      proofOfPayment!,
+      targetSizeInKB: 5000,
+    );
+
+    final image = await compressedImage.readAsBytes();
+    final tempFile = File("${compressedImage.path}temp.PNG");
+    await tempFile.writeAsBytes(image);
+    developer.log("file path: ${tempFile.path}", name: runtimeType.toString());
+
+    final multipartFile = MultipartFile.fromBytes(
+      await tempFile.readAsBytes(),
+      filename: tempFile.path.split('/').last,
+      contentType: MediaType("image", "png"),
+    );
+
+    final result = await remote.uploadBankPayment(
+      token,
+      bookingId: bookingId,
+      bankName: bankName ?? "",
+      bankAccountName: name ?? "",
+      imageProofTransfer: [multipartFile],
+    );
+
+    // final url = await _uploadPaymentAndGetUrl(bookingId, compressed);
+    // final result = await remote.uploadBankPaymentJson(
+    //   token,
+    //   UploadBankPayment(
+    //     bookingId: bookingId,
+    //     bankName: bankName!,
+    //     bankAccountName: name!,
+    //     imageProofTransfer: url.toString(),
+    //   ),
+    // );
     return result.message;
   }
 }

@@ -30,7 +30,8 @@ abstract class RemoteOrderSource {
     @Part(name: 'bookingId') required String bookingId,
     @Part(name: 'bankName') required String bankName,
     @Part(name: "bankAccountName") required String bankAccountName,
-    @Part(name: "imageProofTransfer") required File imageProofTransfer,
+    @Part(name: "imageProofTransfer")
+    required List<MultipartFile> imageProofTransfer,
   });
 
   @POST("/api/payment/bank")
@@ -46,7 +47,8 @@ abstract class RemoteOrderSource {
     @Part(name: "bookingId") required String bookingId,
     @Part(name: "wiseEmail") required String wiseEmail,
     @Part(name: "wiseAccountName") required String wiseAccountName,
-    @Part(name: "imageProofTransfer") required File imageProofTransfer,
+    @Part(name: "imageProofTransfer")
+    required List<MultipartFile> imageProofTransfer,
   });
 
   @POST("/api/payment/wise")

@@ -1,8 +1,10 @@
 // ignore_for_file: constant_identifier_names
 import 'dart:developer' as developer;
 import 'dart:io';
+import 'package:dio/dio.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:http_parser/http_parser.dart';
 import 'package:rinjani_visitor/core/presentation/services/dio_service.dart';
 import 'package:rinjani_visitor/features/authentication/data/models/request/login.dart';
 import 'package:rinjani_visitor/features/authentication/data/models/request/register.dart';
@@ -142,8 +144,14 @@ class AuthRepositoryImpl implements AuthRepository {
 
     developer.log("Temp file path: ${tempFile.path}",
         name: runtimeType.toString());
-    
-    final result = await remote.uploadAvatar(accessToken, tempFile);
+
+    final multipartFile = MultipartFile.fromBytes(
+      await tempFile.readAsBytes(),
+      filename: tempFile.path.split('/').last,
+      contentType: MediaType("image", "png"),
+    );
+
+    final result = await remote.uploadAvatar(accessToken, [multipartFile]);
     if (result.errors != null) {
       return true;
     }
